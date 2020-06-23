@@ -5,5 +5,130 @@
     "packageManager": "yarn"
   },
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "yue-ui": {
+      "projectType": "library",
+      "root": "components",
+      "prefix": "yue",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "components/tsconfig.lib.json",
+            "project": "components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "components/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "components/src/test.ts",
+            "tsConfig": "components/tsconfig.spec.json",
+            "karmaConfig": "components/karma.conf.js"
+          }
+        }
+      }
+    },
+    "yue-ui-doc": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "doc",
+      "sourceRoot": "doc/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/yue-ui-doc",
+            "index": "doc/src/index.html",
+            "main": "doc/src/main.ts",
+            "polyfills": "doc/src/polyfills.ts",
+            "tsConfig": "doc/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "doc/src/favicon.ico",
+              "doc/src/assets"
+            ],
+            "styles": [
+              "doc/src/styles.less"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "doc/src/environments/environment.ts",
+                  "with": "doc/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "yue-ui-doc:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "yue-ui-doc:build:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "yue-ui"
 }

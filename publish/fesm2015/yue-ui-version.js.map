@@ -1,1 +1,0 @@
-{"version":3,"file":"yue-ui-version.js","sources":["ng://yue-ui/version/version.ts"],"sourcesContent":["import { Version } from '@angular/core';\n\nexport const VERSION = new Version('0.0.1');\n"],"names":[],"mappings":";;;;;;;;MAEa,OAAO,GAAG,IAAI,OAAO,CAAC,OAAO;;;;;;;;;;;;;;;;"}
