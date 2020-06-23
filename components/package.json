@@ -17,5 +17,10 @@
     "@angular/platform-browser": "^9.0.0",
     "@angular/router": "^9.0.0",
     "rxjs": "~6.5.3"
+  },
+  "repository" : {
+    "type" : "git",
+    "url": "ssh://git@github.com/JoaoPedro61/yue-ui.git",
+    "directory": "packages/yue-ui"
   }
 }
