@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/yue-ui-version.umd.js",
+  "module": "../fesm5/yue-ui-version.js",
+  "es2015": "../fesm2015/yue-ui-version.js",
+  "esm5": "../esm5/version/yue-ui-version.js",
+  "esm2015": "../esm2015/version/yue-ui-version.js",
+  "fesm5": "../fesm5/yue-ui-version.js",
+  "fesm2015": "../fesm2015/yue-ui-version.js",
+  "typings": "yue-ui-version.d.ts",
+  "metadata": "yue-ui-version.metadata.json",
+  "sideEffects": false,
+  "name": "yue-ui/version"
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./publish/src",
+    "inlineSources": true,
+    "lib": [
+      "dom",
+      "es2018"
+    ],
+    "baseUrl": "./",
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es2015",
+    "types": []
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true,
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "yue-ui",
+    "skipTemplateCodegen": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "yue-ui",
+  "license": "MIT",
+  "description": "Simple UiToolKit",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^1.10.0",
+    "@angular/cdk": "^9.0.0",
+    "date-fns": "^2.10.0",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^9.0.0",
+    "@angular/common": "^9.0.0",
+    "@angular/forms": "^9.0.0",
+    "@angular/core": "^9.0.0",
+    "@angular/platform-browser": "^9.0.0",
+    "@angular/router": "^9.0.0",
+    "rxjs": "~6.5.3"
+  }
+}
