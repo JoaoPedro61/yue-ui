@@ -5,9 +5,10 @@
     "start": "gulp start:dev",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage",
     "test:watch": "gulp test:watch --tags",
-    "build": "gulp build:release",
-    "build:lib": "gulp build:library",
-    "doc": "gulp build:preview",
+    "build": "gulp build",
+    "build:site": "gulp build:site",
+    "build:library": "gulp build:library",
+    "build:release": "gulp build:release",
     "ng": "ng"
   },
   "private": true,
