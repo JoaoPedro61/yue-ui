@@ -17,11 +17,12 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-        env:
-           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - run: |
           npm install
           npm run build
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
-          npm publish ./publish
+
+      - run: npm publish ./publish
+        env:
+           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
