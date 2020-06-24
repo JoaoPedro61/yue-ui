@@ -8,6 +8,8 @@ export interface BuildConfig {
   scriptsDir: string;
   outputDir: string;
   publishDir: string;
+  publishDocDir: string;
+  linkedDocDir: string;
   libDir: string;
   siteDocPort: number;
 }
