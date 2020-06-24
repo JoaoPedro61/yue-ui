@@ -8,7 +8,6 @@
     "build": "gulp build",
     "build:site": "gulp build:site",
     "build:library": "gulp build:library",
-    "build:release": "gulp build:release",
     "ng": "ng"
   },
   "private": true,

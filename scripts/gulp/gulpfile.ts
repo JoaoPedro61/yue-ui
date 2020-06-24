@@ -6,7 +6,6 @@ import './tasks/unit-test';
 import './tasks/universal';
 
 
-import './tasks/release';
 import './tasks/library';
 import './tasks/site';
 
@@ -26,13 +25,6 @@ task('build:library', series(
 task('build:site', series(
   'clean',
   'build:site',
-));
-
-task('build:release', series(
-  'clean',
-  'build:library',
-  'build:site',
-  'generate:release'
 ));
 
 task('start:dev', series(
