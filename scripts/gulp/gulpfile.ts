@@ -5,7 +5,7 @@ import './tasks/default';
 import './tasks/unit-test';
 import './tasks/universal';
 
-
+import './tasks/submodules';
 import './tasks/library';
 import './tasks/site';
 
@@ -16,6 +16,8 @@ task('build', series(
   'build:library',
   'build:site'
 ));
+
+task('sync:submodules', series('sync:all:git:submodules'));
 
 task('build:library', series(
   'clean',
