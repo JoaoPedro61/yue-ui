@@ -9,7 +9,7 @@
     "date-fns": "^2.10.0",
     "resize-observer-polyfill": "^1.5.1"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/JoaoPedro61" },
   "peerDependencies": {
     "@angular/animations": "^9.0.0",
     "@angular/common": "^9.0.0",
