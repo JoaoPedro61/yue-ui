@@ -11,7 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and pack package
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -22,7 +21,6 @@ jobs:
           npm run build
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
-
       - run: npm publish ./publish
         env:
            NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
