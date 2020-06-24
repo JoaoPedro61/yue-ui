@@ -15,10 +15,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.16.3
-      - run: npm ci
-      - run: npm test
       - run: npm install
       - run: npm run build
+      - run: rm -rf link/*
+      - run: cp publish-doc/* ./link/
+      - run: cd ./link/
+      - run: git add .
+      - run: VERSION=$(cat ./../version) && git commit -m "version/$VERSION"
+      - run: git push origin HEAD:master
+      - run: cd ./../
 
   publish-gpr:
     needs: build
@@ -29,7 +34,6 @@ jobs:
         with:
           node-version: 12.16.3
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
       - run: npm publish ./publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
