@@ -21,6 +21,9 @@ jobs:
           npm run build
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
+      - run: echo -e "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}\nregistry=https://npm.pkg.github.com/JoaoPedro61" > .npmrc
+      - run: cat .npmrc
       - run: npm publish ./publish
         env:
            NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: rm .npmrc
