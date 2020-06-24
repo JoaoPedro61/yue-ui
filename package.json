@@ -2,7 +2,7 @@
   "name": "ng-yue-ui",
   "version": "0.0.0",
   "scripts": {
-    "preinstall": "gulp sync:submodules",
+    "postinstall": "gulp sync:submodules",
     "start": "gulp start:dev",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage",
     "test:watch": "gulp test:watch --tags",
