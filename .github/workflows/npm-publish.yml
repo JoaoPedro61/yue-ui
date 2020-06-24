@@ -21,6 +21,9 @@ jobs:
       - run: cp publish-doc/* ./link/
       - run: cd ./link/
       - run: git add .
+      - run: rm ./../git-version-workflow
+      - run: echo $(cat ./../version) > ./../git-version-workflow
+      - run: cp ./../git-version-workflow . 
       - run: VERSION=$(cat ./../version) && git commit -m "version/$VERSION"
       - run: git push origin HEAD:master
       - run: cd ./../
