@@ -15,18 +15,28 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.16.3
-      - run: npm install
-      - run: npm run build
-      - run: rm -rf link/*
-      - run: cp publish-doc/* ./link/
-      - run: cd ./link/
-      - run: git add .
-      - run: rm ./../git-version-workflow
-      - run: echo $(cat ./../version) > ./../git-version-workflow
-      - run: cp ./../git-version-workflow . 
-      - run: VERSION=$(cat ./../version) && git commit -m "version/$VERSION"
-      - run: git push origin HEAD:master
-      - run: cd ./../
+          token: '${{ secrets.GITHUB_PAT }}'
+
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+      - run: |
+          npm install
+          npm run build
+          rm -rf link/*
+          cp publish-doc/* ./link/
+          cd ./link/
+          git add .
+          rm ./../git-version-workflow
+          echo $(cat ./../version) > ./../git-version-workflow
+          cp ./../git-version-workflow . 
+          VERSION=$(cat ./../version) && git commit -m "version/$VERSION"
+          git push origin HEAD:master
+          cd ./../
 
   publish-gpr:
     needs: build
