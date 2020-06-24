@@ -11,6 +11,8 @@ module.exports = {
   scriptsDir: join(__dirname, 'scripts'),
   outputDir: join(__dirname, 'dist'),
   publishDir: join(__dirname, 'publish'),
+  publishDocDir: join(__dirname, 'publish-doc'),
+  linkedDocDir: join(__dirname, 'link'),
   libDir: 'lib',
   siteDocPort: 4200
 };

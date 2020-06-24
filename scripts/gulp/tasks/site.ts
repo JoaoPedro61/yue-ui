@@ -11,9 +11,15 @@ const tsconfigFile = join(buildConfig.projectDir, 'doc/tsconfig.app.json');
 
 task('site:replace-path', () => {
   let tsconfig: any = fs.readJSONSync(tsconfigFile);
-  if (!tsconfig) tsconfig = {};
-  if (!tsconfig.compilerOptions) tsconfig.compilerOptions = {};
-  if (!tsconfig.compilerOptions.paths) tsconfig.compilerOptions.paths = {};
+  if (!tsconfig) {
+    tsconfig = {};
+  }
+  if (!tsconfig.compilerOptions) {
+    tsconfig.compilerOptions = {};
+  }
+  if (!tsconfig.compilerOptions.paths) {
+    tsconfig.compilerOptions.paths = {};
+  }
   tsconfig.compilerOptions.paths['yue-ui'] = ['../publish'];
   tsconfig.compilerOptions.paths['yue-ui/*'] = ['../publish/*'];
   return fs.writeJSON(tsconfigFile, tsconfig);

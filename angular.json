@@ -70,7 +70,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/yue-ui-doc",
+            "outputPath": "publish-doc",
             "index": "doc/src/index.html",
             "main": "doc/src/main.ts",
             "polyfills": "doc/src/polyfills.ts",
