@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 12
       - run: |
-          npm run install
+          npm install
           npm run build
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
