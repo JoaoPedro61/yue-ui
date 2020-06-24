@@ -17,8 +17,6 @@ task('build', series(
   'build:site'
 ));
 
-task('sync:submodules', series('sync:all:git:submodules'));
-
 task('build:library', series(
   'clean',
   'build:library',
