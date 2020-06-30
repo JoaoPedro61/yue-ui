@@ -81,7 +81,8 @@
               "doc/src/assets"
             ],
             "styles": [
-              "doc/src/styles.less"
+              "doc/src/styles.less",
+              "./components/styles.less"
             ],
             "scripts": []
           },

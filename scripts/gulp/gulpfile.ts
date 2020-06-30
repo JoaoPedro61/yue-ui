@@ -5,6 +5,7 @@ import './tasks/default';
 import './tasks/unit-test';
 import './tasks/universal';
 
+import './tasks/generate-icons';
 import './tasks/submodules';
 import './tasks/library';
 import './tasks/site';

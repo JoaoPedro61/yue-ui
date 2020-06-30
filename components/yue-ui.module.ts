@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 
+
+
+import { YueUiLayoutModule } from './layout';
+
+
 export * from './version';
 
 
 @NgModule({
   declarations: [
   ],
-  imports: [
-  ],
+  imports: [ ],
   exports: [
+    YueUiLayoutModule
   ]
 })
 export class YueUiModule { }

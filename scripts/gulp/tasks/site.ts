@@ -25,6 +25,22 @@ task('site:replace-path', () => {
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 
+task('site:dev:replace-path', () => {
+  let tsconfig: any = fs.readJSONSync(tsconfigFile);
+  if (!tsconfig) {
+    tsconfig = {};
+  }
+  if (!tsconfig.compilerOptions) {
+    tsconfig.compilerOptions = {};
+  }
+  if (!tsconfig.compilerOptions.paths) {
+    tsconfig.compilerOptions.paths = {};
+  }
+  tsconfig.compilerOptions.paths['yue-ui'] = ['../components'];
+  tsconfig.compilerOptions.paths['yue-ui/*'] = ['../components/*'];
+  return fs.writeJSON(tsconfigFile, tsconfig);
+});
+
 task('build:site', execNodeTask('@angular/cli', 'ng', ['build', '--project=yue-ui-doc', '--prod']));
 
 task('start:site', done => {

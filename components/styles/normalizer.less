@@ -1,0 +1,44 @@
+@import "./colors.less";
+
+body {
+  overflow   : hidden;
+  overflow-y : hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+  font-size: 0.850rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+
+  background: @color-body-background;
+
+  color: @color-body-color;
+
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: @color-scrollbar-thumb-background;
+}
+
+::-webkit-scrollbar-track {
+  background: @color-scrollbar-track-background;
+}

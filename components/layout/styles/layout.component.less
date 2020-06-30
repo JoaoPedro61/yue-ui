@@ -1,0 +1,63 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+
+  .yue-ui-layout-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .yue-ui-layout-navigation-menu-wrapper {
+      height: 100%;
+      position: relative;
+    }
+
+    .yue-ui-layout-content-wrapper {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      margin: 0px;
+      padding: 0px 0px 0px 40px;
+      position: relative;
+      display: block;
+      top: initial;
+      left: initial;
+      bottom: initial;
+      right: initial;     
+    }
+  }
+
+  &:not(.has-navigation-menu),
+  &.yue-ui-layout-is-small-screen {
+
+    .yue-ui-layout-wrapper {
+
+      .yue-ui-layout-content-wrapper {
+        padding-left: 20px;
+      }
+    }
+  }
+
+  &.yue-ui-layout-is-small-screen {
+
+    .yue-ui-layout-wrapper {
+      flex-direction: column;
+
+      .yue-ui-layout-navigation-menu-wrapper {
+        height: 50px;
+        width: 100%;
+      }
+    }
+  }
+}

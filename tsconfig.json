@@ -29,7 +29,15 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "types": ["jasmine"],
-    "typeRoots": ["node_modules/@types/!(node)"]
+    "typeRoots": ["node_modules/@types/!(node)"],
+    "paths": {
+      "yue-ui": [
+        "components"
+      ],
+      "yue-ui/*": [
+        "components/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
