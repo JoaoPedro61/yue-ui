@@ -6,6 +6,7 @@ import { YueUiLayoutModule } from './layout';
 import { YueUiI18nModule } from './i18n';
 import { YueUiButtonModule } from './button';
 import { YueUiThematizationModule } from './thematization';
+import { YueUiHttpModule } from './http';
 
 export * from './version';
 
@@ -17,7 +18,8 @@ export * from './version';
     YueUiLayoutModule,
     YueUiI18nModule,
     YueUiButtonModule,
-    YueUiThematizationModule
+    YueUiThematizationModule,
+    YueUiHttpModule
   ]
 })
 export class YueUiModule { }
