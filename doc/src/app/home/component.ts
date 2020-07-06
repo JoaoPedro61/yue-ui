@@ -17,8 +17,13 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
       <div>
-        <p>This is your layout content<p>
+        <p #elTrigger>This is your layout content<p>
         <yue-ui-i18n [yueUiI18nToken]="'WELCOME.HOME|default:This is my simple example with piped value'"></yue-ui-i18n>
+
+        <div [yueUiCollapseCdk]="open" [yueUiCollapseCdkTriggerOpenEl]="elTrigger">
+          Hello Caralho
+          <div style="width: 100px; height: 50px; background: red;"></div>
+        </div>
 
         <div>
           <button yueUiButton [yueUiButtonLoading]="load" [yueUiButtonDisable]="disa">
@@ -29,6 +34,10 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
           </yue-ui-button>
           <yue-ui-button (click)="load = !load;">
             load
+          </yue-ui-button>
+          <yue-ui-button (click)="open = !open;">
+            opened
+            {{open}}
           </yue-ui-button>
         </div>
       </div>
@@ -42,5 +51,7 @@ export class Component {
   disa= false;
 
   load= false;
+
+  open = false;
   
 }

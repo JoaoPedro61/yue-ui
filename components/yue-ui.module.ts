@@ -7,6 +7,7 @@ import { YueUiI18nModule } from './i18n';
 import { YueUiButtonModule } from './button';
 import { YueUiThematizationModule } from './thematization';
 import { YueUiHttpModule } from './http';
+import { YueUiCollapseModule } from './collapse';
 
 export * from './version';
 
@@ -19,7 +20,8 @@ export * from './version';
     YueUiI18nModule,
     YueUiButtonModule,
     YueUiThematizationModule,
-    YueUiHttpModule
+    YueUiHttpModule,
+    YueUiCollapseModule
   ]
 })
 export class YueUiModule { }
