@@ -25,6 +25,47 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
           <div style="width: 100px; height: 50px; background: red;"></div>
         </div>
 
+        <div style="margin: 30px 0px; width: 500px;">
+      
+          <yue-ui-collapse>
+            <yue-ui-collapse-panel>
+              <div yueUiCollapsePanelHeader>
+
+                Header
+              </div>
+              Hello
+            </yue-ui-collapse-panel>
+            <yue-ui-collapse-panel>
+              <div yueUiCollapsePanelHeader>
+
+                Header
+              </div>
+              Hello
+            </yue-ui-collapse-panel>
+            <yue-ui-collapse-panel>
+              <div yueUiCollapsePanelHeader>
+
+                Header
+              </div>
+              Hello
+            </yue-ui-collapse-panel>
+            <yue-ui-collapse-panel>
+              <div yueUiCollapsePanelHeader>
+
+                Header
+              </div>
+              Hello
+            </yue-ui-collapse-panel>
+            <yue-ui-collapse-panel>
+              <div yueUiCollapsePanelHeader>
+
+                Header
+              </div>
+              Hello
+            </yue-ui-collapse-panel>
+          </yue-ui-collapse>
+        </div>
+
         <div>
           <button yueUiButton [yueUiButtonLoading]="load" [yueUiButtonDisable]="disa">
             Hello
@@ -53,5 +94,5 @@ export class Component {
   load= false;
 
   open = false;
-  
+
 }

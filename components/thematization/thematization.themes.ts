@@ -174,7 +174,35 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             background: 'rgba(0, 0, 0, .1)'
           }
         },
-      }
+      },
+      collapse: {
+        hover: {
+          header: {
+            background: 'rgba(0, 0, 0, .02)',
+            color: 'rgba(0, 0, 0, .7)'
+          }
+        },
+        diasbled: {
+          content: {
+            color: 'pink',
+            background: '#DDD',
+          },
+          header: {
+            background: 'blue',
+            color: 'pink',
+          }
+        },
+        opened: {
+          content: {
+            color: 'pink',
+            background: 'purple',
+          },
+          header: {
+            background: 'red',
+            color: 'pink',
+          }
+        }
+      },
     }
   }
 };

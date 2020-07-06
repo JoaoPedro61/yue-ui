@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter, Component, ElementRef, Renderer2, RendererFactory2, OnChanges, OnDestroy, SimpleChanges } from "@angular/core";
+import { Input, Output, EventEmitter, Component, ElementRef, Renderer2, RendererFactory2, OnChanges, OnDestroy, SimpleChanges, ChangeDetectorRef } from "@angular/core";
 
 import { COLLAPSE_MOTION } from 'yue-ui/core/animations';
 
@@ -55,12 +55,12 @@ export class YueUiCollapseCDKComponent implements OnChanges, OnDestroy {
     }
   }
 
-  @Output()
+  @Output('yueUiCollapseCdkOpenChange')
   public openChange: EventEmitter<boolean> = new EventEmitter();
 
   private _r2!: Renderer2;
 
-  constructor(private readonly rf2: RendererFactory2) {
+  constructor(private readonly rf2: RendererFactory2, private readonly cdf: ChangeDetectorRef) {
     this._r2 = this.rf2.createRenderer(null, null);
   }
 
@@ -87,16 +87,16 @@ export class YueUiCollapseCDKComponent implements OnChanges, OnDestroy {
   }
 
   public toggle(): void {
-    this.open = !this.open;
+    this.setOpen(!this.open);
   }
 
   public setOpen(value: boolean): void {
     this.open = !!value;
+    this.cdf.markForCheck();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     const { triggerEl } = changes;
-
     if (triggerEl) {
       this._assignEventToTriggerEl();
     }
