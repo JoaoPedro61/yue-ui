@@ -142,7 +142,7 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   @HostListener('document:mousemove', ['$event'])
   public clickOutDetect(event: MouseEvent): void {
-    if (!this.listOfNavMenuSiderComponent.length) {
+    if (!this.listOfNavMenuSiderComponent || !this.listOfNavMenuSiderComponent.length) {
       return void 0;
     }
     if (timerCheckHover) {

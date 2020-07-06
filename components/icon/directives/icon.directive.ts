@@ -50,7 +50,6 @@ export class YueUiIconDirective implements OnChanges, AfterContentChecked, OnIni
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     const { yueUiIconSpin, yueUiIconRotate, yueUiIconType } = changes;
     if (yueUiIconType) {
       this.changeIcon();

@@ -1,6 +1,4 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-
 
 
 
@@ -20,28 +18,17 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
       </yue-ui-navigation-menu>
       <div>
         <p>This is your layout content<p>
+        <yue-ui-i18n [yueUiI18nToken]="'WELCOME.HOME|default:This is my simple example with piped value'"></yue-ui-i18n>
+
+        <div>
+          <button yueUiButton>
+            Hello
+          </button>
+        </div>
       </div>
     </yue-ui-layout>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Component {
-
-  constructor(public o: BreakpointObserver) {
-    this.o.observe([
-      ...[
-        Breakpoints.Handset,
-        Breakpoints.Tablet,
-        Breakpoints.Web,
-        Breakpoints.HandsetPortrait,
-        Breakpoints.TabletPortrait,
-        Breakpoints.WebPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletLandscape,
-        Breakpoints.WebLandscape,
-      ]
-    ]).subscribe(console.log)
-  }
-
-}
+export class Component { }

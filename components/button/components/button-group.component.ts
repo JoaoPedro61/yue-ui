@@ -3,12 +3,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({
-  selector: `yue-ui-navigation-menu-sider`,
+  selector: 'yue-ui-button-group',
   template: `
-    <ng-content></ng-content>
+    <ng-content selector="[yueUiButton]"></ng-content>
   `,
-  exportAs: 'navMenuSiderRef',
+  styleUrls: [],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YueUiNavigationMenuSiderComponent { }
+export class YueUiButtonGroupComponent {
+}

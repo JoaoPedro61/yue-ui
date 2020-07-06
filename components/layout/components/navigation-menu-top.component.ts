@@ -11,8 +11,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YueUiNavigationMenuTopComponent {
-
-
-
-}
+export class YueUiNavigationMenuTopComponent { }
