@@ -21,9 +21,15 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
         <yue-ui-i18n [yueUiI18nToken]="'WELCOME.HOME|default:This is my simple example with piped value'"></yue-ui-i18n>
 
         <div>
-          <button yueUiButton>
+          <button yueUiButton [yueUiButtonLoading]="load" [yueUiButtonDisable]="disa">
             Hello
           </button>
+          <yue-ui-button (click)="disa = !disa;">
+            Disable
+          </yue-ui-button>
+          <yue-ui-button (click)="load = !load;">
+            load
+          </yue-ui-button>
         </div>
       </div>
     </yue-ui-layout>
@@ -31,4 +37,10 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Component { }
+export class Component {
+  
+  disa= false;
+
+  load= false;
+  
+}

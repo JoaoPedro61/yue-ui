@@ -64,6 +64,116 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             color: 'var(--color-dark)'
           }
         }
+      },
+      button: {
+        default: {
+          color: 'var(--color-dark)',
+          background: 'transparent',
+          hover: {
+            color: 'var(--color-dark-hover)',
+            background: 'rgba(0, 0, 0, .034)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        primary: {
+          color: 'var(--color-light)',
+          background: 'var(--color-primary)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-primary-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        secondary: {
+          color: 'var(--color-light)',
+          background: 'var(--color-secondary)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-secondary-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        success: {
+          color: 'var(--color-light)',
+          background: 'var(--color-success)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-success-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        danger: {
+          color: 'var(--color-light)',
+          background: 'var(--color-danger)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-danger-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        warning: {
+          color: 'var(--color-light)',
+          background: 'var(--color-warning)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-warning-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        info: {
+          color: 'var(--color-light)',
+          background: 'var(--color-info)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-info-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        light: {
+          color: 'var(--color-dark)',
+          background: 'var(--color-light)',
+          hover: {
+            color: 'var(--color-dark-hover)',
+            background: 'var(--color-light-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
+        dark: {
+          color: 'var(--color-light)',
+          background: 'var(--color-dark)',
+          hover: {
+            color: 'var(--color-light-hover)',
+            background: 'var(--color-dark-hover)'
+          },
+          disabled: {
+            color: 'var(--color-muted)',
+            background: 'rgba(0, 0, 0, .1)'
+          }
+        },
       }
     }
   }

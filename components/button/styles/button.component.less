@@ -1,0 +1,371 @@
+yue-ui-button,
+button[yueUiButton],
+a[yueUiButton],
+:host {
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  cursor: default;
+  height: 2.28571em;
+  line-height: 2.28571em;
+  vertical-align: middle;
+  width: auto;
+  color: rgb(66, 82, 110);
+  border-width: 0px;
+  text-decoration: none;
+  background: none;
+  border-radius: 2px;
+  padding: 0px 8px;
+  transition:
+    background 0.1s ease-out 0s,
+    box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 1s;
+  outline: none !important;
+  border: 1px solid transparent;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  &.yue-ui-button-loading {
+
+    i {
+      margin-right: 5px;
+    }
+  }
+
+  &.yue-ui-button-block {
+    width: 100%;
+    display: block;
+    position: relative;
+  }
+
+  &.yue-ui-button-dashed {
+    border-style: dashed;
+  }
+
+  &.yue-ui-button-size-default {
+    height: 2.28571em;
+    line-height: 2.28571em;
+    
+    &.yue-ui-button-rounded {
+      border-radius: 2.28571em;
+    }
+  }
+
+  &.yue-ui-button-size-small {
+    height: 1.755em;
+    line-height: 1.755;
+    
+    &.yue-ui-button-rounded {
+      border-radius: 1.755em;
+    }
+  }
+
+  &.yue-ui-button-size-large {
+    height: 2.455em;
+    line-height: 2.455em;
+    
+    &.yue-ui-button-rounded {
+      border-radius: 2.455em;
+    }
+  }
+
+  &.yue-ui-button-type-default {
+    &.yue-ui-button-ghost {
+      color: var(--components-button-default-color);
+      background: var(--components-button-default-background);
+    }
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-default-color);
+      background: var(--components-button-default-background);
+    }
+    &:hover:not(:disabled) {
+      color: var(--components-button-default-hover-color);
+      background: var(--components-button-default-hover-background);
+      cursor: pointer;
+    }
+    &:disabled {
+      color: var(--components-button-default-disabled-color);
+      background: var(--components-button-default-disabled-background);
+    }
+  }
+
+  &.yue-ui-button-type-primary {
+    border-color: var(--components-button-primary-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-primary-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-primary-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-primary-disabled-color);
+        background: var(--components-button-primary-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-primary-color);
+      background: var(--components-button-primary-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-primary-hover-color);
+        background: var(--components-button-primary-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-primary-disabled-color);
+        background: var(--components-button-primary-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-secondary {
+    border-color: var(--components-button-secondary-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-secondary-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-secondary-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-secondary-disabled-color);
+        background: var(--components-button-secondary-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-secondary-color);
+      background: var(--components-button-secondary-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-secondary-hover-color);
+        background: var(--components-button-secondary-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-secondary-disabled-color);
+        background: var(--components-button-secondary-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-success {
+    border-color: var(--components-button-success-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-success-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-success-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-success-disabled-color);
+        background: var(--components-button-success-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-success-color);
+      background: var(--components-button-success-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-success-hover-color);
+        background: var(--components-button-success-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-success-disabled-color);
+        background: var(--components-button-success-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-danger {
+    border-color: var(--components-button-danger-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-danger-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-danger-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-danger-disabled-color);
+        background: var(--components-button-danger-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-danger-color);
+      background: var(--components-button-danger-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-danger-hover-color);
+        background: var(--components-button-danger-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-danger-disabled-color);
+        background: var(--components-button-danger-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-warning {
+    border-color: var(--components-button-warning-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-warning-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-warning-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-warning-disabled-color);
+        background: var(--components-button-warning-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-warning-color);
+      background: var(--components-button-warning-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-warning-hover-color);
+        background: var(--components-button-warning-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-warning-disabled-color);
+        background: var(--components-button-warning-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-info {
+    border-color: var(--components-button-info-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-info-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-info-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-info-disabled-color);
+        background: var(--components-button-info-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-info-color);
+      background: var(--components-button-info-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-info-hover-color);
+        background: var(--components-button-info-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-info-disabled-color);
+        background: var(--components-button-info-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-light {
+    border-color: var(--components-button-light-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-light-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-light-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-light-disabled-color);
+        background: var(--components-button-light-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-light-color);
+      background: var(--components-button-light-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-light-hover-color);
+        background: var(--components-button-light-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-light-disabled-color);
+        background: var(--components-button-light-disabled-background);
+      }
+    }
+  }
+
+  &.yue-ui-button-type-dark {
+    border-color: var(--components-button-dark-background);
+    
+    &.yue-ui-button-ghost {
+      color: var(--components-button-dark-background);
+      background: transparent;
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-dark-hover-background);
+        background: transparent;
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-dark-disabled-color);
+        background: var(--components-button-dark-disabled-background);
+      }
+    }
+
+    &:not(.yue-ui-button-ghost) {
+      color: var(--components-button-dark-color);
+      background: var(--components-button-dark-background);
+
+      &:hover:not(:disabled) {
+        color: var(--components-button-dark-hover-color);
+        background: var(--components-button-dark-hover-background);
+        cursor: pointer;
+      }
+      &:disabled {
+        color: var(--components-button-dark-disabled-color);
+        background: var(--components-button-dark-disabled-background);
+      }
+    }
+  }
+
+}
