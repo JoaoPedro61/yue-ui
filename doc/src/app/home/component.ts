@@ -58,7 +58,6 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
             </yue-ui-collapse-panel>
             <yue-ui-collapse-panel>
               <div yueUiCollapsePanelHeader>
-
                 Header
               </div>
               Hello
@@ -67,7 +66,15 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
         </div>
 
         <div>
-          <button yueUiButton [yueUiButtonLoading]="load" [yueUiButtonDisable]="disa">
+          <button
+            yueUiButton
+            [yueUiButtonLoading]="load"
+            [yueUiButtonDisable]="disa"
+
+            yueUiTooltip="Merda"
+
+            yueUiTooltipTitle="asdfjahgsdkjhfg"
+          >
             Hello
           </button>
           <yue-ui-button (click)="disa = !disa;">

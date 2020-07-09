@@ -8,6 +8,7 @@ import { YueUiButtonModule } from './button';
 import { YueUiThematizationModule } from './thematization';
 import { YueUiHttpModule } from './http';
 import { YueUiCollapseModule } from './collapse';
+import { YueUiTooltipModule } from './tooltip';
 
 export * from './version';
 
@@ -21,7 +22,8 @@ export * from './version';
     YueUiButtonModule,
     YueUiThematizationModule,
     YueUiHttpModule,
-    YueUiCollapseModule
+    YueUiCollapseModule,
+    YueUiTooltipModule,
   ]
 })
 export class YueUiModule { }
