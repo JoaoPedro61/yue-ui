@@ -1,15 +1,7 @@
 import { Renderer2 } from '@angular/core';
 
 
-/**
- * Copy an text from any HTML element
- *
- * @export
- * @param {(HTMLElement | string)} target Target will be copied
- * @param {Renderer2} [renderer] If you want execute this function inside angular zone use this parameter
- * @param {(value: string) => void} [cbOk] Callback to execute if the target is successfully copied
- * @param {(value: string) => void} [cbErr] Callback to execute if the target isn't successfully copied
- */
+
 export function copyText(target: HTMLElement | string, renderer?: Renderer2, cbOk?: (value: string) => void, cbErr?: (value: string) => void): void {
   let text = '';
   if (target instanceof HTMLElement) {

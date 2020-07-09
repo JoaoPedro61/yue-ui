@@ -10,24 +10,10 @@ import { YueUiHttpInterceptorHandler } from './http-interceptor.handler';
 
 
 
-/**
- * YueUiHttpService
- *
- * @export
- * @class YueUiHttpService
- * @extends {YueUiHttpClient}
- */
+
 @Injectable()
 export class YueUiHttpService extends HttpClient {
 
-  /**
-   * Creates an instance of HttpService.
-   *
-   * @param {HttpHandler} httpHandler
-   * @param {Injector} injector
-   * @param {HttpInterceptor[]} [interceptors=[]]
-   * @memberof YueUiHttpService
-   */
   constructor(private httpHandler: HttpHandler, private injector: Injector, @Optional() @Inject(YUE_UI_HTTP_DYNAMIC_INTERCEPTORS) private interceptors: HttpInterceptor[] = []) {
     super(httpHandler);
 
@@ -64,27 +50,11 @@ export class YueUiHttpService extends HttpClient {
     }
   }
 
-  /**
-   * Enable or disable cache of this instance
-   *
-   * @param {boolean} [forceUpdate]
-   * @returns {HttpClient}
-   * @memberof YueUiHttpService
-   */
   public cache(forceUpdate?: boolean): HttpClient {
     const httpCacheInterceptor = this.injector.get(YueUiHttpCacheInterceptor).configure({ update: forceUpdate });
     return this.addInterceptor(httpCacheInterceptor);
   }
 
-  /**
-   * Create a request method
-   *
-   * @param {*} [method] Request method
-   * @param {*} [url] Request URL
-   * @param {*} [options] Request options
-   * @returns {*} Observable
-   * @memberof YueUiHttpService
-   */
   public request(method?: any, url?: any, options?: any): any {
     const handler = this.interceptors.reduceRight(
       (next, interceptor) => new YueUiHttpInterceptorHandler(next, interceptor),
@@ -93,13 +63,6 @@ export class YueUiHttpService extends HttpClient {
     return new HttpClient(handler).request(method, url, options);
   }
 
-  /**
-   * Remove a interceptor from the interceptors array
-   *
-   * @param {(...args: any[]) => any} interceptorType
-   * @returns {YueUiHttpService}
-   * @memberof YueUiHttpService
-   */
   public removeInterceptor(interceptorType: (...args: any[]) => any): YueUiHttpService {
     return new YueUiHttpService(
       this.httpHandler,
@@ -108,13 +71,6 @@ export class YueUiHttpService extends HttpClient {
     );
   }
 
-  /**
-   * Add a new interceptor to the interceptors array
-   *
-   * @param {HttpInterceptor} interceptor
-   * @returns {YueUiHttpService}
-   * @memberof YueUiHttpService
-   */
   public addInterceptor(interceptor: HttpInterceptor): YueUiHttpService {
     return new YueUiHttpService(
       this.httpHandler,

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 
 
 
+import { YueUiCoreModule } from './core';
+
 import { YueUiLayoutModule } from './layout';
 import { YueUiI18nModule } from './i18n';
 import { YueUiButtonModule } from './button';
@@ -10,6 +12,7 @@ import { YueUiHttpModule } from './http';
 import { YueUiCollapseModule } from './collapse';
 import { YueUiTooltipModule } from './tooltip';
 
+
 export * from './version';
 
 
@@ -17,6 +20,7 @@ export * from './version';
   declarations: [ ],
   imports: [ ],
   exports: [
+    YueUiCoreModule,
     YueUiLayoutModule,
     YueUiI18nModule,
     YueUiButtonModule,

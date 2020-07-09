@@ -1,18 +1,5 @@
-/**
- * Avaliable returns types
- *
- * @export
- * @type {DeepTypeCheckerTypes}
- */
 export type DeepTypeCheckerTypes = 'object' | 'date' | 'array' | 'string' | 'boolean' | 'function' | 'number' | 'undefined' | 'null' | 'unrecognized';
 
-/**
- * Verification of type in deep
- *
- * @export
- * @param {*} value Parameter to check it type
- * @returns {DeepTypeCheckerTypes}
- */
 export function deepTypechecker(value: any): DeepTypeCheckerTypes {
   const type: string = Object.prototype.toString.call(value);
   if (type === `[object Object]`) {

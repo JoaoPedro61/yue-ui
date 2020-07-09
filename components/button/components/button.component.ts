@@ -80,6 +80,9 @@ export class YueUiButtonComponent implements OnInit, AfterViewInit, OnDestroy, O
   @Input()
   public yueUiButtonTabIndex: string | number | null = null;
 
+  @Input()
+  public tabIndex: string | number | null = null;
+
   constructor() {}
 
   public healtDisableEvents(event: Event): void {

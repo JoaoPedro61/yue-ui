@@ -1,10 +1,3 @@
-/**
- * Generate one color in hexdecimal base
- *
- * @export
- * @param {number} [percentage=0] Number between 0 and 100
- * @returns {string}
- */
 export function colorScale(percentage: number = 0): string {
   const b = 0;
   let r = 0;

@@ -2,12 +2,6 @@ import { YueUiThemeConfig } from './thematization.interfaces';
 
 
 
-/**
- * Default light build-in theme configuration
- *
- * @exports
- * @type {YueUiThemeConfig}
- */
 export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
   name: 'light',
   theme: {
@@ -207,13 +201,6 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
   }
 };
 
-
-/**
- * Default dark build-in theme configuration
- *
- * @exports
- * @type {YueThemeConfig}
- */
 export const DEFAULT_DARK_THEME: YueUiThemeConfig = {
   name: 'dark',
   theme: {}

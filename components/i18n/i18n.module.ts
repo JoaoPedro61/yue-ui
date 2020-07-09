@@ -23,50 +23,10 @@ import { YueUiI18nPipe } from './i18n.pipe';
 import { YueUiI18nDefaultLanguage, YueUiI18nNotFoundHandler } from './i18n.intefaces';
 
 
-
 const logger = logging.getLogger('core.i18n');
 
 
-/**
- * Internationalization Module, used for handling translations between languages
- *
- * @usageNotes
- * In your assets folder create a directory called "i18n",
- * inside this directory put your translation files, after that just
- * import the YueUiI18nService service, and set the language,
- * if you want to set a language without having to import this service,
- * in your module import the injection token called "YUE_UI_I18N_DEFAULT_LANGUAGE",
- * as in the following example:
- * ```typescript
- *
- * {
- *   imports: [
- *     YueUiI18nModule,
- *     {
- *       provide: YUE_UI_I18N_DEFAULT_LANGUAGE,
- *       useValue: `en-us`
- *     }
- *   ]
- * }
- * ```
- *
- * The name of the file that is inside the i18n
- * folder is very important because to define the language in the
- * system, we use the following logic, we take the name of the .json
- * file inside the folder, and remove the ".json" from the name,
- * it would look like this by the logic:
- *
- * ```
- * this.i18nService.setLanguage(`en-us`);
- * ```
- * And within the i18n folder we have:
- * en-us.json
- *
- * The same logic is used in the standard language injection token
- *
- * @export
- * @class YueUiI18nModule
- */
+
 @NgModule({
   declarations: [
     YueUiI18nPipe,
@@ -117,13 +77,6 @@ const logger = logging.getLogger('core.i18n');
 })
 export class YueUiI18nModule {
 
-  /**
-   * Creates an instance of YueUiI18nModule.
-   *
-   * @param {YueUiI18nDefaultLanguage} defaultLanguage Default language to set the file translation when this module is instantiated
-   * @param {YueUiI18nService} i18n Internationalization Service to update dictionaries and the standard language
-   * @memberof YueUiI18nModule
-   */
   constructor(@Inject(YUE_UI_I18N_DEFAULT_LANGUAGE) private readonly defaultLanguage: YueUiI18nDefaultLanguage, private readonly i18n: YueUiI18nService) {
     logger.info(`YueUiI18nModule on version: ${VERSION.full}`);
     if (this.defaultLanguage) {

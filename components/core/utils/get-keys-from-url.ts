@@ -1,12 +1,3 @@
-/**
- * Identify if in the location path has a property identificator
- *
- *
- * @export
- * @param {string} rustic
- * @param {string} source
- * @returns {Partial<any>} Keys detected in route path
- */
 export function getKeysFromURL(rustic: string, source: string): Partial<any> {
   const us1 = rustic.replace(/\?.+/, ``).split(`/`);
   const us2 = source.replace(/\?.+/, ``).split(`/`);

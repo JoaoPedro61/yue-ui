@@ -30,6 +30,7 @@
     "strictPropertyInitialization": true,
     "types": ["jasmine"],
     "typeRoots": ["node_modules/@types/!(node)"],
+    "removeComments": true,
     "paths": {
       "yue-ui": [
         "components"

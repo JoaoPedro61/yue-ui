@@ -16,7 +16,7 @@ export class YueUiIconService {
   constructor(
     private readonly _rendererFac: RendererFactory2,
     private readonly _sanitizer: DomSanitizer,
-    @Inject(DOCUMENT) private readonly _document: Document,
+    @Inject(DOCUMENT) private readonly _document: any,
     @Optional() @Inject(YUE_UI_ICONS) private readonly icons: YueUiIcons
   ) {
     this._renderer = this._rendererFac.createRenderer(null, null);

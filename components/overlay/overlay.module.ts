@@ -15,9 +15,7 @@ const logger = logging.getLogger('core.overlay');
   declarations: [
     YueUiOverlayDirective,
   ],
-  entryComponents: [
-    YueUiOverlayDirective,
-  ],
+  entryComponents: [ ],
   imports: [
     OverlayModule,
   ],

@@ -7,39 +7,13 @@ import { YueProgressRequest } from './http.interfaces';
 
 
 
-/**
- * Interceptor progress request
- *
- * @export
- * @class YueUiHttpProgressInterceptor
- * @implements {HttpInterceptor}
- */
 @Injectable()
 export class YueUiHttpProgressInterceptor implements HttpInterceptor {
 
-  /**
-   * @ignore
-   *
-   * @private
-   * @type {HttpRequest<any>[]}
-   * @memberof YueUiHttpProgressInterceptor
-   */
   private requests: HttpRequest<any>[] = [];
 
-  /**
-   * Creates an instance of YueUiHttpProgressInterceptor.
-   *
-   * @param {LoaderProgressToken} loader Loader token behavior
-   * @memberof YueUiHttpProgressInterceptor
-   */
   constructor(@Inject(YUE_UI_PROGRESS_REQUESTS) private readonly loader: YueProgressRequest) { }
 
-  /**
-   * Remove a request from request
-   *
-   * @param {HttpRequest<any>} req
-   * @memberof YueUiHttpProgressInterceptor
-   */
   public removeRequest(req: HttpRequest<any>): void {
     const i = this.requests.indexOf(req);
     if (i >= 0) {
@@ -48,14 +22,6 @@ export class YueUiHttpProgressInterceptor implements HttpInterceptor {
     this.loader.next(this.requests.length > 0 ? { type: 'indeterminate' } : null);
   }
 
-  /**
-   * Intercep a request ans apply the loader flow
-   *
-   * @param {HttpRequest<any>} req
-   * @param {HttpHandler} next
-   * @returns {Observable<HttpEvent<any>>}
-   * @memberof YueUiHttpProgressInterceptor
-   */
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.requests.push(req);
     this.loader.next({ type: 'indeterminate' });

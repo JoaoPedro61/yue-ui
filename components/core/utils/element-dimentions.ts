@@ -1,147 +1,22 @@
-/**
- * Properties available in the elementDimentions function return
- *
- * @export
- * @interface ElementDimentions
- */
 export interface ElementDimentions {
-
-  /**
-   * Full with with all margins and all paddings and ther border widths
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   FULL_WIDTH: number;
-
-  /**
-   * Full with height all margins and all paddings and ther border widths
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   FULL_HEIGHT: number;
-
-  /**
-   * Just only with without margins and paddings
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   WIDTH: number;
-
-  /**
-   * Margin right
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   MARGIN_RIGHT: number;
-
-  /**
-   * Margin left
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   MARGIN_LEFT: number;
-
-  /**
-   * Padding right
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   PADDING_RIGHT: number;
-
-  /**
-   * Padding left
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   PADDING_LEFT: number;
-
-  /**
-   * Border right width
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   BORDER_RIGHT: number;
-
-  /**
-   * Border left width
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   BORDER_LEFT: number;
-
-  /**
-   * Just only height
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   HEIGHT: number;
-
-  /**
-   * Margin top
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   MARGIN_TOP: number;
-
-  /**
-   * Margin bottom
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   MARGIN_BOTTOM: number;
-
-  /**
-   * Padding top
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   PADDING_TOP: number;
-
-  /**
-   * Padding bottom
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   PADDING_BOTTOM: number;
-
-  /**
-   * Border top width
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   BORDER_TOP: number;
-
-  /**
-   * Border bottom width
-   *
-   * @type {number}
-   * @memberof ElementDimentions
-   */
   BORDER_BOTTOM: number;
 }
 
-/**
- * Get the dimentions of an HTML element including the paddings and margins
- *
- * @export
- * @param {HTMLElement} element Element target
- * @returns {ElementDimentions}
- */
 export function elementDimentions(element: HTMLElement): ElementDimentions {
   const STYLE = (element as any).currentStyle || window.getComputedStyle(element);
 

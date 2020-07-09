@@ -21,7 +21,6 @@ const logger = logging.getLogger('core.tooltip');
   ],
   entryComponents: [
     YueUiTooltipComponent,
-    YueUiTooltipDirective,
   ],
   imports: [
     CommonModule,

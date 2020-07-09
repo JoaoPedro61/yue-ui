@@ -1,11 +1,3 @@
-/**
- * Compare two values
- *
- * @export
- * @param {*} x Primary value
- * @param {*} y Secondary value
- * @returns {boolean}
- */
 export function equals(x: any, y: any): boolean {
   if (x === y) {
     return true; // if both x and y are null or undefined and exactly the same

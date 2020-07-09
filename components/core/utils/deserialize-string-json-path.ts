@@ -1,69 +1,14 @@
-/**
- * Possible return of deserializeStringJsonPath function
- *
- * @export
- * @interface SerializeReturnValue
- */
 export interface SerializeReturnValue {
   [x: string]: any;
-
-  /**
-   * New value that was override
-   *
-   * @type {*}
-   * @memberof SerializeReturnValue
-   */
   value: any;
-
-  /**
-   * Old value that was override
-   *
-   * @type {*}
-   * @memberof SerializeReturnValue
-   */
   oldValue: any;
 }
 
-/**
- * Function used to traverse objects or arrays from a path,
- * making it possible to replicate values as well as to return them
- *
- * @usageNotes
- * ```typescript
- * let data = {
- *   address: {
- *     name: 'Street Name'
- *   }
- * };
- * deserializeStringJsonPath('address.name', data, 'Street Of Dreams');
- * // Data will be equal this:
- * // {
- * //   address: {
- * //     name: 'Street Of Dreams'
- * //   }
- * // };
- * ```
- *
- *
- * @export
- * @param {(string | [string, any][])} path
- * @param {*} source
- * @param {*} [override]
- * @param {boolean} [onlyValues]
- * @returns {(SerializeReturnValue | void)}
- */
 export function deserializeStringJsonPath(path: string | [string, any][], source: any, override?: any, onlyValues?: boolean): SerializeReturnValue | void {
   let value: any;
   let oldValue: any;
 
-  /**
-   * Recursive finder
-   *
-   * @param {(string | undefined)} segment
-   * @param {*} target
-   * @param {string[]} expSplited
-   * @param {*} [overrideT]
-   */
+
   function recursive(segment: string | undefined, target: any, expSplited: string[], overrideT?: any): void {
     let segmentBetweenQuotes = false;
     if ('string' === typeof segment) {

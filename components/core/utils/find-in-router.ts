@@ -1,51 +1,22 @@
 import { Router } from '@angular/router';
 
 
-/**
- * Configuration for each property finded in the router instance
- *
- *
- * @exports
- * @interface
- */
-export interface ItemFindedInRouterTreeWithParentRouteConfig {
 
-  /**
-   * Route segment config for the property wanted
-   *
-   * @type {any}
-   */
+
+export interface ItemFindedInRouterTreeWithParentRouteConfig {
   parentRouteConfig?: any;
 
-  /**
-   * Allow's add additional properties
-   *
-   * @type {any}
-   */
   [additionalProperties: string]: any;
 }
 
 
 
-/**
- * Find a property in router data structure
- *
- * @export
- * @param {Router} router Router instance
- * @param {string} findProperty Target property
- * @returns {any[]}
- */
+
 export function findInRouter(router: Router, findProperty: string): ItemFindedInRouterTreeWithParentRouteConfig[] {
   const url: string = router.url;
   const segments: string[] = url.split('/');
   const pusher: any[] = [];
 
-  /**
-   * Deep search in router tree
-   *
-   * @param {any[]} config
-   * @param {(...args: any[]) => void} [fallback]
-   */
   function recursive_finder(config: any[], fallback?: (...args: any[]) => void): void {
     if (segments.length) {
       for (let index = 0, length = config.length; index < length; index++) {

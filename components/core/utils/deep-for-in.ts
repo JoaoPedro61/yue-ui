@@ -1,12 +1,3 @@
-/**
- * Deep for
- *
- * @param {(Array<any> | Partial<any>)} target Data entry to be performed or forin
- * @param {(value: any, key: any, source: any) => void} fn Callback called in each key of object
- *
- * @ignore
- * @exports
- */
 export function deepForIn(target: Array<any> | Partial<any>, fn: (value: any, key: string, source: Partial<any>) => void): void {
   if (Array.isArray(target)) {
     for (let i = 0, l = target.length; i < l; i++) {

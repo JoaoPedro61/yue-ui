@@ -7,21 +7,6 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
 
 
 
-/**
- * Simple component that shows a request progress
- * indicator at the top of the page
- *
- * @usageNotes
- *
- * ```html
- * <yue-http-progress-requests></yue-http-progress-requests>
- * ```
- *
- * @export
- * @class HttpProgressRequestsComponent
- * @implements {OnInit}
- * @implements {OnDestroy}
- */
 @Component({
   selector: 'yue-ui-http-progress-requests',
   template: `
@@ -100,50 +85,16 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
 })
 export class HttpProgressRequestsComponent implements OnInit, OnDestroy {
 
-  /**
-   * Subscription starage
-   *
-   * @ignore
-   * @interface
-   *
-   * @private
-   * @type {Subscription}
-   * @memberof HttpProgressRequestsComponent
-   */
   private subscription$: Subscription;
 
-  /**
-   * Behavior to show data on HTMl, without run detectChanges
-   *
-   * @type {BehaviorSubject<YueProgressRequestOptions>}
-   * @memberof HttpProgressRequestsComponent
-   */
   public metadataLoader$: BehaviorSubject<YueProgressRequestOptions> = new BehaviorSubject(null as any);
 
-  /**
-   * Creates an instance of HttpProgressRequestsComponent.
-   *
-   * @param {YueProgressRequest} loader Loader behavior
-   * @memberof HttpProgressRequestsComponent
-   */
   constructor(@Inject(YUE_UI_PROGRESS_REQUESTS) private readonly loader: YueProgressRequest) {
     this.subscription$ = this.loader.subscribe((v) => this.metadataLoader$.next(v));
   }
 
-  /**
-   * @ignore
-   * @internal
-   *
-   * @memberof HttpProgressRequestsComponent
-   */
   public ngOnInit(): void { }
 
-  /**
-   * @ignore
-   * @internal
-   *
-   * @memberof HttpProgressRequestsComponent
-   */
   public ngOnDestroy(): void {
     if (this.subscription$) {
       if (!this.subscription$.closed) {

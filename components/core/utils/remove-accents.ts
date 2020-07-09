@@ -1,9 +1,3 @@
-/**
- * Remove all accents, and return the new string without the accents
- *
- * @param {string} str String
- * @returns {string}
- */
 function removeAccents(str: string): string {
   if ('function' === typeof str.normalize) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

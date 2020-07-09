@@ -10,92 +10,27 @@ import { YUE_UI_I18N_DICTIONARY, YUE_UI_I18N_COMPONENTS_DICTIONARY, YUE_UI_I18N_
 
 const logger = logging.getLogger('core.i18n');
 
-/**
- * Internationalization Service, request a json file,
- * with keywords and their translations
- *
- * @usageNotes
- * In your assets folder create a directory called "i18n",
- * inside this directory put your translation files, after that just
- * import the YueUiI18nService service, and set the language,
- * if you want to set a language without having to import this service,
- * in your module import the injection token called "YUE_UI_I18N_DEFAULT_LANGUAGE",
- * as in the following example:
- * ```typescript
- *
- * {
- *   imports: [
- *     YueUiI18nModule,
- *     {
- *       provide: YUE_UI_I18N_DEFAULT_LANGUAGE,
- *       useValue: `en-us`
- *     }
- *   ]
- * }
- * ```
- *
- * The name of the file that is inside the i18n
- * folder is very important because to define the language in the
- * system, we use the following logic, we take the name of the .json
- * file inside the folder, and remove the ".json" from the name,
- * it would look like this by the logic:
- *
- * ```
- * this.i18nService.setLanguage(`en-us`);
- * ```
- * And within the i18n folder we have:
- * en-us.json
- *
- * The same logic is used in the standard language injection token
- *
- * @export
- * @class YueUiI18nService
- */
+
+
 @Injectable()
 export class YueUiI18nService {
 
-  /**
-   * Creates an instance of YueUiI18nService.
-   *
-   * @param {YueUiI18nDictionary} dictionary Dictionary standart
-   * @param {YueUiI18nComponentsDictionary} componentsDictionary Component dictionary standart
-   * @param {YueUiI18nLanguage} language Language behavior
-   * @memberof YueUiI18nService
-   */
   constructor(
     @Inject(YUE_UI_I18N_NOT_FOUND_HANDLER) private readonly notFoundHandler: YueUiI18nNotFoundHandler,
     @Inject(YUE_UI_I18N_DICTIONARY) private readonly dictionary: YueUiI18nDictionary,
     @Inject(YUE_UI_I18N_COMPONENTS_DICTIONARY) private readonly componentsDictionary: YueUiI18nComponentsDictionary,
-    @Inject(YUE_UI_I18N_LANGUAGE) private readonly language: YueUiI18nLanguage) {
-    }
+    @Inject(YUE_UI_I18N_LANGUAGE) private readonly language: YueUiI18nLanguage
+  ) {
+  }
 
-  /**
-   * Updates extenal dictinarie
-   *
-   * @returns {Observable<any>}
-   * @memberof YueUiI18nService
-   */
   public dictionaryAsync(): Observable<any> {
     return this.dictionary.asObservable();
   }
 
-  /**
-   * Returns the current language
-   *
-   * @returns {(string | null)} Current language
-   * @memberof YueUiI18nService
-   */
   public getLanguage(): string | null {
     return this.language.getValue();
   }
 
-  /**
-   * Sets a new file language, and update all old instances
-   *
-   * @param {string} language
-   * @returns {Promise<any>}
-   * @memberof YueUiI18nService
-   */
   public async setLanguage(language: string): Promise<any> {
     return fetch(`assets/i18n/${language}.json`)
       .then(res => res.json())
@@ -141,13 +76,6 @@ export class YueUiI18nService {
     return str;
   }
 
-  /**
-   * Get's a token tranalation from language file
-   *
-   * @param {string} token Token wanted to translate
-   * @returns {string} Return a token translation
-   * @memberof YueUiI18nService
-   */
   public translate(token: string, parameters: Partial<any> = {}): string {
     if (/\|/gm.test(token)) {
       const segments: string[] = token.split('|');
@@ -219,13 +147,6 @@ export class YueUiI18nService {
     return token;
   }
 
-  /**
-   * Get's a token tranalation from language file
-   *
-   * @param {string} token Token wanted to translate
-   * @returns {Observable<string>} Return a Observable token translation
-   * @memberof YueUiI18nService
-   */
   public translateAsync(token: string, parameters: Partial<any> = {}): Observable<string> {
     return merge(
       of(this.translate(token, parameters)),

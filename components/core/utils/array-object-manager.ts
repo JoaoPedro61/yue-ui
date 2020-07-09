@@ -3,194 +3,62 @@ import { hash } from './hash';
 
 
 
-/**
- * @ignore
- *
- * @interface Existence
- */
 interface Existence {
   [x: string]: boolean;
 }
 
-/**
- * @ignore
- *
- * @interface Indexs
- */
 interface Indexs {
   [x: string]: number;
 }
 
-/**
- * @ignore
- *
- * @interface Hidded
- */
+
 interface Hidded {
   [x: string]: ArrayObjectManagerConfig;
 }
 
-/**
- * @ignore
- *
- * @interface Showed
- */
+
 interface Showed {
   [x: string]: ArrayObjectManagerConfig;
 }
 
-/**
- * @ignore
- *
- * @interface ArrayObjectManagerGetConfig
- */
 interface ArrayObjectManagerGetConfig {
   showed: boolean;
   item: ArrayObjectManagerConfig;
 }
 
-/**
- * @ignore
- *
- * @export
- * @interface ArrayObjectManagerConfig
- */
 export interface ArrayObjectManagerConfig {
   [x: string]: any;
 }
 
-/**
- * @ignore
- *
- * @export
- * @type {ArrayObjectsManagerConfig} Object type array
- */
 export type ArrayObjectsManagerConfig = ArrayObjectManagerConfig[];
 
-/**
- * Simple class for controlling and managing object arrays,
- * The manager makes the observable available to listeners
- *
- * @usageNotes
- * ```typescript
- * let manager = new ArrayObjectManager<any>();
- * manager.set({...});
- * ```
- * 
- * @export
- * @class ArrayObjectManager
- */
 export class ArrayObjectManager {
 
-  /**
-   * Key that will be used in the condition to show or hide
-   *
-   * @ignore
-   *
-   * @private
-   * @type {string}
-   * @memberof ArrayObjectManager
-   */
   private readonly showkey: string = hash();
 
-  /**
-   * Identifier to be used in multi-object comparison
-   *
-   * @ignore
-   *
-   * @private
-   * @type {string}
-   * @memberof ArrayObjectManager
-   */
   private readonly identifier: string = 'identifier';
 
-  /**
-   * Observable
-   *
-   * @ignore
-   *
-   * @private
-   * @type {BehaviorSubject<ArrayObjectsManagerConfig>}
-   * @memberof ArrayObjectManager
-   */
   private readonly behavior$: BehaviorSubject<ArrayObjectsManagerConfig> = new BehaviorSubject<ArrayObjectsManagerConfig>([]);
 
-  /**
-   * Currently active elements
-   *
-   * @private
-   * @type {Showed}
-   * @memberof ArrayObjectManager
-   */
   private readonly isShowed: Showed = {};
 
-  /**
-   * Currently inactive elements
-   *
-   * @private
-   * @type {Hidded}
-   * @memberof ArrayObjectManager
-   */
   private readonly isHidded: Hidded = {};
 
-  /**
-   * Currently existing elements
-   *
-   * @private
-   * @type {Existence}
-   * @memberof ArrayObjectManager
-   */
   private readonly exists: Existence = {};
 
-  /**
-   * Indexed keys
-   *
-   * @private
-   * @type {Indexs}
-   * @memberof ArrayObjectManager
-   */
   private readonly indexs: Indexs = {};
 
-  /**
-   * Raw data
-   *
-   * @ignore
-   *
-   * @private
-   * @type {ArrayObjectsManagerConfig}
-   * @memberof ArrayObjectManager
-   */
   private objectsgross: ArrayObjectsManagerConfig = [];
 
-  /**
-   * Returns an observable
-   *
-   * @readonly
-   * @type {Observable<ArrayObjectsManagerConfig>}
-   * @memberof ArrayObjectManager
-   */
+
   public get objects(): Observable<ArrayObjectsManagerConfig> {
     return this.behavior$.asObservable();
   }
 
-  /**
-   * Returns the main control behavior
-   *
-   * @readonly
-   * @type {BehaviorSubject<ArrayObjectsManagerConfig>}
-   * @memberof ArrayObjectManager
-   */
   public get behavior(): BehaviorSubject<ArrayObjectsManagerConfig> {
     return this.behavior$;
   }
 
-  /**
-   * Creates an instance of ArrayObjectManager.
-   *
-   * @param {ArrayObjectsManagerConfig} [objects=[]] Initial data
-   * @param {string} [identifier='identifier'] Duplicate data control key
-   * @memberof ArrayObjectManager
-   */
   constructor(objects: ArrayObjectsManagerConfig = [], identifier: string = 'identifier') {
     this.identifier = identifier;
     for (let i = 0, l = objects.length; i < l; i++) {
@@ -209,13 +77,6 @@ export class ArrayObjectManager {
     this.behavior$.next(this.objectsgross);
   }
 
-  /**
-   * Adds a collection or just an element to the data
-   *
-   * @param {(ArrayObjectsManagerConfig | ArrayObjectManagerConfig)} source Data to add
-   * @returns {this} Returns the same instance for more actions
-   * @memberof ArrayObjectManager
-   */
   public set(source: ArrayObjectsManagerConfig | ArrayObjectManagerConfig): this {
     let modified: ArrayObjectsManagerConfig = [];
     if (source) {
@@ -249,13 +110,6 @@ export class ArrayObjectManager {
     return this;
   }
 
-  /**
-   * Search the allocated record for the element in question and return it
-   *
-   * @param {string} identifier Identifier of element wanted
-   * @returns {(ArrayObjectManagerGetConfig | null)} Matched element
-   * @memberof ArrayObjectManager
-   */
   public get(identifier: string): ArrayObjectManagerGetConfig | null {
     if (this.exists.hasOwnProperty(identifier)) {
       if (this.isShowed.hasOwnProperty(identifier)) {
@@ -274,13 +128,6 @@ export class ArrayObjectManager {
     return null;
   }
 
-  /**
-   * Removes elements with the identifiers in question
-   *
-   * @param {...string[]} identifiers Identificators
-   * @returns {this} Returns the same instance for more actions
-   * @memberof ArrayObjectManager
-   */
   public remove(...identifiers: string[]): this {
     for (let i = 0, l = identifiers.length; i < l; i++) {
       if (Array.isArray(identifiers[i])) {
@@ -307,14 +154,6 @@ export class ArrayObjectManager {
     return this;
   }
 
-  /**
-   * Disables elements with the identifiers in question,
-   * without removing them from the initial data
-   *
-   * @param {...string[]} identifiers Identificators
-   * @returns {this} Returns the same instance for more actions
-   * @memberof ArrayObjectManager
-   */
   public hide(...identifiers: string[]): this {
     for (let i = 0, l = identifiers.length; i < l; i++) {
       if (Array.isArray(identifiers[i])) {
@@ -341,13 +180,6 @@ export class ArrayObjectManager {
     return this;
   }
 
-  /**
-   * Activates elements with the corresponding identifier
-   *
-   * @param {...string[]} identifiers Identificators
-   * @returns {this} Returns the same instance for more actions
-   * @memberof ArrayObjectManager
-   */
   public show(...identifiers: string[]): this {
     for (let i = 0, l = identifiers.length; i < l; i++) {
       if (Array.isArray(identifiers[i])) {
@@ -374,22 +206,10 @@ export class ArrayObjectManager {
     return this;
   }
 
-  /**
-   * Returns the currently unactive elements
-   *
-   * @returns {Hidded} Template data
-   * @memberof ArrayObjectManager
-   */
   public hidded(): Hidded {
     return this.isHidded;
   }
 
-  /**
-   * Returns the currently active elements
-   *
-   * @returns {Showed} Template data
-   * @memberof ArrayObjectManager
-   */
   public showed(): Showed {
     return this.isShowed;
   }

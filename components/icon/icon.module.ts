@@ -6,6 +6,7 @@ import { VERSION } from 'yue-ui/version';
 import { YueUiIconService } from './services/icon.service';
 import { YueUiIconDirective } from './directives/icon.directive';
 import { YUE_UI_ICONS } from './utils/token';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -23,6 +24,9 @@ import { YUE_UI_ICONS } from './utils/token';
     },
 
     YueUiIconService
+  ],
+  imports: [
+    CommonModule
   ]
 })
 export class YueUiIconModule {

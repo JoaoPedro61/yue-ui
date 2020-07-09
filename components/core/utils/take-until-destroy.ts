@@ -3,12 +3,6 @@ import { Subject, Subscription, Observable } from 'rxjs';
 
 
 
-/**
- * Generate a log error and return it
- *
- * @param {string} property Property that is wrong
- * @returns {string}
- */
 function buildErrorDeclaration(property: string): string {
   const prefix = `private readonly `;
   const sufix = `\$: Subscription;`;
@@ -42,38 +36,7 @@ function buildErrorDeclaration(property: string): string {
   return rows.join('\n');
 }
 
-/**
- * Class decorator, used to automatically cancel observable subscriptions
- *
- * @usageNotes
- * ```typescript
- *
- * TakeUntilDestroy()
- * export class MyClass implements TakeUntilDeclareHandler {
- *
- *   constructor() {
- *     this.something.pipe(takeUntil(this.componentDestroy())).subscribe(...);
- *   }
- *
- *   public componentDestroy(): Observable<void> {
- *      return of();
- *   }
- *
- *   public ngOnDestroy(): void { }
- *
- * }
- * ```
- *
- * @export
- * @param {boolean} [alsoDestroyProppedSubscriptions=true] If true will destroy all properties that are Subscription
- * @param {string[]} [blacklist=[]] Properties that don't will be detroyed
- * @returns {Fucntion} Classe decorator
- */
 export function TakeUntilDestroy(alsoDestroyProppedSubscriptions: boolean = true, blacklist: string[] = []) {
-  /**
-   * @ignore
-   * @internal
-   */
   return function(constructor: any) {
     const originalDestroy = constructor.prototype.ngOnDestroy;
     if (typeof originalDestroy !== `function`) {
@@ -112,20 +75,8 @@ export function TakeUntilDestroy(alsoDestroyProppedSubscriptions: boolean = true
   };
 }
 
-/**
- * Required implement method in you class
- *
- * @export
- * @interface TakeUntilDeclareHandler
- */
 export interface TakeUntilDeclareHandler {
 
-
-  /**
-   * Required method
-   *
-   * @memberof TakeUntilDeclareHandler
-   */
   readonly componentDestroy?: () => Observable<void>;
 }
 

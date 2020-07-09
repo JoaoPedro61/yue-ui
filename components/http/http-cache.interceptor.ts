@@ -6,39 +6,14 @@ import { YueUiHttpCacheService } from './http-cache.service';
 
 
 
-/**
- * YueUiHttpCacheInterceptor
- *
- * @export
- * @class YueUiHttpCacheInterceptor
- * @implements {HttpInterceptor}
- */
+
 @Injectable()
 export class YueUiHttpCacheInterceptor implements HttpInterceptor {
 
-  /**
-   * Apply the new cache data
-   *
-   * @private
-   * @memberof YueUiHttpCacheInterceptor
-   */
   private forceUpdate = false;
 
-  /**
-   * Creates an instance of YueUiHttpCacheInterceptor.
-   *
-   * @param {YueUiHttpCacheService} httpCacheService
-   * @memberof YueUiHttpCacheInterceptor
-   */
   constructor(private readonly httpCacheService: YueUiHttpCacheService) { }
 
-  /**
-   * Configure the force update and some others options
-   *
-   * @param {({ update?: boolean } | null)} [options]
-   * @returns {YueUiHttpCacheInterceptor}
-   * @memberof YueUiHttpCacheInterceptor
-   */
   public configure(options?: { update?: boolean } | null): YueUiHttpCacheInterceptor {
     const instance = new YueUiHttpCacheInterceptor(this.httpCacheService);
     if (options && options.update) {
@@ -47,14 +22,6 @@ export class YueUiHttpCacheInterceptor implements HttpInterceptor {
     return instance;
   }
 
-  /**
-   * Intercept a request and apply the rules
-   *
-   * @param {HttpRequest<any>} request
-   * @param {HttpHandler} next
-   * @returns {Observable<HttpEvent<any>>}
-   * @memberof YueUiHttpCacheInterceptor
-   */
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.method !== 'GET') {
       return next.handle(request);
