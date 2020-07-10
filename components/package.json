@@ -1,5 +1,5 @@
 {
-  "name": "yue-ui",
+  "name": "@JoaoPedro61/yue-ui",
   "license": "MIT",
   "description": "Simple UiToolKit",
   "version": "0.0.2",
@@ -10,7 +10,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/JoaoPedro61"
+    "registry": "https://npm.pkg.github.com/"
   },
   "peerDependencies": {
     "@angular/animations": "^9.0.0",
