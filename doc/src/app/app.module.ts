@@ -5,7 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { YueUiModule } from 'yue-ui';
+import { YueUiLayoutModule } from '@JoaoPedro61/yue-ui/layout';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 
 import { Component as Home } from './home/component';
 
@@ -24,7 +26,9 @@ import { Component as Home } from './home/component';
     
     LayoutModule,
 
-    YueUiModule
+    YueUiLayoutModule,
+    YueUiThematizationModule,
+    YueUiButtonModule
   ],
   providers: [],
   bootstrap: [

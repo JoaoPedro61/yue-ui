@@ -1,33 +1,19 @@
 import { NgModule } from '@angular/core';
 
+import { logging } from './core/utils';
+import { VERSION } from './version';
 
 
-import { YueUiCoreModule } from './core';
 
-import { YueUiLayoutModule } from './layout';
-import { YueUiI18nModule } from './i18n';
-import { YueUiButtonModule } from './button';
-import { YueUiThematizationModule } from './thematization';
-import { YueUiHttpModule } from './http';
-import { YueUiCollapseModule } from './collapse';
-import { YueUiTooltipModule } from './tooltip';
+const logger = logging.getLogger('core');
 
 
-export * from './version';
+@NgModule({})
+export class YueUiModule {
 
+  constructor() {
+    logger.info(`YueUiCoreModule on version: ${VERSION.full}`);
+    logger.warn(`This module serves only as an input resource for the compilation, please import the desired modules using your abstract paths. Ex .: import { YueUiCoreModule } from "@JoaoPedro61/core";`);
+  }
 
-@NgModule({
-  declarations: [ ],
-  imports: [ ],
-  exports: [
-    YueUiCoreModule,
-    YueUiLayoutModule,
-    YueUiI18nModule,
-    YueUiButtonModule,
-    YueUiThematizationModule,
-    YueUiHttpModule,
-    YueUiCollapseModule,
-    YueUiTooltipModule,
-  ]
-})
-export class YueUiModule { }
+}

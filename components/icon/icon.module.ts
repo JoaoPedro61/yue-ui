@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 
@@ -6,7 +7,6 @@ import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { YueUiIconService } from './services/icon.service';
 import { YueUiIconDirective } from './directives/icon.directive';
 import { YUE_UI_ICONS } from './utils/token';
-import { CommonModule } from '@angular/common';
 
 
 

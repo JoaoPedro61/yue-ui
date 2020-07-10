@@ -6,17 +6,18 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 
-import { YueUiLayoutComponent } from './components/layout.component';
-import { YueUiNavigationMenuComponent } from './components/navigation-menu.component';
-import { YueUiNavigationMenuTopComponent } from './components/navigation-menu-top.component';
-import { YueUiNavigationMenuBottomComponent } from './components/navigation-menu-bottom.component';
-import { YueUiNavigationMenuSiderComponent } from './components/navigation-menu-sider.component';
+import {
+  YueUiLayoutComponent,
+  YueUiNavigationMenuComponent,
+  YueUiNavigationMenuTopComponent,
+  YueUiNavigationMenuBottomComponent,
+  YueUiNavigationMenuSiderComponent,
+} from './components';
 
 
 @NgModule({
   imports: [
     CommonModule,
-
     LayoutModule,
 
     YueUiIconModule
