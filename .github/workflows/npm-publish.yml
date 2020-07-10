@@ -18,12 +18,11 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: |
           npm install
-          npm run build
+          npm run build:library
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
-      - run: echo -e "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN}}\nregistry=https://npm.pkg.github.com/JoaoPedro61" > .npmrc
-      - run: cat .npmrc
-      - run: npm publish ./publish
+      - run: echo -e "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN_GENERATE_PKG}}" > .npmrc
+      - run: npm publish ./lib
         env:
            NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
       - run: rm .npmrc
