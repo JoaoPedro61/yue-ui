@@ -37,6 +37,12 @@
       ],
       "yue-ui/*": [
         "components/*"
+      ],
+      "@JoaoPedro61/yue-ui": [
+        "components"
+      ],
+      "@JoaoPedro61/yue-ui/*": [
+        "components/*"
       ]
     }
   },

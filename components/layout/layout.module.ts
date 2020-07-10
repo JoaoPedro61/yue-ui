@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 
 
-import { VERSION } from 'yue-ui/version';
-import { YueUiIconModule } from 'yue-ui/icon';
+import { VERSION } from '@JoaoPedro61/yue-ui/version';
+import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 
 import { YueUiLayoutComponent } from './components/layout.component';
 import { YueUiNavigationMenuComponent } from './components/navigation-menu.component';

@@ -2,8 +2,8 @@ import { NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
-import { logging } from 'yue-ui/core/utils';
-import { VERSION } from 'yue-ui/version';
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { VERSION } from '@JoaoPedro61/yue-ui/version';
 
 import { YUE_UI_THEME_DEFAULT, YUE_UI_THEME } from './thematization.utils';
 

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { YueUiIconModule } from 'yue-ui/icon';
-import { VERSION } from 'yue-ui/version';
-import { logging } from 'yue-ui/core/utils';
+import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
+import { VERSION } from '@JoaoPedro61/yue-ui/version';
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { YueUiButtonComponent } from './components/button.component';
 import { YueUiButtonGroupComponent } from './components/button-group.component';

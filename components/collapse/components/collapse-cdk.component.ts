@@ -1,6 +1,6 @@
 import { Input, Output, EventEmitter, Component, ElementRef, Renderer2, RendererFactory2, OnChanges, OnDestroy, SimpleChanges, ChangeDetectorRef } from "@angular/core";
 
-import { COLLAPSE_MOTION } from 'yue-ui/core/animations';
+import { COLLAPSE_MOTION } from '@JoaoPedro61/yue-ui/core/animations';
 
 
 

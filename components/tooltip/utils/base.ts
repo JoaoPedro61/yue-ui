@@ -26,7 +26,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import {
   POSITION_MAP, getPlacementName, DEFAULT_TOOLTIP_POSITIONS
-} from 'yue-ui/overlay';
+} from '@JoaoPedro61/yue-ui/overlay';
 
 import { YueUiTooltipComponent } from './../components/tooltip.component';
 

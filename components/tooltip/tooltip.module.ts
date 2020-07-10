@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { YueUiOverlayModule } from 'yue-ui/overlay';
+import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
 
-import { VERSION } from 'yue-ui/version';
-import { logging } from 'yue-ui/core/utils';
+import { VERSION } from '@JoaoPedro61/yue-ui/version';
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
 
 import { YueUiTooltipComponent } from './components/tooltip.component';
