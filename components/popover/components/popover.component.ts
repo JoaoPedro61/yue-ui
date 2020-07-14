@@ -27,7 +27,12 @@ import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
         <div class="yue-ui-popover-content">
           <div class="yue-ui-popover-arrow"></div>
           <div class="yue-ui-popover-inner">
-            <ng-container *yueUiStringTemplateRefRender="title">{{ title }}</ng-container>
+            <div class="yue-ui-popover-title-wrapper" *ngIf="title">
+              <ng-container *yueUiStringTemplateRefRender="title">{{ title }}</ng-container>
+            </div>
+            <div class="yue-ui-popover-content-wrapper">
+              <ng-container *yueUiStringTemplateRefRender="content">{{ content }}</ng-container>
+            </div>
           </div>
         </div>
       </div>
@@ -46,17 +51,26 @@ export class YueUiPopoverComponent extends BaseComponent {
   @Input()
   public content: string | TemplateRef<any> | null = null;
 
+  _prefix = 'yue-ui-popover-placement';
+
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
   }
 
   protected isEmpty(): boolean {
     // @ts-ignore
-    return this.title instanceof TemplateRef
+    return this.title instanceof TemplateRef || this.content instanceof TemplateRef
       ? false
-      : this.title === ''
+      : this.title === '' && this.content === ''
         ? true
-        : deepTypechecker(this.title) === 'null' || deepTypechecker(this.title) === 'undefined';
+        : (
+            deepTypechecker(this.title) === 'null'
+            || deepTypechecker(this.title) === 'undefined'
+          )
+          && (
+            deepTypechecker(this.content) === 'null'
+            || deepTypechecker(this.content) === 'undefined'
+          );
   }
 
 }

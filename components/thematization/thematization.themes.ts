@@ -29,6 +29,50 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
       background: {
         light: '#f2f2f2',
         dark: '#232323'
+      },
+      transparent: {
+        dark: {
+          10: 'var(--color-transparent-dark-10)',
+          15: 'rgba(0, 0, 0, .15)',
+          20: 'rgba(0, 0, 0, .2)',
+          25: 'rgba(0, 0, 0, .25)',
+          30: 'rgba(0, 0, 0, .3)',
+          35: 'rgba(0, 0, 0, .35)',
+          40: 'rgba(0, 0, 0, .4)',
+          45: 'rgba(0, 0, 0, .45)',
+          50: 'rgba(0, 0, 0, .5)',
+          55: 'rgba(0, 0, 0, .55)',
+          60: 'rgba(0, 0, 0, .6)',
+          65: 'rgba(0, 0, 0, .65)',
+          70: 'rgba(0, 0, 0, .7)',
+          75: 'rgba(0, 0, 0, .75)',
+          80: 'rgba(0, 0, 0, .8)',
+          85: 'rgba(0, 0, 0, .85)',
+          90: 'rgba(0, 0, 0, .9)',
+          95: 'rgba(0, 0, 0, .95)',
+          100: 'rgba(0, 0, 0, 1)',
+        },
+        light: {
+          10: 'rgba(255, 255, 255, .1)',
+          15: 'rgba(255, 255, 255, .15)',
+          20: 'rgba(255, 255, 255, .2)',
+          25: 'rgba(255, 255, 255, .25)',
+          30: 'rgba(255, 255, 255, .3)',
+          35: 'rgba(255, 255, 255, .35)',
+          40: 'rgba(255, 255, 255, .4)',
+          45: 'rgba(255, 255, 255, .45)',
+          50: 'rgba(255, 255, 255, .5)',
+          55: 'rgba(255, 255, 255, .55)',
+          60: 'rgba(255, 255, 255, .6)',
+          65: 'rgba(255, 255, 255, .65)',
+          70: 'rgba(255, 255, 255, .7)',
+          75: 'rgba(255, 255, 255, .75)',
+          80: 'rgba(255, 255, 255, .8)',
+          85: 'rgba(255, 255, 255, .85)',
+          90: 'rgba(255, 255, 255, .9)',
+          95: 'rgba(255, 255, 255, .95)',
+          100: 'rgba(255, 255, 255, 1)',
+        }
       }
     },
     body: {
@@ -39,7 +83,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           background: '#9c9c9c'
         },
         track: {
-          background: 'rgba(0, 0, 0, 0.3)'
+          background: 'var(--color-transparent-dark-30)'
         }
       }
     },
@@ -69,7 +113,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         primary: {
@@ -81,7 +125,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         secondary: {
@@ -93,7 +137,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         success: {
@@ -105,7 +149,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         danger: {
@@ -117,7 +161,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         warning: {
@@ -129,7 +173,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         info: {
@@ -141,7 +185,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         light: {
@@ -153,7 +197,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
         dark: {
@@ -165,7 +209,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
           disabled: {
             color: 'var(--color-muted)',
-            background: 'rgba(0, 0, 0, .1)'
+            background: 'var(--color-transparent-dark-10)'
           }
         },
       },
@@ -198,8 +242,17 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         }
       },
       tooltip: {
-        background: `rgba(0, 0, 0, .75)`,
-        color: `#FFF`
+        background: `var(--color-transparent-dark-75)`,
+        color: `var(--color-light)`
+      },
+      popover: {
+        background: `var(--color-background-light)`,
+        content: {
+          color: `var(--color-dark)`,
+        },
+        title: {
+          color: `var(--color-dark)`,
+        }
       }
     }
   }

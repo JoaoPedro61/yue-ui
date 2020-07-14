@@ -10,7 +10,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { BaseDirective, YueUiPopoverTrigger } from '@JoaoPedro61/yue-ui/tooltip';
+import { BaseDirective, YueUiTooltipTrigger } from '@JoaoPedro61/yue-ui/tooltip';
 
 import { YueUiPopoverComponent } from '../components/popover.component';
 
@@ -36,7 +36,7 @@ export class YueUiPopoverDirective extends BaseDirective {
   public directiveNameTitle?: string | TemplateRef<any> | null;
 
   @Input('yueUiPopoverTrigger')
-  public specificTrigger: YueUiPopoverTrigger = 'click';
+  public specificTrigger: YueUiTooltipTrigger = 'click';
 
   @Input('yueUiPopoverPlacement')
   public specificPlacement = 'bottom';
@@ -47,11 +47,14 @@ export class YueUiPopoverDirective extends BaseDirective {
   @Input('yueUiPopoverVisible')
   public specificVisible?: boolean;
 
+  @Input('yueUiPopoverStyles')
+  public specificOverlayStyle?: {[x: string]: any};
+
   // tslint:disable-next-line:no-output-rename
   @Output('yueUiPopoverVisibleChange')
   readonly specificVisibleChange = new EventEmitter<boolean>();
 
-  public componentFactory: ComponentFactory<YueUiPopoverComponent> = this.resolver.resolveComponentFactory(YueUiPopoverComponent);
+  public componentFactory: ComponentFactory<any> = this.resolver.resolveComponentFactory(YueUiPopoverComponent);
 
   constructor(
     elementRef: ElementRef,

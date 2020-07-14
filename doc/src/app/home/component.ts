@@ -27,7 +27,7 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
       </yue-ui-navigation-menu>
       <div>
         <div style="margin-top: 100px">
-          <span [yueUiTooltip]="title" yueUiTooltipTrigger="hover" [yueUiPopover]="titlePop" [yueUiPopoverContent]="contentPop">
+          <span [yueUiTooltip]="title" yueUiTooltipTrigger="hover" yueUiPopover yueUiPopoverPlacement="rightTop" [yueUiPopoverContent]="contentPop">
             <ng-template #title>
               Tooltip Title
             </ng-template>

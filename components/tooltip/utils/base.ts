@@ -393,7 +393,7 @@ export abstract class BaseComponent {
 
   _hasBackdrop = false;
 
-  _prefix = 'yue-ui-tooltip-placement';
+  protected _prefix = 'yue-ui-tooltip-placement';
 
   _positions: ConnectionPositionPair[] = [
     ...DEFAULT_TOOLTIP_POSITIONS
