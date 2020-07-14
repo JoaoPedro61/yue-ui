@@ -1,5 +1,5 @@
-import { YueButtonStruct } from './../../button/button.interfaces';
 import { TemplateRef, Type } from '@angular/core';
+import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from './../validators/validators';
 import { Observable } from 'rxjs';
@@ -7,14 +7,18 @@ import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input
 import { ParentTypes } from './enums';
 
 
+export { YueSelectMode, YueUiButtonSize, YueUiButtonType };
 
 
-export { YueSelectMode };
-
+export type BasicFn = (...parameters: any[]) => any;
 
 
 export type YueSwitchModes = 'normal' | 'indeterminate' | 'radio';
 
+
+export interface BasicButtonProperties {
+  [x: string]: any;
+}
 
 
 export interface PredefinedListenerWithScope {
@@ -83,6 +87,9 @@ export interface StaircaseFormularyStepStruct extends FormulariesCommons {
   name?: string;
   buttons?: GeneratedButtonMetadata;
   children: GeneratedFieldMetadata[];
+  fragments: Partial<{[s: string]: string}>;
+  metadataType: ParentTypes.StaircaseFormulary;
+  mode: ParentTypes.StaircaseFormulary;
 }
 
 
@@ -105,7 +112,7 @@ export type ModifiersFn<R = any> = (parent: string, target: Partial<R>) => Parti
 
 
 
-export interface CustomButtonStruct extends Partial<YueButtonStruct> {
+export interface CustomButtonStruct extends Partial<BasicButtonProperties> {
   label?: string;
   identifier: string;
   children?: GeneratedButtonMetadata[];

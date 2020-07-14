@@ -1,12 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ViewChild, ElementRef, HostListener, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, TemplateRef, AfterViewChecked, RendererFactory2, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { removeAccents } from './../../../../commons/remove-accents';
-import { YueInputSelectOptionComponent } from './input-select-option/input-select-option.component';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
 import { CdkPortal } from '@angular/cdk/portal';
+import { 
+  removeAccents,
+  equals,
+  elementDimentions,
+} from '@JoaoPedro61/yue-ui/core/utils';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
-import { equals } from './../../../../commons/equals';
-import { elementDimentions } from './../../../../commons/element-dimentions';
+
+import { YueInputSelectOptionComponent } from './input-select-option/input-select-option.component';
 import { InputSelectOption, InputSelectInternOption } from './interfaces';
 
 

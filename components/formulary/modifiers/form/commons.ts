@@ -1,26 +1,21 @@
-import { FormulariesCommons, ModifiersFn, GeneratedFieldMetadataFn, GeneratedFieldMetadata, StaircaseFormularyStruct, StaircaseFormularyStepStruct } from '../interfaces';
+import {
+  FormulariesCommons,
+  ModifiersFn,
+  GeneratedFieldMetadataFn,
+  GeneratedFieldMetadata,
+  StaircaseFormularyStepStruct
+} from '../interfaces';
 import { identifier as _identifier } from './../commons';
 import { expect_parent, expect_param, expect_type } from '../utils';
 import { ParentTypes } from '../enums';
 
 
 
-/**
- *
- *
- * @param {FormulariesCommons['identifier']} value
- * @returns {ModifiersFn}
- */
+
 function identifier(value: FormulariesCommons['identifier']): ModifiersFn {
   return _identifier(value);
 }
 
-/**
- *
- *
- * @param {(...(GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])[])} providers
- * @returns {ModifiersFn}
- */
 function fields(...providers: (GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])[]): ModifiersFn {
   return (parent: string, target: Partial<any>): Partial<any> => {
     expect_parent(parent, [ParentTypes.StaircaseStepFormulary, ParentTypes.LinearFormulary]);
@@ -46,17 +41,11 @@ function fields(...providers: (GeneratedFieldMetadataFn | GeneratedFieldMetadata
   }
 }
 
-/**
- *
- *
- * @param {StaircaseFormularyStepStruct['name']} value
- * @returns {ModifiersFn}
- */
 function name(value: StaircaseFormularyStepStruct['name']): ModifiersFn {
   return (parent: string, target: Partial<any>): Partial<any> => {
     expect_parent(parent, [ParentTypes.StaircaseStepFormulary]);
     expect_type(`value`, value, [`string`, `undefined`, `null`]);
-    if (!value || value.length) {
+    if (!value || !value.length) {
       delete target.name;
     } else {
       target.name = value;
@@ -65,12 +54,6 @@ function name(value: StaircaseFormularyStepStruct['name']): ModifiersFn {
   }
 }
 
-/**
- *
- *
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns
- */
 function step(...modifiers: (ModifiersFn | ModifiersFn[])[]): ModifiersFn {
   return (parent: string, target: Partial<any>): Partial<any> => {
     expect_parent(parent, [ParentTypes.StaircaseFormulary]);

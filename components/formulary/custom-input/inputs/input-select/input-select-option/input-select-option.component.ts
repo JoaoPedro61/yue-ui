@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostListener, ChangeDetectorRef, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
-import { hash } from './../../../../../commons/hash';
+import { hash } from '@JoaoPedro61/yue-ui/core/utils';
 import { InputSelectInternOption } from '../interfaces';
 
 

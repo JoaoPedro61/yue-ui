@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnDestroy, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterViewInit, Inject, ComponentFactory, ComponentRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { serializeStringJsonPath } from '@JoaoPedro61/yue-ui/core/utils';
+
 import getvalidators, { ValidatorObjectFormation } from './../../validators/validators';
 import { YueInputLabelComponent } from './../input-label/input-label.component';
 import { YueInputDescriptorComponent } from './../input-descriptor/input-descriptor.component';
 import { Observable } from 'rxjs';
 import { FORMULARY_COMPONENTS_TOKEN } from './../../formulary.tokens';
-import { serializeStringJsonPath } from './../../../commons/serialize-string-json-path';
 
 import Interfaces from './../../fix-ralacional';
 

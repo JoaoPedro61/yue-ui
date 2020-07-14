@@ -1,40 +1,24 @@
-import { serializeStringJsonPath } from '../../../commons/serialize-string-json-path';
-import { getHiddenProp, setHiddenProp } from '../../../commons/get-set-hidden-prop';
-import { defineScope } from '../../../commons/define-scope';
+import {
+  defineScope,
+  serializeStringJsonPath,
+  getHiddenProp,
+  setHiddenProp
+} from '@JoaoPedro61/yue-ui/core/utils';
 
-import { ModifiersFn, GeneratedFieldMetadataFn, FieldStruct, GeneratedFieldMetadata } from '../interfaces';
+import {
+  ModifiersFn,
+  GeneratedFieldMetadataFn,
+  FieldStruct,
+  GeneratedFieldMetadata,
+  BasicFn
+} from '../interfaces';
 import { fieldType } from './commons';
 import { ParentTypes } from '../enums';
 import { relative_exec } from '../utils';
 
 
 
-/**
- * Generate a new metadata for the all many fields.
- *
- * @usangeNotes
- *
- *
- * ```typescript
- *
- * const metadataProvider = generateField([
- *   identifier(`your_identifier`),
- *   label(`Some label`),
- *   placeholder(`Some placeholder`),
- *   ...
- * ]);
- *
- * // Yes, this generates a provider
- * const metadata = metadataProvider();
- *
- * // So, just consume the metadata
- * // Ex.: console.log(metadata.struct);
- *
- * ```
- *
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers An arrays os modifiers, or a linear arguments modifications
- * @returns {GeneratedFieldMetadataFn} Returns a provider of the metadata
- */
+
 function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   let _modifiers: ModifiersFn[] = [];
 
@@ -78,14 +62,14 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
       }
     }
 
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler: BasicFn) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes) {
+    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
@@ -97,14 +81,14 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
       metadataType: ParentTypes.Field
     };
 
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler) {
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler: BasicFn) {
       setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes) {
+    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this.struct, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
@@ -113,57 +97,22 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
   };
 }
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedFieldMetadataFn}
- */
 export function writable(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   return generateField([fieldType(`writable`)], ...modifiers);
 }
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedFieldMetadataFn}
- */
 export function enumerable(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   return generateField([fieldType(`enumerable`)], ...modifiers);
 }
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedFieldMetadataFn}
- */
 export function selectable(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   return generateField([fieldType(`selectable`)], ...modifiers);
 }
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedFieldMetadataFn}
- */
 export function checkable(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   return generateField([fieldType(`checkable`)], ...modifiers);
 }
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedFieldMetadataFn}
- */
 export function touchable(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedFieldMetadataFn {
   return generateField([fieldType(`touchable`)], ...modifiers);
 }

@@ -1,7 +1,8 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { deserializeStringJsonPath } from '@JoaoPedro61/yue-ui/core/utils';
+
 import { Observable, Subscription } from 'rxjs';
-import { deserializeStringJsonPath } from './../../commons/deserialize-string-json-path';
 
 import getMask, { TextMask } from '../masks/masks';
 

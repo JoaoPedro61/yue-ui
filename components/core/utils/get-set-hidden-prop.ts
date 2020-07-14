@@ -14,7 +14,10 @@ export function setHiddenProp(target: Partial<any>, propName: string, value: any
     ...(readonly ? {
       writable: false,
       configurable: false
-    } : {})
+    } : {
+      writable: true,
+      configurable: true
+    })
   });
   return target;
 }

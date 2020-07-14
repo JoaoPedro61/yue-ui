@@ -1,4 +1,4 @@
-import { hash } from './../../commons/hash';
+import { hash } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { expect_parent } from './utils';
 
@@ -7,13 +7,6 @@ import { ParentTypes } from './enums';
 
 
 
-/**
- *
- *
- * @export
- * @param {string} [value=hash()]
- * @returns {ModifiersFn}
- */
 export function identifier(value: string = hash()): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {

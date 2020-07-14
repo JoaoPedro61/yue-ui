@@ -1,3 +1,5 @@
+import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+
 import {
   ModifiersFn,
   GeneratedFieldMetadata,
@@ -8,7 +10,6 @@ import {
   YueSwitchModes
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
-import { setHiddenProp } from './../../../commons/get-set-hidden-prop';
 import { identifier as _identifier } from './../commons';
 import { SpecificValidatorObjectFormation } from '../../../formulary/validators/validators';
 import { ParentTypes } from './../enums';
@@ -16,22 +17,11 @@ import { ParentTypes } from './../enums';
 
 
 
-/**
- *
- *
- * @param {GeneratedFieldMetadata['identifier']} value
- * @returns
- */
 function identifier(value: GeneratedFieldMetadata['identifier']) {
   return _identifier(value);
 }
 
-/**
- *
- *
- * @param {GeneratedFieldMetadata['injectIn']} value
- * @returns {ModifiersFn}
- */
+
 function injectIn(value: GeneratedFieldMetadata['injectIn']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -42,12 +32,6 @@ function injectIn(value: GeneratedFieldMetadata['injectIn']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['enable']} [value=true]
- * @returns {ModifiersFn}
- */
 function enable(value: FieldStruct['enable'] = true): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -57,12 +41,6 @@ function enable(value: FieldStruct['enable'] = true): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['default']} value
- * @returns {ModifiersFn}
- */
 function defaultValue(value: FieldStruct['default']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -71,12 +49,6 @@ function defaultValue(value: FieldStruct['default']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {((GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])[])} [value]
- * @returns {ModifiersFn}
- */
 function wrapper(value?: (GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])[]): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -107,12 +79,6 @@ function wrapper(value?: (GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['type']} value
- * @returns {ModifiersFn}
- */
 function type(value: FieldStruct['type']): ModifiersFn {
 
   return (parent: string, target: Partial<any>) => {
@@ -125,12 +91,6 @@ function type(value: FieldStruct['type']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['width']} value
- * @returns {ModifiersFn}
- */
 function width(value: FieldStruct['width']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -141,12 +101,6 @@ function width(value: FieldStruct['width']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['label']} [value]
- * @returns {ModifiersFn}
- */
 function label(value?: FieldStruct['label']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -160,12 +114,6 @@ function label(value?: FieldStruct['label']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['description']} value
- * @returns {ModifiersFn}
- */
 function description(value: FieldStruct['description']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -179,12 +127,6 @@ function description(value: FieldStruct['description']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['template']} value
- * @returns {ModifiersFn}
- */
 function template(value: FieldStruct['template']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -198,12 +140,6 @@ function template(value: FieldStruct['template']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['validators']} [value]
- * @returns {ModifiersFn}
- */
 function validators(value?: FieldStruct['validators']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -217,12 +153,6 @@ function validators(value?: FieldStruct['validators']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {SpecificValidatorObjectFormation} value
- * @returns {ModifiersFn}
- */
 function validator(value: SpecificValidatorObjectFormation): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -236,12 +166,6 @@ function validator(value: SpecificValidatorObjectFormation): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['placeholder']} [value]
- * @returns {ModifiersFn}
- */
 function placeholder(value?: FieldStruct['placeholder']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -256,12 +180,6 @@ function placeholder(value?: FieldStruct['placeholder']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['listeners']} [value]
- * @returns {ModifiersFn}
- */
 function listeners(value?: FieldStruct['listeners']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -275,13 +193,6 @@ function listeners(value?: FieldStruct['listeners']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {keyof FieldStruct['listeners']} value
- * @param {Listener} [listener]
- * @returns {ModifiersFn}
- */
 function listener(value: keyof FieldStruct['listeners'], listener_fn?: Listener): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -304,12 +215,6 @@ function listener(value: keyof FieldStruct['listeners'], listener_fn?: Listener)
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['options']} value
- * @returns {ModifiersFn}
- */
 function options(value: FieldStruct['options']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -320,12 +225,6 @@ function options(value: FieldStruct['options']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['properties']} value
- * @returns {ModifiersFn}
- */
 function properties(value: FieldStruct['properties']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -336,13 +235,6 @@ function properties(value: FieldStruct['properties']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {keyof FieldStruct['properties']} property
- * @param {FieldStruct['properties'][keyof FieldStruct['properties']]} value
- * @returns {ModifiersFn}
- */
 function property(prop: keyof FieldStruct['properties'], value: FieldStruct['properties'][keyof FieldStruct['properties']]): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -358,12 +250,6 @@ function property(prop: keyof FieldStruct['properties'], value: FieldStruct['pro
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['mask']} [value]
- * @returns {ModifiersFn}
- */
 function mask(value?: FieldStruct['mask']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -377,12 +263,6 @@ function mask(value?: FieldStruct['mask']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {FieldStruct['vstype']} [value]
- * @returns {ModifiersFn}
- */
 function vstype(value?: FieldStruct['vstype']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -396,12 +276,6 @@ function vstype(value?: FieldStruct['vstype']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {YueSelectMode} value
- * @returns {ModifiersFn}
- */
 function selectMode(value: YueSelectMode): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -412,12 +286,6 @@ function selectMode(value: YueSelectMode): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {YueSwitchModes} value
- * @returns {ModifiersFn}
- */
 function switchMode(value: YueSwitchModes): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);

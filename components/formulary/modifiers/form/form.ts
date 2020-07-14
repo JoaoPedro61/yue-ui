@@ -1,6 +1,10 @@
-import { serializeStringJsonPath } from './../../../commons/serialize-string-json-path';
-import { getHiddenProp, setHiddenProp } from '../../../commons/get-set-hidden-prop';
-import { defineScope } from '../../../commons/define-scope';
+import {
+  defineScope,
+  getHiddenProp,
+  setHiddenProp,
+  serializeStringJsonPath
+} from '@JoaoPedro61/yue-ui/core/utils';
+
 import { relative_exec } from '../utils';
 import { ParentTypes } from '../enums';
 import {
@@ -10,18 +14,12 @@ import {
   StaircaseFormularyStruct,
   GeneratedLinearFormularyMetadataFn,
   GeneratedLinearFormularyMetadata,
-  LinearFormularyStruct
+  LinearFormularyStruct,
+  BasicFn
 } from './../interfaces';
 
 
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedStaircaseFormularyMetadataFn}
- */
 export function staircaseFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedStaircaseFormularyMetadataFn {
   let _modifiers: ModifiersFn[] = [];
 
@@ -65,19 +63,39 @@ export function staircaseFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]
       }
     }
 
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler: BasicFn) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes) {
+    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
 
     source.mode = ParentTypes.StaircaseFormulary;
+    if (source && source.children) {
+      for (let i = 0, l = source.children.length; i < l; i++) {
+        (source.children[i] as any).metadataType = ParentTypes.StaircaseFormulary;
+        (source.children[i] as any).mode = ParentTypes.StaircaseFormulary;
+        if (source.children[i].children) {
+          for (let j = 0, o = source.children[i].children.length; j < o; j++) {
+            if (source.children[i].children[j].identifier) {
+              if (fragments.hasOwnProperty(source.children[i].children[j].identifier)) {
+                let fragment: string = fragments[source.children[i].children[j].identifier];
+                fragment = fragment.replace(`struct.children[${i}].`, '');
+                if (!source.children[i].hasOwnProperty('fragments')) {
+                  (source.children[i] as any).fragments = {};
+                }
+                (source.children[i] as any).fragments[source.children[i].children[j].identifier] = fragment;
+              }
+            }
+          }
+        }
+      }
+    }
 
     const finalStruct = {
       struct: source as StaircaseFormularyStruct,
@@ -86,14 +104,14 @@ export function staircaseFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]
       metadataType: ParentTypes.StaircaseFormulary
     };
 
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler) {
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler: BasicFn) {
       setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes) {
+    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this.struct, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
@@ -103,13 +121,6 @@ export function staircaseFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]
 }
 
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedLinearFormularyMetadataFn}
- */
 export function linearFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedLinearFormularyMetadataFn {
   let _modifiers: ModifiersFn[] = [];
 
@@ -156,14 +167,14 @@ export function linearFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]): 
       }
     }
 
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler: BasicFn) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes) {
+    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
@@ -177,14 +188,14 @@ export function linearFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]): 
       metadataType: ParentTypes.LinearFormulary
     };
 
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler) {
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler: BasicFn) {
       setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
         handler
       ]);
     }));
 
-    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes) {
+    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes: any) {
       const _HANDLERS = getHiddenProp(this.struct, `___EVENT_HANDLERS___`);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));

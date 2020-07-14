@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 
 
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 
@@ -14,6 +15,8 @@ import {
   YueUiNavigationMenuSiderComponent,
 } from './components';
 
+
+const logger = logging.getLogger('core.layout');
 
 @NgModule({
   imports: [
@@ -40,7 +43,7 @@ import {
 export class YueUiLayoutModule {
 
   constructor() {
-    console.log(`YueUiLayoutModule on version: ${VERSION.full}`);
+    logger.info(`YueUiLayoutModule on version: ${VERSION.full}`);
   }
 
 }

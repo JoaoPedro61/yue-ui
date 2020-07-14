@@ -1,9 +1,8 @@
-import {
-  YueButtonType,
-  YueButtonSize
-} from '../../../button/button.interfaces';
+import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import {
+  YueUiButtonType,
+  YueUiButtonSize,
   ModifiersFn,
   GeneratedButtonMetadata,
   GeneratedButtonMetadataFn
@@ -13,28 +12,16 @@ import {
   identifier as _identifier
 } from '../commons';
 
-import { setHiddenProp } from '../../../commons/get-set-hidden-prop';
 import { expect_parent } from '../utils';
 import { ParentTypes } from './../enums';
 
 
 
-/**
- *
- *
- * @param {GeneratedButtonMetadata['identifier']} value
- * @returns
- */
+
 function identifier(value: GeneratedButtonMetadata['identifier']) {
   return _identifier(value);
 }
 
-/**
- *
- *
- * @param {GeneratedButtonMetadata['injectIn']} value
- * @returns {ModifiersFn}
- */
 function injectIn(value: GeneratedButtonMetadata['injectIn']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -45,12 +32,6 @@ function injectIn(value: GeneratedButtonMetadata['injectIn']): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {(...(GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[])} children
- * @returns {ModifiersFn}
- */
 function dropdown(...children: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (!Array.isArray(children)) {
@@ -88,12 +69,6 @@ function dropdown(...children: (GeneratedButtonMetadataFn | GeneratedButtonMetad
   };
 }
 
-/**
- *
- *
- * @param {string} value
- * @returns {ModifiersFn}
- */
 function label(value: string): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
@@ -109,12 +84,6 @@ function label(value: string): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {boolean} value
- * @returns {ModifiersFn}
- */
 function ghost(value: boolean): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -125,12 +94,6 @@ function ghost(value: boolean): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {boolean} value
- * @returns {ModifiersFn}
- */
 function block(value: boolean): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -141,12 +104,6 @@ function block(value: boolean): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {boolean} value
- * @returns {ModifiersFn}
- */
 function dashed(value: boolean): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -157,12 +114,6 @@ function dashed(value: boolean): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {boolean} value
- * @returns {ModifiersFn}
- */
 function disabled(value: boolean): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -173,12 +124,6 @@ function disabled(value: boolean): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {boolean} value
- * @returns {ModifiersFn}
- */
 function rounded(value: boolean): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
@@ -189,13 +134,7 @@ function rounded(value: boolean): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {YueButtonType} value
- * @returns {ModifiersFn}
- */
-function type(value: YueButtonType): ModifiersFn {
+function type(value: YueUiButtonType): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
       throw new Error(`Type passed to the "type" modifier does not match the expected.`);
@@ -208,13 +147,7 @@ function type(value: YueButtonType): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {YueButtonSize} value
- * @returns {ModifiersFn}
- */
-function size(value: YueButtonSize): ModifiersFn {
+function size(value: YueUiButtonSize): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
       throw new Error(`Type passed to the "size" modifier does not match the expected.`);
@@ -227,12 +160,6 @@ function size(value: YueButtonSize): ModifiersFn {
   };
 }
 
-/**
- *
- *
- * @param {(...parameters: any[]) => void} value
- * @returns {ModifiersFn}
- */
 function onStateChange(value: (...parameters: any[]) => void): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`function` !== typeof value) {

@@ -25,21 +25,9 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
          BOT
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
-      <div>
-        <div style="margin-top: 100px">
-          <span [yueUiTooltip]="title" yueUiTooltipTrigger="hover" yueUiPopover yueUiPopoverPlacement="rightTop" [yueUiPopoverContent]="contentPop">
-            <ng-template #title>
-              Tooltip Title
-            </ng-template>
-            <ng-template #titlePop>
-              Popover Title
-            </ng-template>
-            <ng-template #contentPop>
-              Popover Content
-            </ng-template>
-            Tooltip
-          </span>
-        </div>
+      <div style="display: flex;">
+        <yue-ui-formulary></yue-ui-formulary>
+        <yue-ui-formulary [s]="false"></yue-ui-formulary>
       </div>
     </yue-ui-layout>
   `,

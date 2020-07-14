@@ -1,18 +1,17 @@
 import { ModifiersFn, GeneratedButtonMetadataFn, CustomButtonStruct, GeneratedButtonMetadata } from '../interfaces';
-import { serializeStringJsonPath } from '../../../commons/serialize-string-json-path';
-import { setHiddenProp, getHiddenProp } from '../../../commons/get-set-hidden-prop';
-import { defineScope } from '../../../commons/define-scope';
+import {
+  defineScope,
+  serializeStringJsonPath,
+  setHiddenProp,
+  getHiddenProp
+} from '@JoaoPedro61/yue-ui/core/utils';
+
 import { relative_exec } from '../utils';
 import { ParentTypes } from '../enums';
 
 
 
-/**
- *
- *
- * @param {Partial<CustomButtonStruct>} target
- * @returns {Partial<CustomButtonStruct>}
- */
+
 const mergeDefaults = (target: Partial<CustomButtonStruct>): Partial<CustomButtonStruct> => {
   const defaults: Partial<CustomButtonStruct> = {
     ghost: false,
@@ -33,13 +32,7 @@ const mergeDefaults = (target: Partial<CustomButtonStruct>): Partial<CustomButto
   return target;
 };
 
-/**
- *
- *
- * @export
- * @param {(...(ModifiersFn | ModifiersFn[])[])} modifiers
- * @returns {GeneratedButtonMetadataFn}
- */
+
 export function generateButton(...modifiers: (ModifiersFn | ModifiersFn[])[]): GeneratedButtonMetadataFn {
   let _modifiers: ModifiersFn[] = [];
 
