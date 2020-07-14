@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
 
 import { YueUiIconService } from './services/icon.service';
 import { YueUiIconDirective } from './directives/icon.directive';
 import { YUE_UI_ICONS } from './utils/token';
 
+const logger = logging.getLogger('core.icon');
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { YUE_UI_ICONS } from './utils/token';
 export class YueUiIconModule {
 
   constructor() {
-    console.log(`YueUiIconModule on version: ${VERSION.full}`);
+    logger.info(`YueUiIconModule on version: ${VERSION.full}`);
   }
 
 }

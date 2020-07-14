@@ -1,0 +1,53 @@
+.yue-ui-tooltip {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  z-index: 1060;
+  display: block;
+  max-width: 250px;
+
+
+  &.yue-ui-tooltip-placement-bottom,
+  &.yue-ui-tooltip-placement-bottomCenter,
+  &.yue-ui-tooltip-placement-bottomLeft,
+  &.yue-ui-tooltip-placement-bottomRight {
+    padding-top: 8px;
+  }
+
+  &.yue-ui-tooltip-placement-top,
+  &.yue-ui-tooltip-placement-topCenter,
+  &.yue-ui-tooltip-placement-topLeft,
+  &.yue-ui-tooltip-placement-topRight {
+    padding-bottom: 8px;
+  }
+
+  &.yue-ui-tooltip-placement-right,
+  &.yue-ui-tooltip-placement-rightTop,
+  &.yue-ui-tooltip-placement-rightBottom {
+    padding-left: 8px;
+  }
+
+  &.yue-ui-tooltip-placement-left,
+  &.yue-ui-tooltip-placement-leftTop,
+  &.yue-ui-tooltip-placement-leftBottom {
+    padding-right: 8px;
+  }
+
+  .yue-ui-tooltip-content {
+
+    .yue-ui-tooltip-inner {
+      min-width: 30px;
+      min-height: 32px;
+      padding: 6px 8px;
+      text-align: left;
+      text-decoration: none;
+      word-wrap: break-word;
+      border-radius: 2px;
+      color: var(--components-tooltip-color);
+      background: var(--components-tooltip-background);
+      box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    }
+  }
+
+}

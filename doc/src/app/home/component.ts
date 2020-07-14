@@ -26,18 +26,18 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
       <div>
+        <div style="margin-top: 100px">
+          <span [yueUiTooltip]="title" yueUiTooltipTrigger="hover">
+            <ng-template #title>
+              Tooltip Title
+            </ng-template>
+            Tooltip
+          </span>
+        </div>
       </div>
     </yue-ui-layout>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Component {
-  
-  disa= false;
-
-  load= false;
-
-  open = false;
-
-}
+export class Component { }

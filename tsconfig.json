@@ -33,10 +33,10 @@
     "removeComments": true,
     "paths": {
       "@JoaoPedro61/yue-ui": [
-        "./lib"
+        "./components"
       ],
       "@JoaoPedro61/yue-ui/*": [
-        "./lib/*"
+        "./components/*"
       ]
     }
   },

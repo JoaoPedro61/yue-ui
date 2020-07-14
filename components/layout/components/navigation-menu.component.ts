@@ -81,6 +81,8 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   private _hovering = false;
 
+  private _disableMobileDetector = true;
+
   @ContentChildren(YueUiNavigationMenuSiderComponent)
   public listOfNavMenuSiderComponent!: QueryList<YueUiNavigationMenuSiderComponent>;
 
@@ -109,7 +111,10 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
       .observe(BREAKPOINTS)
       .pipe(takeUntil(this._untilDestroy))
       .subscribe({
-        next: (result) => {
+        next: (result): void => {
+          if (this._disableMobileDetector) {
+            return void 0;
+          }
           this._showLikeMobile = result.matches;
           this._changeDetectorRef.markForCheck();
         }

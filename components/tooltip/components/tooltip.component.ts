@@ -7,7 +7,6 @@ import { BaseComponent } from './../utils/base';
 
 
 @Component({
-  selector: `yue-ui-tooltip`,
   template: `
     <ng-template
       #overlay="cdkConnectedOverlayRef"
@@ -29,7 +28,7 @@ import { BaseComponent } from './../utils/base';
         <div class="yue-ui-tooltip-content">
           <div class="yue-ui-tooltip-arrow"></div>
           <div class="yue-ui-tooltip-inner">
-            Hello
+            <ng-container *yueUiStringTemplateRefRender="title">{{ title }}</ng-container>
           </div>
         </div>
       </div>
@@ -37,9 +36,7 @@ import { BaseComponent } from './../utils/base';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  host: {
-    '[class.yue-ui-tooltip--]': 'true'
-  },
+  host: { '[class.yue-ui-tooltip--]': 'true' },
   exportAs: 'yueUiTooltipComponentRef'
 })
 export class YueUiTooltipComponent extends BaseComponent {

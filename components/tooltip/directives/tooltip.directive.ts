@@ -57,7 +57,6 @@ export class YueUiTooltipDirective extends BaseDirective {
     renderer: Renderer2,
   ) {
     super(elementRef, hostView, resolver, renderer);
-    console.log(this);
   }
 
 }

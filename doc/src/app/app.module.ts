@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { YueUiLayoutModule } from '@JoaoPedro61/yue-ui/layout';
 import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
+import { YueUiTooltipModule } from '@JoaoPedro61/yue-ui/tooltip';
 
 import { Component as Home } from './home/component';
 
@@ -28,7 +29,8 @@ import { Component as Home } from './home/component';
 
     YueUiLayoutModule,
     YueUiThematizationModule,
-    YueUiButtonModule
+    YueUiButtonModule,
+    YueUiTooltipModule
   ],
   providers: [],
   bootstrap: [

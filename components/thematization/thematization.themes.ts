@@ -197,6 +197,10 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           }
         }
       },
+      tooltip: {
+        background: `rgba(0, 0, 0, .75)`,
+        color: `#FFF`
+      }
     }
   }
 };

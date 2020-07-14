@@ -76,7 +76,7 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
   }
 
   protected get placement(): string {
-    return this.specificPlacement || 'rightBottom';
+    return this.specificPlacement || 'top';
   }
 
   protected get trigger(): YueUiTooltipTrigger {
