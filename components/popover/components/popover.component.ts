@@ -1,0 +1,62 @@
+import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
+
+import { deepTypechecker } from '@JoaoPedro61/yue-ui/core/utils';
+import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
+
+
+
+@Component({
+  template: `
+    <ng-template
+      #overlay="cdkConnectedOverlayRef"
+      cdkConnectedOverlay
+      yueUiConnectedOverlay
+      [cdkConnectedOverlayOrigin]="origin"
+      [cdkConnectedOverlayOpen]="_visible"
+      [cdkConnectedOverlayHasBackdrop]="_hasBackdrop"
+      [cdkConnectedOverlayPositions]="_positions"
+      (backdropClick)="hide()"
+      (detach)="hide()"
+      (positionChange)="onPositionChange($event)"
+    >
+      <div
+        class="yue-ui-popover"
+        [ngClass]="_classMap"
+        [ngStyle]="overlayStyle"
+      >
+        <div class="yue-ui-popover-content">
+          <div class="yue-ui-popover-arrow"></div>
+          <div class="yue-ui-popover-inner">
+            <ng-container *yueUiStringTemplateRefRender="title">{{ title }}</ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  preserveWhitespaces: false,
+  host: { '[class.yue-ui-popover--]': 'true' },
+  exportAs: 'yueUiPopoverComponentRef'
+})
+export class YueUiPopoverComponent extends BaseComponent {
+
+  @Input()
+  public title: string | TemplateRef<any> | null = null;
+
+  @Input()
+  public content: string | TemplateRef<any> | null = null;
+
+  constructor(cdr: ChangeDetectorRef) {
+    super(cdr);
+  }
+
+  protected isEmpty(): boolean {
+    // @ts-ignore
+    return this.title instanceof TemplateRef
+      ? false
+      : this.title === ''
+        ? true
+        : deepTypechecker(this.title) === 'null' || deepTypechecker(this.title) === 'undefined';
+  }
+
+}

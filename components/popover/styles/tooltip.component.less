@@ -1,0 +1,53 @@
+.yue-ui-popover {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  z-index: 1060;
+  display: block;
+  max-width: 250px;
+
+
+  &.yue-ui-popover-placement-bottom,
+  &.yue-ui-popover-placement-bottomCenter,
+  &.yue-ui-popover-placement-bottomLeft,
+  &.yue-ui-popover-placement-bottomRight {
+    padding-top: 8px;
+  }
+
+  &.yue-ui-popover-placement-top,
+  &.yue-ui-popover-placement-topCenter,
+  &.yue-ui-popover-placement-topLeft,
+  &.yue-ui-popover-placement-topRight {
+    padding-bottom: 8px;
+  }
+
+  &.yue-ui-popover-placement-right,
+  &.yue-ui-popover-placement-rightTop,
+  &.yue-ui-popover-placement-rightBottom {
+    padding-left: 8px;
+  }
+
+  &.yue-ui-popover-placement-left,
+  &.yue-ui-popover-placement-leftTop,
+  &.yue-ui-popover-placement-leftBottom {
+    padding-right: 8px;
+  }
+
+  .yue-ui-popover-content {
+
+    .yue-ui-popover-inner {
+      min-width: 30px;
+      min-height: 32px;
+      padding: 6px 8px;
+      text-align: left;
+      text-decoration: none;
+      word-wrap: break-word;
+      border-radius: 2px;
+      color: var(--components-popover-color);
+      background: var(--components-popover-background);
+      box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+    }
+  }
+
+}

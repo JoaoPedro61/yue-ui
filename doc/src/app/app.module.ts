@@ -9,6 +9,7 @@ import { YueUiLayoutModule } from '@JoaoPedro61/yue-ui/layout';
 import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 import { YueUiTooltipModule } from '@JoaoPedro61/yue-ui/tooltip';
+import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
 
 import { Component as Home } from './home/component';
 
@@ -30,7 +31,8 @@ import { Component as Home } from './home/component';
     YueUiLayoutModule,
     YueUiThematizationModule,
     YueUiButtonModule,
-    YueUiTooltipModule
+    YueUiTooltipModule,
+    YueUiPopoverModule,
   ],
   providers: [],
   bootstrap: [
