@@ -8,25 +8,9 @@ import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
-
-
-
-import { CustomInputModule } from './custom-input/custom-input.module';
+import { WrapperComponent } from './extends/wrapper.component';
 
 import { FormularyComponent } from './formulary.component';
-
-import { FORMULARY_SERVICE_TOKEN, FORMULARY_SERVICE_SUBJECT, FORMULARY_COMPONENTS_TOKEN } from './formulary.tokens';
-
-import { InputWritableComponent } from './abstracts-inputs/input-writable/input-writable.component';
-import { InputEnumerableComponent } from './abstracts-inputs/input-enumerable/input-enumerable.component';
-import { InputSelectableComponent } from './abstracts-inputs/input-selectable/input-selectable.component';
-import { InputCheckableComponent } from './abstracts-inputs/input-checkable/input-checkable.component';
-import { InputTouchableComponent } from './abstracts-inputs/input-touchable/input-touchable.component';
-
-import { YueInputWrapperComponent } from './extends/input-wrapper/input-wrapper.component';
-import { YueInputLabelComponent } from './extends/input-label/input-label.component';
-import { YueInputDescriptorComponent } from './extends/input-descriptor/input-descriptor.component';
-import { YueInputEncapsulationComponent } from './extends/input-encapsulation/input-encapsulation.component';
 
 
 
@@ -36,30 +20,12 @@ const logger = logging.getLogger('core.formulary');
   declarations: [
     FormularyComponent,
 
-    YueInputWrapperComponent,
-    YueInputLabelComponent,
-    YueInputDescriptorComponent,
-    YueInputEncapsulationComponent,
-
-    InputCheckableComponent,
-    InputEnumerableComponent,
-    InputSelectableComponent,
-    InputTouchableComponent,
-    InputWritableComponent
+    WrapperComponent,
   ],
   entryComponents: [
     FormularyComponent,
 
-    YueInputWrapperComponent,
-    YueInputLabelComponent,
-    YueInputDescriptorComponent,
-    YueInputEncapsulationComponent,
-
-    InputCheckableComponent,
-    InputEnumerableComponent,
-    InputSelectableComponent,
-    InputTouchableComponent,
-    InputWritableComponent
+    WrapperComponent,
   ],
   imports: [
     CommonModule,
@@ -67,26 +33,9 @@ const logger = logging.getLogger('core.formulary');
     FormsModule,
     ReactiveFormsModule,
 
-    CustomInputModule,
-
     YueUiButtonModule
   ],
-  providers: [
-    {
-      provide: FORMULARY_SERVICE_TOKEN,
-      useValue: FORMULARY_SERVICE_SUBJECT
-    },
-    {
-      provide: FORMULARY_COMPONENTS_TOKEN,
-      useValue: {
-        writable: InputWritableComponent,
-        enumerable: InputEnumerableComponent,
-        selectable: InputSelectableComponent,
-        checkable: InputCheckableComponent,
-        touchable: InputTouchableComponent,
-      }
-    }
-  ],
+  providers: [ ],
   exports: [
     FormularyComponent
   ]

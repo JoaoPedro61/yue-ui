@@ -31,7 +31,7 @@ export const expect_allowed_field_type = (type: string) => {
   }
 };
 
-export const expect_parent = (parent: string, allowed: string[])  => {
+export const expect_parent = (parent: string, allowed: string[]): void => {
   if (parent === `internal`) return void 0;
   if (allowed.indexOf(parent) === -1) {
     throw new Error(`The parent "${parent}" is not in the list of allowed parents.`);

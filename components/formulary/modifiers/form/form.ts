@@ -27,7 +27,9 @@ export function staircaseFormulary(...modifiers: (ModifiersFn | ModifiersFn[])[]
     _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
   }
 
-  let source: Partial<StaircaseFormularyStruct> = {};
+  let source: Partial<StaircaseFormularyStruct> = {
+    children: [],
+  };
 
   for (const _modifier of _modifiers) {
     if (`function` === typeof _modifier) {

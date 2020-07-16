@@ -65,6 +65,7 @@ const VALIDATORS: ValidatorObjectFormation = {
       if (!(/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/gm.test(control.value))) {
         return invalid();
       }
+      return null;
     }
   },
   integernumber: {
@@ -88,6 +89,7 @@ const VALIDATORS: ValidatorObjectFormation = {
       if (!(/^\d+$/gm.test(control.value))) {
         return invalid();
       }
+      return null;
     }
   },
   maxlength: {
@@ -121,6 +123,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   ipaddressmanagement: {
@@ -134,6 +137,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   macaddress: {
@@ -147,6 +151,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   brzipcode: {
@@ -160,6 +165,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   cpf: {
@@ -173,6 +179,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   cnpj: {
@@ -186,6 +193,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   sixdigitsauth: {
@@ -199,6 +207,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   brphone: {
@@ -226,6 +235,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
   cpforcnpj: {
@@ -239,6 +249,7 @@ const VALIDATORS: ValidatorObjectFormation = {
           };
         }
       }
+      return null;
     }
   },
 };

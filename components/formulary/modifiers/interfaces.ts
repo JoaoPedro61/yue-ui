@@ -3,8 +3,12 @@ import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from './../validators/validators';
 import { Observable } from 'rxjs';
-import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input-select/interfaces';
+// import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input-select/interfaces';
+type YueSelectProperties = any;
+type YueSelectMode = any;
 import { ParentTypes } from './enums';
+
+
 
 
 export { YueSelectMode, YueUiButtonSize, YueUiButtonType };

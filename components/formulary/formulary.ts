@@ -13,7 +13,7 @@ import {
 
 
 
-export class Formulary<M = any> {
+export class Formulary<_M = any> {
 
   private readonly _ref = setHiddenProps({}, [
     {
@@ -197,6 +197,13 @@ export class Formulary<M = any> {
     const _current_scheme$ = this.____.get(_current_scheme_ref$) as BehaviorSubject<any>;
 
     return _current_scheme$.asObservable();
+  }
+
+  public get unknownChanges$(): Observable<any> {
+    const _unknown_changes_ref$ = getHiddenProp(this._ref, `_unknown_changes$`);
+    const _unknown_changes$ = this.____.get(_unknown_changes_ref$) as BehaviorSubject<any>;
+
+    return _unknown_changes$.asObservable();
   }
 
   private mountCurrentScheme(): void {

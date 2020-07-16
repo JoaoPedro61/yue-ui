@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy, OnChanges, ChangeDetectorRef, ViewChild, ViewContainerRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy, OnChanges, ChangeDetectorRef, ViewChild, ViewContainerRef, Input, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+
+import { WrapperComponent } from './extends/wrapper.component';
 
 import { Formulary } from './formulary';
 
@@ -16,6 +18,8 @@ import {
   formularyStepName,
   GeneratedLinearFormularyMetadata,
   StaircaseFormularyStepStruct,
+  GeneratedFieldMetadata,
+  ParentTypes,
 } from './modifiers';
 
 
@@ -118,7 +122,13 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   
   private _old: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata = null as any;
 
+  private _oldFields: GeneratedFieldMetadata[] = [];
+  
   private _current: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata = null as any;
+  
+  private _currentFields: GeneratedFieldMetadata[] = [];
+
+  private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
 
   public get old(): any { return this._old; }
 
@@ -127,22 +137,65 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   @Input()
   public s = true;
 
-  constructor(private readonly cdr: ChangeDetectorRef) { }
+  constructor(private readonly _cdr: ChangeDetectorRef, private readonly _cfr: ComponentFactoryResolver) { }
 
   private _clearView(): void {
     this._vcr.clear();
+    this._fieldComponentRefs = {};
+  }
+
+  private _findFields(): void {
+    this._oldFields = this._currentFields;
+    if (this._current) {
+      if (this._current.metadataType === ParentTypes.LinearFormulary) {
+        this._currentFields = this._current.struct.children;
+      } else if (this._current.metadataType === ParentTypes.StaircaseFormulary) {
+        this._currentFields = this._current.children;
+      } else {
+        throw new Error(`Invalid formulary type!`);
+      }
+    } else {
+      this._currentFields = [];
+    }
   }
 
   private _createFields(): void {
     this._clearView();
-
-    console.log('Create this scheme: ', this._current);
+    for (let i = 0, l = this._currentFields.length; i < l; i++) {
+      if (this._currentFields[i].identifier) {
+        const factory = this._cfr.resolveComponentFactory(WrapperComponent);
+        const ref = this._vcr.createComponent(factory);
+        ref.instance.formulary = this.form;
+        ref.instance.struct = this._currentFields[i];
+        this._fieldComponentRefs[this._currentFields[i].identifier] = ref;
+      }
+    }
   }
 
   private _should(): void {
-    this._createFields();
+    const shouldCreate = ( !this._old
+      && !!this._current )
+      || (
+          ( !this._oldFields ||
+            !this._oldFields.length )
+          && ( this._oldFields
+            && this._oldFields.length ) )
+      || (
+        !!this._old && !!this._current
+          ? this._old.identifier !== this._current.identifier
+          : false
+        );
+
+    console.log(this._current);
+
+    if (shouldCreate) {
+      this._findFields();
+      this._createFields();
+    } else {
+      /* TODO: Recreate views */
+    }
     this._old = Object.assign({}, this._current);
-    setTimeout(() => this.cdr.markForCheck());
+    setTimeout(() => this._cdr.markForCheck());
   }
 
   public ngOnInit(): void {
