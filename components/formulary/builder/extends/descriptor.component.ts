@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 @Component({
   template: `
     <div class="field-descriptor-wrapper">
-      <ng-container *ngIf="sdescription">
+      <ng-container *ngIf="description">
         <div class="field-description-inner">
           <div class="field-template">
             <ng-container *yueUiStringTemplateRefRender="description">

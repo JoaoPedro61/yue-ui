@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef, Type } from '@angular/core';
-import { Formulary, Modifiers } from './../fix-ralacional';
+import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef } from '@angular/core';
 
 
 
