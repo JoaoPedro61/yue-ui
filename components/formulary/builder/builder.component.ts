@@ -1,8 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, OnDestroy, OnChanges, ChangeDetectorRef, ViewChild, ViewContainerRef, Input, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit,
+  OnDestroy,
+  OnChanges,
+  ChangeDetectorRef,
+  ViewChild,
+  ViewContainerRef,
+  Input,
+  ComponentFactoryResolver,
+  ComponentRef
+} from '@angular/core';
+
+import { differenceBy } from 'lodash';
 
 import { WrapperComponent } from './extends/wrapper.component';
 
-import { Formulary } from './formulary';
+import { Formulary } from './formulary-builder';
 
 import {
   writable,
@@ -20,6 +35,9 @@ import {
   StaircaseFormularyStepStruct,
   GeneratedFieldMetadata,
   ParentTypes,
+  fieldTemplate,
+  fieldWrapper,
+  fieldDescription,
 } from './modifiers';
 
 
@@ -29,16 +47,19 @@ const linear = linearFormulary([
   formularyFields([
     writable([
       fieldIdentifier(`my_name`),
-      fieldLabel(`Your Name`),
+      fieldLabel(`Your Name (my_name)`),
       fieldPlaceholder(`Type your name`),
-      fieldValidators([`required`])
+      fieldValidators([`required`]),
+      fieldDescription(`Simple field description`),
+      fieldTemplate(`Simple template`),
+      fieldWrapper([
+        writable([
+          fieldIdentifier(`sub`),
+          fieldLabel(`Hello`),
+          fieldTemplate(`Simple template`)
+        ])
+      ])
     ]),
-    writable([
-      fieldIdentifier(`your_name`),
-      fieldLabel(`Your Name`),
-      fieldPlaceholder(`Type your name`),
-      fieldValidators([`required`, `min:3`])
-    ])
   ])
 ]);
 
@@ -54,32 +75,8 @@ const staircase = staircaseFormulary([
         fieldPlaceholder(`Type your name`),
         fieldValidators([`required`])
       ]),
-      writable([
-        fieldIdentifier(`your_name`),
-        fieldLabel(`Your Name`),
-        fieldPlaceholder(`Type your name`),
-        fieldValidators([`required`])
-      ])
     ])
   ]),
-  formularyStep([
-    formularyIdentifier(`steps_2`),
-    formularyStepName('This is my simple step'),
-    formularyFields([
-      writable([
-        fieldIdentifier(`my_name2`),
-        fieldLabel(`Your Name`),
-        fieldPlaceholder(`Type your name`),
-        fieldValidators([`required`])
-      ]),
-      writable([
-        fieldIdentifier(`your_name2`),
-        fieldLabel(`Your Name`),
-        fieldPlaceholder(`Type your name`),
-        fieldValidators([`required`])
-      ])
-    ])
-  ])
 ]);
 
 
@@ -99,7 +96,6 @@ const staircase = staircaseFormulary([
   selector: 'yue-ui-formulary',
   template: `
     <ng-container #fields></ng-container>
-    <pre>{{old | json}}</pre>
   `,
   styles: [
     `
@@ -145,12 +141,12 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   private _findFields(): void {
-    this._oldFields = this._currentFields;
+    this._oldFields = this._currentFields.concat();
     if (this._current) {
       if (this._current.metadataType === ParentTypes.LinearFormulary) {
-        this._currentFields = this._current.struct.children;
+        this._currentFields = this._current.struct.children.concat();
       } else if (this._current.metadataType === ParentTypes.StaircaseFormulary) {
-        this._currentFields = this._current.children;
+        this._currentFields = this._current.children.concat();
       } else {
         throw new Error(`Invalid formulary type!`);
       }
@@ -159,15 +155,83 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
   }
 
+  private _createField(field: GeneratedFieldMetadata, index?: number): void {
+    if (field.identifier) {
+      const factory = this._cfr.resolveComponentFactory(WrapperComponent);
+      const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
+      ref.instance.formulary = this.form;
+      ref.instance.struct = field;
+      this._fieldComponentRefs[field.identifier] = ref;
+      ref.changeDetectorRef.markForCheck();
+    }
+  }
+
   private _createFields(): void {
     this._clearView();
     for (let i = 0, l = this._currentFields.length; i < l; i++) {
       if (this._currentFields[i].identifier) {
-        const factory = this._cfr.resolveComponentFactory(WrapperComponent);
-        const ref = this._vcr.createComponent(factory);
-        ref.instance.formulary = this.form;
-        ref.instance.struct = this._currentFields[i];
-        this._fieldComponentRefs[this._currentFields[i].identifier] = ref;
+        this._createField(this._currentFields[i]);
+      }
+    }
+  }
+
+  private _excludeFields(fields: string[]): void {
+    for (let i = 0, l = fields.length; i < l; i++) {
+      if (this._fieldComponentRefs.hasOwnProperty(fields[i])) {
+        this._fieldComponentRefs[fields[i]].destroy();
+        delete this._fieldComponentRefs[fields[i]];
+      }
+    }
+  }
+
+  private _addFields(fields: { index: number; field: GeneratedFieldMetadata; }[]): void {
+    if (fields.length) {
+      for (let i = 0, l = fields.length; i < l; i++) {
+        if (fields[i].field.identifier) {
+          this._createField(fields[i].field, fields[i].index);
+        }
+      }
+    }
+  }
+
+  private _recreateFields(): void {
+    const toAdd = differenceBy(this._currentFields, this._oldFields, `identifier`);
+    const toRemove = differenceBy(this._oldFields, this._currentFields, `identifier`);
+    const excludeFields: string[] = [];
+    const addFields: { index: number; field: GeneratedFieldMetadata; }[] = [];
+    for (let i = 0, l = toRemove.length; i < l; i++) {
+      if (toRemove[i].identifier) {
+        excludeFields.push(toRemove[i].identifier);
+      }
+    }
+    if (toAdd.length) {
+      for (let j = 0, k = toAdd.length; j < k; j++) {
+        for (let i = 0, l = this._currentFields.length; i < l; i++) {
+          if (this._currentFields[i].identifier) {
+            if (toAdd[j].identifier) {
+              if (this._currentFields[i].identifier === toAdd[j].identifier) {
+                addFields.push({
+                  index: i,
+                  field: toAdd[j],
+                });
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    if (excludeFields.length) {
+      this._excludeFields(excludeFields);
+    }
+    if (addFields.length) {
+      this._addFields(addFields);
+    }
+    for (const component in this._fieldComponentRefs) {
+      if (this._fieldComponentRefs.hasOwnProperty(component)) {
+        if ((this._fieldComponentRefs as any)[component].instance) {
+          (this._fieldComponentRefs as any)[component].instance.checkWrapperTree();
+        }
       }
     }
   }
@@ -185,24 +249,26 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
           ? this._old.identifier !== this._current.identifier
           : false
         );
-
-    console.log(this._current);
-
     if (shouldCreate) {
       this._findFields();
       this._createFields();
     } else {
-      /* TODO: Recreate views */
+      this._findFields();
+      this._recreateFields();
     }
-    this._old = Object.assign({}, this._current);
+    this._old = Object.assign({}, { ...this._current });
     setTimeout(() => this._cdr.markForCheck());
   }
 
   public ngOnInit(): void {
     if (this.s) {
-      this.form.setup(staircase);
-    } else {
       this.form.setup(linear);
+      return void 0;
+      setTimeout(() => {
+        this.form.removeField(`sub`);
+      }, 5000);
+    } else {
+      this.form.setup(staircase);
     }
   }
 

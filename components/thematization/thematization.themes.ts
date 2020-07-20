@@ -253,7 +253,42 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         title: {
           color: `var(--color-dark)`,
         }
-      }
+      },
+      formulary: {
+        label: {
+          color: `#5e6c84`,
+          invalid: {
+            color: `#c62828`,
+          },
+        },
+        descriptor: {
+          description: {
+            color: `rgb(94 108 132 / 65%)`,
+          },
+        },
+
+        'input-color': '#172b4d',
+        'input-background': '#f4f5f7',
+        'input-border-color': '#dfe1e6',
+        'input-focus-border-color': '#4c9aff',
+        'input-focus-background': '#fff',
+        'input-hover-background': '#ebecf0',
+        'input-disabled-background': '#ebecf0',
+        'input-switch-active-background': 'var(--formulary-input-focus-border-color)',
+        'input-switch-active-handler-background': 'var(--formulary-input-focus-border-color)',
+        'input-switch-unactive-handler-background': '#ff5722',
+        'input-switch-indeterminate-handler-dot-background': '#ccc',
+        'input-switch-indeterminate-handler-background': 'blue',
+        'panel-filter-popup-background': '#fff',
+        'panel-filter-popup-color': 'var(--color-dark)',
+        'panel-filter-shadow-color': 'rgba(0, 0, 0, 0.3)',
+        'input-select-popup-background': '#fff',
+        'input-select-popup-color': 'var(--color-dark)',
+        'input-select-shadow-color': 'rgba(0, 0, 0, 0.3)',
+        'input-select-option-hover-background-color': 'rgba(0, 0, 0, 0.03)',
+        'input-select-option-selected-color': '#2f2f2f',
+        'input-select-option-selected-background-color': 'rgba(0, 0, 0, 0.03)',
+      },
     }
   }
 };

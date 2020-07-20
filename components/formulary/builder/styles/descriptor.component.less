@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  position: relative;
+
+  .field-descriptor-wrapper {
+    margin-bottom: 10px;
+
+    .field-description-inner {
+      line-height: 20px;
+      font-size: 12px;
+      margin: 5px 0px 0px;
+      display: block;
+      transition: opacity 0.15s ease-in-out;
+      color: var(--components-formulary-descriptor-description-color);
+    }
+  }
+
+  &.has-description {
+
+    &.has-errors {
+
+      .field-descriptor-wrapper {
+      
+        .field-description-inner {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}

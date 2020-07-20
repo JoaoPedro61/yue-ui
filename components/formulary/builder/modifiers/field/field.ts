@@ -62,15 +62,22 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
       }
     }
 
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler: BasicFn) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, alias: string, handler: BasicFn) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
-        handler
+        { alias, handler }
+      ]);
+    }));
+
+    setHiddenProp(source, `removeChangeHandler`, defineScope(source, function(this: any, alias: string) {
+      setHiddenProp(this, `___EVENT_HANDLERS___`, [
+        ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || [])
+          .filter((e: any) => e !== alias)
       ]);
     }));
 
     setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes: any) {
-      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`);
+      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`).map((e: any) => e.handler);
       relative_exec(this, _HANDLERS || [], [changes]);
     }));
 
@@ -81,16 +88,23 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
       metadataType: ParentTypes.Field
     };
 
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler: BasicFn) {
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, alias: string, handler: BasicFn) {
       setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
-        handler
+        {handler, alias}
       ]);
     }));
 
     setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes: any) {
-      const _HANDLERS = getHiddenProp(this.struct, `___EVENT_HANDLERS___`);
+      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`).map((e: any) => e.handler);
       relative_exec(this, _HANDLERS || [], [changes]);
+    }));
+
+    setHiddenProp(finalStruct, `removeChangeHandler`, defineScope(source, function(this: any, alias: string) {
+      setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
+        ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || [])
+          .filter((e: any) => e !== alias)
+      ]);
     }));
 
     return finalStruct as any;

@@ -27,7 +27,6 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
       </yue-ui-navigation-menu>
       <div style="display: flex;">
         <yue-ui-formulary></yue-ui-formulary>
-        <yue-ui-formulary [s]="false"></yue-ui-formulary>
       </div>
     </yue-ui-layout>
   `,
@@ -35,3 +34,4 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Component { }
+        // <yue-ui-formulary [s]="false"></yue-ui-formulary>

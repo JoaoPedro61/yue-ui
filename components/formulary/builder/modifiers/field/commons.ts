@@ -11,7 +11,7 @@ import {
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
 import { identifier as _identifier } from './../commons';
-import { SpecificValidatorObjectFormation } from '../../../formulary/validators/validators';
+import { SpecificValidatorObjectFormation } from '../../../utils';
 import { ParentTypes } from './../enums';
 
 

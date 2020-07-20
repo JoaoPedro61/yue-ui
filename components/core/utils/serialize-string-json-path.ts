@@ -109,6 +109,35 @@ export function serializeStringJsonPath(target: Partial<any>, onlyWithValues?: b
   });
 
   function recursive(source: Partial<any>, oldPath: string = '', _lastType: string = '', lastKey: string | number = '', evaluted: string = '$NOT_VALUE'): void {
+    if (!!(onlyWithValues && evaluted && evaluted !== '$NOT_VALUE')) {
+      if (property && property.length) {
+        if (value && value.length) {
+          if (property === lastKey && value === evaluted) {
+            paths[oldPath] = evaluted;
+          }
+        } else {
+          if (property === lastKey) {
+            paths[oldPath] = evaluted;
+          }
+        }
+      } else {
+        if (value && value.length) {
+          if (value === evaluted) {
+            paths[oldPath] = evaluted;
+          }
+        } else {
+          paths[oldPath] = evaluted;
+        }
+      }
+    } else {
+      if (property && property.length) {
+        if (property === lastKey) {
+          paths[oldPath] = evaluted;
+        }
+      } else {
+        paths[oldPath] = evaluted;
+      }
+    }
     if (deepTypechecker(source) === 'array' || deepTypechecker(source) === 'object') {
       if (Array.isArray(source)) {
         if (source.length) {
@@ -120,41 +149,12 @@ export function serializeStringJsonPath(target: Partial<any>, onlyWithValues?: b
         const keys: string[] = Object.keys(source);
         if (keys.length) {
           for (let index = 0, length = keys.length; index < length; index++) {
+            // @ts-ignore
             recursive(source[keys[index]], `${oldPath}${oldPath.length ? '.' : ''}${keys[index]}`, 'object', keys[index], source[keys[index]]);
           }
         }
       }
-    } else {
-      if (!!(onlyWithValues && evaluted && evaluted !== '$NOT_VALUE')) {
-        if (property && property.length) {
-          if (value && value.length) {
-            if (property === lastKey && value === evaluted) {
-              paths[oldPath] = evaluted;
-            }
-          } else {
-            if (property === lastKey) {
-              paths[oldPath] = evaluted;
-            }
-          }
-        } else {
-          if (value && value.length) {
-            if (value === evaluted) {
-              paths[oldPath] = evaluted;
-            }
-          } else {
-            paths[oldPath] = evaluted;
-          }
-        }
-      } else {
-        if (property && property.length) {
-          if (property === lastKey) {
-            paths[oldPath] = evaluted;
-          }
-        } else {
-          paths[oldPath] = evaluted;
-        }
-      }
-    }
+    } else {}
   }
 
   recursive(target);

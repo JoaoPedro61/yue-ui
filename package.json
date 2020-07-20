@@ -41,6 +41,7 @@
     "@types/gulp": "^4.0.6",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lodash": "^4.14.157",
     "@types/node": "^12.11.1",
     "@types/xml2json": "^0.11.0",
     "chalk": "^4.1.0",

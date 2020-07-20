@@ -1,7 +1,7 @@
-import * as Interfaces from './formulary.interfaces';
+import * as Interfaces from './builder.interfaces';
 import {
   Formulary
-} from './formulary';
+} from './formulary-builder';
 
 import * as Modifiers from './modifiers';
 

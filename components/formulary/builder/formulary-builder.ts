@@ -1,9 +1,17 @@
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ArrayObjectManager, hash, setHiddenProps, getHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+import {
+  ArrayObjectManager,
+  hash,
+  setHiddenProps,
+  getHiddenProp,
+  serializeStringJsonPath,
+  deserializeStringJsonPath
+} from '@JoaoPedro61/yue-ui/core/utils';
 import {
   GeneratedButtonMetadataFn,
+  GeneratedFieldMetadataFn,
   GeneratedLinearFormularyMetadataFn,
   GeneratedStaircaseFormularyMetadataFn,
   ParentTypes,
@@ -12,6 +20,31 @@ import {
 } from './modifiers';
 
 
+function updateFragments(obj: any): void {
+  obj.fragments = {};
+  const t = serializeStringJsonPath(obj, true, `struct`);
+  if (obj.metadataType === ParentTypes.StaircaseFormulary) {
+    for (const key in t) {
+      if (t.hasOwnProperty(key)) {
+        if (!(/^struct$/.test(key))) {
+          if (t[key].hasOwnProperty(`identifier`) && t[key].identifier) {
+            obj.fragments[t[key].identifier] = key;
+          }
+        }
+      }
+    }
+  } else if (obj.metadataType === ParentTypes.LinearFormulary) {
+    for (const key in t) {
+      if (t.hasOwnProperty(key)) {
+        if (!(/^struct$/.test(key))) {
+          if (t[key].hasOwnProperty(`identifier`) && t[key].identifier) {
+            obj.fragments[t[key].identifier] = key;
+          }
+        }
+      }
+    }
+  }
+}
 
 export class Formulary<_M = any> {
 
@@ -414,6 +447,90 @@ export class Formulary<_M = any> {
         _providers.push(providers[i] as GeneratedButtonMetadataFn);
       }
     }
+    return this;
+  }
+
+  public insertField(field: GeneratedFieldMetadataFn, pos?: number, step?: number): this {
+    const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+    const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
+    const _formulary_value$ = _formulary$.getValue();
+    if (!_formulary_value$) {
+      throw new Error(`You must provide a form setting!`);
+    }
+    if (_formulary_value$.metadataType !== ParentTypes.StaircaseFormulary && _formulary_value$.metadataType !== ParentTypes.LinearFormulary) {
+      throw new Error(`Type of form doesn't exist or is invalid!`);
+    }
+    const _field = field();
+    if (_formulary_value$.metadataType === ParentTypes.LinearFormulary) {
+      const _insertAt: number = typeof pos === `number` 
+        ? pos > _formulary_value$.struct.children.length - 1
+          ? _formulary_value$.struct.children.length
+          : pos
+        : _formulary_value$.struct.children.length;
+      _formulary_value$.struct.children.splice(_insertAt, 0, _field);
+    } else if (_formulary_value$.metadataType === ParentTypes.StaircaseFormulary) {
+      const _stepIdx: number = typeof step === `number`
+        ? step > _formulary_value$.struct.children.length - 1
+          ? _formulary_value$.struct.children.length
+          : step
+        : _formulary_value$.struct.children.length;
+      if (_formulary_value$.struct.children[_stepIdx]) {
+        const _insertAt: number = typeof pos === `number`
+          ? pos > _formulary_value$.struct.children[_stepIdx].children.length - 1
+            ? _formulary_value$.struct.children[_stepIdx].children.length - 1
+            : pos
+          : _formulary_value$.struct.children[_stepIdx].children.length - 1;
+        _formulary_value$.struct.children[_stepIdx].children.splice(_insertAt, 0, _field);
+      }
+    }
+    updateFragments(_formulary_value$);
+    this.mountCurrentScheme();
+    return this;
+  }
+
+  public removeField(identifier: string): this {
+    const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+    const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
+    const _formulary_value$ = _formulary$.getValue();
+    if (!_formulary_value$) {
+      throw new Error(`You must provide a form setting!`);
+    }
+    if (_formulary_value$.metadataType !== ParentTypes.StaircaseFormulary && _formulary_value$.metadataType !== ParentTypes.LinearFormulary) {
+      throw new Error(`Type of form doesn't exist or is invalid!`);
+    }
+    if (_formulary_value$.metadataType === ParentTypes.LinearFormulary || _formulary_value$.metadataType === ParentTypes.StaircaseFormulary) {
+      if (_formulary_value$.fragments.hasOwnProperty(identifier)) {
+        let path: string | undefined = _formulary_value$.fragments[identifier];
+        if (path) {
+          path = path.replace(/\.identifier$/gm, ``);
+          if (/\[(\d+)\]\.struct$/gm.test(path)) {
+            const matched: RegExpMatchArray | null = path.match(/\[(\d+)\]\.struct$/);
+            if (matched) {
+              if (/^\d+$/gm.test(matched[1])) {
+                const tpath: string = path.replace(/\[(\d+)\]\.struct$/gm, ``);
+                const tindex: number = parseInt(matched[1], 10);
+                const deserialized = deserializeStringJsonPath(tpath, _formulary_value$);
+                if (deserialized && (deserialized as any).value) {
+                  if (Array.isArray((deserialized as any).value)) {
+                    if (tindex <= (deserialized as any).value.length - 1 || tindex > -1) {
+                      (deserialized as any).value.splice(tindex, 1);
+                    } else {
+                      console.warn(`Index outside of the range array.`);
+                    }
+                  }
+                }
+              } else {
+                console.error(`String number isn't valid.`);
+              }
+            }
+          } else {
+            console.warn(`Not valid path formation!`);
+          }
+        }
+      }
+    }
+    updateFragments(_formulary_value$);
+    this.mountCurrentScheme();
     return this;
   }
 

@@ -1,7 +1,7 @@
 import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
-import { SpecificValidatorObjectFormation } from './../validators/validators';
+import { SpecificValidatorObjectFormation } from './../../utils';
 import { Observable } from 'rxjs';
 // import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input-select/interfaces';
 type YueSelectProperties = any;
