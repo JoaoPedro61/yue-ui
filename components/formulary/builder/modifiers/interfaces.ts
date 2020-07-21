@@ -30,7 +30,9 @@ export interface PredefinedListenerWithScope {
   handler: (...args: any[]) => void;
 }
 
-
+export interface FormularyOptions {
+  [x: string]: any;
+}
 
 export type AllowedFieldsTypes = 'writable'
  | 'enumerable'
@@ -47,9 +49,11 @@ export type Listener = PredefinedListenerWithScope | ((...args: any[]) => void);
 export type FieldDOMStruct = string
   | TemplateRef<any>
   | Type<any>
-  | ((...args: any[]) => string)
   | Observable<string>;
 
+export interface FieldIndicators {
+  required?: boolean;
+}
 
 export interface FieldStruct {
 
@@ -57,6 +61,7 @@ export interface FieldStruct {
    * Commons Properties
    */
   enable?: boolean;
+  indicators?: FieldIndicators;
   default?: any;
   wrapper?: GeneratedFieldMetadata[];
   identifier: string;

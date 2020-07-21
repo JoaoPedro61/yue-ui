@@ -264,6 +264,9 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         descriptor: {
           description: {
             color: `rgb(94 108 132 / 65%)`,
+            invalid: {
+              color: `var(--components-formulary-label-invalid-color)`
+            }
           },
         },
 

@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
       <ng-container *ngIf="description">
         <div class="field-description-inner">
           <div class="field-template">
-            <ng-container *yueUiStringTemplateRefRender="description" yueUiStringTemplateRefRenderContext="context">
-              {{ isAObservable ? ( ngSafeValue_description | async ) : description }}
+            <ng-container *yueUiStringTemplateRefRender="description" [yueUiStringTemplateRefRenderContext]="context">
+              {{ isAObservable ? ( description | async ) : description }}
             </ng-container>
           </div>
         </div>
@@ -45,7 +45,7 @@ export class DescriptorComponent {
     return this.description instanceof Observable;
   }
 
-  public get ngSafeValue_description(): any {
+  public ngSafeValue_description(): any {
     return this.description;
   }
 

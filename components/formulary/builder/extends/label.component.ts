@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FieldStruct } from './../modifiers';
+import {Observable} from 'rxjs';
 
 
 
@@ -9,18 +10,17 @@ import { FieldStruct } from './../modifiers';
       <div class="field-label-start">
         <div class="field-label-prepend">
           <ng-container *ngIf="prepend">
-            <ng-container *yueUiStringTemplateRefRender="prepend">
-              {{ prepend }}
+            <ng-container *yueUiStringTemplateRefRender="prepend" yueUiStringTemplateRefRenderContext="context">
+              {{ prependIsAObservable ? ( ngSafeValue_prepend | async ) : prepend }}
             </ng-container>
           </ng-container>
         </div>
         <div class="field-label">
           <ng-container *ngIf="label">
-            <ng-container *yueUiStringTemplateRefRender="label">
-              {{ label }}
+            <ng-container *yueUiStringTemplateRefRender="label" yueUiStringTemplateRefRenderContext="context">
+              {{ labelIsAObservable ? ( ngSafeValue_label | async ) : label }}
             </ng-container>
-            <ng-container #lb>
-            </ng-container>
+            {{isRequired}}
             <ng-container *ngIf="isRequired">
               <span class="required-indicator"></span>
             </ng-container>
@@ -29,8 +29,8 @@ import { FieldStruct } from './../modifiers';
       </div>
       <div class="field-label-append">
         <ng-container *ngIf="append">
-          <ng-container *yueUiStringTemplateRefRender="append">
-            {{ append }}
+          <ng-container *yueUiStringTemplateRefRender="append" yueUiStringTemplateRefRenderContext="context">
+            {{ appendIsAObservable ? ( ngSafeValue_append | async ) : append }}
           </ng-container>
         </ng-container>
       </div>
@@ -47,7 +47,7 @@ import { FieldStruct } from './../modifiers';
     '[class.is-required]': `isRequired`,
   }
 })
-export class LabelComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LabelComponent implements AfterViewInit{
 
   public isRequired = false;
 
@@ -55,29 +55,42 @@ export class LabelComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public label: FieldStruct['label'] | null = null;
 
+  public get labelIsAObservable(): boolean {
+    return this.label instanceof Observable;
+  }
+
+  public get ngSafeValue_label(): any {
+    return this.label;
+  }
+
   public prepend: FieldStruct['labelPrepend'] | null = null;
+
+  public get prependIsAObservable(): boolean {
+    return this.prepend instanceof Observable;
+  }
+
+  public get ngSafeValue_prepend(): any {
+    return this.prepend;
+  }
 
   public append: FieldStruct['labelAppend'] | null = null;
 
+  public get appendIsAObservable(): boolean {
+    return this.append instanceof Observable;
+  }
+
+  public get ngSafeValue_append(): any {
+    return this.append;
+  }
+
   public context: {[x: string]: any} = {};
 
-  public get isAComponent(): boolean {
-    console.log(this);
-    return false;
-  }
-
-  constructor(private readonly cdr: ChangeDetectorRef) {
-  }
-
-  public ngOnInit(): void { }
+  constructor(public readonly cdr: ChangeDetectorRef) { }
 
   public ngAfterViewInit(): void {
     this.cdr.markForCheck();
     this.cdr.detectChanges();
-    console.log(this);
   }
-
-  public ngOnDestroy(): void { }
 
 }
 

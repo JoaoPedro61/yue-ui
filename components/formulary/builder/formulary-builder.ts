@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, AbstractControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import {
@@ -18,6 +18,7 @@ import {
   GeneratedStaircaseFormularyMetadata,
   GeneratedLinearFormularyMetadata
 } from './modifiers';
+import {Modifiers} from './fix-ralacional';
 
 
 function updateFragments(obj: any): void {
@@ -536,6 +537,70 @@ export class Formulary<_M = any> {
     return this;
   }
 
+  public registryControl(identifier: string, control: AbstractControl): this {
+    const _ref$ = getHiddenProp(this._ref, `_form$`);
+    const _value$ = this.____.get(_ref$) as FormGroup;
+    if (identifier && control) {
+      _value$.addControl(identifier, control);
+    }
+    return this;
+  }
+
+  public getControl(identifier: string): AbstractControl | null {
+    const _ref$ = getHiddenProp(this._ref, `_form$`);
+    const _value$ = this.____.get(_ref$) as FormGroup;
+    if (identifier) {
+      return _value$.controls[identifier] || null;
+    }
+    return null;
+  }
+
+  public getGroup(): FormGroup {
+    const _ref$ = getHiddenProp(this._ref, `_form$`);
+    return this.____.get(_ref$) as FormGroup;
+  }
+
+  // @ts-ignore
+  public setSyntheticModel(identifier: string, value: any): this {
+    return this;
+  }
+
+  public setModel(): this {
+    return this;
+  }
+
+  public getPureModel(): {[x: string]: any} {
+    return {};
+  }
+
+  public getModel(): {[x: string]: any} {
+    return {};
+  }
+
+  public setOptions(): this {
+    return this;
+  }
+
+  public getOptions(): Modifiers.FormularyOptions {
+    return {};
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   public shouldUpdateButton(): this {
     return this;
   }
@@ -549,14 +614,6 @@ export class Formulary<_M = any> {
   }
 
   public setButtonsAlignment(): this {
-    return this;
-  }
-
-  public setModel(): this {
-    return this;
-  }
-
-  public setOptions(): this {
     return this;
   }
 

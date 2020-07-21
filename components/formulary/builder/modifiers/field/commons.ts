@@ -105,7 +105,14 @@ function label(value?: FieldStruct['label']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`function`, `undefined`, `null`, `string`, `object`]);
-    if (value ? typeof value === `string` ? !value.length : true : true) {
+    if (typeof value === `string`
+      ? !value.length
+      : typeof value === `function`
+        ? false
+        : typeof value === `object`
+          ? false
+          : !!value
+    ) {
       delete target.label;
     } else {
       target.label = value;

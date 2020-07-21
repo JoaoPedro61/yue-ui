@@ -6,7 +6,10 @@ import {
   TemplateRef,
   EmbeddedViewRef,
   SimpleChange,
-  ViewContainerRef
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Type
 } from '@angular/core';
 
 import { Context } from './../utils/context';
@@ -19,16 +22,11 @@ import { Context } from './../utils/context';
 })
 export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnChanges {
 
-  /*
-    Ivy render complement
-   */
-  public static ngTemplateContextGuard<T>(_dir: YueUiStringTemplateRefRenderDirective<T>, _ctx: any): _ctx is Context {
-    return true;
-  }
-
   private embeddedViewRef: EmbeddedViewRef<any> | null = null;
 
   private context = new Context();
+
+  private componentRef!: ComponentRef<Type<any>>;
 
   @Input()
   public yueUiStringTemplateRefRenderContext: any | null = null;
@@ -36,31 +34,73 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
   @Input()
   public yueUiStringTemplateRefRender: any | TemplateRef<any> = null;
 
+  /*
+    Ivy render complement
+   */
+  public static ngTemplateContextGuard<T>(_dir: YueUiStringTemplateRefRenderDirective<T>, _ctx: any): _ctx is Context {
+    return true;
+  }
+
+  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>, private cfr: ComponentFactoryResolver) {
+  }
+  
   private recreateView(): void {
     this.viewContainer.clear();
     const isTemplateRef = this.yueUiStringTemplateRefRender instanceof TemplateRef;
-    const templateRef = (isTemplateRef ? this.yueUiStringTemplateRefRender : this.templateRef) as any;
-    this.embeddedViewRef = this.viewContainer.createEmbeddedView(
-      templateRef,
-      isTemplateRef ? this.yueUiStringTemplateRefRenderContext : this.context
-    );
-  }
-
-  private updateContext(): void {
-    const isTemplateRef = this.yueUiStringTemplateRefRender instanceof TemplateRef;
-    const newCtx = isTemplateRef ? this.yueUiStringTemplateRefRenderContext : this.context;
-    const oldCtx = this.embeddedViewRef!.context as any;
-    if (newCtx) {
-      for (const propName of Object.keys(newCtx)) {
-        oldCtx[propName] = newCtx[propName];
+    const isComponent = this.yueUiStringTemplateRefRender instanceof Type;
+    if (!isComponent) {
+      const templateRef = (isTemplateRef ? this.yueUiStringTemplateRefRender : this.templateRef) as any;
+      this.embeddedViewRef = this.viewContainer.createEmbeddedView(
+        templateRef,
+        isTemplateRef ? this.yueUiStringTemplateRefRenderContext : this.context
+      );
+    } else {
+      try {
+        const ref: ComponentRef<Type<any>> = this.viewContainer.createComponent(this.cfr.resolveComponentFactory(this.yueUiStringTemplateRefRender));
+        const ctx = isComponent ? this.yueUiStringTemplateRefRenderContext : this.context;
+        if (ctx) {
+          for (const prop in ctx) {
+            if (prop.hasOwnProperty(prop)) {
+              (ref.instance as Partial<any>)[prop] = (ctx as Partial<any>)[prop];
+            }
+          }
+        }
+        ref.changeDetectorRef.markForCheck();
+        ref.changeDetectorRef.detectChanges();
+        this.componentRef = ref;
+      } catch(_e) {
+        const templateRef = (isTemplateRef ? this.yueUiStringTemplateRefRender : this.templateRef) as any;
+        this.embeddedViewRef = this.viewContainer.createEmbeddedView(
+          templateRef,
+          isTemplateRef ? this.yueUiStringTemplateRefRenderContext : this.context
+        );
       }
     }
   }
 
-  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>) {
+  private updateContext(): void {
+    const isTemplateRef = this.yueUiStringTemplateRefRender instanceof TemplateRef;
+    const isComponent = this.yueUiStringTemplateRefRender instanceof Type;
+    if (!isComponent) {
+      const newCtx = isTemplateRef ? this.yueUiStringTemplateRefRenderContext : this.context;
+      const oldCtx = this.embeddedViewRef!.context as any;
+      if (newCtx) {
+        for (const propName of Object.keys(newCtx)) {
+          oldCtx[propName] = newCtx[propName];
+        }
+      }
+    } else {
+      const newCtx = isComponent ? this.yueUiStringTemplateRefRenderContext : this.context;
+      const oldCtx = this.componentRef.instance as any;
+      if (newCtx) {
+        for (const propName of Object.keys(newCtx)) {
+          oldCtx[propName] = newCtx[propName];
+        }
+      }
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     const { yueUiStringTemplateRefRenderContext, yueUiStringTemplateRefRender } = changes;
     const shouldRecreateView = (): boolean => {
       let shouldOutletRecreate = false;
@@ -70,7 +110,12 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
         } else {
           const isPreviousOutletTemplate = yueUiStringTemplateRefRender.previousValue instanceof TemplateRef;
           const isCurrentOutletTemplate = yueUiStringTemplateRefRender.currentValue instanceof TemplateRef;
-          shouldOutletRecreate = isPreviousOutletTemplate || isCurrentOutletTemplate;
+          const isPreviousOutletComponent = yueUiStringTemplateRefRender.previousValue instanceof Type;
+          const isCurrentOutletComponent = yueUiStringTemplateRefRender.currentValue instanceof Type;
+          shouldOutletRecreate = isPreviousOutletTemplate
+            || isCurrentOutletTemplate
+            || isPreviousOutletComponent
+            || isCurrentOutletComponent;
         }
       }
       const hasContextShapeChanged = (ctxChange: SimpleChange): boolean => {
@@ -102,5 +147,5 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
       this.updateContext();
     }
   }
-  
+
 }

@@ -279,7 +279,7 @@ function getMessages(erros: string[]): (string | ((...args: any[]) => string))[]
   return results;
 }
 
-function getvalidators(validators: (string | ((...args: any[]) => any))[]): any {
+function getValidators(validators: (string | ((...args: any[]) => any))[]): any {
   const result = [];
   for (let index = 0, length = validators.length; index < length; index++) {
     const validator = validators[index];
@@ -322,7 +322,7 @@ export {
   updateMessageValidator,
   getValidatorsNames,
   SpecificValidatorObjectFormation,
-  ValidatorObjectFormation
+  ValidatorObjectFormation,
+  getValidators,
 };
 
-export default getvalidators;

@@ -41,7 +41,7 @@ import {
 } from './modifiers';
 
 @Component({
-  template: ``,
+  template: `Label component`,
 })
 export class LabelTComponent { }
 
