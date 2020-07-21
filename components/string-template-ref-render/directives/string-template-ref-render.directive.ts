@@ -57,7 +57,8 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
     }
   }
 
-  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>) {}
+  constructor(private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>) {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const { yueUiStringTemplateRefRenderContext, yueUiStringTemplateRefRender } = changes;

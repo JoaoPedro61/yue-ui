@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { logging } from './core/utils';
-import { VERSION } from './version';
+import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { VERSION } from '@JoaoPedro61/yue-ui/version';
 
 
 

@@ -67,6 +67,14 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
   private checkLabelProps(): void {
     const labelRef = this.componenetsRefs.label;
     if (labelRef) {
+      const field = this.struct.struct;
+      if (field.label) {
+        if (typeof field.label === `function`) {
+          labelRef.instance.label = field.label();
+        } else {
+          labelRef.instance.label = field.label;
+        }
+      }
     }
   }
 

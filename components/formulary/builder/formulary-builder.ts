@@ -277,7 +277,9 @@ export class Formulary<_M = any> {
     return this;
   }
 
-  public staircase() {
+  // @ts-ignore
+  public staircase(): any {
+    // @ts-ignore
     return {
       navigation: (scheme: 'standard' | 'custom' = `standard`): this => {
         const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);

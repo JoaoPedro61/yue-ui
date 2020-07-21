@@ -40,14 +40,17 @@ import {
   fieldDescription,
 } from './modifiers';
 
-
+@Component({
+  template: ``,
+})
+export class LabelTComponent { }
 
 const linear = linearFormulary([
   formularyIdentifier(`dsfsd`),
   formularyFields([
     writable([
       fieldIdentifier(`my_name`),
-      fieldLabel(`Your Name (my_name)`),
+      fieldLabel(LabelTComponent),
       fieldPlaceholder(`Type your name`),
       fieldValidators([`required`]),
       fieldDescription(`Simple field description`),

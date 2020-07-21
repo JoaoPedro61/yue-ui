@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FieldStruct } from './../modifiers';
 
 
 
@@ -28,6 +29,6 @@ import { Component, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 })
 export class DescriptorComponent {
 
-  public description: TemplateRef<any> | string | null = null;
+  public description: FieldStruct['description'] | null = null;
 
 }

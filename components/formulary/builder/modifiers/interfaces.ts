@@ -1,7 +1,7 @@
 import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
-import { SpecificValidatorObjectFormation } from './../../utils';
+import { SpecificValidatorObjectFormation } from '@JoaoPedro61/yue-ui/formulary/utils';
 import { Observable } from 'rxjs';
 // import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input-select/interfaces';
 type YueSelectProperties = any;
@@ -44,6 +44,12 @@ export type AllowedFieldsTypes = 'writable'
 export type Listener = PredefinedListenerWithScope | ((...args: any[]) => void);
 
 
+export type FieldDOMStruct = string
+  | TemplateRef<any>
+  | Type<any>
+  | ((...args: any[]) => string)
+  | Observable<string>;
+
 
 export interface FieldStruct {
 
@@ -56,11 +62,13 @@ export interface FieldStruct {
   identifier: string;
   type?: AllowedFieldsTypes;
   width?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-  label?: string | TemplateRef<any> | Type<any> | ((...args: any[]) => string);
-  description?: string | TemplateRef<any> | Type<any> | ((...args: any[]) => string);
-  template?: string | TemplateRef<any> | Type<any> | ((...args: any[]) => string);
+  label?: FieldDOMStruct;
+  labelAppend?: FieldDOMStruct;
+  labelPrepend?: FieldDOMStruct;
+  description?: FieldDOMStruct;
+  template?: FieldDOMStruct;
   validators?: Array<string | ((...args: any[]) => SpecificValidatorObjectFormation)>;
-  placeholder?: string | ((...args: any[]) => string);
+  placeholder?: string | ((...args: any[]) => string) | Observable<string>;
   listeners?: {
     tap?: Listener;
   };

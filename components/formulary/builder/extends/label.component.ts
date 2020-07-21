@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { FieldStruct } from './../modifiers';
 
 
 
@@ -17,6 +18,8 @@ import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy, C
           <ng-container *ngIf="label">
             <ng-container *yueUiStringTemplateRefRender="label">
               {{ label }}
+            </ng-container>
+            <ng-container #lb>
             </ng-container>
             <ng-container *ngIf="isRequired">
               <span class="required-indicator"></span>
@@ -50,21 +53,28 @@ export class LabelComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public isInvalid = false;
 
-  public label = ``;
+  public label: FieldStruct['label'] | null = null;
 
-  public prepend: TemplateRef<any> | string | null = null;
+  public prepend: FieldStruct['labelPrepend'] | null = null;
 
-  public append: TemplateRef<any> | string | null = null;
+  public append: FieldStruct['labelAppend'] | null = null;
 
   public context: {[x: string]: any} = {};
 
-  constructor(private readonly cdr: ChangeDetectorRef) { }
+  public get isAComponent(): boolean {
+    console.log(this);
+    return false;
+  }
+
+  constructor(private readonly cdr: ChangeDetectorRef) {
+  }
 
   public ngOnInit(): void { }
 
   public ngAfterViewInit(): void {
     this.cdr.markForCheck();
     this.cdr.detectChanges();
+    console.log(this);
   }
 
   public ngOnDestroy(): void { }
