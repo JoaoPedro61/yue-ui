@@ -1,4 +1,4 @@
-import { hash } from '@JoaoPedro61/yue-ui/core/utils';
+import { hash, getHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { expect_parent } from './utils';
 
@@ -6,6 +6,17 @@ import { ModifiersFn } from './interfaces';
 import { ParentTypes } from './enums';
 
 
+export function registryChange<T = Partial<any>>(target: T, prop: string, newValue: any, oldValue: any): T {
+  if (target && prop) {
+    const changesRegistry = getHiddenProp(target, `___CHANGES___`) || {};
+    changesRegistry[prop] = {
+      current: newValue,
+      old: oldValue,
+    };
+    (target as any)[`___CHANGES___`] = changesRegistry;
+  }
+  return target;
+}
 
 export function identifier(value: string = hash()): ModifiersFn {
   return (parent: string, target: Partial<any>) => {

@@ -22,7 +22,8 @@ import { equals, setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import {
   Formulary,
-  Modifiers
+  Modifiers,
+  FormularyComponent
 } from './../fix-ralacional';
 
 import { LabelComponent } from './label.component';
@@ -57,6 +58,8 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
   private old!: Modifiers.GeneratedFieldMetadata;
 
   private abstractControl!: AbstractControl;
+
+  public readonly parent!: FormularyComponent;
 
   public formulary!: Formulary;
 
@@ -192,8 +195,10 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       if (executeDetectChanges || shouldForceEmitChanges) {
-        ref.instance.cdr.markForCheck();
-        ref.instance.cdr.detectChanges();
+        setTimeout(() => {
+          ref.instance.cdr.markForCheck();
+          ref.instance.cdr.detectChanges();
+        });
       }
     }
   }
@@ -280,7 +285,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
           const insertAt: number = this.componenetsRefs.label
             ? 1
             : 0;
-          const ref: ComponentRef<Type<FieldAbstraction>> =
+          const ref: ComponentRef<FieldAbstraction> =
               this.vcr.createComponent(this.cfr.resolveComponentFactory(field), insertAt);
           this.componenetsRefs.field = ref;
           this.checkFieldProps();
@@ -474,6 +479,28 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private checkDefsProps(changes: Modifiers.HistoryChanges): void {
+    const {
+      label,
+      description,
+    } = changes;
+    if (label) {
+      this.checkLabelProps();
+    }
+    if (description) {
+      this.checkDescriptorProps();
+    }
+  }
+
+  private registryChangesHandler(): void {
+    const meta = this.struct;
+    if (meta) {
+      if (meta.setChangeHandler) {
+        meta.setChangeHandler(`wrapper`, this.checkDefsProps.bind(this));
+      }
+    }
+  }
+
   public checkWrapperTree(): void {
     for (const component in this.componenetsRefs.wrappers) {
       if (this.componenetsRefs.wrappers[component].instance) {
@@ -494,6 +521,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.struct.struct.type && !this.struct.struct.identifier) {
       throw new Error('Sorry, but the inputs that have a property "type", must be have the property "key".');
     }
+    this.registryChangesHandler();
     this.registryControl();
   }
 

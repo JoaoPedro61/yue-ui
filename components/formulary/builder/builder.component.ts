@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 
 import { differenceBy } from 'lodash';
+import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { WrapperComponent } from './extends/wrapper.component';
 
@@ -164,6 +165,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
       ref.instance.formulary = this.form;
       ref.instance.struct = field;
+      setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
       ref.changeDetectorRef.markForCheck();
     }
@@ -183,6 +185,47 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
       if (this._fieldComponentRefs.hasOwnProperty(fields[i])) {
         this._fieldComponentRefs[fields[i]].destroy();
         delete this._fieldComponentRefs[fields[i]];
+      }
+    }
+  }
+
+  private _hideField(identifier: string): void {
+    if (this._fieldComponentRefs[identifier]) {
+      const ref = this._fieldComponentRefs[identifier];
+      if (ref) {
+        const idx = this._vcr.indexOf(ref.hostView);
+        if (idx > -1) {
+          this._vcr.detach(idx);
+        }
+      }
+    }
+  }
+
+  public _showField(identifier: string): void {
+    if (this._fieldComponentRefs[identifier]) {
+      const ref = this._fieldComponentRefs[identifier];
+      if (ref) {
+        this._vcr.insert(ref.hostView);
+      }
+    }
+  }
+
+  public hideFields(fields: string[]): void {
+    if (fields.length) {
+      for (let i = 0, l = fields.length; i < l; i++) {
+        if (fields[i]) {
+          this._hideField(fields[i]);
+        }
+      }
+    }
+  }
+
+  public showFields(fields: string[]): void {
+    if (fields.length) {
+      for (let i = 0, l = fields.length; i < l; i++) {
+        if (fields[i]) {
+          this._showField(fields[i]);
+        }
       }
     }
   }
@@ -266,9 +309,9 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   public ngOnInit(): void {
     if (this.s) {
       this.form.setup(linear);
-      return void 0;
+      //return void 0;
       setTimeout(() => {
-        this.form.removeField(`sub`);
+        this.form.updateField(`my_name`, fieldDescription(`Hello everyone`));
       }, 5000);
     } else {
       this.form.setup(staircase);

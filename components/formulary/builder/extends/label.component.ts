@@ -20,7 +20,6 @@ import {Observable} from 'rxjs';
             <ng-container *yueUiStringTemplateRefRender="label" yueUiStringTemplateRefRenderContext="context">
               {{ labelIsAObservable ? ( ngSafeValue_label | async ) : label }}
             </ng-container>
-            {{isRequired}}
             <ng-container *ngIf="isRequired">
               <span class="required-indicator"></span>
             </ng-container>

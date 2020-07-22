@@ -42,6 +42,8 @@ export type AllowedFieldsTypes = 'writable'
  | 'internal';
 
 
+export type ChangeHandler = (changes: HistoryChanges) => void;
+
 
 export type Listener = PredefinedListenerWithScope | ((...args: any[]) => void);
 
@@ -51,11 +53,26 @@ export type FieldDOMStruct = string
   | Type<any>
   | Observable<string>;
 
+export interface HistoryChanges {
+  [prop: string]: {
+    current: any;
+    old: any;
+  };
+}
+
 export interface FieldIndicators {
   required?: boolean;
 }
 
-export interface FieldStruct {
+export interface CommonInheritMethods {
+  dispatchChanges(): void;
+  removeChangeHandler(alias: string): void;
+  setChangeHandler(alias: string, fn: BasicFn): void;
+  getChanges(): HistoryChanges;
+  clearChanges(): void;
+}
+
+export interface FieldStruct extends CommonInheritMethods {
 
   /**
    * Commons Properties
@@ -77,6 +94,7 @@ export interface FieldStruct {
   listeners?: {
     tap?: Listener;
   };
+  hide?: boolean | ((...args: any) => boolean);
 
   /**
    * Selectables fields
@@ -140,7 +158,7 @@ export interface CustomButtonStruct extends Partial<BasicButtonProperties> {
 /**
  * Base metadata model
  */
-interface BaseMetadata<S = any> {
+interface BaseMetadata<S = any> extends CommonInheritMethods {
   [x: string]: any;
   struct: S;
   identifier: string;

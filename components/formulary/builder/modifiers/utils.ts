@@ -40,31 +40,9 @@ export const expect_parent = (parent: string, allowed: string[]): void => {
 
 export const relative_exec = (scope: any, handlers: ((...args: any[]) => any)[], args: any[] = []): void => {
   if (handlers.length) {
-    function r() {
-      new Promise((accept, reject) => {
-        const _HANDLER = handlers.shift();
-        if (_HANDLER) {
-          if (typeof _HANDLER === `function`) {
-            const retum = (_HANDLER.bind(scope)).apply(scope, [scope, ...args]);
-            if (retum === void 0 || retum === null || retum === undefined || retum === true) {
-              accept();
-            } else {
-              if (retum instanceof Promise) {
-                retum.then(() => accept()).catch(() => reject());
-              } else {
-                reject();
-              }
-            }
-          } else {
-            reject();
-          }
-        } else {
-          reject();
-        }
-      }).then(() => {
-        r();
-      });
+    for (const h of handlers) {
+      (h.bind(scope)).apply(scope, [...args]);
     }
-    r();
+    return void 0;
   }
 };

@@ -16,7 +16,9 @@ import {
   GeneratedStaircaseFormularyMetadataFn,
   ParentTypes,
   GeneratedStaircaseFormularyMetadata,
-  GeneratedLinearFormularyMetadata
+  GeneratedLinearFormularyMetadata,
+  ModifiersFn,
+  GeneratedFieldMetadata
 } from './modifiers';
 import {Modifiers} from './fix-ralacional';
 
@@ -529,6 +531,43 @@ export class Formulary<_M = any> {
           } else {
             console.warn(`Not valid path formation!`);
           }
+        }
+      }
+    }
+    updateFragments(_formulary_value$);
+    this.mountCurrentScheme();
+    return this;
+  }
+
+  public updateField(identifier: string, ...modifiers: (ModifiersFn | ModifiersFn[])[]): this {
+    const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+    const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
+    const _formulary_value$ = _formulary$.getValue();
+    if (!_formulary_value$) {
+      throw new Error(`You must provide a form setting!`);
+    }
+    if (_formulary_value$.metadataType !== ParentTypes.StaircaseFormulary && _formulary_value$.metadataType !== ParentTypes.LinearFormulary) {
+      throw new Error(`Type of form doesn't exist or is invalid!`);
+    }
+    if (_formulary_value$.metadataType === ParentTypes.LinearFormulary || _formulary_value$.metadataType === ParentTypes.StaircaseFormulary) {
+      const purePath: string | undefined = _formulary_value$.fragments[identifier];
+      if (purePath) {
+        const rootPath = purePath.replace(/\.struct\.identifier/, ``);
+        const deserialized = deserializeStringJsonPath(rootPath, _formulary_value$);
+        if (deserialized && deserialized.value) {
+          const struct: GeneratedFieldMetadata = deserialized.value as GeneratedFieldMetadata;
+          let _modifiers: ModifiersFn[] = [];
+          for (let i = 0, l = modifiers.length; i < l; i++) {
+            _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
+          }
+          for (const _modifier of _modifiers) {
+            if (`function` === typeof _modifier) {
+              _modifier(struct.metadataType, struct.struct);
+            }
+          }
+          struct.dispatchChanges();
+        } else {
+          console.warn(`Field struct isn't found!`);
         }
       }
     }

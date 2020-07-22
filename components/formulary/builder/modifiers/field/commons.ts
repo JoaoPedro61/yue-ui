@@ -11,7 +11,7 @@ import {
   YueSwitchModes
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
-import { identifier as _identifier } from './../commons';
+import { identifier as _identifier, registryChange } from './../commons';
 import { ParentTypes } from './../enums';
 
 
@@ -36,6 +36,7 @@ function enable(value: FieldStruct['enable'] = true): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`boolean`]);
+    registryChange(target, `enable`, value, target.enable);
     target.enable = value;
     return target;
   };
@@ -45,6 +46,7 @@ function defaultValue(value: FieldStruct['default']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     target.default = value;
+    registryChange(target, `default`, value, target.default);
     return target;
   };
 }
@@ -79,6 +81,18 @@ function wrapper(value?: (GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])
   };
 }
 
+function hide(value: FieldStruct['hide']): ModifiersFn {
+
+  return (parent: string, target: Partial<any>) => {
+    expect_parent(parent, [ParentTypes.Field]);
+    expect_param(`hide`, value);
+    expect_type(`hide`, value, [`boolean`, `function`]);
+    registryChange(target, `hide`, value, target.hide);
+    target.hide = value;
+    return target;
+  };
+}
+
 function type(value: FieldStruct['type']): ModifiersFn {
 
   return (parent: string, target: Partial<any>) => {
@@ -86,6 +100,7 @@ function type(value: FieldStruct['type']): ModifiersFn {
     expect_param(`type`, value);
     expect_type(`value`, value, [`string`]);
     expect_allowed_field_type(value as string);
+    registryChange(target, `type`, value, target.type);
     target.type = value;
     return target;
   };
@@ -96,6 +111,7 @@ function width(value: FieldStruct['width']): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`width`, value);
     expect_type(`value`, value, [`number`]);
+    registryChange(target, `width`, value, target.width);
     target.width = value;
     return target;
   };
@@ -105,6 +121,7 @@ function label(value?: FieldStruct['label']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`function`, `undefined`, `null`, `string`, `object`]);
+    registryChange(target, `label`, value, target.label);
     if (typeof value === `string`
       ? !value.length
       : typeof value === `function`
@@ -125,6 +142,7 @@ function description(value: FieldStruct['description']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`function`, `undefined`, `null`, `string`, `object`]);
+    registryChange(target, `description`, value, target.description);
     if (value ? typeof value === `string` ? !value.length : true : true) {
       delete target.description;
     } else {
@@ -138,6 +156,7 @@ function template(value: FieldStruct['template']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`function`, `undefined`, `null`, `string`, `object`]);
+    registryChange(target, `template`, value, target.template);
     if (value ? typeof value === `string` ? !value.length : true : true) {
       delete target.template;
     } else {
@@ -151,6 +170,7 @@ function validators(value?: FieldStruct['validators']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`array`, `undefined`, `null`]);
+    registryChange(target, `validators`, value, target.validators);
     if (!value || !value.length) {
       delete target.validators;
     } else {
@@ -165,10 +185,12 @@ function validator(value: SpecificValidatorObjectFormation): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`validator`, value);
     expect_type(`value`, value, [`object`]);
+    const old = target.validators;
     if (!target.hasOwnProperty(`validators`)) {
       target.validators = [];
     }
     target.validators.push(value);
+    registryChange(target, `validators`, target.validators, old);
     return target;
   };
 }
@@ -177,7 +199,7 @@ function placeholder(value?: FieldStruct['placeholder']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`string`, `function`, `null`, `undefined`]);
-
+    registryChange(target, `placeholder`, value, target.placeholder);
     if (value ? typeof value === `string` ? !value.length : false : true) {
       delete target.placeholder;
     } else {
@@ -191,6 +213,7 @@ function listeners(value?: FieldStruct['listeners']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`object`, `null`, `undefined`]);
+    registryChange(target, `listeners`, value, target.listeners);
     if (value ? !Object.keys(value).length : true) {
       delete target.listeners;
     } else {
@@ -206,6 +229,7 @@ function listener(value: keyof FieldStruct['listeners'], listener_fn?: Listener)
     expect_param(`value`, value);
     expect_type(`value`, value, [`string`]);
     expect_type(`listener`, listener_fn, [`null`, `undefined`, `object`, `function`]);
+    const old = target.listeners;
     if (!listener_fn) {
       if (target.hasOwnProperty(`listeners`)) {
         if (target.listeners.hasOwnProperty(value)) {
@@ -218,6 +242,7 @@ function listener(value: keyof FieldStruct['listeners'], listener_fn?: Listener)
       }
       target.listeners[value] = listener_fn;
     }
+    registryChange(target, `listeners`, target.listeners, old);
     return target;
   };
 }
@@ -227,6 +252,7 @@ function options(value: FieldStruct['options']): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
     expect_type(`value`, value, [`array`, `object`, `function`]);
+    registryChange(target, `options`, value, target.options);
     target.options = value;
     return target;
   };
@@ -237,6 +263,7 @@ function properties(value: FieldStruct['properties']): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
     expect_type(`value`, value, [`object`]);
+    registryChange(target, `properties`, value, target.properties);
     target.properties = value;
     return target;
   };
@@ -249,10 +276,12 @@ function property(prop: keyof FieldStruct['properties'], value: FieldStruct['pro
     expect_type(`property`, prop, [`string`]);
     expect_param(`value`, value);
     expect_type(`value`, value, [`string`, `boolean`]);
+    const old = target.properties;
     if (!target.hasOwnProperty(`properties`)) {
       target.properties = {};
     }
     target.properties[prop] = value;
+    registryChange(target, `properties`, target.properties, old);
     return target;
   };
 }
@@ -261,6 +290,7 @@ function mask(value?: FieldStruct['mask']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`string`, `function`, `null`, `undefined`]);
+    registryChange(target, `mask`, value, target.mask);
     if (value ? typeof value === `string` ? !value.length : false : true) {
       delete target.mask;
     } else {
@@ -274,6 +304,7 @@ function vstype(value?: FieldStruct['vstype']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_type(`value`, value, [`string`, `null`, `undefined`]);
+    registryChange(target, `vstype`, value, target.vstype);
     if (!value || !value.length) {
       delete target.vstype;
     } else {
@@ -288,6 +319,7 @@ function selectMode(value: YueSelectMode): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
     expect_type(`value`, value, [`string`]);
+    registryChange(target, `mode`, value, target.mode);
     target.mode = value;
     return target;
   };
@@ -298,6 +330,7 @@ function switchMode(value: YueSwitchModes): ModifiersFn {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
     expect_type(`value`, value, [`string`]);
+    registryChange(target, `mode`, value, target.mode);
     target.mode = value;
     return target;
   };
@@ -326,4 +359,5 @@ export {
   vstype as fieldVstype,
   selectMode as fieldSelectMode,
   switchMode as fieldSwitchMode,
+  hide as fieldHide
 };

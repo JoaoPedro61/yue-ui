@@ -10,7 +10,9 @@ import {
   GeneratedFieldMetadataFn,
   FieldStruct,
   GeneratedFieldMetadata,
-  BasicFn
+  BasicFn,
+  ChangeHandler,
+  HistoryChanges
 } from '../interfaces';
 import { fieldType } from './commons';
 import { ParentTypes } from '../enums';
@@ -61,52 +63,53 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
         continue loop;
       }
     }
-
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, alias: string, handler: BasicFn) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: FieldStruct, alias: string, handler: ChangeHandler) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
         { alias, handler }
       ]);
     }));
-
-    setHiddenProp(source, `removeChangeHandler`, defineScope(source, function(this: any, alias: string) {
+    setHiddenProp(source, `removeChangeHandler`, defineScope(source, function(this: FieldStruct, alias: string) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || [])
           .filter((e: any) => e !== alias)
       ]);
     }));
-
-    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes: any) {
+    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: FieldStruct) {
       const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`).map((e: any) => e.handler);
-      relative_exec(this, _HANDLERS || [], [changes]);
+      relative_exec(this, _HANDLERS || [], [this.getChanges()]);
+      this.clearChanges();
     }));
-
+    setHiddenProp(source, `getChanges`, defineScope(source, function(this: FieldStruct) {
+      const _CHANGES = Object.assign({}, getHiddenProp(this, `___CHANGES___`) || {});
+      return _CHANGES;
+    }));
+    setHiddenProp(source, `clearChanges`, defineScope(source, function(this: FieldStruct) {
+      (this as any).___CHANGES___ = Object.assign({}, {});
+    }));
     const finalStruct = {
       struct: source as FieldStruct,
       identifier: source.identifier,
       fragments,
       metadataType: ParentTypes.Field
     };
-
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, alias: string, handler: BasicFn) {
-      setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
-        ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
-        {handler, alias}
-      ]);
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: GeneratedFieldMetadata, alias: string, handler: ChangeHandler) {
+      this.struct.setChangeHandler(alias, handler);
     }));
-
-    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes: any) {
-      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`).map((e: any) => e.handler);
-      relative_exec(this, _HANDLERS || [], [changes]);
+    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: GeneratedFieldMetadata) {
+      this.struct.dispatchChanges();
     }));
-
-    setHiddenProp(finalStruct, `removeChangeHandler`, defineScope(source, function(this: any, alias: string) {
-      setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
-        ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || [])
-          .filter((e: any) => e !== alias)
-      ]);
+    setHiddenProp(finalStruct, `getChanges`, defineScope(finalStruct, function(this: GeneratedFieldMetadata) {
+      return this.struct.getChanges();
     }));
-
+    setHiddenProp(finalStruct, `clearChanges`, defineScope(finalStruct, function(this: GeneratedFieldMetadata) {
+      this.struct.clearChanges();
+    }));
+    setHiddenProp(finalStruct, `removeChangeHandler`, defineScope(finalStruct, function(this: GeneratedFieldMetadata, alias: string) {
+      this.struct.removeChangeHandler(alias);
+    }));
+    // Clear all changes, because this is a first creating time
+    (finalStruct as GeneratedFieldMetadata).clearChanges();
     return finalStruct as any;
   };
 }
