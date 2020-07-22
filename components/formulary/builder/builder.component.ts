@@ -10,10 +10,15 @@ import {
   ViewContainerRef,
   Input,
   ComponentFactoryResolver,
-  ComponentRef
+  ComponentRef,
+  SimpleChanges
 } from '@angular/core';
 
 import { differenceBy } from 'lodash';
+
+import { Subject } from 'rxjs';
+import { takeUntil, delayWhen } from 'rxjs/operators';
+
 import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { WrapperComponent } from './extends/wrapper.component';
@@ -21,77 +26,11 @@ import { WrapperComponent } from './extends/wrapper.component';
 import { Formulary } from './formulary-builder';
 
 import {
-  writable,
-  fieldLabel,
-  fieldPlaceholder,
-  fieldValidators,
-  fieldIdentifier,
-  formularyIdentifier,
-  formularyFields,
-  linearFormulary,
-  staircaseFormulary,
-  formularyStep,
-  formularyStepName,
   GeneratedLinearFormularyMetadata,
   StaircaseFormularyStepStruct,
   GeneratedFieldMetadata,
   ParentTypes,
-  fieldTemplate,
-  fieldWrapper,
-  fieldDescription,
 } from './modifiers';
-
-@Component({
-  template: `Label component`,
-})
-export class LabelTComponent { }
-
-const linear = linearFormulary([
-  formularyIdentifier(`dsfsd`),
-  formularyFields([
-    writable([
-      fieldIdentifier(`info.name`),
-      fieldLabel(LabelTComponent),
-      fieldPlaceholder(`Type your name`),
-      fieldValidators([`required`]),
-      fieldDescription(`Simple field description`),
-      fieldTemplate(`Simple template`),
-      fieldWrapper([
-        writable([
-          fieldIdentifier(`info.last_name`),
-          fieldLabel(`Hello`),
-          fieldTemplate(`Simple template`)
-        ])
-      ])
-    ]),
-  ])
-]);
-
-const staircase = staircaseFormulary([
-  formularyIdentifier(`steps`),
-  formularyStep([
-    formularyIdentifier(`steps_1`),
-    formularyStepName('This is my simple step'),
-    formularyFields([
-      writable([
-        fieldIdentifier(`my_name`),
-        fieldLabel(`Your Name`),
-        fieldPlaceholder(`Type your name`),
-        fieldValidators([`required`])
-      ]),
-    ])
-  ]),
-]);
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -100,6 +39,7 @@ const staircase = staircaseFormulary([
   selector: 'yue-ui-formulary',
   template: `
     <ng-container #fields></ng-container>
+    <ng-container #buttons></ng-container>
   `,
   styles: [
     `
@@ -117,6 +57,10 @@ const staircase = staircaseFormulary([
 })
 export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
+  private readonly untilDestroy$: Subject<void> = new Subject();
+
+  private readonly viewInit$: Subject<void> = new Subject();
+
   @ViewChild(`fields`, { static: false, read: ViewContainerRef })
   private _vcr!: ViewContainerRef;
   
@@ -130,12 +74,8 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
   private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
 
-  public get old(): any { return this._old; }
-
-  public form = new Formulary();
-
   @Input()
-  public s = true;
+  public formulary!: Formulary;
 
   constructor(private readonly _cdr: ChangeDetectorRef, private readonly _cfr: ComponentFactoryResolver) { }
 
@@ -163,7 +103,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (field.identifier) {
       const factory = this._cfr.resolveComponentFactory(WrapperComponent);
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
-      ref.instance.formulary = this.form;
+      ref.instance.formulary = this.formulary;
       ref.instance.struct = field;
       setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
@@ -306,33 +246,34 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     setTimeout(() => this._cdr.markForCheck());
   }
 
-  public ngOnInit(): void {
-    if (this.s) {
-      this.form.setup(linear);
-      //return void 0;
-      setTimeout(() => {
-        this.form.updateField(`my_name`, fieldDescription(`Hello everyone`));
-      }, 5000);
-    } else {
-      this.form.setup(staircase);
+  public ngOnInit(): void { }
+
+  public ngAfterViewInit(): void {
+    this.viewInit$.next();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    const { formulary } = changes;
+    if (formulary) {
+      if (formulary.isFirstChange()) {
+        this.formulary
+          .schematicFieldsChange$
+            .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
+            .subscribe({
+              next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
+                this._current = currentScheme;
+                this._should();
+              }
+            });
+      }
     }
   }
 
-  public ngAfterViewInit(): void {
-    this.form
-      .schematicFieldsChange$
-        .subscribe({
-          next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
-            this._current = currentScheme;
-            this._should();
-          }
-        });
-  }
-
-  public ngOnChanges(): void {
-  }
-
   public ngOnDestroy(): void {
+    this.untilDestroy$.next();
+    this.untilDestroy$.complete();
+
+    this.viewInit$.complete();
   }
 
 }

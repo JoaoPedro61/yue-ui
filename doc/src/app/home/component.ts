@@ -1,4 +1,5 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
+import { Formulary, linearFormulary, formularyIdentifier, formularyFields, writable, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, fieldTemplate } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 
 
@@ -26,12 +27,37 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
       <div style="display: flex;">
-        <yue-ui-formulary></yue-ui-formulary>
+        <yue-ui-formulary [formulary]="form"></yue-ui-formulary>
       </div>
     </yue-ui-layout>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Component { }
-        // <yue-ui-formulary [s]="false"></yue-ui-formulary>
+export class Component {
+
+  public form: Formulary = new Formulary();
+
+  public formProvider = linearFormulary([
+    formularyIdentifier(`dsfsd`),
+    formularyFields(
+      ...new Array(5)
+      .fill(null)
+      .map((_, i) => {
+        return writable([
+          fieldIdentifier(`info.name_${i}`),
+          fieldLabel(`Label`),
+          fieldPlaceholder(`Type your name`),
+          fieldValidators([`required`]),
+          fieldDescription(`Simple field description`),
+          fieldTemplate(`Simple template`)
+        ]);
+      })
+    )
+  ]);
+
+  constructor() {
+    this.form.setup(this.formProvider);
+  }
+
+}

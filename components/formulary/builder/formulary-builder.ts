@@ -20,7 +20,7 @@ import {
   ModifiersFn,
   GeneratedFieldMetadata
 } from './modifiers';
-import {Modifiers} from './fix-ralacional';
+import { Modifiers } from './fix-ralacional';
 
 
 function updateFragments(obj: any): void {
@@ -73,25 +73,19 @@ export class Formulary<_M = any> {
       readOnly: true
     },
     {
-      name: `_buttons`,
+      name: `_step`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
     {
-      name: `_model`,
+      name: `_step_ignore_validation`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
-    {
-      name: `_formulary`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
-    {
-      name: `_footer$`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
+
+    /*
+     * Observables
+     */
     {
       name: `_model$`,
       value: { [hash()]: 'activated' },
@@ -103,32 +97,12 @@ export class Formulary<_M = any> {
       readOnly: true
     },
     {
-      name: `_connect$`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
-    {
       name: `_formulary$`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
     {
       name: `_current_scheme$`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
-    {
-      name: `_step`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
-    {
-      name: `_step_ignore_validation`,
-      value: { [hash()]: 'activated' },
-      readOnly: true
-    },
-    {
-      name: `_header$`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
@@ -156,15 +130,39 @@ export class Formulary<_M = any> {
 
   private readonly ____ = new WeakMap<any, any>([
     [
-      getHiddenProp(this._ref, `_form$`),
-      new FormGroup({})
+      getHiddenProp(this._ref, `_identifier`),
+      hash()
     ],
     [
-      getHiddenProp(this._ref, `_buttons$`),
-      new ArrayObjectManager([], 'identifier')
+      getHiddenProp(this._ref, `_buttons_alignment`),
+      'end'
     ],
     [
-      getHiddenProp(this._ref, `_options$`),
+      getHiddenProp(this._ref, `_hide_descriptor`),
+      false
+    ],
+    [
+      getHiddenProp(this._ref, `_hide_label`),
+      false
+    ],
+    [
+      getHiddenProp(this._ref, `_step`),
+      0
+    ],
+    [
+      getHiddenProp(this._ref, `_step_ignore_validation`),
+      false
+    ],
+
+    /*
+     * Observables
+     */
+    [
+      getHiddenProp(this._ref, `_model$`),
+      new BehaviorSubject({})
+    ],
+    [
+      getHiddenProp(this._ref, `_modelPure$`),
       new BehaviorSubject({})
     ],
     [
@@ -176,45 +174,21 @@ export class Formulary<_M = any> {
       new BehaviorSubject(null)
     ],
     [
-      getHiddenProp(this._ref, `_model$`),
+      getHiddenProp(this._ref, `_form$`),
+      new FormGroup({})
+    ],
+    [
+      getHiddenProp(this._ref, `_options$`),
       new BehaviorSubject({})
     ],
     [
-      getHiddenProp(this._ref, `_modelPure$`),
-      new BehaviorSubject({})
+      getHiddenProp(this._ref, `_buttons$`),
+      new ArrayObjectManager([], 'identifier')
     ],
     [
       getHiddenProp(this._ref, `_unknown_changes$`),
       new BehaviorSubject(null)
-    ],
-    [
-      getHiddenProp(this._ref, `_buttons`),
-      []
-    ],
-    [
-      getHiddenProp(this._ref, `_hide_descriptor`),
-      false
-    ],
-    [
-      getHiddenProp(this._ref, `_hide_label`),
-      false
-    ],
-    [
-      getHiddenProp(this._ref, `_buttons_alignment`),
-      'end'
-    ],
-    [
-      getHiddenProp(this._ref, `_identifier`),
-      hash()
-    ],
-    [
-      getHiddenProp(this._ref, `_step`),
-      0
-    ],
-    [
-      getHiddenProp(this._ref, `_step_ignore_validation`),
-      false
-    ],
+    ]
   ]);
 
   public get identifier(): string {
@@ -460,7 +434,7 @@ export class Formulary<_M = any> {
     }
     const _field = field();
     if (_formulary_value$.metadataType === ParentTypes.LinearFormulary) {
-      const _insertAt: number = typeof pos === `number` 
+      const _insertAt: number = typeof pos === `number`
         ? pos > _formulary_value$.struct.children.length - 1
           ? _formulary_value$.struct.children.length
           : pos
@@ -592,24 +566,24 @@ export class Formulary<_M = any> {
     return this.____.get(_ref$) as FormGroup;
   }
 
-  public getPureModel(): {[x: string]: any} {
+  public getPureModel(): { [x: string]: any } {
     const _ref$ = getHiddenProp(this._ref, `_modelPure$`);
-    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).getValue();
+    return (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).getValue();
   }
 
-  public getModel(): {[x: string]: any} {
+  public getModel(): { [x: string]: any } {
     const _ref$ = getHiddenProp(this._ref, `_model$`);
-    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).getValue();
+    return (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).getValue();
   }
 
-  public getPureModel$(): Observable<{[x: string]: any}> {
+  public getPureModel$(): Observable<{ [x: string]: any }> {
     const _ref$ = getHiddenProp(this._ref, `_modelPure$`);
-    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).asObservable();
+    return (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).asObservable();
   }
 
-  public getModel$(): Observable<{[x: string]: any}> {
+  public getModel$(): Observable<{ [x: string]: any }> {
     const _ref$ = getHiddenProp(this._ref, `_model$`);
-    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).asObservable();
+    return (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).asObservable();
   }
 
   public getOptions(): Modifiers.FormularyOptions {
@@ -635,16 +609,16 @@ export class Formulary<_M = any> {
 
   public setOptions(options: Modifiers.FormularyOptions): this {
     const _ref$ = getHiddenProp(this._ref, `_options$`);
-    (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).next(options);
+    (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).next(options);
     return this;
   }
 
-  public setModel(values: {[s: string]: any}): this {
+  public setModel(values: { [s: string]: any }): this {
     const _ref$ = getHiddenProp(this._ref, `_model$`);
-    (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).next(values);
+    (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).next(values);
     const _refPure$ = getHiddenProp(this._ref, `_modelPure$`);
     const paths = serializeStringJsonPath(values);
-    (this.____.get(_refPure$) as BehaviorSubject<{[x: string]: any}>).next(paths);
+    (this.____.get(_refPure$) as BehaviorSubject<{ [x: string]: any }>).next(paths);
     return this;
   }
 
@@ -703,7 +677,7 @@ export class Formulary<_M = any> {
 
 
 
-  
+
   public shouldUpdateButton(): this {
     return this;
   }
@@ -724,6 +698,6 @@ export class Formulary<_M = any> {
     return this;
   }
 
-  public destroy(): void {}
+  public destroy(): void { }
 
 }
