@@ -98,6 +98,11 @@ export class Formulary<_M = any> {
       readOnly: true
     },
     {
+      name: `_modelPure$`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
+    {
       name: `_connect$`,
       value: { [hash()]: 'activated' },
       readOnly: true
@@ -151,14 +156,6 @@ export class Formulary<_M = any> {
 
   private readonly ____ = new WeakMap<any, any>([
     [
-      getHiddenProp(this._ref, `_footer$`),
-      new BehaviorSubject(null)
-    ],
-    [
-      getHiddenProp(this._ref, `_header$`),
-      new BehaviorSubject(null)
-    ],
-    [
       getHiddenProp(this._ref, `_form$`),
       new FormGroup({})
     ],
@@ -179,11 +176,11 @@ export class Formulary<_M = any> {
       new BehaviorSubject(null)
     ],
     [
-      getHiddenProp(this._ref, `_connect$`),
-      new BehaviorSubject(null)
+      getHiddenProp(this._ref, `_model$`),
+      new BehaviorSubject({})
     ],
     [
-      getHiddenProp(this._ref, `_model$`),
+      getHiddenProp(this._ref, `_modelPure$`),
       new BehaviorSubject({})
     ],
     [
@@ -207,10 +204,6 @@ export class Formulary<_M = any> {
       'end'
     ],
     [
-      getHiddenProp(this._ref, `_model`),
-      {}
-    ],
-    [
       getHiddenProp(this._ref, `_identifier`),
       hash()
     ],
@@ -221,7 +214,7 @@ export class Formulary<_M = any> {
     [
       getHiddenProp(this._ref, `_step_ignore_validation`),
       false
-    ]
+    ],
   ]);
 
   public get identifier(): string {
@@ -599,29 +592,104 @@ export class Formulary<_M = any> {
     return this.____.get(_ref$) as FormGroup;
   }
 
-  // @ts-ignore
-  public setSyntheticModel(identifier: string, value: any): this {
-    return this;
-  }
-
-  public setModel(): this {
-    return this;
-  }
-
   public getPureModel(): {[x: string]: any} {
-    return {};
+    const _ref$ = getHiddenProp(this._ref, `_modelPure$`);
+    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).getValue();
   }
 
   public getModel(): {[x: string]: any} {
-    return {};
+    const _ref$ = getHiddenProp(this._ref, `_model$`);
+    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).getValue();
   }
 
-  public setOptions(): this {
-    return this;
+  public getPureModel$(): Observable<{[x: string]: any}> {
+    const _ref$ = getHiddenProp(this._ref, `_modelPure$`);
+    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).asObservable();
+  }
+
+  public getModel$(): Observable<{[x: string]: any}> {
+    const _ref$ = getHiddenProp(this._ref, `_model$`);
+    return (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).asObservable();
   }
 
   public getOptions(): Modifiers.FormularyOptions {
-    return {};
+    const _ref$ = getHiddenProp(this._ref, `_options$`);
+    return (this.____.get(_ref$) as BehaviorSubject<Modifiers.FormularyOptions>).getValue();
+  }
+
+  public getOptions$(): Observable<Modifiers.FormularyOptions> {
+    const _ref$ = getHiddenProp(this._ref, `_options$`);
+    return (this.____.get(_ref$) as BehaviorSubject<Modifiers.FormularyOptions>).asObservable();
+  }
+
+  public setSyntheticModel(identifier: string, value: any): this {
+    if (identifier) {
+      const model = this.getModel();
+      const newModel = deserializeStringJsonPath(identifier, model, value, false);
+      if (newModel && newModel.source) {
+        this.setModel(newModel.source as any);
+      }
+    }
+    return this;
+  }
+
+  public setOptions(options: Modifiers.FormularyOptions): this {
+    const _ref$ = getHiddenProp(this._ref, `_options$`);
+    (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).next(options);
+    return this;
+  }
+
+  public setModel(values: {[s: string]: any}): this {
+    const _ref$ = getHiddenProp(this._ref, `_model$`);
+    (this.____.get(_ref$) as BehaviorSubject<{[x: string]: any}>).next(values);
+    const _refPure$ = getHiddenProp(this._ref, `_modelPure$`);
+    const paths = serializeStringJsonPath(values);
+    (this.____.get(_refPure$) as BehaviorSubject<{[x: string]: any}>).next(paths);
+    return this;
+  }
+
+  public applyValueOnEachControl(): this {
+    const model = this.getPureModel();
+    const group = this.getGroup();
+    if (group && model) {
+      if (group.controls) {
+        for (const identifier in model) {
+          if (identifier) {
+            if (model.hasOwnProperty(identifier)) {
+              if (group.controls.hasOwnProperty(identifier)) {
+                const control = group.controls[identifier];
+                if (control) {
+                  control.setValue(model[identifier]);
+                  control.updateValueAndValidity();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return this;
+  }
+
+  public applyValues(): this {
+    const model = this.getPureModel();
+    const group = this.getGroup();
+    if (group && model) {
+      if (group.controls) {
+        const values: Partial<any> = {};
+        for (const identifier in model) {
+          if (identifier) {
+            if (model.hasOwnProperty(identifier)) {
+              if (group.controls.hasOwnProperty(identifier)) {
+                values[identifier] = model[identifier];
+              }
+            }
+          }
+        }
+        group.setValue(values);
+      }
+    }
+    return this;
   }
 
 
@@ -635,20 +703,8 @@ export class Formulary<_M = any> {
 
 
 
-
-
-
-
-
+  
   public shouldUpdateButton(): this {
-    return this;
-  }
-
-  public shouldDisabledButton(): this {
-    return this;
-  }
-
-  public shouldUndisabledButton(): this {
     return this;
   }
 

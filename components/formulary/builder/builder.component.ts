@@ -50,7 +50,7 @@ const linear = linearFormulary([
   formularyIdentifier(`dsfsd`),
   formularyFields([
     writable([
-      fieldIdentifier(`my_name`),
+      fieldIdentifier(`info.name`),
       fieldLabel(LabelTComponent),
       fieldPlaceholder(`Type your name`),
       fieldValidators([`required`]),
@@ -58,7 +58,7 @@ const linear = linearFormulary([
       fieldTemplate(`Simple template`),
       fieldWrapper([
         writable([
-          fieldIdentifier(`sub`),
+          fieldIdentifier(`info.last_name`),
           fieldLabel(`Hello`),
           fieldTemplate(`Simple template`)
         ])

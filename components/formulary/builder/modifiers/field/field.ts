@@ -10,9 +10,7 @@ import {
   GeneratedFieldMetadataFn,
   FieldStruct,
   GeneratedFieldMetadata,
-  BasicFn,
-  ChangeHandler,
-  HistoryChanges
+  ChangeHandler
 } from '../interfaces';
 import { fieldType } from './commons';
 import { ParentTypes } from '../enums';
