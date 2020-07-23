@@ -61,8 +61,9 @@ export class Component {
   constructor(private readonly modal: YueUiModalService) {
     this.form.setup(this.formProvider);
 
-    this.modal.create({
-      content: `Hello`
+    this.modal.success({
+      header: `Keep calme`,
+      content: `Are you sure?? Do you want continue?`,
     });
 
   }

@@ -32,7 +32,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
       },
       transparent: {
         dark: {
-          10: 'var(--color-transparent-dark-10)',
+          10: 'rgba(0, 0, 0, .10)',
           15: 'rgba(0, 0, 0, .15)',
           20: 'rgba(0, 0, 0, .2)',
           25: 'rgba(0, 0, 0, .25)',
@@ -292,6 +292,11 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         'input-select-option-selected-color': '#2f2f2f',
         'input-select-option-selected-background-color': 'rgba(0, 0, 0, 0.03)',
       },
+      modal: {
+        background: `var(--color-background-light)`,
+        color: `var(--color-dark)`,
+        divider: `var(--color-transparent-dark-10)`
+      }
     }
   }
 };

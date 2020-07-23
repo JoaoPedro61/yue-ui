@@ -15,7 +15,7 @@ import { YueUiContainerComponent } from './../components/container.component';
 import { YueUiContainerComfirmComponent } from './../components/container-corfirm.component';
 
 
-import { YueUiModalContent } from './../utils/interfaces';
+import { YueUiModalContent, YueUiModalConfirmType } from './../utils/interfaces';
 
 const logger = logging.getLogger(`core.model.service`);
 
@@ -42,7 +42,7 @@ export class YueUiModalService {
 
   private createOverlay<C>(config: YueUiModalOptions<C>): OverlayRef {
     const overlayConfig = new OverlayConfig({
-      hasBackdrop: config.maskClosable,
+      hasBackdrop: config.showMask,
       scrollStrategy: this.overlay.scrollStrategies.block(),
       positionStrategy: this.overlay.position().global().centerHorizontally().top(`10vh`),
       disposeOnNavigation: config.disposeOnNavigation,
@@ -104,7 +104,7 @@ export class YueUiModalService {
   }
 
   private open<C>(content: YueUiModalContent<C>, config?: YueUiModalOptions<C>): YueUiModalRef<C> {
-    const configMerged = { ...(config || {}), ...(new YueUiModalOptions()) } as YueUiModalOptions<C>;
+    const configMerged = { ...(new YueUiModalOptions()), ...(config || {}), } as YueUiModalOptions<C>;
     const overlayRef = this.createOverlay(configMerged);
     const modalContainer = this.attachModalContainer(overlayRef, configMerged);
     const ref = this.attachModalContent<C>(content, modalContainer, overlayRef, configMerged);
@@ -122,6 +122,50 @@ export class YueUiModalService {
     }
     // @ts-ignore
     return this.open<C>(config.content, config);
+  }
+
+  public confirm<C>(options: YueUiModalOptions<C> = {}, confirmType: YueUiModalConfirmType = 'confirm'): YueUiModalRef<C> {
+    if ('footer' in options) {
+      logger.error(`The Confirm-Modal doesn't support "footer", this property will be ignored.`);
+      delete options.footer;
+    }
+    if (!('width' in options)) {
+      options.width = 416;
+    }
+    if (!('maskClosable' in options)) {
+      options.maskClosable = false;
+    }
+    options.type = 'confirm';
+    options.confirmType = confirmType;
+    options.okButtonType =
+      confirmType === `confirm`
+        ? `primary`
+        : confirmType === `error`
+          ? `danger`
+          : confirmType === `info`
+            ? `info`
+            : confirmType === `success`
+              ? `success`
+              : confirmType === `warning`
+                ? `warning`
+                : `default`;
+    return this.create(options);
+  }
+
+  public info<C>(options: YueUiModalOptions<C> = {}): YueUiModalRef<C> {
+    return this.confirm(options, 'info');
+  }
+
+  public success<C>(options: YueUiModalOptions<C> = {}): YueUiModalRef<C> {
+    return this.confirm(options, 'success');
+  }
+
+  public error<C>(options: YueUiModalOptions<C> = {}): YueUiModalRef<C> {
+    return this.confirm(options, 'error');
+  }
+
+  public warning<C>(options: YueUiModalOptions<C> = {}): YueUiModalRef<C> {
+    return this.confirm(options, 'warning');
   }
 
   public ngOnDestroy(): void {

@@ -13,8 +13,6 @@ export class NoopComponent extends FieldAbstraction {
 
   constructor() {
     super();
-
-    setTimeout(console.log, 3000, this);
   }
 
 }

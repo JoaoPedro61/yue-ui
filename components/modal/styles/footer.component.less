@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  position: relative;
+  border-top: 1px solid var(--components-modal-divider);
+
+  .default--buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    button {
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+}

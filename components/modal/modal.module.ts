@@ -17,8 +17,8 @@ import { YueUiModalService } from './services/modal.service';
 import { YueUiContainerComponent } from './components/container.component';
 import { YueUiContainerComfirmComponent } from './components/container-corfirm.component';
 
-import { YueUiModalHeaderDirective } from './directives/header.component';
-import { YueUiModalFooterDirective } from './directives/footer.component';
+import { YueUiModalHeaderComponent } from './components/header.component';
+import { YueUiModalFooterComponent } from './components/footer.component';
 
 
 
@@ -30,8 +30,8 @@ import { YueUiModalFooterDirective } from './directives/footer.component';
     YueUiContainerComponent,
     YueUiContainerComfirmComponent,
 
-    YueUiModalHeaderDirective,
-    YueUiModalFooterDirective,
+    YueUiModalHeaderComponent,
+    YueUiModalFooterComponent,
   ],
   imports: [
     OverlayModule,
@@ -43,8 +43,8 @@ import { YueUiModalFooterDirective } from './directives/footer.component';
     YueUiButtonModule,
   ],
   exports: [
-    YueUiModalHeaderDirective,
-    YueUiModalFooterDirective,
+    YueUiModalHeaderComponent,
+    YueUiModalFooterComponent,
   ]
 })
 export class YueUiModalModule {
