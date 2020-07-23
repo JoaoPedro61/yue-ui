@@ -95,7 +95,7 @@ export class YueUiContainerComfirmComponent extends Base {
       : `var(--color-secondary)`
   }
 
-  constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: Document) {
+  constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
     super(elementRef, focusTrapFactory, cdr, overlayRef, config, document );
   }
 

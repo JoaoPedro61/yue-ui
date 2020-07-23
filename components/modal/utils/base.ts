@@ -31,7 +31,7 @@ export abstract class Base extends BasePortalOutlet implements OnDestroy {
 
   public elementFocusedBeforeModalWasOpened: HTMLElement | null = null;
 
-  public document!: Document;
+  public document!: any;
 
   public modalRef!: YueUiModalRef<any>;
 
@@ -138,10 +138,10 @@ export abstract class Base extends BasePortalOutlet implements OnDestroy {
     public cdr: ChangeDetectorRef,
     public overlayRef: OverlayRef,
     public config: YueUiModalOptions<any>,
-    document?: Document
+    document?: any
   ) {
     super();
-    this.document = document as Document;
+    this.document = document as any;
     this.isStringOrObservableContent = typeof config.content === 'string';
     this.overlayRef
       .backdropClick()

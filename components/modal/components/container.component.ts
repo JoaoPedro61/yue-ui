@@ -58,7 +58,7 @@ export class YueUiContainerComponent extends Base {
   @ViewChild('footerRef', { static: false })
   public modalFooterRef!: YueUiModalFooterComponent;
 
-  constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: Document) {
+  constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
     super(elementRef, focusTrapFactory, cdr, overlayRef, config, document );
   }
 
