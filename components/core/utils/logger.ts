@@ -18,7 +18,7 @@ export class LogManager extends EventEmitter {
   private options: LogOptions = {
     enable: true,
     minLevels: {
-      '': 'info'
+      '': 'info',
     }
   };
 
@@ -128,7 +128,6 @@ export class Logger {
         logEntry.location = cla[idx].slice(cla[idx].indexOf("at ") + 3, cla[idx].length);
       }
     }
-
     this.logManager.emit('log', logEntry);
   }
 
@@ -145,5 +144,4 @@ export class Logger {
 }
 
 
-export const logging = new LogManager();
-
+export const logging = new LogManager().registerConsoleLogger();

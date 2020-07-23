@@ -1,6 +1,8 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
 import { Formulary, linearFormulary, formularyIdentifier, formularyFields, writable, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, fieldTemplate } from '@JoaoPedro61/yue-ui/formulary/builder';
 
+import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
+
 
 
 @NgComponent({
@@ -56,8 +58,13 @@ export class Component {
     )
   ]);
 
-  constructor() {
+  constructor(private readonly modal: YueUiModalService) {
     this.form.setup(this.formProvider);
+
+    this.modal.create({
+      content: `Hello`
+    });
+
   }
 
 }

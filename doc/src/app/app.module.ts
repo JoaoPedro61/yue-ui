@@ -12,6 +12,7 @@ import { YueUiTooltipModule } from '@JoaoPedro61/yue-ui/tooltip';
 import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
 import { YueUiMenuModule } from '@JoaoPedro61/yue-ui/menu';
 import { YueUiBuilderFormularyModule } from '@JoaoPedro61/yue-ui/formulary/builder';
+import { YueUiModalModule } from '@JoaoPedro61/yue-ui/modal';
 
 import { Component as Home } from './home/component';
 
@@ -37,6 +38,7 @@ import { Component as Home } from './home/component';
     YueUiPopoverModule,
     YueUiMenuModule,
     YueUiBuilderFormularyModule,
+    YueUiModalModule
   ],
   providers: [],
   bootstrap: [
