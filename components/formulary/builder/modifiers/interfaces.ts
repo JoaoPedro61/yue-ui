@@ -42,6 +42,11 @@ export type AllowedFieldsTypes = 'writable'
  | 'internal';
 
 
+export interface ComponentsInjection {
+  [z: string]: Type<any>;
+}
+
+
 export type ChangeHandler = (changes: HistoryChanges) => void;
 
 

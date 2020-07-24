@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
 
+import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
 import { deepTypechecker } from '@JoaoPedro61/yue-ui/core/utils';
 import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
 
@@ -28,10 +29,10 @@ import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
           <div class="yue-ui-popover-arrow"></div>
           <div class="yue-ui-popover-inner">
             <div class="yue-ui-popover-title-wrapper" *ngIf="title">
-              <ng-container *yueUiStringTemplateRefRender="title">{{ title }}</ng-container>
+              <yue-ui-smart-render yueUiSmartRender="title"></yue-ui-smart-render>
             </div>
             <div class="yue-ui-popover-content-wrapper">
-              <ng-container *yueUiStringTemplateRefRender="content">{{ content }}</ng-container>
+              <yue-ui-smart-render yueUiSmartRender="content"></yue-ui-smart-render>
             </div>
           </div>
         </div>
@@ -46,10 +47,10 @@ import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
 export class YueUiPopoverComponent extends BaseComponent {
 
   @Input()
-  public title: string | TemplateRef<any> | null = null;
+  public title: YueUiSmartRenderType = null;
 
   @Input()
-  public content: string | TemplateRef<any> | null = null;
+  public content: YueUiSmartRenderType = null;
 
   _prefix = 'yue-ui-popover-placement';
 

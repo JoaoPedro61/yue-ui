@@ -12,7 +12,8 @@ import {
   Type
 } from '@angular/core';
 
-import { Context } from './../utils/context';
+import { Context } from '../utils/context';
+import { YueUiStringTemplateRefRenderType } from '../utils/interfaces';
 
 
 
@@ -32,7 +33,7 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
   public yueUiStringTemplateRefRenderContext: any | null = null;
 
   @Input()
-  public yueUiStringTemplateRefRender: any | TemplateRef<any> = null;
+  public yueUiStringTemplateRefRender: YueUiStringTemplateRefRenderType = null;
 
   /*
     Ivy render complement
@@ -56,7 +57,7 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
       );
     } else {
       try {
-        const ref: ComponentRef<Type<any>> = this.viewContainer.createComponent(this.cfr.resolveComponentFactory(this.yueUiStringTemplateRefRender));
+        const ref: ComponentRef<Type<any>> = this.viewContainer.createComponent(this.cfr.resolveComponentFactory(this.yueUiStringTemplateRefRender as any));
         const ctx = isComponent ? this.yueUiStringTemplateRefRenderContext : this.context;
         if (ctx) {
           for (const prop in ctx) {

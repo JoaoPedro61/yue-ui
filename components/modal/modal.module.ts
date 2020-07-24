@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiStringTemplateRefRenderModule } from '@JoaoPedro61/yue-ui/string-template-ref-render';
+import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 
@@ -38,7 +38,7 @@ import { YueUiModalFooterComponent } from './components/footer.component';
     PortalModule,
     CommonModule,
 
-    YueUiStringTemplateRefRenderModule,
+    YueUiSmartRenderModule,
     YueUiIconModule,
     YueUiButtonModule,
   ],

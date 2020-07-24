@@ -1,5 +1,5 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
-import { Formulary, linearFormulary, formularyIdentifier, formularyFields, writable, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, fieldTemplate } from '@JoaoPedro61/yue-ui/formulary/builder';
+import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
 
@@ -14,7 +14,7 @@ import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
           <button yueUiButton>
             Hello
           </button>
-          <a yueUiButton>
+          <a yueUiButton yueUiPopover="'kajsghdf'" yueUiPopoverContent="'sdkjfasdgf'">
             Hello
           </a>
           <yue-ui-button>
@@ -28,7 +28,7 @@ import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
          BOT
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
-      <div style="display: flex;">
+      <div>
         <yue-ui-formulary [formulary]="form"></yue-ui-formulary>
       </div>
     </yue-ui-layout>
@@ -43,16 +43,16 @@ export class Component {
   public formProvider = linearFormulary([
     formularyIdentifier(`dsfsd`),
     formularyFields(
-      ...new Array(5)
+      ...new Array(1)
       .fill(null)
       .map((_, i) => {
-        return writable([
+        return checkable([
           fieldIdentifier(`info.name_${i}`),
           fieldLabel(`Label`),
           fieldPlaceholder(`Type your name`),
           fieldValidators([`required`]),
           fieldDescription(`Simple field description`),
-          fieldTemplate(`Simple template`)
+          fieldDefaultValue(false),
         ]);
       })
     )

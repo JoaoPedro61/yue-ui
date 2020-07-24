@@ -4,17 +4,20 @@ import { CommonModule } from '@angular/common';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
+import { YueUiSmartRenderComponent } from './components/smart-render.component';
 import { YueUiStringTemplateRefRenderDirective } from './directives/string-template-ref-render.directive';
 
 
-const logger = logging.getLogger('core.icon');
+const logger = logging.getLogger('core.smart-render');
 
 
 @NgModule({
   declarations: [
+    YueUiSmartRenderComponent,
     YueUiStringTemplateRefRenderDirective
   ],
   exports: [
+    YueUiSmartRenderComponent,
     YueUiStringTemplateRefRenderDirective
   ],
   providers: [],
@@ -22,10 +25,10 @@ const logger = logging.getLogger('core.icon');
     CommonModule
   ]
 })
-export class YueUiStringTemplateRefRenderModule {
+export class YueUiSmartRenderModule {
 
   constructor() {
-    logger.info(`YueUiStringTemplateRefRenderModule on version: ${VERSION.full}`);
+    logger.info(`YueUiSmartRenderModule on version: ${VERSION.full}`);
   }
 
 }

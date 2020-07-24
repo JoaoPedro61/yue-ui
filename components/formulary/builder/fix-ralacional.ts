@@ -1,4 +1,3 @@
-import * as Interfaces from './builder.interfaces';
 import {
   Formulary
 } from './formulary-builder';
