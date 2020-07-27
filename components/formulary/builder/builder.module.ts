@@ -18,6 +18,8 @@ import { DescriptorComponent } from './extends/descriptor.component';
 import { SwitchAbstractionComponent } from './abstract/switch.abstraction.component';
 import { TextAbstractionComponent } from './abstract/text.abstraction.component';
 import { NumberAbstractionComponent } from './abstract/number.abstraction.component';
+import { SelectAbstractionComponent } from './abstract/select.abstraction.component';
+import { TouchableAbstractionComponent } from './abstract/touchable.abstraction.component';
 
 
 const logger = logging.getLogger('core.formulary.builder');
@@ -35,6 +37,8 @@ const logger = logging.getLogger('core.formulary.builder');
     SwitchAbstractionComponent,
     TextAbstractionComponent,
     NumberAbstractionComponent,
+    SelectAbstractionComponent,
+    TouchableAbstractionComponent,
   ],
   entryComponents: [
     FormularyComponent,
@@ -46,6 +50,8 @@ const logger = logging.getLogger('core.formulary.builder');
     SwitchAbstractionComponent,
     TextAbstractionComponent,
     NumberAbstractionComponent,
+    SelectAbstractionComponent,
+    TouchableAbstractionComponent,
   ],
   imports: [
     CommonModule,

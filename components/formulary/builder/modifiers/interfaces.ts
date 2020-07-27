@@ -35,11 +35,11 @@ export interface FormularyOptions {
 }
 
 export type AllowedFieldsTypes = 'writable'
- | 'enumerable'
- | 'checkable'
- | 'selectable'
- | 'touchable'
- | 'internal';
+  | 'enumerable'
+  | 'checkable'
+  | 'selectable'
+  | 'touchable'
+  | 'internal';
 
 
 export interface ComponentsInjection {
@@ -100,11 +100,12 @@ export interface FieldStruct extends CommonInheritMethods {
     tap?: Listener;
   };
   hide?: boolean | ((...args: any) => boolean);
+  styles?: { [style: string]: any };
 
   /**
    * Selectables fields
    */
-  options?: ((...args: any[]) => (({[x: string]: any})[] | Observable<({[x: string]: any})>)) | (({[x: string]: any})[] | Observable<({[x: string]: any})>);
+  options?: ((...args: any[]) => (({ [x: string]: any })[] | Observable<({ [x: string]: any })>)) | (({ [x: string]: any })[] | Observable<({ [x: string]: any })>);
   properties?: YueSelectProperties;
   mode?: YueSelectMode | YueSwitchModes;
 
@@ -127,7 +128,7 @@ export interface StaircaseFormularyStepStruct extends FormulariesCommons {
   name?: string;
   buttons?: GeneratedButtonMetadata;
   children: GeneratedFieldMetadata[];
-  fragments: Partial<{[s: string]: string}>;
+  fragments: Partial<{ [s: string]: string }>;
   metadataType: ParentTypes.StaircaseFormulary;
   mode: ParentTypes.StaircaseFormulary;
 }
@@ -167,7 +168,7 @@ interface BaseMetadata<S = any> extends CommonInheritMethods {
   [x: string]: any;
   struct: S;
   identifier: string;
-  fragments: Partial<{[s: string]: string}>;
+  fragments: Partial<{ [s: string]: string }>;
 }
 
 

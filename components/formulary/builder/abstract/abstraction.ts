@@ -11,6 +11,8 @@ export abstract class FieldAbstraction {
 
   private _options!: Modifiers.FormularyOptions;
 
+  private _model!: {[x: string]: any};
+
   public readonly identifier!: string;
 
   public readonly formulary!: Formulary;
@@ -68,7 +70,24 @@ export abstract class FieldAbstraction {
     }
   }
 
+  public get model(): {[x: string]: any} {
+    if (this._model) {
+      return this._model;
+    } else {
+      const cached = this.formulary.getModel();
+      if (cached) {
+        this._model = cached;
+        return cached;
+      } else {
+        return {};
+      }
+    }
+  }
+
   constructor() { }
+
+  public listeners(type: string, paramenters?: any[]): void {
+  }
 
 }
 

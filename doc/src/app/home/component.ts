@@ -1,5 +1,23 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
-import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue, fieldSwitchMode, fieldOptions, writable, enumerable } from '@JoaoPedro61/yue-ui/formulary/builder';
+import {
+  Formulary,
+  linearFormulary,
+  formularyIdentifier,
+  formularyFields,
+  fieldIdentifier,
+  fieldLabel,
+  fieldPlaceholder,
+  fieldValidators,
+  fieldDescription,
+  checkable,
+  fieldStyles,
+  fieldSwitchMode,
+  fieldOptions,
+  writable,
+  enumerable,
+  touchable,
+  fieldVstype
+} from '@JoaoPedro61/yue-ui/formulary/builder';
 
 import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
 
@@ -70,7 +88,17 @@ export class Component {
         fieldPlaceholder(`Type your name`),
         fieldValidators([`required`]),
         fieldDescription(`Simple field description`),
-      ])
+      ]),
+      touchable([
+        fieldIdentifier(`info.name_4`),
+        fieldLabel(`Type your name`),
+        fieldPlaceholder(`Type your name`),
+        fieldDescription(`Simple field description`),
+        fieldVstype('primary'),
+        fieldStyles({
+          textAlign: 'left'
+        })
+      ]),
     ])
   ]);
 

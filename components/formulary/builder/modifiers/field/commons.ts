@@ -258,6 +258,17 @@ function options(value: FieldStruct['options']): ModifiersFn {
   };
 }
 
+function styles(value: FieldStruct['styles']): ModifiersFn {
+  return (parent: string, target: Partial<any>) => {
+    expect_parent(parent, [ParentTypes.Field]);
+    expect_param(`value`, value);
+    expect_type(`value`, value, [`object`]);
+    registryChange(target, `styles`, value, target.styles);
+    target.styles = value;
+    return target;
+  };
+}
+
 function properties(value: FieldStruct['properties']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
@@ -359,5 +370,6 @@ export {
   vstype as fieldVstype,
   selectMode as fieldSelectMode,
   switchMode as fieldSwitchMode,
-  hide as fieldHide
+  hide as fieldHide,
+  styles as fieldStyles,
 };
