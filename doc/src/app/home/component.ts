@@ -1,5 +1,5 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
-import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue, fieldSwitchMode, fieldOptions } from '@JoaoPedro61/yue-ui/formulary/builder';
+import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue, fieldSwitchMode, fieldOptions, writable, enumerable } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
 
@@ -42,26 +42,36 @@ export class Component {
 
   public formProvider = linearFormulary([
     formularyIdentifier(`dsfsd`),
-    formularyFields(
-      ...new Array(1)
-      .fill(null)
-      .map((_, i) => {
-        return checkable([
-          fieldIdentifier(`info.name_${i}`),
-          fieldLabel(`Label`),
-          fieldSwitchMode('indeterminate'),
-          fieldPlaceholder(`Type your name`),
-          fieldValidators([`required`]),
-          fieldDescription(`Simple field description`),
-          fieldOptions([
-            { label: 'Hello 1', value: '1' },
-            { label: 'Hello 2', value: '2' },
-            { label: 'Hello 3', value: '3' },
-            { label: 'Hello 4', value: '4' },
-          ])
-        ]);
-      })
-    )
+    formularyFields([
+      checkable([
+        fieldIdentifier(`info.name_1`),
+        fieldLabel(`Label`),
+        fieldSwitchMode('indeterminate'),
+        fieldPlaceholder(`Type your name`),
+        fieldValidators([`required`]),
+        fieldDescription(`Simple field description`),
+        fieldOptions([
+          { label: 'Hello 1', value: '1' },
+          { label: 'Hello 2', value: '2' },
+          { label: 'Hello 3', value: '3' },
+          { label: 'Hello 4', value: '4' },
+        ])
+      ]),
+      writable([
+        fieldIdentifier(`info.name_2`),
+        fieldLabel(`Type your name`),
+        fieldPlaceholder(`Type your name`),
+        fieldValidators([`required`]),
+        fieldDescription(`Simple field description`),
+      ]),
+      enumerable([
+        fieldIdentifier(`info.name_3`),
+        fieldLabel(`Type your name`),
+        fieldPlaceholder(`Type your name`),
+        fieldValidators([`required`]),
+        fieldDescription(`Simple field description`),
+      ])
+    ])
   ]);
 
   constructor(private readonly modal: YueUiModalService) {

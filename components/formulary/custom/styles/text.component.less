@@ -1,201 +1,100 @@
 :host {
-  display   : block;
-  position  : relative;
-  margin-top: 4px;
-  height    : 100%;
+  display : block;
+  position: relative;
 
-  .checker-wrapper {
-    @width              : 40px;
-    @height             : 15px;
-    @handlerWidth       : @width / 3;
-    @handlerHeight      : @width / 3;
-    @handlerTop         : @height / 3 - 1;
-    @handlerLeftUnactive: @height / 3;
+  .field-text-wrapper {
 
-    display : block;
-    position: relative;
+    input {
+      max-width       : none;
+      height          : 32px;
+      color           : var(--components-formulary-input-color);
+      font-size       : 14px;
+      font-weight     : 400;
+      font-style      : normal;
+      line-height     : 20px;
+      background-color: var(--components-formulary-input-background);
+      border          : 1px solid var(--components-formulary-input-border-color);
+      padding         : 4px 7px 5px;
+      outline         : 0;
+      border-radius   : 3.01px;
+      box-sizing      : border-box;
+      margin          : 0;
+      width           : 100%;
+      -moz-appearance: textfield;
 
-    .normal-checker {
-      position     : relative;
-      display      : block;
-      width        : @width;
-      height       : @height;
-      padding      : 3px;
-      margin       : 0 10px 10px 0;
-      border-radius: 18px;
-      cursor       : pointer;
-      box-sizing   : content-box;
-      border       : 1px solid var(--components-formulary-input-border-color);
-      transition   : background 300ms ease-in-out;
-      background   : var(--components-formulary-input-background);
-
-      .switch {
-        position  : absolute;
-        top       : 0;
-        left      : 0;
-        right     : 0;
-        bottom    : 0;
-        z-index   : 2;
-        opacity   : 0;
-        box-sizing: content-box;
-        width     : 100%;
-        height    : 100%;
-        cursor    : pointer;
-
-        &:checked {
-
-          &~.labels {}
-
-          &~.handler {
-            background: var(--components-formulary-input-switch-active-handler-background);
-            left      : calc(calc(100% - @handlerWidth) - 4px);
-          }
-        }
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
 
-      &:hover:not(.focusing):not(.disabled) {
-        background: var(--components-formulary-hover-background);
+      &:focus {
+        background-color: var(--components-formulary-input-focus-background);
+        border          : 1px solid var(--components-formulary-input-focus-border-color);
+        outline         : 0;
+        box-shadow      : 0 0 0 1px var(--components-formulary-input-focus-border-color)
       }
 
-      &.focusing:not(.disabled) {
-        background: var(--components-formulary-focus-background);
+      &:hover:not(:focus) {
+        background-color: var(--components-formulary-input-hover-background);
       }
 
-      .labels {
-        position : relative;
-        display  : block;
-        height   : inherit;
-        font-size: 10px;
-
-        .active {
-          right      : 11px;
-          position   : absolute;
-          top        : 50%;
-          margin-top : -.5em;
-          line-height: 1;
-          transition : inherit;
-          box-sizing : content-box;
-        }
-
-        .unactive {
-          left       : 11px;
-          position   : absolute;
-          top        : 50%;
-          margin-top : -.5em;
-          line-height: 1;
-          transition : inherit;
-          box-sizing : content-box;
-        }
-      }
-
-      .handler {
-        transition   : left 300ms ease-in-out, background 300ms ease-in-out;
-        position     : absolute;
-        top          : @handlerTop;
-        left         : @handlerLeftUnactive;
-        width        : @handlerWidth;
-        height       : @handlerHeight;
-        border-radius: 100%;
-        background   : var(--components-formulary-input-switch-unactive-handler-background);
-        border       : 3px solid transparent;
+      &[disabled] {
+        background-color: var(--components-formulary-input-disabled-background);
       }
     }
 
-    .indeterminate-checker {
-      position     : relative;
-      display      : block;
-      width        : @width;
-      height       : @height;
-      padding      : 3px;
-      margin       : 0 10px 10px 0;
-      border-radius: 18px;
-      cursor       : pointer;
-      box-sizing   : content-box;
-      border       : 1px solid var(--components-formulary-input-border-color);
-      transition   : background 300ms ease-in-out;
-      background   : var(--components-formulary-input-background);
+    .input-clear {
+      background-image: none;
+      border          : none;
+      background      : none;
+      border-radius   : 3.01px;
+      font-size       : 14px;
+      font-family     : inherit;
+      font-variant    : normal;
+      line-height     : 20px;
+      cursor          : pointer;
+      text-decoration : none;
+      text-shadow     : 0 1px 0 white;
+      bottom          : 1px;
+      display         : block;
+      height          : auto;
+      margin          : 0;
+      padding         : 4px 0;
+      position        : absolute;
+      right           : 3px;
+      top             : 1px;
+      width           : 23px;
+      padding-top     : 6px;
+      z-index         : 10;
+      transition      : opacity 300ms ease-in-out;
+      opacity         : 0;
 
-      .switch {
-        position  : absolute;
-        top       : 0;
-        left      : 0;
-        right     : 0;
-        bottom    : 0;
-        z-index   : 2;
-        opacity   : 0;
-        box-sizing: content-box;
-        width     : 100%;
-        height    : 100%;
-        cursor    : pointer;
+      .input-clear-wrapper {
 
-        &:checked {
+        .input-clear-handler {
+          width          : 17px;
+          height         : 17px;
+          background     : rgba(0, 0, 0, .1);
+          display        : flex;
+          justify-content: center;
+          vertical-align : middle;
+          align-items    : center;
+          border-radius  : 50%;
+          cursor         : pointer;
 
-          &~.labels {}
-
-          &~.handler {
-            background: var(--components-formulary-input-switch-active-handler-background);
-            left      : calc(calc(100% - @handlerWidth) - 4px);
+          svg {
+            transform: rotate(45deg);
           }
         }
       }
-
-      &:hover:not(.focusing):not(.disabled) {
-        background: var(--components-formulary-hover-background);
-      }
-
-      &.focusing:not(.disabled) {
-        background: var(--components-formulary-focus-background);
-      }
-
-      &.indeterminate {
-
-        .handler {
-          left     : 50%;
-          transform: translateX(-50%);
-          background: var(--components-formulary-input-switch-indeterminate-handler-dot-background);
-        }
-      }
-
-      .labels {
-        position : relative;
-        display  : block;
-        height   : inherit;
-        font-size: 10px;
-
-        .active {
-          right      : 11px;
-          position   : absolute;
-          top        : 50%;
-          margin-top : -.5em;
-          line-height: 1;
-          transition : inherit;
-          box-sizing : content-box;
-        }
-
-        .unactive {
-          left       : 11px;
-          position   : absolute;
-          top        : 50%;
-          margin-top : -.5em;
-          line-height: 1;
-          transition : inherit;
-          box-sizing : content-box;
-        }
-      }
-
-      .handler {
-        transition   : left 300ms ease-in-out, background 300ms ease-in-out;
-        position     : absolute;
-        top          : @handlerTop;
-        left         : @handlerLeftUnactive;
-        width        : @handlerWidth;
-        height       : @handlerHeight;
-        border-radius: 100%;
-        background   : var(--components-formulary-input-switch-unactive-handler-background);
-        border       : 3px solid transparent;
-      }
     }
 
+    &.hovering {
+
+      .input-clear {
+        opacity: 1;
+      }
+    }
   }
-
 }

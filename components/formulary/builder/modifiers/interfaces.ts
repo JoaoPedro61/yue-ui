@@ -36,8 +36,8 @@ export interface FormularyOptions {
 
 export type AllowedFieldsTypes = 'writable'
  | 'enumerable'
- | 'selectable'
  | 'checkable'
+ | 'selectable'
  | 'touchable'
  | 'internal';
 

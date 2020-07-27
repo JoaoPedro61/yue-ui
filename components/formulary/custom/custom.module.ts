@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
@@ -52,6 +53,7 @@ const logger = logging.getLogger(`core.formulary.custom`);
     FormsModule,
     ReactiveFormsModule,
     YueUiSmartRenderModule,
+    TextMaskModule,
   ]
 })
 export class YueUiCustomInputsModule {

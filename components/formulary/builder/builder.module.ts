@@ -16,10 +16,8 @@ import { WrapperComponent } from './extends/wrapper.component';
 import { DescriptorComponent } from './extends/descriptor.component';
 
 import { SwitchAbstractionComponent } from './abstract/switch.abstraction.component';
-
-/* TESTS */
-import { NoopComponent } from './abstract/noop.component';
-
+import { TextAbstractionComponent } from './abstract/text.abstraction.component';
+import { NumberAbstractionComponent } from './abstract/number.abstraction.component';
 
 
 const logger = logging.getLogger('core.formulary.builder');
@@ -34,8 +32,9 @@ const logger = logging.getLogger('core.formulary.builder');
     WrapperComponent,
     DescriptorComponent,
     
-    NoopComponent,
     SwitchAbstractionComponent,
+    TextAbstractionComponent,
+    NumberAbstractionComponent,
   ],
   entryComponents: [
     FormularyComponent,
@@ -44,8 +43,9 @@ const logger = logging.getLogger('core.formulary.builder');
     WrapperComponent,
     DescriptorComponent,
 
-    NoopComponent,
     SwitchAbstractionComponent,
+    TextAbstractionComponent,
+    NumberAbstractionComponent,
   ],
   imports: [
     CommonModule,
