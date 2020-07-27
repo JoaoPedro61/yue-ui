@@ -10,7 +10,9 @@ import { YueUiSwitchComponent } from './components/switch.component';
 import { YueUiSwitchOptionComponent } from './components/switch-option.component';
 import { YueUiNumberComponent } from './components/number.component';
 import { YueUiSelectComponent } from './components/select.component';
-import { YueUiTextComponent } from './components/text.componen';
+import { YueUiTextComponent } from './components/text.component';
+import { YueUiColorpickerComponent } from './components/colorpicker.component';
+import { YueUiDatepickerComponent } from './components/datepicker.component';
 
 
 const logger = logging.getLogger(`core.formulary.custom`);
@@ -24,6 +26,8 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiTextComponent,
+    YueUiColorpickerComponent,
+    YueUiDatepickerComponent,
   ],
   entryComponents: [
     YueUiSwitchComponent,
@@ -31,6 +35,8 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiTextComponent,
+    YueUiColorpickerComponent,
+    YueUiDatepickerComponent,
   ],
   exports: [
     YueUiSwitchComponent,
@@ -38,6 +44,8 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiTextComponent,
+    YueUiColorpickerComponent,
+    YueUiDatepickerComponent,
   ],
   imports: [
     CommonModule,
