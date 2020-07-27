@@ -102,6 +102,7 @@ export class Component {
     ])
   ]);
 
+  // @ts-ignore
   constructor(private readonly modal: YueUiModalService) {
     this.form.setup(this.formProvider);
 /* 

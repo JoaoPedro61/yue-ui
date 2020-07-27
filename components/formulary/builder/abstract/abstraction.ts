@@ -86,6 +86,7 @@ export abstract class FieldAbstraction {
 
   constructor() { }
 
+  // @ts-ignore
   public listeners(type: string, paramenters?: any[]): void {
   }
 
