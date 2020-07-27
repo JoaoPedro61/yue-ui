@@ -1,5 +1,5 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
-import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue } from '@JoaoPedro61/yue-ui/formulary/builder';
+import { Formulary, linearFormulary, formularyIdentifier, formularyFields, fieldIdentifier, fieldLabel, fieldPlaceholder, fieldValidators, fieldDescription, checkable, fieldDefaultValue, fieldSwitchMode, fieldOptions } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
 
@@ -49,10 +49,16 @@ export class Component {
         return checkable([
           fieldIdentifier(`info.name_${i}`),
           fieldLabel(`Label`),
+          fieldSwitchMode('indeterminate'),
           fieldPlaceholder(`Type your name`),
           fieldValidators([`required`]),
           fieldDescription(`Simple field description`),
-          fieldDefaultValue(false),
+          fieldOptions([
+            { label: 'Hello 1', value: '1' },
+            { label: 'Hello 2', value: '2' },
+            { label: 'Hello 3', value: '3' },
+            { label: 'Hello 4', value: '4' },
+          ])
         ]);
       })
     )
@@ -60,12 +66,12 @@ export class Component {
 
   constructor(private readonly modal: YueUiModalService) {
     this.form.setup(this.formProvider);
-
+/* 
     this.modal.success({
       header: `Keep calme`,
       content: `Are you sure?? Do you want continue?`,
     });
-
+ */
   }
 
 }

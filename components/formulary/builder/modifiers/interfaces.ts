@@ -104,7 +104,7 @@ export interface FieldStruct extends CommonInheritMethods {
   /**
    * Selectables fields
    */
-  options?: ((...args: any[]) => ((string | object | number)[] | Observable<any>)) | ((string | object | number)[] | Observable<any>);
+  options?: ((...args: any[]) => (({[x: string]: any})[] | Observable<({[x: string]: any})>)) | (({[x: string]: any})[] | Observable<({[x: string]: any})>);
   properties?: YueSelectProperties;
   mode?: YueSelectMode | YueSwitchModes;
 

@@ -4,7 +4,6 @@ import {
   ViewContainerRef,
   ComponentFactoryResolver,
   Renderer2,
-  TemplateRef,
   EventEmitter,
   ViewChild,
   Directive,
@@ -27,6 +26,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import {
   POSITION_MAP, getPlacementName, DEFAULT_TOOLTIP_POSITIONS
 } from '@JoaoPedro61/yue-ui/overlay';
+import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
 
 import { YueUiTooltipComponent } from './../components/tooltip.component';
 
@@ -37,13 +37,13 @@ import { YueUiTooltipTrigger } from './interfaces';
 @Directive()
 export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
 
-  protected directiveNameTitle?: TemplateRef<any> | string | null;
+  protected directiveNameTitle?: YueUiSmartRenderType;
 
-  protected specificTitle?: TemplateRef<any> | string | null;
+  protected specificTitle?: YueUiSmartRenderType;
 
-  protected directiveNameContent?: TemplateRef<any> | string | null;
+  protected directiveNameContent?: YueUiSmartRenderType;
 
-  protected specificContent?: TemplateRef<any> | string | null;
+  protected specificContent?: YueUiSmartRenderType;
 
   protected specificTrigger?: YueUiTooltipTrigger;
 
@@ -67,11 +67,11 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
 
   protected needProxyProperties = [];
 
-  protected get title(): TemplateRef<any> | string | null {
+  protected get title(): YueUiSmartRenderType {
     return this.specificTitle || this.directiveNameTitle || null;
   }
 
-  protected get content(): TemplateRef<any> | string | null {
+  protected get content(): YueUiSmartRenderType {
     return this.specificContent || this.directiveNameContent || null;
   }
 
@@ -332,9 +332,9 @@ export abstract class BaseComponent {
   @ViewChild('overlay', { static: false })
   public overlay!: CdkConnectedOverlay;
 
-  public title: TemplateRef<any> | string | null = null;
+  public title: YueUiSmartRenderType = null;
 
-  public content: TemplateRef<any> | string | null = null;
+  public content: YueUiSmartRenderType = null;
 
   public set placement(value: string) {
     if (value !== this.preferredPlacement) {
