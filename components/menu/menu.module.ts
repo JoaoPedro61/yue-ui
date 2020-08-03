@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
-import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
-
 import { YueUiMenuComponent } from './components/menu.component';
 import { YueUiSubMenuComponent } from './components/sub-menu.component';
-
-import { YueUiMenuItemDirective } from './directives/menu-item.directive';
+import { YueUiSubMenuTitleComponent } from './components/sub-menu-title.component';
+import { YueUiSubMenuInlineChildComponent } from './components/sub-menu-inline-child.component';
+import { YueUiSubMenuNoneInlineChildComponent } from './components/sub-menu-none-inline-child.component';
+import { YueUiMenuItemComponent } from './components/menu-item.component';
 
 const logger = logging.getLogger('core.button');
 
@@ -18,16 +19,22 @@ const logger = logging.getLogger('core.button');
   declarations: [
     YueUiMenuComponent,
     YueUiSubMenuComponent,
-    YueUiMenuItemDirective,
+    YueUiSubMenuTitleComponent,
+    YueUiMenuItemComponent,
+    YueUiSubMenuInlineChildComponent,
+    YueUiSubMenuNoneInlineChildComponent
   ],
   exports: [
     YueUiMenuComponent,
     YueUiSubMenuComponent,
-    YueUiMenuItemDirective,
+    YueUiSubMenuTitleComponent,
+    YueUiMenuItemComponent,
+    YueUiSubMenuInlineChildComponent,
+    YueUiSubMenuNoneInlineChildComponent
   ],
   imports: [
     CommonModule,
-    YueUiPopoverModule,
+    OverlayModule,
   ]
 })
 export class YueUiMenuModule {
