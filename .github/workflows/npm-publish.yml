@@ -21,8 +21,6 @@ jobs:
           npm run build:library
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
-      - run: echo -e "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN_GENERATE_PKG}}" > .npmrc
-      - run: npm publish ./lib
+      - run: npm publish ./publish
         env:
            NODE_AUTH_TOKEN: ${{secrets.TOKEN}}
-      - run: rm .npmrc
