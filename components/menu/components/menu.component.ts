@@ -16,13 +16,13 @@ import {
   Component,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { combineLatest, Subject, BehaviorSubject } from 'rxjs';
 import { YueUiMenuService } from '../services/menu.service';
 import { IsMenuInsideDropDownToken, MenuServiceLocalToken } from '../utils/token';
 import { MenuDropDownTokenFactory, YueUiMenuServiceFactory } from '../utils/factories';
 import { YueUiSubMenuComponent } from '../components/sub-menu.component';
-import { YueUiMenuType } from '../utils/interfaces';
+import { YueUiMenuType, SafeAny } from '../utils/interfaces';
 import { YueUiMenuItemComponent } from './menu-item.component';
 
 
@@ -30,7 +30,10 @@ import { YueUiMenuItemComponent } from './menu-item.component';
 @Component({
   selector: 'yue-ui-menu',
   host: {
-    '[class.yue-ui-menu]': 'true'
+    '[class.yue-ui-menu]': 'true',
+    '[class.yue-ui-menu-horizontal]': `actualMode === 'horizontal'`,
+    '[class.yue-ui-menu-vertical]': `actualMode === 'vertical'`,
+    '[class.yue-ui-menu-inline]': `actualMode === 'inline'`,
   },
   providers: [
     {
@@ -51,6 +54,9 @@ import { YueUiMenuItemComponent } from './menu-item.component';
   template: `
     <ng-content></ng-content>
   `,
+  styleUrls: [
+    `./../styles/menu.component.less`,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'yueUiMenuRef',
@@ -67,7 +73,7 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
   public yueUiMenuInlineIndent = 24;
 
   @Input()
-  public yueUiMenuMode: YueUiMenuType = 'vertical';
+  public yueUiMenuMode: YueUiMenuType = this.menuService.mode$.getValue() || `vertical`;
 
   @Input()
   public yueUiMenuInlineCollapsed = false;
@@ -78,6 +84,9 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
   @Output()
   public readonly yueUiMenuClick = new EventEmitter<YueUiMenuItemComponent>();
 
+  @Output()
+  public readonly yueUiMenuSomeChildIsOpened = new EventEmitter<SafeAny>();
+
   private destroy$ = new Subject<void>();
 
   private inlineCollapsed$ = new BehaviorSubject<boolean>(this.yueUiMenuInlineCollapsed);
@@ -86,7 +95,7 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
 
   private listOfOpenedYueUiSubMenuComponent: YueUiSubMenuComponent[] = [];
 
-  public actualMode: YueUiMenuType = 'vertical';
+  public actualMode: YueUiMenuType = this.mode$.getValue() || `vertical`;
 
   public setInlineCollapsed(inlineCollapsed: boolean): void {
     this.yueUiMenuInlineCollapsed = inlineCollapsed;
@@ -109,12 +118,12 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
 
   public ngOnInit(): void {
     combineLatest([this.inlineCollapsed$, this.mode$])
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$), take(1))
       .subscribe({
         next: ([inlineCollapsed, mode]) => {
           this.actualMode = inlineCollapsed ? 'vertical' : mode;
           this.menuService.setMode(this.actualMode);
-          console.log('update', inlineCollapsed, mode, this.actualMode);
+          this.mode$.next(this.actualMode);
           this.cdr.markForCheck();
         },
       });
@@ -129,6 +138,13 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
           }
         }
       });
+
+    this.menuService
+      .isChildSubMenuOpen$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (v) => this.yueUiMenuSomeChildIsOpened.emit(v),
+      })
   }
 
   public ngAfterContentInit(): void {
@@ -148,6 +164,7 @@ export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, 
     }
     if (yueUiMenuMode) {
       this.mode$.next(this.yueUiMenuMode);
+      this.menuService.setMode(this.yueUiMenuMode);
       if (!changes.yueUiMenuMode.isFirstChange() && this.listOfYueUiSubMenuComponent) {
         this.listOfYueUiSubMenuComponent.forEach(submenu => submenu.setOpenStateWithoutDebounce(false));
       }

@@ -83,6 +83,8 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   private _disableMobileDetector = true;
 
+  private _breakClose: any = null;
+
   @ContentChildren(YueUiNavigationMenuSiderComponent)
   public listOfNavMenuSiderComponent!: QueryList<YueUiNavigationMenuSiderComponent>;
 
@@ -131,6 +133,9 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
     if ((!this.isLikeMobile && !this._yueUiNaigationvMenuOpened) || !this.listOfNavMenuSiderComponent.length) {
       return void 0;
     }
+    if (this._breakClose) {
+      return void 0;
+    }
     if ((event as any).path && (event as any).path.length) {
       const path: (HTMLElement | Window)[] = (event as any).path;
       for (let index = 0, length = path.length; index < length; index++) {
@@ -152,6 +157,9 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
     }
     if (timerCheckHover) {
       clearTimeout(timerCheckHover);
+    }
+    if (this._breakClose) {
+      return void 0;
     }
     timerCheckHover = setTimeout((): any => {
       if ((event as any).path && (event as any).path.length) {
@@ -184,6 +192,12 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   public open(): void {
     this._yueUiNaigationvMenuOpened = true;
+
+    this._changeDetectorRef.markForCheck();
+  }
+
+  public setBreakClose(value: any): void {
+    this._breakClose = value;
 
     this._changeDetectorRef.markForCheck();
   }

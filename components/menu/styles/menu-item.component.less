@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  position: relative;
+  line-height: 40px;
+  min-width: 210px;
+  user-select: none;
+  transition: background 150ms ease-in-out;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+
+  .wrapper-inner {
+    padding: 0px 15px;
+  }
+
+  &:hover {
+
+    &:not(.yue-ui-menu-item-disabled) {
+      color: var(--components-menu-item-hover-color);
+      background: var(--components-menu-item-hover-background);
+    }
+  }
+
+  &.yue-ui-menu-item-disabled {
+    cursor: not-allowed;
+    color: var(--components-menu-item-disabled-color);
+    background: var(--components-menu-item-disabled-background);
+  }
+
+  &.yue-ui-menu-item-selected {
+    color: var(--components-menu-item-selected-color);
+    background: var(--components-menu-item-selected-background);
+    border-left-color: var(--components-menu-item-selected-indicator);
+  }
+
+}

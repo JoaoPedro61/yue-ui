@@ -13,6 +13,7 @@ import { SafeAny, YueUiMenuType } from './../utils/interfaces';
 export class YueUiSubMenuService {
 
   public mode$: Observable<YueUiMenuType> = this.menuService.mode$.pipe(
+    distinctUntilChanged(),
     map(mode => {
       if (mode === 'inline') {
         return 'inline';
@@ -43,6 +44,7 @@ export class YueUiSubMenuService {
   }
 
   public setMouseEnterTitleOrOverlayState(value: boolean): void {
+    this.menuService.childMenuOpened$.next(value);
     this.isMouseEnterTitleOrOverlay$.next(value);
   }
 

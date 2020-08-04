@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
+import { COLLAPSE_MOTION } from '@JoaoPedro61/yue-ui/core/animations';
+
+
 import { YueUiMenuType } from './../utils/interfaces';
 
 
@@ -12,10 +15,26 @@ import { YueUiMenuType } from './../utils/interfaces';
     <ng-content></ng-content>
   `,
   host: {
-    '[style.paddingLeft.px]': 'paddingLeft',
     '(mouseenter)': 'setMouseState(true)',
-    '(mouseleave)': 'setMouseState(false)'
-  }
+    '(mouseleave)': 'setMouseState(false)',
+
+    '[class.yue-ui-collapse-cdk]': 'true',
+    '[class.yue-ui-collapse-cdk-opened]': 'open',
+    '[class.yue-ui-collapse-cdk-closed]': '!open',
+    '[attr.tabIndex]': '!open ? -1 : tabIndex === null ? null : tabIndex',
+
+    '[@COLLAPSE_MOTION]': 'open',
+  },
+  styles: [`
+    :host {
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+  `],
+  animations: [
+    COLLAPSE_MOTION
+  ]
 })
 export class YueUiSubMenuInlineChildComponent {
 

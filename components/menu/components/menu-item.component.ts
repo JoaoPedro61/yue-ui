@@ -12,9 +12,20 @@ import { IsMenuInsideDropDownToken } from '../utils/token';
 @Component({
   selector: `yue-ui-menu-item`,
   host: {
-    '[class.yue-ui-menu-item]': 'true'
+    '[class.yue-ui-menu-item]': 'true',
+    '[class.yue-ui-menu-item-selected]': 'yueUiMenuItemSelected',
+    '[class.yue-ui-menu-item-disabled]': 'yueUiMenuItemDisabled',
+    '[style.paddingLeft.px]': 'yueUiMenuItemPaddingLeft || inlinePaddingLeft',
+    '(click)': `clickMenuItem($event)`
   },
-  template: `<ng-content></ng-content>`,
+  template: `
+    <div class="wrapper-inner">
+      <ng-content></ng-content>
+    </div>
+  `,
+  styleUrls: [
+    `./../styles/menu-item.component.less`
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'yueUiMenuItemRef',
@@ -23,7 +34,7 @@ export class YueUiMenuItemComponent implements OnInit, OnChanges, OnDestroy, Aft
 
   private destroy$ = new Subject<void>();
 
-  public level = this.yueUiSubmenuService ? this.yueUiSubmenuService.level + 1 : 1;
+  public level = this.yueUiSubmenuService ? this.yueUiSubmenuService.level : 0;
 
   public selected$ = new Subject<boolean>();
 

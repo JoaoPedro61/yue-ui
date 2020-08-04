@@ -16,7 +16,15 @@ import { YueUiMenuType } from './../utils/interfaces';
     '(click)': 'clickTitle()',
     '(mouseenter)': 'setMouseState(true)',
     '(mouseleave)': 'setMouseState(false)'
-  }
+  },
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
+    `
+  ]
 })
 export class YueUiSubMenuTitleComponent {
 

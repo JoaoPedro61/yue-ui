@@ -12,6 +12,8 @@ export class YueUiMenuService {
 
   public childMenuItemClick$ = new Subject<SafeAny>();
 
+  public childMenuOpened$ = new Subject<SafeAny>();
+
   public mode$ = new BehaviorSubject<YueUiMenuType>('vertical');
 
   public inlineIndent$ = new BehaviorSubject<number>(24);

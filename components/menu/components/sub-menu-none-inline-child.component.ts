@@ -12,10 +12,13 @@ import { YueUiMenuType } from './../utils/interfaces';
     <ng-content></ng-content>
   `,
   host: {
-    '[style.paddingLeft.px]': 'paddingLeft',
     '(mouseenter)': 'setMouseState(true)',
     '(mouseleave)': 'setMouseState(false)'
-  }
+  },
+  preserveWhitespaces: false,
+  styleUrls: [
+    `./../styles/sub-menu-node-inline-child.component.less`,
+  ],
 })
 export class YueUiSubMenuNoneInlineChildComponent {
 

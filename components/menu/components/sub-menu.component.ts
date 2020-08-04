@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import { Subject, combineLatest, merge } from 'rxjs';
-import { takeUntil, startWith, switchMap, map } from 'rxjs/operators';
+import { takeUntil, startWith, switchMap, map, distinctUntilChanged } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 
 import { getPlacementName } from '@JoaoPedro61/yue-ui/overlay';
@@ -36,22 +36,24 @@ import { YueUiSubMenuService } from './../services/sub-menu.service';
 @Component({
   selector: 'yue-ui-submenu',
   template: `
-    <yue-ui-submenu-title
-      class="yue-ui-sub-menu-wrapper"
+    <div class="wrapper-inner"
       cdkOverlayOrigin
       #origin="cdkOverlayOrigin"
-      yue-ui-submenu-title
-      [mode]="mode"
-      [disabled]="yueUiSubMenuDisabled"
-      [isMenuInsideDropDown]="isMenuInsideDropDown"
-      [paddingLeft]="yueUiSubMenuPaddingLeft || inlinePaddingLeft"
-      (subMenuMouseState)="setMouseEnterState($event)"
-      (toggleSubMenu)="toggleSubMenu()"
     >
-      <div class="yue-ui-sub-menu-title">
-        <ng-content select="*:not(yue-ui-menu)"></ng-content>
-      </div>
-    </yue-ui-submenu-title>
+      <yue-ui-submenu-title
+        class="yue-ui-sub-menu-wrapper"
+        [mode]="mode"
+        [disabled]="yueUiSubMenuDisabled"
+        [isMenuInsideDropDown]="isMenuInsideDropDown"
+        [paddingLeft]="yueUiSubMenuPaddingLeft || inlinePaddingLeft"
+        (subMenuMouseState)="setMouseEnterState($event)"
+        (toggleSubMenu)="toggleSubMenu()"
+      >
+        <div class="yue-ui-sub-menu-title">
+          <ng-content select="*:not(yue-ui-menu)"></ng-content>
+        </div>
+      </yue-ui-submenu-title>
+    </div>
     <ng-container *ngIf="mode === 'inline'; else nonInline">
       <yue-ui-submenu-inline-child
         [isMenuInsideDropDown]="isMenuInsideDropDown"
@@ -60,6 +62,7 @@ import { YueUiSubMenuService } from './../services/sub-menu.service';
         [open]="yueUiSubMenuOpen"
         [mode]="mode"
         (subMenuMouseState)="setMouseEnterState($event)"
+        [ngClass]="posMap"
       >
         <ng-container *ngTemplateOutlet="contentChild"></ng-container>
       </yue-ui-submenu-inline-child>
@@ -81,6 +84,7 @@ import { YueUiSubMenuService } from './../services/sub-menu.service';
           [paddingLeft]="yueUiSubMenuPaddingLeft || inlinePaddingLeft"
           [open]="yueUiSubMenuOpen"
           [mode]="mode"
+          [ngClass]="posMap"
           (subMenuMouseState)="setMouseEnterState($event)"
         >
           <ng-container *ngTemplateOutlet="contentChild"></ng-container>
@@ -94,8 +98,18 @@ import { YueUiSubMenuService } from './../services/sub-menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
-    '[class.yue-ui-sub-menu]': 'true'
+    '[class.yue-ui-sub-menu]': 'true',
+    '[class.yue-ui-sub-menu-selected]': 'isSelected',
+    '[class.yue-ui-sub-menu-activated]': 'isActive',
+    '[class.yue-ui-sub-menu-inline]': `mode === 'inline'`,
+    '[class.yue-ui-sub-menu-non-inline]': `mode !== 'inline'`,
+    '[class.yue-ui-sub-menu-inside-dropdown]': 'isMenuInsideDropDown',
+    '[class.yue-ui-sub-menu-horizontal]': `mode === 'horizontal'`,
+    '[class.yue-ui-sub-menu-vertical]': `mode === 'vertical'`,
   },
+  styleUrls: [
+    `./../styles/menu-item.component.less`,
+  ],
   exportAs: 'yueUiSubMenuRef',
   providers: [YueUiSubMenuService],
 })
@@ -140,6 +154,12 @@ export class YueUiSubMenuComponent implements AfterContentInit, OnInit, OnChange
 
   public inlinePaddingLeft: number | null = null;
 
+  public get posMap(): {[x: string]: any} {
+    return {
+      [this.position]: true,
+    };
+  }
+
   constructor(
     public menuService: YueUiMenuService,
     private cdr: ChangeDetectorRef,
@@ -180,7 +200,7 @@ export class YueUiSubMenuComponent implements AfterContentInit, OnInit, OnChange
   }
 
   public ngOnInit(): void {
-    this.subMenuService.mode$.pipe(takeUntil(this.destroy$))
+    this.subMenuService.mode$.pipe(takeUntil(this.destroy$), distinctUntilChanged())
       .subscribe({
         next: (mode) => {
           this.mode = mode;
@@ -197,7 +217,7 @@ export class YueUiSubMenuComponent implements AfterContentInit, OnInit, OnChange
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: ([mode, inlineIndent]) => {
-          this.inlinePaddingLeft = mode === 'inline' ? this.level * inlineIndent : null;
+          this.inlinePaddingLeft = mode === 'inline' ? (this.level - 1) * inlineIndent : null;
           this.cdr.markForCheck();
         }
       });
