@@ -21,7 +21,6 @@ import { YueUiMenuType } from './../utils/interfaces';
     '[class.yue-ui-collapse-cdk]': 'true',
     '[class.yue-ui-collapse-cdk-opened]': 'open',
     '[class.yue-ui-collapse-cdk-closed]': '!open',
-    '[attr.tabIndex]': '!open ? -1 : tabIndex === null ? null : tabIndex',
 
     '[@COLLAPSE_MOTION]': 'open',
   },
