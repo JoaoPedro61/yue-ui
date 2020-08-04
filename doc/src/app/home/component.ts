@@ -28,7 +28,7 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
                 </yue-ui-menu-item>
                 <yue-ui-submenu>
                   Sub menu 1
-                  <yue-ui-menu> 
+                  <yue-ui-menu>
                     <yue-ui-menu-item>
                       Sub menu 1 item 1
                     </yue-ui-menu-item>
@@ -48,7 +48,7 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
           TOP
         </yue-ui-navigation-menu-top>
         <yue-ui-navigation-menu-bottom>
-         BOT
+          <yue-ui-image style="width: 40px;height: 40px;border-radius: 50%;border: 3px solid rgba(0, 0, 0, .3);" yueUiImageSrc="https://picsum.photos/id/1/200/300"></yue-ui-image>
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
     </yue-ui-layout>

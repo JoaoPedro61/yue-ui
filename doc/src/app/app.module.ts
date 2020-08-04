@@ -13,6 +13,7 @@ import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
 import { YueUiMenuModule } from '@JoaoPedro61/yue-ui/menu';
 import { YueUiBuilderFormularyModule } from '@JoaoPedro61/yue-ui/formulary/builder';
 import { YueUiModalModule } from '@JoaoPedro61/yue-ui/modal';
+import { YueUiImageModule } from '@JoaoPedro61/yue-ui/image';
 
 import { Component as Home } from './home/component';
 
@@ -26,9 +27,9 @@ import { Component as Home } from './home/component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    
+
     BrowserAnimationsModule,
-    
+
     LayoutModule,
 
     YueUiLayoutModule,
@@ -38,7 +39,8 @@ import { Component as Home } from './home/component';
     YueUiPopoverModule,
     YueUiMenuModule,
     YueUiBuilderFormularyModule,
-    YueUiModalModule
+    YueUiModalModule,
+    YueUiImageModule
   ],
   providers: [],
   bootstrap: [
