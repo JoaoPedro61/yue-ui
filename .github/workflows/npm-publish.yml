@@ -22,6 +22,8 @@ jobs:
           rm ./git-version-workflow
           echo $(cat ./version) > ./git-version-workflow
       - run: npm publish ./publish
+      - run: git config --global user.email "mjoaopedro61@gmail.com"
+      - run: git config --global user.name "JoaoPedro61"
       - run: git add .
       - run: git commit -m "GENERATE BUILD FROM WORKFLOW"
       - run: git push
