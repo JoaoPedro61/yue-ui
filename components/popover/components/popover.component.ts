@@ -29,10 +29,10 @@ import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
           <div class="yue-ui-popover-arrow"></div>
           <div class="yue-ui-popover-inner">
             <div class="yue-ui-popover-title-wrapper" *ngIf="title">
-              <yue-ui-smart-render yueUiSmartRender="title"></yue-ui-smart-render>
+              <yue-ui-smart-render [yueUiSmartRender]="title"></yue-ui-smart-render>
             </div>
             <div class="yue-ui-popover-content-wrapper">
-              <yue-ui-smart-render yueUiSmartRender="content"></yue-ui-smart-render>
+              <yue-ui-smart-render [yueUiSmartRender]="content"></yue-ui-smart-render>
             </div>
           </div>
         </div>

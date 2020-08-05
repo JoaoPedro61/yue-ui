@@ -14,15 +14,18 @@ import { YueUiMenuModule } from '@JoaoPedro61/yue-ui/menu';
 import { YueUiBuilderFormularyModule } from '@JoaoPedro61/yue-ui/formulary/builder';
 import { YueUiModalModule } from '@JoaoPedro61/yue-ui/modal';
 import { YueUiImageModule } from '@JoaoPedro61/yue-ui/image';
+import { YueUiBreadcrumbModule } from '@JoaoPedro61/yue-ui/breadcrumb';
 
-import { Component as Home } from './home/component';
+import { Component1 as Home } from './component-1';
+import { Component2 as Child1 } from './component-2';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    Home
+    Home,
+    Child1,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { Component as Home } from './home/component';
     YueUiMenuModule,
     YueUiBuilderFormularyModule,
     YueUiModalModule,
-    YueUiImageModule
+    YueUiImageModule,
+    YueUiBreadcrumbModule,
   ],
   providers: [],
   bootstrap: [
