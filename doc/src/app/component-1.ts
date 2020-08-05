@@ -55,10 +55,12 @@ import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
       <yue-ui-panel>
         <yue-ui-panel-content>
           <yue-ui-panel-slot>
-            <div>
-              <yue-ui-breadcrumb [yueUiBreadcrumbItems]="bread"></yue-ui-breadcrumb>
-            </div>
-            <div>
+            <div [style.paddingRight.px]="40">
+              <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="bread">
+                <button yueUiButton>
+                  New
+                </button>
+              </yue-ui-panel-present>
               <router-outlet></router-outlet>
             </div>
           </yue-ui-panel-slot>
@@ -73,12 +75,15 @@ export class Component1 {
 
   public bread: YueUiBreadcrumbItem[] = [
     {
-      label: `Home`,
+      label: `João Pedro`,
+      url: `child`,
     },
     {
-      label: `Child`,
-      url: `child`
-    }
+      label: `Administration`,
+    },
+    {
+      label: `Users`,
+    },
   ];
 
 }

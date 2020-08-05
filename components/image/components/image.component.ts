@@ -8,7 +8,8 @@ import {
   Renderer2,
   OnChanges,
   ChangeDetectorRef,
-  RendererFactory2
+  RendererFactory2,
+  NgZone
 } from '@angular/core';
 
 import { transformImageToBase64 } from '@JoaoPedro61/yue-ui/core/utils';
@@ -109,7 +110,11 @@ export class YueUiImageComponent implements OnInit, OnChanges {
   }
   public loading = true;
 
-  constructor(private readonly changeDetectionRef_: ChangeDetectorRef, private readonly renderFactory_: RendererFactory2) {
+  constructor(
+    private readonly changeDetectionRef_: ChangeDetectorRef,
+    private readonly renderFactory_: RendererFactory2,
+    private readonly zone: NgZone,
+  ) {
     this.renderer_ = this.renderFactory_.createRenderer(null, null);
   }
 
@@ -134,25 +139,27 @@ export class YueUiImageComponent implements OnInit, OnChanges {
   }
 
   private render(): void {
-    this.loading = true;
-    if (this.src_ && this.elseSrc_) {
-      transformImageToBase64(this.src_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_, true)
-        .then((base64: string) => this.renderBase64(base64))
-        .catch(() => {
-          transformImageToBase64(this.elseSrc_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
-            .then((base64: string) => this.renderBase64(base64));
-        });
-    }
-    if (this.src_) {
-      transformImageToBase64(this.src_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
-        .then((base64: string) => this.renderBase64(base64));
-    } else if (this.elseSrc_) {
-      transformImageToBase64(this.elseSrc_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
-        .then((base64: string) => this.renderBase64(base64));
-    } else {
-      transformImageToBase64('', this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
-        .then((base64: string) => this.renderBase64(base64));
-    }
+    this.zone.runOutsideAngular(() => {
+      this.loading = true;
+      if (this.src_ && this.elseSrc_) {
+        transformImageToBase64(this.src_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_, true)
+          .then((base64: string) => this.renderBase64(base64))
+          .catch(() => {
+            transformImageToBase64(this.elseSrc_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
+              .then((base64: string) => this.renderBase64(base64));
+          });
+      }
+      if (this.src_) {
+        transformImageToBase64(this.src_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
+          .then((base64: string) => this.renderBase64(base64));
+      } else if (this.elseSrc_) {
+        transformImageToBase64(this.elseSrc_, this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
+          .then((base64: string) => this.renderBase64(base64));
+      } else {
+        transformImageToBase64('', this.text_, this.background_, this.color_, this.fontSize_, this.fontWeight_)
+          .then((base64: string) => this.renderBase64(base64));
+      }
+    });
   }
 
   public ngOnInit(): void {
