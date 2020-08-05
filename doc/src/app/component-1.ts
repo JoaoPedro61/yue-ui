@@ -1,6 +1,5 @@
-import { Component as NgComponent, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { YueUiBreadcrumbComponent } from '@JoaoPedro61/yue-ui/breadcrumb';
-import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb/utils/interfaces';
+import { Component as NgComponent, ChangeDetectionStrategy,  } from '@angular/core';
+import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
 
 
 
@@ -50,15 +49,21 @@ import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb/utils/interf
           TOP
         </yue-ui-navigation-menu-top>
         <yue-ui-navigation-menu-bottom>
-          <yue-ui-image style="width: 40px;height: 40px;border-radius: 50%;border: 3px solid rgba(0, 0, 0, .3);" yueUiImageSrc="https://picsum.photos/id/1/200/300"></yue-ui-image>
+          <yue-ui-image style="width: 32px;height: 32px;border-radius: 50%;border: 3px solid rgba(0, 0, 0, .3);" yueUiImageSrc="https://picsum.photos/id/1/200/300"></yue-ui-image>
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
-      <div>
-        <yue-ui-breadcrumb [yueUiBreadcrumbItems]="bread"></yue-ui-breadcrumb>
-      </div>
-      <div>
-        <router-outlet></router-outlet>
-      </div>
+      <yue-ui-panel>
+        <yue-ui-panel-content>
+          <yue-ui-panel-slot>
+            <div>
+              <yue-ui-breadcrumb [yueUiBreadcrumbItems]="bread"></yue-ui-breadcrumb>
+            </div>
+            <div>
+              <router-outlet></router-outlet>
+            </div>
+          </yue-ui-panel-slot>
+        </yue-ui-panel-content>
+      </yue-ui-panel>
     </yue-ui-layout>
   `,
   styleUrls: [],
