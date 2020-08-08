@@ -1,4 +1,4 @@
-import { Modifiers, Formulary, } from './../fix-ralacional';
+import { Modifiers, FormularySource, } from './../fix-ralacional';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 
@@ -15,7 +15,7 @@ export abstract class FieldAbstraction {
 
   public readonly identifier!: string;
 
-  public readonly formulary!: Formulary;
+  public readonly formulary!: FormularySource;
 
   public readonly field!: Modifiers.FieldStruct;
 

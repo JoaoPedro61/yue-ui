@@ -16,6 +16,7 @@ import { YueUiModalModule } from '@JoaoPedro61/yue-ui/modal';
 import { YueUiImageModule } from '@JoaoPedro61/yue-ui/image';
 import { YueUiBreadcrumbModule } from '@JoaoPedro61/yue-ui/breadcrumb';
 import { YueUiPanelModule } from '@JoaoPedro61/yue-ui/panel';
+import { YueUiTableModule } from '@JoaoPedro61/yue-ui/table';
 
 
 import { Component1 as Home } from './component-1';
@@ -48,6 +49,7 @@ import { Component2 as Child1 } from './component-2';
     YueUiImageModule,
     YueUiBreadcrumbModule,
     YueUiPanelModule,
+    YueUiTableModule,
   ],
   providers: [],
   bootstrap: [

@@ -21,7 +21,7 @@ import { equals, setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 
 import {
-  Formulary,
+  FormularySource,
   Modifiers,
   FormularyComponent
 } from './../fix-ralacional';
@@ -61,7 +61,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public readonly parent!: FormularyComponent;
 
-  public formulary!: Formulary;
+  public formulary!: FormularySource;
 
   public struct!: Modifiers.GeneratedFieldMetadata;
 

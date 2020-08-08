@@ -1,5 +1,5 @@
 import {
-  Formulary
+  FormularySource
 } from './formulary-builder';
 import { FormularyComponent } from './builder.component';
 
@@ -7,7 +7,7 @@ import { FormularyComponent } from './builder.component';
 import * as Modifiers from './modifiers';
 
 export {
-  Formulary,
+  FormularySource,
   Modifiers,
   FormularyComponent
 };

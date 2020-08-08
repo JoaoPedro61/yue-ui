@@ -33,7 +33,7 @@ const logger = logging.getLogger('core.formulary.builder');
     LabelComponent,
     WrapperComponent,
     DescriptorComponent,
-    
+
     SwitchAbstractionComponent,
     TextAbstractionComponent,
     NumberAbstractionComponent,

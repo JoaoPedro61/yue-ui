@@ -49,7 +49,7 @@ function updateFragments(obj: any): void {
   }
 }
 
-export class Formulary<_M = any> {
+export class FormularySource<_M = any> {
 
   private readonly _ref = setHiddenProps({}, [
     {

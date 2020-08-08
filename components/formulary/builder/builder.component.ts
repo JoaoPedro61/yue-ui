@@ -23,7 +23,7 @@ import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { WrapperComponent } from './extends/wrapper.component';
 
-import { Formulary } from './formulary-builder';
+import { FormularySource } from './formulary-builder';
 
 import {
   GeneratedLinearFormularyMetadata,
@@ -63,19 +63,19 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
   @ViewChild(`fields`, { static: false, read: ViewContainerRef })
   private _vcr!: ViewContainerRef;
-  
+
   private _old: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata = null as any;
 
   private _oldFields: GeneratedFieldMetadata[] = [];
-  
+
   private _current: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata = null as any;
-  
+
   private _currentFields: GeneratedFieldMetadata[] = [];
 
   private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
 
   @Input()
-  public formulary!: Formulary;
+  public source!: FormularySource;
 
   constructor(private readonly _cdr: ChangeDetectorRef, private readonly _cfr: ComponentFactoryResolver) { }
 
@@ -103,7 +103,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (field.identifier) {
       const factory = this._cfr.resolveComponentFactory(WrapperComponent);
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
-      ref.instance.formulary = this.formulary;
+      ref.instance.formulary = this.source;
       ref.instance.struct = field;
       setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
@@ -256,7 +256,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     const { formulary } = changes;
     if (formulary) {
       if (formulary.isFirstChange()) {
-        this.formulary
+        this.source
           .schematicFieldsChange$
             .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
             .subscribe({
