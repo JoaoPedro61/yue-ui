@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
@@ -22,6 +23,7 @@ const logger = logging.getLogger('core.button');
     YueUiTableComponent
   ],
   imports: [
+    CommonModule,
     YueUiSmartRenderModule,
     CdkScrollableModule,
   ]

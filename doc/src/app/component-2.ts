@@ -1,7 +1,8 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
 
 
-import { TableSource } from '@JoaoPedro61/yue-ui/table';
+// @ts-ignore
+import { TableSource, YueUiTableColumns } from '@JoaoPedro61/yue-ui/table';
 
 
 @NgComponent({
@@ -16,6 +17,21 @@ export class Component2 {
   public tableSource: TableSource = new TableSource<any>();
 
   constructor() {
+    const HEADER: YueUiTableColumns = [
+      {
+        identifier: 'position',
+        cellHeader: 'Position',
+        allowSort: false
+      },
+      {
+        identifier: 'name',
+        cellHeader: 'Name',
+        allowSort: false
+      }
+    ];
+
+    this.tableSource.columns(HEADER);
+
     const ELEMENT_DATA: any[] = [
       { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
       { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },

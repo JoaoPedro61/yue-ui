@@ -2,4 +2,11 @@ Forms
   - Textarea
   - Datepicker
 - Tabela
+  - Order and sort
+  - Pagination
+  - Basic cell components
+    * Link
+    * Image
+    * Checkbox
+    * Actions
 - Calendar

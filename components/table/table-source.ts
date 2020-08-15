@@ -1,6 +1,6 @@
 // tslint:disable max-line-length
 import { BehaviorSubject } from 'rxjs';
-import { TableDataColumnItem, TableDataRowItem } from './utils/interfaces';
+import { TableDataColumnItem, TableDataRowItem, YueUiTableColumns, YueUiTableColumn } from './utils/interfaces';
 
 
 
@@ -9,6 +9,8 @@ export class TableSource<B = any> {
   private dataColumns$: BehaviorSubject<TableDataColumnItem<B>[]> = new BehaviorSubject<TableDataColumnItem<B>[]>([] as unknown as TableDataColumnItem<B>[]);
 
   private data$: BehaviorSubject<TableDataRowItem<B>[]> = new BehaviorSubject<TableDataRowItem<B>[]>([] as unknown as TableDataRowItem<B>[]);
+
+  private renderedData$: BehaviorSubject<(TableDataRowItem<B>[])[]> = new BehaviorSubject<(TableDataRowItem<B>[])[]>([] as unknown as (TableDataRowItem<B>[])[]);
 
   public get hasColumns(): boolean {
     const v = this.dataColumns$.getValue();
@@ -23,11 +25,13 @@ export class TableSource<B = any> {
   private prerender(items: B[]): void {
     const header = this.dataColumns$.getValue() || [];
     const news: TableDataRowItem<B>[] = [];
+    const newsMulti: any = [];
     const current = this.data$.getValue() || [];
-    for (let i = 0, l = header.length; i < l; i++) {
-      if (header[i]) {
-        for (let j = 0, u = items.length; j < u; j++) {
-          if (items[j]) {
+    for (let j = 0, u = items.length; j < u; j++) {
+      if (items[j]) {
+        const row = [];
+        for (let i = 0, l = header.length; i < l; i++) {
+          if (header[i]) {
             const item: TableDataRowItem<B> = {
               old: items[j] && current[j] ? current[j].new : null,
               new: items[j],
@@ -39,16 +43,30 @@ export class TableSource<B = any> {
                 : null,
               cell: header[i].cellColumn,
               header: header[i],
+              full: items[i],
             };
             news.push(item);
+            row.push(item);
           }
         }
+        newsMulti.push(row);
       }
     }
     this.data$.next(news);
+    this.renderedData$.next(newsMulti);
   }
 
-  public columns(): this {
+  private preDefColumn<T = any>(column: YueUiTableColumn<T>): TableDataColumnItem<T> {
+    const def: any = { ...column };
+    return def;
+  }
+
+  public columns(columns: YueUiTableColumns): this {
+    const columnsDef: TableDataColumnItem[] = [];
+    for (let i = 0, l = columns.length; i < l; i++) {
+      columnsDef.push(this.preDefColumn(columns[i]));
+    }
+    this.dataColumns$.next(columnsDef);
     return this;
   }
 
@@ -57,6 +75,14 @@ export class TableSource<B = any> {
   }
 
   public disconnectStreamDataHeader(): this {
+    return this;
+  }
+
+  public connectRenderedStreamData(): BehaviorSubject<(TableDataRowItem<B>[])[]> {
+    return this.renderedData$;
+  }
+
+  public disconnectRenderedStreamData(): this {
     return this;
   }
 
@@ -85,6 +111,9 @@ export class TableSource<B = any> {
     return this;
   }
 
-  public destroy(): void { }
+  public destroy(): void {
+    this.data$.complete();
+    this.dataColumns$.complete();
+  }
 
 }

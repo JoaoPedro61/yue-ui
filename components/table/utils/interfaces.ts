@@ -8,15 +8,20 @@ export interface GeneratedColumnMetadata<T = any> extends Omit<TableDataColumnIt
 
 export type GeneratedColumnMetadataFn<T = any> = () => GeneratedColumnMetadata<T>;
 
-export interface TableDataColumnItem<T = any> {
-  [x: string]: any;
-  sorting: null | 'asc' | 'desc';
-  order: boolean;
-
+export interface YueUiTableColumn<T = any> {
   allowSort: boolean;
   identifier: string;
   cellHeader?: YueUiSmartRenderType<{}>;
   cellColumn?: YueUiSmartRenderComponentType<TableDataRowItem<T>>;
+}
+
+export type YueUiTableColumns<T = any> = YueUiTableColumn<T>[];
+
+export interface TableDataColumnItem<T = any> extends YueUiTableColumn<T> {
+  [x: string]: any;
+  sorting: null | 'asc' | 'desc';
+  order: boolean;
+
 }
 
 export interface TableDataRowItem<T = any> {
@@ -27,4 +32,5 @@ export interface TableDataRowItem<T = any> {
   value: any;
   cell?: YueUiSmartRenderComponentType<TableDataRowItem<T>>;
   header: TableDataColumnItem;
+  full: any;
 }
