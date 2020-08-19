@@ -17,12 +17,12 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
         <ng-container *ngIf="source; else nosource">
           <ng-container *ngIf="hasColumns; else nocolumns">
             <ng-container *ngIf="hasData; else norows">
-              <table>
+              <table class="yue-ui-table-el">
                 <ng-container *ngIf="showHeader">
-                  <thead>
-                    <tr>
+                  <thead class="yue-ui-table-header-el">
+                    <tr class="yue-ui-table-header-row-el">
                       <ng-container *ngFor="let column of columns$ | async">
-                        <th>
+                        <th class="yue-ui-table-header-row-th-el">
                           <yue-ui-smart-render
                             [yueUiSmartRender]="column.cellHeader"
                             [yueUiSmartRenderContext]="column"
@@ -33,11 +33,11 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
                     </tr>
                   </thead>
                 </ng-container>
-                <tbody>
+                <tbody class="yue-ui-table-body-el">
                   <ng-container *ngFor="let row of data$ | async">
-                    <tr>
+                    <tr class="yue-ui-table-body-row-el">
                       <ng-container *ngFor="let column of row">
-                        <td>
+                        <td class="yue-ui-table-body-row-td-el">
                           <ng-container *ngIf="column.cell; else plaint">
                             <yue-ui-smart-render
                               [yueUiSmartRender]="column.cell"
