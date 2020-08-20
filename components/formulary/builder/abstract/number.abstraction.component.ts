@@ -6,7 +6,10 @@ import { FieldAbstraction } from './abstraction';
 
 @Component({
   template: `
-    <yue-ui-number [formControl]="abstractControl"></yue-ui-number>
+    <yue-ui-number
+      [formControl]="abstractControl"
+      [yueUiNumberPlaceholder]="placeholder"
+    ></yue-ui-number>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,

@@ -7,8 +7,8 @@ import {
   GeneratedFieldMetadataFn,
   FieldStruct,
   Listener,
-  YueSelectMode,
-  YueSwitchModes
+  YueUiSelectMode,
+  YueUiSwitchModes
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
 import { identifier as _identifier, registryChange } from './../commons';
@@ -325,7 +325,7 @@ function vstype(value?: FieldStruct['vstype']): ModifiersFn {
   };
 }
 
-function selectMode(value: YueSelectMode): ModifiersFn {
+function selectMode(value: YueUiSelectMode): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
@@ -336,7 +336,7 @@ function selectMode(value: YueSelectMode): ModifiersFn {
   };
 }
 
-function switchMode(value: YueSwitchModes): ModifiersFn {
+function switchMode(value: YueUiSwitchModes): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);

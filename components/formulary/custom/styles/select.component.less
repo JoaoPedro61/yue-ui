@@ -196,4 +196,27 @@
       }
     }
   }
+
+}
+
+.input-select--overlay-wrapper-- {
+  background: red;
+
+  &:not(.ps-top):not(.ps-bottom) {
+    margin-top: 6px;
+  }
+
+  &:not(.ps-top).ps-bottom {
+    margin-top: 6px;
+  }
+
+  &.ps-top:not(.ps-bottom) {
+    margin-bottom: 6px;
+  }
+
+  border-radius: 3px;
+  background: var(--components-formulary-input-select-popup-background);
+  color: var(--components-formulary-input-select-popup-color);
+  box-shadow: 1px 1px 5px var(--components-formulary-input-select-popup-shadow-color);
+
 }

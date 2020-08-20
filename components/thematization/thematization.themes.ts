@@ -246,27 +246,50 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
         },
 
-        'input-color': '#172b4d',
-        'input-background': '#f4f5f7',
-        'input-border-color': '#dfe1e6',
-        'input-focus-border-color': '#4c9aff',
-        'input-focus-background': '#fff',
-        'input-hover-background': '#ebecf0',
-        'input-disabled-background': '#ebecf0',
-        'input-switch-active-background': 'var(--components-formulary-input-focus-border-color)',
-        'input-switch-active-handler-background': 'var(--components-formulary-input-focus-border-color)',
-        'input-switch-unactive-handler-background': '#ff5722',
-        'input-switch-indeterminate-handler-dot-background': '#ccc',
-        'input-switch-indeterminate-handler-background': 'blue',
-        'panel-filter-popup-background': '#fff',
-        'panel-filter-popup-color': 'var(--color-dark)',
-        'panel-filter-shadow-color': 'rgba(0, 0, 0, 0.3)',
-        'input-select-popup-background': '#fff',
-        'input-select-popup-color': 'var(--color-dark)',
-        'input-select-shadow-color': 'rgba(0, 0, 0, 0.3)',
-        'input-select-option-hover-background-color': 'rgba(0, 0, 0, 0.03)',
-        'input-select-option-selected-color': '#2f2f2f',
-        'input-select-option-selected-background-color': 'rgba(0, 0, 0, 0.03)',
+        input: {
+          color: '#172b4d',
+          background: '#f4f5f7',
+          border: {
+            color: '#dfe1e6',
+          },
+          focus: {
+            border: {
+              color: '#4c9aff',
+            },
+            background: '#fff',
+          },
+          hover: {
+            background: '#ebecf0',
+          },
+          switch: {
+            active: {
+              background: 'var(--components-formulary-input-focus-border-color)',
+              'handler-background': 'var(--components-formulary-input-focus-border-color)',
+            },
+            unactive: {
+              'handler-background': '#ff5722',
+            },
+            indeterminate: {
+              handler: {
+                'dot-background': '#ccc',
+                background: 'blue',
+              },
+            },
+          },
+          select: {
+            popup: {
+              background: '#fff',
+              color: 'var(--color-dark)',
+              'shadow-color': 'rgba(0, 0, 0, 0.3)',
+            },
+            option: {
+              hover: {
+                'background-color': 'rgba(0, 0, 0, 0.03)',
+                color: '#2f2f2f',
+              }
+            }
+          },
+        },
       },
       modal: {
         background: `var(--color-background-light)`,

@@ -21,7 +21,7 @@ import { FieldAbstraction } from './abstraction';
       (blur)="listeners('blur', $event)"
     >
       <yue-ui-smart-render
-        [yueUiSmartRender]="field.placeholder"
+        [yueUiSmartRender]="placeholder"
         [yueUiSmartRenderContext]="context"
       >
       </yue-ui-smart-render>

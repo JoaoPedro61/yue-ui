@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import { OverlayModule } from '@angular/cdk/overlay';
 
 import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
@@ -14,6 +15,7 @@ import { YueUiSwitchOptionComponent } from './components/switch-option.component
 import { YueUiNumberComponent } from './components/number.component';
 import { YueUiSelectComponent } from './components/select.component';
 import { YueUiSelectOptionComponent } from './components/select-option.component';
+import { YueUiSelectOptionRendererComponent } from './components/select-option-renderer.component';
 import { YueUiTextComponent } from './components/text.component';
 import { YueUiColorpickerComponent } from './components/colorpicker.component';
 import { YueUiDatepickerComponent } from './components/datepicker.component';
@@ -30,6 +32,7 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiSelectOptionComponent,
+    YueUiSelectOptionRendererComponent,
     YueUiTextComponent,
     YueUiColorpickerComponent,
     YueUiDatepickerComponent,
@@ -40,6 +43,7 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiSelectOptionComponent,
+    YueUiSelectOptionRendererComponent,
     YueUiTextComponent,
     YueUiColorpickerComponent,
     YueUiDatepickerComponent,
@@ -50,6 +54,7 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiNumberComponent,
     YueUiSelectComponent,
     YueUiSelectOptionComponent,
+    YueUiSelectOptionRendererComponent,
     YueUiTextComponent,
     YueUiColorpickerComponent,
     YueUiDatepickerComponent,
@@ -61,6 +66,7 @@ const logger = logging.getLogger(`core.formulary.custom`);
     YueUiSmartRenderModule,
     TextMaskModule,
     OverlayModule,
+    CdkScrollableModule,
     YueUiOverlayModule
   ]
 })

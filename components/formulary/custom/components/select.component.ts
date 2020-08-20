@@ -22,6 +22,7 @@ import { YueUiSelectOptionComponent } from './select-option.component';
 import { YueUiSelectSearchChange, YueUiSelectMode, YueUiSelectProperties, Placeholder } from './../utils/interfaces';
 import { ConnectedPosition, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DEFAULT_MENTION_BOTTOM_POSITIONS, YueUiOverlayDirective } from '@JoaoPedro61/yue-ui/overlay';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 
 
@@ -68,7 +69,7 @@ type YueUiSafeValue = any;
         </div>
         <textarea #inputFake class="input-select-fake" autocomplete="off" role="combobox" aria-autocomplete="list"
           aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)"
-          (keydown)="preventEnter($event);" (focus)="focus();" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : null"
+          (keydown)="preventKeydown($event);" (focus)="focus();" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : null"
           [disabled]="disabled"></textarea>
         <span class="icon-drop-menu"></span>
       </div>
@@ -84,11 +85,27 @@ type YueUiSafeValue = any;
       (backdropClick)="hide()"
       (detach)="hide()"
     >
-
-    <div>
-      Merda
-    </div>
-  </ng-template>
+      <div class="input-select--overlay-wrapper--" [style.width.%]="100">
+        <cdk-virtual-scroll-viewport
+          [itemSize]="itemSize"
+          [maxBufferPx]="itemSize * maxItemLength"
+          [minBufferPx]="itemSize * maxItemLength"
+          (scrolledIndexChange)="onScrolledIndexChange($event)"
+          [style.height.px]="listLength * itemSize"
+          [style.width.%]="100"
+          [style.max-height.px]="itemSize * maxItemLength"
+        >
+          <ng-template
+            cdkVirtualFor
+            [cdkVirtualForOf]="listOfYueUiSelectOptionComponent"
+            [cdkVirtualForTemplateCacheSize]="0"
+            let-item
+          >
+            <yue-ui-select-option-renderer [yueUiSelectOptionRendererOption]="item"></yue-ui-select-option-renderer>
+          </ng-template>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </ng-template>
   `,
   styleUrls: [
     './../styles/select.component.less'
@@ -111,12 +128,21 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   public origin!: CdkOverlayOrigin;
 
   @ViewChild('optionsSelecteds', { read: ElementRef, static: false })
-  private optionsSelecteds!: ElementRef<HTMLDivElement>;
+  private optionsSelectedsWrapper!: ElementRef<HTMLDivElement>;
 
   @ViewChild('inputFake', { read: ElementRef, static: false })
   private inputFake!: ElementRef<HTMLTextAreaElement>;
 
-  private listOfYueUiSelectOptionComponent: YueUiSelectOptionComponent[] = [];
+  @ViewChild(CdkVirtualScrollViewport, { static: true })
+  private cdkVirtualScrollViewport!: CdkVirtualScrollViewport;
+
+  public itemSize = 32;
+
+  public maxItemLength = 8;
+
+  public scrolledIndex = 0;
+
+  public listOfYueUiSelectOptionComponent: YueUiSelectOptionComponent[] = [];
 
   private _renderer!: Renderer2;
 
@@ -129,6 +155,13 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   private _positions = [
     ...DEFAULT_MENTION_BOTTOM_POSITIONS
   ];
+
+  public get listLength(): number {
+    if (this.listOfYueUiSelectOptionComponent) {
+      return this.listOfYueUiSelectOptionComponent.length;
+    }
+    return 0;
+  }
 
   public get isVisible(): boolean {
     return this._visible;
@@ -243,6 +276,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   @Output()
   public yueUiSelectOnPanelOpenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  public yueUiSelectOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
+
   public onChange: (newValue: any) => void = () => { };
 
   public onTouch: () => void = () => { };
@@ -251,14 +287,29 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this._renderer = this.rf2.createRenderer(null, null);
   }
 
+  public scrollToActivatedValue(): void {
+    // const index = this.listOfContainerItem.findIndex(item => this.compareWith(item.key, this.activatedValue));
+    const index = 0;
+    if (index < this.scrolledIndex || index >= this.scrolledIndex + this.maxItemLength) {
+      this.cdkVirtualScrollViewport.scrollToIndex(index || 0);
+    }
+  }
+
+  public onScrolledIndexChange(index: number): void {
+    this.scrolledIndex = index;
+    if (index === this.listOfYueUiSelectOptionComponent.length - this.maxItemLength) {
+      this.yueUiSelectOnScrollToBottom.emit();
+    }
+  }
+
   public syncDimentions(): void {
     if (this.mode === 'multiple') {
       if (this.selections && this.selections.length) {
         let paddingTop = 0;
         let paddingLeft = 0;
         let heightTimes = 1;
-        if (this.optionsSelecteds && this.optionsSelecteds.nativeElement) {
-          const ELEMENT_DIMENTIONS_OPTIONS = elementDimentions(this.optionsSelecteds.nativeElement);
+        if (this.optionsSelectedsWrapper && this.optionsSelectedsWrapper.nativeElement) {
+          const ELEMENT_DIMENTIONS_OPTIONS = elementDimentions(this.optionsSelectedsWrapper.nativeElement);
           if (ELEMENT_DIMENTIONS_OPTIONS) {
             paddingTop = ELEMENT_DIMENTIONS_OPTIONS.FULL_HEIGHT + 4;
             paddingLeft = ELEMENT_DIMENTIONS_OPTIONS.FULL_WIDTH + 4;
@@ -320,6 +371,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
       this.yueUiSelectOnPanelOpenChange.next(true);
 
       setTimeout(() => {
+        this.scrollToActivatedValue();
         this.syncWidth();
       });
       this.cdr.detectChanges();
@@ -356,7 +408,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this.show();
   }
 
-  public preventEnter(event: KeyboardEvent): void {
+  public preventKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       event.preventDefault();
     }

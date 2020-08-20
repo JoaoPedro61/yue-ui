@@ -28,3 +28,5 @@ export interface YueUiSelectSearchChange {
 
 
 export type Placeholder = Observable<string> | string | null;
+
+export type YueUiSwitchModes = 'normal' | 'indeterminate' | 'radio';

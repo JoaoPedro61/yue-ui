@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 32px;
+  padding: 0px 10px;
+  transition: background 150ms ease-in-out, background 150ms ease-in-out;
+
+  &:not(.dynamic-render) {
+    line-height: 32px;
+  }
+
+  &:hover,
+  &.option-activated,
+  &.option-passive-select {
+    cursor: pointer;
+    background: var(--components-formulary-input-select-option-hover-background-color);
+    color: var(--components-formulary-input-select-option-hover-color);
+  }
+}

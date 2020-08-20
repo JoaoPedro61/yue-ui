@@ -2,7 +2,7 @@ import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from '@JoaoPedro61/yue-ui/formulary/utils';
-import { YueUiSelectMode, YueUiSelectProperties } from '@JoaoPedro61/yue-ui/formulary/custom';
+import { YueUiSelectMode, YueUiSelectProperties, YueUiSwitchModes } from '@JoaoPedro61/yue-ui/formulary/custom';
 
 import { Observable } from 'rxjs';
 
@@ -11,13 +11,12 @@ import { ParentTypes } from './enums';
 
 
 
-export { YueUiSelectMode, YueUiButtonSize, YueUiButtonType };
+export { YueUiSelectMode, YueUiButtonSize, YueUiButtonType, YueUiSwitchModes };
 
 
 export type BasicFn = (...parameters: any[]) => any;
 
 
-export type YueSwitchModes = 'normal' | 'indeterminate' | 'radio';
 
 
 export interface BasicButtonProperties {
@@ -95,7 +94,7 @@ export interface FieldStruct extends CommonInheritMethods {
   description?: FieldDOMStruct;
   template?: FieldDOMStruct;
   validators?: Array<string | ((...args: any[]) => SpecificValidatorObjectFormation)>;
-  placeholder?: string | ((...args: any[]) => string) | Observable<string>;
+  placeholder?: string | ((...args: any[]) => string | null) | Observable<string | null> | null;
   listeners?: {
     tap?: Listener;
   };
@@ -111,12 +110,12 @@ export interface FieldStruct extends CommonInheritMethods {
         | Observable<({ [x: string]: any })>
       );
   properties?: YueUiSelectProperties;
-  mode?: YueUiSelectMode | YueSwitchModes;
+  mode?: YueUiSelectMode | YueUiSwitchModes;
 
   /**
    * Others properties
    */
-  mask?: string | ((...args: any[]) => string);
+  mask?: string | ((...args: any[]) => string | null) | null;
   vstype?: string;
 }
 

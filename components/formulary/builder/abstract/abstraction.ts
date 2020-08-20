@@ -70,6 +70,26 @@ export abstract class FieldAbstraction {
     }
   }
 
+  public get placeholder(): Modifiers.FieldStruct['placeholder'] {
+    if (this.field) {
+      if (typeof this.field.placeholder === 'function') {
+        return this.field.placeholder();
+      }
+      return this.field.placeholder;
+    }
+    return null;
+  }
+
+  public get mask(): Modifiers.FieldStruct['mask'] {
+    if (this.field) {
+      if (typeof this.field.mask === 'function') {
+        return this.field.mask();
+      }
+      return this.field.mask;
+    }
+    return null;
+  }
+
   public get model(): {[x: string]: any} {
     if (this._model) {
       return this._model;
