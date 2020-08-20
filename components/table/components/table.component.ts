@@ -22,12 +22,22 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
                   <thead class="yue-ui-table-header-el">
                     <tr class="yue-ui-table-header-row-el">
                       <ng-container *ngFor="let column of columns$ | async">
-                        <th class="yue-ui-table-header-row-th-el">
+                        <th class="yue-ui-table-header-row-th-el" [class.isSortable]="!!column.allowSort" (click)="handleClickOnColumnHeader(column);">
                           <yue-ui-smart-render
                             [yueUiSmartRender]="column.cellHeader"
                             [yueUiSmartRenderContext]="column"
                           >
                           </yue-ui-smart-render>
+                          <ng-container *ngIf="column.allowSort">
+                            <div class="sortable-handler-wrapper" [class.asc]="column.sorting === 'asc'" [class.desc]="column.sorting === 'desc'">
+                              <div class="sortable-handler">
+                                <div class="up">
+                                </div>
+                                <div class="down">
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
                         </th>
                       </ng-container>
                     </tr>
@@ -56,15 +66,21 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
               </table>
             </ng-container>
             <ng-template #norows>
-              No Rows!
+              <div class="table-error-el">
+                No Rows!
+              </div>
             </ng-template>
           </ng-container>
           <ng-template #nocolumns>
-            No Columns!
+            <div class="table-error-el">
+              No Columns!
+            </div>
           </ng-template>
         </ng-container>
         <ng-template #nosource>
-          No source!
+          <div class="table-error-el">
+            No source!
+          </div>
         </ng-template>
       </div>
     </div>
@@ -107,6 +123,12 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public ngOnInit(): void {
   }
 
+  public handleClickOnColumnHeader(item: TableDataColumnItem<any>): void {
+    if (item.allowSort) {
+      console.log(item);
+    }
+  }
+
   public ngAfterViewInit(): void {
     this.source
       .connectRenderedStreamData()
@@ -128,6 +150,11 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public ngOnDestroy(): void {
+    if (this.source) {
+      this.source.disconnectRenderedStreamData();
+      this.source.disconnectStreamDataHeader();
+    }
+
     this.data$.complete();
     this.columns$.complete();
 

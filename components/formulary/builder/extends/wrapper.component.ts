@@ -333,7 +333,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private selfCheck(): void {
     const current: Modifiers.GeneratedFieldMetadata[] = this.struct.struct.wrapper || [];
-    const old: Modifiers.GeneratedFieldMetadata[] = this.old.struct.wrapper || [];
+    const old: Modifiers.GeneratedFieldMetadata[] = !this.old || !this.old.struct ? [] : this.old.struct.wrapper || [];
 
     const toAdd = differenceBy(current, old, `identifier`);
     const toRemove = differenceBy(old, current, `identifier`);

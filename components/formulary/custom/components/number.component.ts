@@ -3,6 +3,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
+import { Placeholder } from './../utils/interfaces';
+
 
 
 @Component({
@@ -12,11 +14,11 @@ import { Observable } from 'rxjs';
     <input
       type="number"
       [(ngModel)]="value"
-      [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
+      [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiNumberPlaceholder | async) : yueUiNumberPlaceholder"
       (mouseover)="hovering = true;"
       (mouseout)="hovering = false;"
     >
-    <ng-container *ngIf="yueUiTextAllowClear">
+    <ng-container *ngIf="yueUiNumberAllowClear">
       <div class="input-clear" (mouseover)="hovering = true;" (mouseout)="hovering = false;">
         <ng-container *ngIf="!disabled && !isEmpty">
           <span class="input-clear-wrapper">
@@ -47,9 +49,14 @@ import { Observable } from 'rxjs';
 })
 export class YueUiNumberComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
-  public mType(c: any): string {
-    return typeof c;
-  }
+  public hovering = false;
+
+  @Input()
+  public yueUiNumberAllowClear = true;
+
+  @Input()
+  public yueUiNumberPlaceholder: Placeholder = '';
+
 
   private _val: any = null;
 
@@ -75,11 +82,11 @@ export class YueUiNumberComponent implements OnInit, ControlValueAccessor, After
   }
 
   public get placeholderIsAObservable(): boolean {
-    return this.yueUiTextPlaceholder instanceof Observable;
+    return this.yueUiNumberPlaceholder instanceof Observable;
   }
 
-  public get ngSafeValue_yueUiTextPlaceholder(): any {
-    return this.yueUiTextPlaceholder;
+  public get ngSafeValue_yueUiNumberPlaceholder(): any {
+    return this.yueUiNumberPlaceholder;
   }
 
   public onChange: (newValue: any) => void = () => { };
@@ -94,15 +101,11 @@ export class YueUiNumberComponent implements OnInit, ControlValueAccessor, After
         : this._val);
   }
 
-  public hovering = false;
-
-  @Input()
-  public yueUiTextAllowClear = true;
-
-  @Input()
-  public yueUiTextPlaceholder: Observable<string> | string | null = '';
-
   constructor(private readonly cdr: ChangeDetectorRef) { }
+
+  public mType(c: any): string {
+    return typeof c;
+  }
 
   public clear(): void {
     this.value = null;

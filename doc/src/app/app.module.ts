@@ -21,6 +21,7 @@ import { YueUiTableModule } from '@JoaoPedro61/yue-ui/table';
 
 import { Component1 as Home } from './component-1';
 import { Component2 as Child1 } from './component-2';
+import { Component3 as Modal1 } from './component-3';
 
 
 
@@ -29,6 +30,10 @@ import { Component2 as Child1 } from './component-2';
     AppComponent,
     Home,
     Child1,
+    Modal1,
+  ],
+  entryComponents: [
+    Modal1
   ],
   imports: [
     BrowserModule,

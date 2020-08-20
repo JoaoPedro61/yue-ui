@@ -11,25 +11,142 @@
       position: relative;
 
       .yue-ui-table-el {
-        display: block;
         position: relative;
         width: 100%;
+        text-align: left;
+        table-layout: fixed;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 0;
+        margin: 0;
 
         .yue-ui-table-header-el {
+          border-bottom: 2px solid rgb(223, 225, 230);
 
           .yue-ui-table-header-row-el {
 
-            .yue-ui-table-header-row-th-el {}
+            .yue-ui-table-header-row-th-el {
+              color: rgb(94, 108, 132);
+              box-sizing: border-box;
+              font-size: 12px;
+              font-weight: 600;
+              position: relative;
+              text-align: left;
+              vertical-align: top;
+              padding: 4px 8px;
+              border-width: initial;
+              border-style: none;
+              border-color: initial;
+              border-image: initial;
+              transition: background 300ms ease-in-out;
+
+              &:first-child {
+                padding-left: 0px;
+              }
+
+              &:hover {
+
+                &.isSortable {
+                  cursor: pointer;
+                  background: rgba(9, 30, 66, 0.08);
+                }
+              }
+
+              .sortable-handler-wrapper {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 4px;
+
+                @indicator-size: 3px;
+                @indicator-activate-color: rgba(9, 30, 66, 0.7);
+                @indicator-unactivate-color: rgba(9, 30, 66, 0.2);
+
+                .sortable-handler {
+
+
+                  .up {
+                    border-bottom: @indicator-size solid @indicator-unactivate-color;
+                    border-left: @indicator-size solid transparent;
+                    border-right: @indicator-size solid transparent;
+                    border-top: @indicator-size solid transparent;
+
+                    margin-bottom: 1px;
+                  }
+
+                  .down {
+                    border-bottom: @indicator-size solid transparent;
+                    border-left: @indicator-size solid transparent;
+                    border-right: @indicator-size solid transparent;
+                    border-top: @indicator-size solid @indicator-unactivate-color;
+                  }
+                }
+
+                &.asc {
+
+                  .sortable-handler {
+
+                    .up {
+                      border-bottom-color: @indicator-activate-color;
+                    }
+                  }
+                }
+
+                &.desc {
+
+                  .sortable-handler {
+
+                    .down {
+                      border-top-color: @indicator-activate-color;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
 
         .yue-ui-table-body-el {
+          vertical-align: top;
+          border-bottom: 2px solid #DFE1E6;
 
           .yue-ui-table-body-row-el {
+            transition: background 300ms ease-in-out;
 
-            .yue-ui-table-body-row-td-el {}
+            .yue-ui-table-body-row-td-el {
+              padding-top: 0px;
+              padding-bottom: 0px;
+              text-align: left;
+              overflow: hidden;
+              border-width: initial;
+              border-style: none;
+              border-color: initial;
+              border-image: initial;
+              padding: 4px 8px;
+
+              &:first-child {
+                padding-left: 0px;
+              }
+            }
+
+            &:hover {
+              background: rgb(250, 251, 252);
+            }
           }
         }
+      }
+    }
+
+    .table-error-el {
+      display: block;
+      position: relative;
+      padding: 100px;
+      text-align: center;
+      opacity: .8;
+      transition: background 300ms ease-in-out;
+      user-select: none;
+
+      &:hover {
+        background: rgba(9, 30, 66, 0.02);
       }
     }
   }

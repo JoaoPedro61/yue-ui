@@ -2,16 +2,16 @@ import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from '@JoaoPedro61/yue-ui/formulary/utils';
+import { YueUiSelectMode, YueUiSelectProperties } from '@JoaoPedro61/yue-ui/formulary/custom';
+
 import { Observable } from 'rxjs';
-// import { YueSelectProperties, YueSelectMode } from '../custom-input/inputs/input-select/interfaces';
-type YueSelectProperties = any;
-type YueSelectMode = any;
+
 import { ParentTypes } from './enums';
 
 
 
 
-export { YueSelectMode, YueUiButtonSize, YueUiButtonType };
+export { YueUiSelectMode, YueUiButtonSize, YueUiButtonType };
 
 
 export type BasicFn = (...parameters: any[]) => any;
@@ -105,9 +105,13 @@ export interface FieldStruct extends CommonInheritMethods {
   /**
    * Selectables fields
    */
-  options?: ((...args: any[]) => (({ [x: string]: any })[] | Observable<({ [x: string]: any })>)) | (({ [x: string]: any })[] | Observable<({ [x: string]: any })>);
-  properties?: YueSelectProperties;
-  mode?: YueSelectMode | YueSwitchModes;
+  options?: ((...args: any[]) => (({ [x: string]: any })[]
+    | Observable<({ [x: string]: any })>))
+    | (({ [x: string]: any })[]
+        | Observable<({ [x: string]: any })>
+      );
+  properties?: YueUiSelectProperties;
+  mode?: YueUiSelectMode | YueSwitchModes;
 
   /**
    * Others properties

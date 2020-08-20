@@ -1,5 +1,9 @@
+import { take } from 'rxjs/operators';
 import { Component as NgComponent, ChangeDetectionStrategy,  } from '@angular/core';
 import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
+import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
+
+import { Component3 as Modal1 } from './component-3';
 
 
 
@@ -57,7 +61,7 @@ import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
           <yue-ui-panel-slot>
             <div [style.paddingRight.px]="40">
               <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="bread">
-                <button yueUiButton>
+                <button yueUiButton (click)="open();">
                   New
                 </button>
               </yue-ui-panel-present>
@@ -85,6 +89,22 @@ export class Component1 {
       label: `Users`,
     },
   ];
+
+  constructor(private readonly modal: YueUiModalService) { }
+
+  public open(): void {
+    const ref = this.modal.create({
+      header: 'Insert a new register',
+      content: Modal1,
+      maskClosable: false,
+    });
+    ref
+      .afterClose
+      .pipe(take(1))
+      .subscribe({
+        next: console.log,
+      })
+  }
 
 }
 

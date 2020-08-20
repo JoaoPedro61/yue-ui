@@ -21,13 +21,23 @@ export class Component2 {
       {
         identifier: 'position',
         cellHeader: 'Position',
-        allowSort: false
+        allowSort: true
       },
       {
         identifier: 'name',
         cellHeader: 'Name',
         allowSort: false
-      }
+      },
+      {
+        identifier: 'weight',
+        cellHeader: 'Weight',
+        allowSort: false
+      },
+      {
+        identifier: 'symbol',
+        cellHeader: 'Symbol',
+        allowSort: false
+      },
     ];
 
     this.tableSource.columns(HEADER);

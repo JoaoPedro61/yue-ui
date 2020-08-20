@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, f
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
+
 import { YueUiSwitchOptionComponent } from './switch-option.component';
 
 
@@ -62,6 +63,17 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
 })
 export class YueUiSwitchComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
+  public isfocusing = false;
+
+  @Input()
+  public yueUiSwitchType: 'normal' | 'indeterminate' | 'radio' = 'normal';
+
+  @Input()
+  public yueUiSwitchOnLabel: YueUiSmartRenderType = '';
+
+  @Input()
+  public yueUiSwitchOffLabel: YueUiSmartRenderType = '';
+
   private _options: YueUiSwitchOptionComponent[] = [];
 
   private _val: any = null;
@@ -95,17 +107,6 @@ export class YueUiSwitchComponent implements OnInit, ControlValueAccessor, After
   public get isIndeterminated(): boolean {
     return this._val === null;
   }
-
-  public isfocusing = false;
-
-  @Input()
-  public yueUiSwitchType: 'normal' | 'indeterminate' | 'radio' = 'normal';
-
-  @Input()
-  public yueUiSwitchOnLabel: YueUiSmartRenderType = '';
-
-  @Input()
-  public yueUiSwitchOffLabel: YueUiSmartRenderType = '';
 
   constructor(private readonly detector: ChangeDetectorRef) { }
 

@@ -75,7 +75,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
 
   @Input()
-  public source!: FormularySource;
+  public yueUiFormularySource!: FormularySource;
 
   constructor(private readonly _cdr: ChangeDetectorRef, private readonly _cfr: ComponentFactoryResolver) { }
 
@@ -103,7 +103,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (field.identifier) {
       const factory = this._cfr.resolveComponentFactory(WrapperComponent);
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
-      ref.instance.formulary = this.source;
+      ref.instance.formulary = this.yueUiFormularySource;
       ref.instance.struct = field;
       setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
@@ -253,10 +253,10 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    const { formulary } = changes;
-    if (formulary) {
-      if (formulary.isFirstChange()) {
-        this.source
+    const { yueUiFormularySource } = changes;
+    if (yueUiFormularySource) {
+      if (yueUiFormularySource.isFirstChange()) {
+        this.yueUiFormularySource
           .schematicFieldsChange$
             .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
             .subscribe({

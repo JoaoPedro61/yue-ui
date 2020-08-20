@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import { TextMask } from '@JoaoPedro61/yue-ui/formulary/utils';
 
+import { Placeholder } from './../utils/interfaces';
+
 
 
 @Component({
@@ -60,6 +62,15 @@ import { TextMask } from '@JoaoPedro61/yue-ui/formulary/utils';
 })
 export class YueUiTextComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
+  @Input()
+  public yueUiTextAllowClear = true;
+
+  @Input()
+  public yueUiTextMask!: TextMask;
+
+  @Input()
+  public yueUiTextPlaceholder: Placeholder = '';
+
   private _val: any = null;
 
   public set value(v: any) {
@@ -100,15 +111,6 @@ export class YueUiTextComponent implements OnInit, ControlValueAccessor, AfterVi
   public get isEmpty(): boolean {
     return !(this._val ? this._val.length : this._val);
   }
-
-  @Input()
-  public yueUiTextAllowClear = true;
-
-  @Input()
-  public yueUiTextMask!: TextMask;
-
-  @Input()
-  public yueUiTextPlaceholder: Observable<string> | string | null = '';
 
   constructor(private readonly cdr: ChangeDetectorRef) { }
 

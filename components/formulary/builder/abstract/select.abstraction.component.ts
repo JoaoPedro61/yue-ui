@@ -6,7 +6,9 @@ import { FieldAbstraction } from './abstraction';
 
 @Component({
   template: `
-    <yue-ui-select [formControl]="abstractControl"></yue-ui-select>
+    <yue-ui-select [formControl]="abstractControl">
+      <yue-ui-select-option></yue-ui-select-option>
+    </yue-ui-select>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,

@@ -13,7 +13,7 @@ export class YueUiOverlayDirective {
     return this.cdkConnectedOverlay.overlayRef;
   }
 
-  constructor(private readonly cdkConnectedOverlay: CdkConnectedOverlay) {
+  constructor(public readonly cdkConnectedOverlay: CdkConnectedOverlay) {
     this.cdkConnectedOverlay.backdropClass = 'yue-ui-overlay-transparent-backdrop';
   }
 
