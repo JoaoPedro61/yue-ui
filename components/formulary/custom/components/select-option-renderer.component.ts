@@ -1,6 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, Optional, Host, OnDestroy, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  AfterViewInit,
+  OnDestroy,
+  Input,
+  HostListener,
+  HostBinding
+} from '@angular/core';
 
-import { YueUiSelectComponent } from './select.component';
 import { YueUiSelectOptionComponent } from './select-option.component';
 
 
@@ -8,7 +17,11 @@ import { YueUiSelectOptionComponent } from './select-option.component';
 @Component({
   selector: 'yue-ui-select-option-renderer',
   template: `
-    {{yueUiSelectOptionRendererOption}}
+    <yue-ui-smart-render
+      [yueUiSmartRender]="label"
+      [yueUiSmartRenderContext]="value"
+    >
+    </yue-ui-smart-render>
   `,
   styleUrls: [
     './../styles/select-option-renderer.component.less'
@@ -20,13 +33,30 @@ export class YueUiSelectOptionRendererComponent implements OnInit, AfterViewInit
   @Input()
   public yueUiSelectOptionRendererOption!: YueUiSelectOptionComponent;
 
-  constructor(public readonly cdr: ChangeDetectorRef, @Optional() @Host() private readonly host?: YueUiSelectComponent) { }
+  public get label(): any {
+    return this.yueUiSelectOptionRendererOption.label;
+  }
+
+  public get value(): any {
+    return this.yueUiSelectOptionRendererOption.value;
+  }
+
+  constructor(public readonly cdr: ChangeDetectorRef) { }
+
+  @HostBinding('class.is-selected')
+  public get isSelected(): boolean {
+    return this.yueUiSelectOptionRendererOption.isSelected();
+  }
+
+  @HostListener(`click`)
+  public onClick(): void {
+    this.yueUiSelectOptionRendererOption.selectThis();
+  }
 
   public ngOnInit(): void { }
 
   public ngAfterViewInit(): void { }
 
-  public ngOnDestroy(): void {
-  }
+  public ngOnDestroy(): void { }
 
 }

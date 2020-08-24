@@ -287,6 +287,15 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this._renderer = this.rf2.createRenderer(null, null);
   }
 
+  // @ts-ignore
+  public valueIsSelected(value: any): boolean {
+    return false;
+  }
+
+  // @ts-ignore
+  public selectOption(value: any, component: any): void {
+  }
+
   public scrollToActivatedValue(): void {
     // const index = this.listOfContainerItem.findIndex(item => this.compareWith(item.key, this.activatedValue));
     const index = 0;
