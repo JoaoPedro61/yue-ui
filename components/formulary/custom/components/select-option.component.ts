@@ -56,7 +56,7 @@ export class YueUiSelectOptionComponent implements OnInit, AfterViewInit, OnDest
         }
       } else {
         if (!this.host.yueUiSelectPropertyValue) {
-          return this.host.yueUiSelectPropertyValue;
+          return this.yueUiSelectOptionValue;
         } else {
           if (this.yueUiSelectOptionValue && typeof this.yueUiSelectOptionValue === 'object') {
             return (this.yueUiSelectOptionValue as any)[(this.host.yueUiSelectPropertyValue as any)] as any;
@@ -101,7 +101,9 @@ export class YueUiSelectOptionComponent implements OnInit, AfterViewInit, OnDest
             return this.yueUiSelectOptionLabel;
           }
         } else {
-          if (!this.host.yueUiSelectPropertyLabel) {
+          if (!Array.isArray(this.yueUiSelectOptionLabel) && !(typeof this.yueUiSelectOptionLabel === `object`)) {
+            return this.yueUiSelectOptionLabel;
+          } else if (!this.host.yueUiSelectPropertyLabel) {
             return this.yueUiSelectOptionValue;
           } else {
             if (this.yueUiSelectOptionValue && typeof this.yueUiSelectOptionValue === 'object') {
@@ -113,6 +115,13 @@ export class YueUiSelectOptionComponent implements OnInit, AfterViewInit, OnDest
       }
     }
     return this.yueUiSelectOptionValue;
+  }
+
+  public get isActivated(): boolean {
+    if (this.host) {
+      return this.host.optionIsActivated(this.value);
+    }
+    return false;
   }
 
   constructor(public readonly cdr: ChangeDetectorRef, @Optional() @Host() private readonly host?: YueUiSelectComponent) { }
@@ -134,8 +143,6 @@ export class YueUiSelectOptionComponent implements OnInit, AfterViewInit, OnDest
     if (this.host) {
       this.host.addOption(this);
     }
-    console.log(this.label);
-    console.log(this.yueUiSelectOptionLabel);
   }
 
   public ngAfterViewInit(): void { }

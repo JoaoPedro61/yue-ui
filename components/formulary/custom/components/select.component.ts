@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { removeAccents, elementDimentions } from '@JoaoPedro61/yue-ui/core/utils';
+import { removeAccents, elementDimentions, equals } from '@JoaoPedro61/yue-ui/core/utils';
 
 import { YueUiSelectOptionComponent } from './select-option.component';
 
@@ -23,6 +23,7 @@ import { YueUiSelectSearchChange, YueUiSelectMode, YueUiSelectProperties, Placeh
 import { ConnectedPosition, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DEFAULT_MENTION_BOTTOM_POSITIONS, YueUiOverlayDirective } from '@JoaoPedro61/yue-ui/overlay';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { UP_ARROW, DOWN_ARROW, ENTER, SPACE, TAB, ESCAPE } from '@angular/cdk/keycodes';
 
 
 
@@ -37,12 +38,16 @@ type YueUiSafeValue = any;
       [class.disabled]="disabled" [class.mouseovering]="mouseovering" [class.showclear]="mouseovering && hasValue">
       <div class="input-select" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" (mouseover)="mouseovering = true;" (mouseout)="mouseovering = false;">
         <div class="input-labels-value" #optionsSelecteds>
-          <ng-container *ngIf="selections && selections.length && (mode === 'single' ? !showing : true)">
+          <ng-container *ngIf="selections && selections.length && (mode === 'single' ? !isVisible : true)">
             <ng-container *ngFor="let option of selections; let index = index">
               <span class="option-selection">
-                <span class="option-label" [innerText]="option.labelProped"></span>
+                <yue-ui-smart-render
+                  [yueUiSmartRender]="option.label"
+                  [yueUiSmartRenderContext]="option.value"
+                >
+                </yue-ui-smart-render>
                 <ng-container *ngIf="mode === 'multiple' && !disabled">
-                  <span class="handler-remover" (click)="removeOption(index);">
+                  <span class="handler-remover" (click)="selectOption(option.value, option.component)">
                     <svg width="15" height="15" viewBox="0 0 24 24" focusable="false" role="presentation">
                       <path
                         d="M13 11V3.993A.997.997 0 0 0 12 3c-.556 0-1 .445-1 .993V11H3.993A.997.997 0 0 0 3 12c0 .557.445 1 .993 1H11v7.007c0 .548.448.993 1 .993.556 0 1-.445 1-.993V13h7.007A.997.997 0 0 0 21 12c0-.556-.445-1-.993-1H13z"
@@ -55,7 +60,7 @@ type YueUiSafeValue = any;
           </ng-container>
         </div>
         <div class="input-clear">
-          <ng-container *ngIf="yueUiSelectAllowClear && !showing && !disabled && hasValue">
+          <ng-container *ngIf="yueUiSelectAllowClear && !isVisible && !disabled && hasValue">
             <span class="input-clear-wrapper">
               <span class="input-clear-handler" (click)="clear();">
                 <svg width="12" height="12" viewBox="0 0 24 24" focusable="false" role="presentation">
@@ -67,9 +72,9 @@ type YueUiSafeValue = any;
             </span>
           </ng-container>
         </div>
-        <textarea #inputFake class="input-select-fake" autocomplete="off" role="combobox" aria-autocomplete="list"
-          aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)"
-          (keydown)="preventKeydown($event);" (focus)="focus();" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : null"
+        <textarea #inputFake class="input-select-fake" [class.caret-visible]="isVisible" autocomplete="off" role="combobox" aria-autocomplete="list"
+          aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)" (click)="focus();"
+          (keydown)="preventKeydown($event);" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : equivalencePlaceholder"
           [disabled]="disabled"></textarea>
         <span class="icon-drop-menu"></span>
       </div>
@@ -100,8 +105,13 @@ type YueUiSafeValue = any;
             [cdkVirtualForOf]="listOfYueUiSelectOptionComponent"
             [cdkVirtualForTemplateCacheSize]="0"
             let-item
+            let-index="index"
           >
-            <yue-ui-select-option-renderer [yueUiSelectOptionRendererOption]="item"></yue-ui-select-option-renderer>
+            <yue-ui-select-option-renderer
+              [yueUiSelectOptionRendererOption]="item"
+              [yueUiSelectOptionRendererOptionIndex]="index"
+              [yueUiSelectOptionRendererOptionActivated]="activatedValue"
+            ></yue-ui-select-option-renderer>
           </ng-template>
         </cdk-virtual-scroll-viewport>
       </div>
@@ -133,7 +143,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   @ViewChild('inputFake', { read: ElementRef, static: false })
   private inputFake!: ElementRef<HTMLTextAreaElement>;
 
-  @ViewChild(CdkVirtualScrollViewport, { static: true })
+  @ViewChild(CdkVirtualScrollViewport, { static: false })
   private cdkVirtualScrollViewport!: CdkVirtualScrollViewport;
 
   public itemSize = 32;
@@ -141,6 +151,18 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   public maxItemLength = 8;
 
   public scrolledIndex = 0;
+
+  public get equivalencePlaceholder(): string {
+    if (this.hasValue && this.mode === `single` && this.isVisible) {
+      const first = (this.selections as any).concat().shift();
+      if (first) {
+        if (typeof first.label === `string`) {
+          return first.label;
+        }
+      }
+    }
+    return ``;
+  }
 
   public listOfYueUiSelectOptionComponent: YueUiSelectOptionComponent[] = [];
 
@@ -152,9 +174,15 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   private _hasBackdrop = true;
 
+  private _activatedValue: any = null;
+
   private _positions = [
     ...DEFAULT_MENTION_BOTTOM_POSITIONS
   ];
+
+  public get activatedValue(): any {
+    return this._activatedValue;
+  }
 
   public get listLength(): number {
     if (this.listOfYueUiSelectOptionComponent) {
@@ -238,8 +266,6 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   public mouseovering = false;
 
-  public showing = false;
-
   public selections: YueUiSafeValue = [];
 
   public timer: YueUiSafeValue = null;
@@ -287,18 +313,160 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this._renderer = this.rf2.createRenderer(null, null);
   }
 
-  // @ts-ignore
+  public onKeyDown(e: KeyboardEvent): void {
+    if (this.disabled) {
+      return void 0;
+    }
+    const activatedIndex = this.listOfYueUiSelectOptionComponent.findIndex(item => equals(item.value, this._activatedValue)) || 0;
+    switch (e.keyCode) {
+      case UP_ARROW:
+        e.preventDefault();
+        if (this.isVisible) {
+          const preIndex = activatedIndex > 0 ? activatedIndex - 1 : this.listOfYueUiSelectOptionComponent.length - 1;
+          this._activatedValue = this.listOfYueUiSelectOptionComponent[preIndex].value;
+          const component = this.listOfYueUiSelectOptionComponent[activatedIndex];
+          if (component) {
+            if (equals(component.value, this._activatedValue)) {
+              component.cdr.detectChanges();
+            }
+          }
+        }
+        break;
+      case DOWN_ARROW:
+        e.preventDefault();
+        if (this.isVisible) {
+          const nextIndex = activatedIndex < this.listOfYueUiSelectOptionComponent.length - 1 ? activatedIndex + 1 : 0;
+          this._activatedValue = this.listOfYueUiSelectOptionComponent[nextIndex].value;
+          const component = this.listOfYueUiSelectOptionComponent[activatedIndex];
+          if (component) {
+            if (equals(component.value, this._activatedValue)) {
+              component.cdr.detectChanges();
+            }
+          }
+        } else {
+          this.show();
+        }
+        break;
+      case ENTER:
+        e.preventDefault();
+        if (this.isVisible) {
+          if (this._activatedValue) {
+            const component = this.listOfYueUiSelectOptionComponent[activatedIndex];
+            if (component) {
+              if (equals(component.value, this._activatedValue)) {
+                component.selectThis();
+              }
+            }
+          }
+        } else {
+          this.show();
+        }
+        break;
+      case SPACE:
+        if (!this.isVisible) {
+          this.show();
+          e.preventDefault();
+        }
+        break;
+      case TAB:
+        this.hide();
+        break;
+      case ESCAPE:
+        this.hide();
+        break;
+      default:
+        if (!this.isVisible) {
+          this.hide();
+        }
+    }
+    this.scrollToActivatedValue();
+  }
+
+  public optionIsActivated(value: any): boolean {
+    return equals(value, this._activatedValue);
+  }
+
   public valueIsSelected(value: any): boolean {
+    if (this.mode === `single`) {
+      return equals(this.value, value);
+    } else if (this.mode === `multiple`) {
+      let isSelected = false;
+      const currentVal = this.value;
+      if (Array.isArray(currentVal)) {
+        for (let i = 0, l = currentVal.length; i < l; i++) {
+          if (equals(currentVal[i], value)) {
+            isSelected = true;
+            break;
+          }
+        }
+      }
+      return isSelected;
+    }
     return false;
   }
 
-  // @ts-ignore
-  public selectOption(value: any, component: any): void {
+  public selectOption(_value: any, component: YueUiSelectOptionComponent): void {
+    if (this.mode === `single`) {
+      if (equals(this.value, component.value)) {
+        this.selections = [];
+        this._activatedValue = null;
+        this.value = null;
+      } else {
+        this.selections = [
+          {
+            label: component.label,
+            value: component.value,
+            component,
+          },
+        ];
+        this._activatedValue = component.value;
+        this.value = component.value;
+        this.isVisible = false;
+      }
+    } else if (this.mode === `multiple`) {
+      let matchIndex = 0;
+      let matchExist = false;
+      
+      if (this.selections && Array.isArray(this.selections) && this.selections.length > 0) {
+        for (let i = 0, l = this.selections.length; i < l; i++) {
+          if (equals(this.selections[i].value, component.value)) {
+            matchExist = true;
+            matchIndex = i;
+            break;
+          }
+        }
+      }
+      if (!Array.isArray(this.selections)) {
+        this.selections = [];
+      }
+      if (matchExist) {
+        if (this.selections[matchIndex]) {
+          (this.selections as any[]).splice(matchIndex, 1);
+          this._activatedValue = (this.selections[this.selections - 1] || {}).value || null;
+          if (!this.selections.length) {
+            this.value = null;
+          } else {
+            this.value = (this.selections as any[]).map((i) => i.value);
+          }
+        }
+      } else {
+        (this.selections as any[]).push({
+          label: component.label,
+          value: component.value,
+          component,
+        });
+        this._activatedValue = component.value;
+        this.value = (this.selections as any[]).map((i) => i.value);
+      }
+    }
+    this.cdr.markForCheck();
+    if (component) {
+      component.cdr.markForCheck();
+    }
   }
 
   public scrollToActivatedValue(): void {
-    // const index = this.listOfContainerItem.findIndex(item => this.compareWith(item.key, this.activatedValue));
-    const index = 0;
+    const index = this.listOfYueUiSelectOptionComponent.findIndex(item => equals(item.value, this._activatedValue)) || 0;
     if (index < this.scrolledIndex || index >= this.scrolledIndex + this.maxItemLength) {
       this.cdkVirtualScrollViewport.scrollToIndex(index || 0);
     }
@@ -347,14 +515,17 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
       } else {
         if (this.inputFake && this.inputFake.nativeElement) {
           this._renderer.setStyle(this.inputFake.nativeElement, `padding`, '4px 7px 5px');
+          this._renderer.setStyle(this.inputFake.nativeElement, `height`, `32px`);
         }
       }
+      this.syncWidth();
     }
   }
 
   public syncWidth(): void {
     if (this.isVisible) {
       if (this.overlay.overlayRef) {
+        this.overlay.overlayRef.updatePosition();
         if (this.origin) {
           const EL = this.origin.elementRef.nativeElement;
           if (EL instanceof HTMLElement) {
@@ -382,7 +553,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
       setTimeout(() => {
         this.scrollToActivatedValue();
         this.syncWidth();
-      });
+      }, 50);
       this.cdr.detectChanges();
     }
   }
@@ -398,6 +569,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   }
 
   public researh(event: KeyboardEvent): void {
+    if ([UP_ARROW, DOWN_ARROW, ENTER, TAB, ESCAPE].indexOf(event.keyCode) !== -1) {
+      return void 0;
+    }
     const realValue: string = (event.target as HTMLTextAreaElement).value || '';
     const value: string = removeAccents(realValue);
     this.searhBy.staticValue = realValue;
@@ -414,17 +588,43 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   }
 
   public focus(): void {
-    this.show();
+    if (!this.disabled) {
+      this.show();
+    }
   }
 
   public preventKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
+    this.onKeyDown(event);
   }
 
   public addOption(option: YueUiSelectOptionComponent): void {
     this.listOfYueUiSelectOptionComponent.push(option);
+    if (this.mode === `single`) {
+      if (equals(this.value, option.value)) {
+        (this.selections as any[]).push({
+          label: option.label,
+          value: option.value,
+          component: option,
+        });
+        this._activatedValue = option.value;
+        this.cdr.markForCheck();
+      }
+    } else if (this.mode === `multiple`) {
+      if (this.value && Array.isArray(this.value) && this.value.length > 0) {
+        for (let i = 0, l = this.value.length; i < l; i++) {
+          if (equals(this.value[i], option.value)) {
+            (this.selections as any[]).push({
+              label: option.label,
+              value: option.value,
+              component: option,
+            });
+            this._activatedValue = option.value;
+            break;
+          }
+        }
+        this.cdr.markForCheck();
+      }
+    }
   }
 
   public removeOption(option: YueUiSelectOptionComponent): void {
@@ -435,10 +635,25 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   }
 
   public clear(): void {
+    this.value = null;
+    this.selections = [];
+    this._activatedValue = null;
+    this.cdr.markForCheck();
+  
+    this.syncWidth();
+    this.syncDimentions();
   }
 
   public writeValue(value: any): void {
-    this.value = value;
+    if (this.mode === `multiple`) {
+      if (!Array.isArray(value)) {
+        this.value = [
+          value
+        ];
+      }
+    } else {
+      this.value = value;
+    }
     this.cdr.markForCheck();
   }
 

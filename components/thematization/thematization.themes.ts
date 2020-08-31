@@ -284,7 +284,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             },
             option: {
               hover: {
-                'background-color': 'rgba(0, 0, 0, 0.03)',
+                'background-color': 'var(--components-formulary-input-hover-background)',
                 color: '#2f2f2f',
               }
             }

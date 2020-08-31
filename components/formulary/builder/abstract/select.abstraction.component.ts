@@ -9,8 +9,9 @@ import { FieldAbstraction } from './abstraction';
     <yue-ui-select
       [formControl]="abstractControl"
       [yueUiSelectPlaceholder]="placeholder"
-      [yueUiSelectPropertyLabel]="false"
-    >
+      [yueUiSelectPropertyLabel]="'name'"
+      [yueUiSelectPropertyValue]="'name'"
+    > 
       <yue-ui-select-option *ngFor="let option of options$" [yueUiSelectOptionValue]="option" [yueUiSelectOptionLabel]="option.name"></yue-ui-select-option>
     </yue-ui-select>
   `,

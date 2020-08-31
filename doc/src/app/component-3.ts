@@ -34,7 +34,8 @@ export class Component3 {
   private setup(): void {
     this.formulary
       .setModel({
-        name: 'Peter'
+        name: 'Peter',
+        gender: `Carbon`,
       })
       .setup(linearFormulary([
         formularyIdentifier('inserting_model_register'),

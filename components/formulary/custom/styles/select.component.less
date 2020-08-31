@@ -32,6 +32,11 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         resize: none;
+        caret-color: transparent;
+
+        &.caret-visible {
+          caret-color: inherit;
+        }
 
         &:focus {
           background-color: var(--components-formulary-input-focus-background);
@@ -153,8 +158,8 @@
 
         .input-labels-value {
           position: absolute;
-          line-height: 28px;
-          padding: 2px 0px;
+          line-height: 15px;
+          padding: 4px 0px;
           margin-left: 7px;
 
           .option-selection {
@@ -162,6 +167,8 @@
             background: rgba(0, 0, 0, .1);
             border-radius: 3px;
             margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 5px;
 
             .handler-remover {
               position: relative;

@@ -33,6 +33,12 @@ export class YueUiSelectOptionRendererComponent implements OnInit, AfterViewInit
   @Input()
   public yueUiSelectOptionRendererOption!: YueUiSelectOptionComponent;
 
+  @Input()
+  public yueUiSelectOptionRendererOptionIndex!: number;
+
+  @Input()
+  public yueUiSelectOptionRendererOptionActivated!: any;
+
   public get label(): any {
     return this.yueUiSelectOptionRendererOption.label;
   }
@@ -41,12 +47,17 @@ export class YueUiSelectOptionRendererComponent implements OnInit, AfterViewInit
     return this.yueUiSelectOptionRendererOption.value;
   }
 
-  constructor(public readonly cdr: ChangeDetectorRef) { }
+  @HostBinding('class.option-passive-select')
+  public get isActivated(): boolean {
+    return this.yueUiSelectOptionRendererOption.isActivated;
+  }
 
   @HostBinding('class.is-selected')
   public get isSelected(): boolean {
     return this.yueUiSelectOptionRendererOption.isSelected();
   }
+
+  constructor(public readonly cdr: ChangeDetectorRef) { }
 
   @HostListener(`click`)
   public onClick(): void {
