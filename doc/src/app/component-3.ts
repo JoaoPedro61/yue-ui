@@ -35,7 +35,7 @@ export class Component3 {
     this.formulary
       .setModel({
         name: 'Peter',
-        gender: `Carbon`,
+        gender: `tank`,
       })
       .setup(linearFormulary([
         formularyIdentifier('inserting_model_register'),
@@ -58,6 +58,16 @@ export class Component3 {
           ])
         ])
       ]));
+
+    setTimeout(() => {
+      this.formulary.updateField(`gender`, [
+        fieldOptions(() => [
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+          { label: 'Tank', value: 'tank' },
+        ])
+      ]);
+    }, 6000);
   }
 
   public ngAfterViewInit(): void { }
