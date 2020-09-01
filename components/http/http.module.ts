@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
@@ -16,6 +15,7 @@ import { YueUiHttpCacheInterceptor } from './http-cache.interceptor';
 import { YueUiHttpProgressInterceptor } from './http-progress.interceptor';
 
 import { YueProgressRequestOptions } from './http.interfaces';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -23,7 +23,7 @@ const logger = logging.getLogger('core.http');
 
 @NgModule({
   imports: [
-    CommonModule
+    HttpClientModule,
   ],
   providers: [
     { provide: YUE_UI_ENABLE_CACHE_RESPONSE, useValue: false },

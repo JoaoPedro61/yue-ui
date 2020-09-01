@@ -13,7 +13,7 @@ import {
 import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
 
 import { YueUiSelectComponent } from './select.component';
-import { YueUiSelectProperties } from '../utils/interfaces';
+import { YueUiSelectProperties } from './../utils/interfaces';
 
 
 

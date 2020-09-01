@@ -1,24 +1,36 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { Observable } from 'rxjs';
 
-import { Placeholder } from './../utils/interfaces';
+import { TextMask } from '@JoaoPedro61/yue-ui/formulary/utils';
+
 
 
 
 @Component({
-  selector: 'yue-ui-number',
+  selector: 'yue-ui-text',
   template: `
   <div class="field-text-wrapper" [class.hovering]="hovering">
-    <input
-      type="number"
-      [(ngModel)]="value"
-      [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiNumberPlaceholder | async) : yueUiNumberPlaceholder"
-      (mouseover)="hovering = true;"
-      (mouseout)="hovering = false;"
-    >
-    <ng-container *ngIf="yueUiNumberAllowClear">
+    <ng-container *ngIf="yueUiTextMask; else nomask">
+      <input
+        type="text"
+        [(ngModel)]="value"
+        [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
+        (mouseover)="hovering = true;"
+        (mouseout)="hovering = false;"
+        [textMask]="yueUiTextMask"
+      >
+    </ng-container>
+    <ng-template #nomask>
+      <input
+        type="text"
+        [(ngModel)]="value"
+        [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
+        (mouseover)="hovering = true;"
+        (mouseout)="hovering = false;"
+      >
+    </ng-template>
+    <ng-container *ngIf="yueUiTextAllowClear">
       <div class="input-clear" (mouseover)="hovering = true;" (mouseout)="hovering = false;">
         <ng-container *ngIf="!disabled && !isEmpty">
           <span class="input-clear-wrapper">
@@ -36,27 +48,27 @@ import { Placeholder } from './../utils/interfaces';
   </div>
   `,
   styleUrls: [
-    './../styles/number.component.less'
+    './../styles/text.component.less'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => YueUiNumberComponent),
+      useExisting: forwardRef(() => YueUiTextComponent),
       multi: true,
     }
   ],
 })
-export class YueUiNumberComponent implements OnInit, ControlValueAccessor, AfterViewInit {
-
-  public hovering = false;
+export class YueUiTextComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   @Input()
-  public yueUiNumberAllowClear = true;
+  public yueUiTextAllowClear = true;
 
   @Input()
-  public yueUiNumberPlaceholder: Placeholder = '';
+  public yueUiTextMask!: TextMask;
 
+  @Input()
+  public yueUiTextPlaceholder: Observable<string> | string | null = '';
 
   private _val: any = null;
 
@@ -82,30 +94,24 @@ export class YueUiNumberComponent implements OnInit, ControlValueAccessor, After
   }
 
   public get placeholderIsAObservable(): boolean {
-    return this.yueUiNumberPlaceholder instanceof Observable;
+    return this.yueUiTextPlaceholder instanceof Observable;
   }
 
-  public get ngSafeValue_yueUiNumberPlaceholder(): any {
-    return this.yueUiNumberPlaceholder;
+  public get ngSafeValue_yueUiTextPlaceholder(): any {
+    return this.yueUiTextPlaceholder;
   }
+
+  public hovering = false;
 
   public onChange: (newValue: any) => void = () => { };
 
   public onTouch: () => void = () => { };
 
   public get isEmpty(): boolean {
-    return !(this._val
-      ? (this._val + '').length
-      : typeof this._val === 'number'
-        ? false
-        : this._val);
+    return !(this._val ? this._val.length : this._val);
   }
 
   constructor(private readonly cdr: ChangeDetectorRef) { }
-
-  public mType(c: any): string {
-    return typeof c;
-  }
 
   public clear(): void {
     this.value = null;

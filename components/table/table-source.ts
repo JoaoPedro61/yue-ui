@@ -8,9 +8,25 @@ export class TableSource<B = any> {
 
   private dataColumns$: BehaviorSubject<TableDataColumnItem<B>[]> = new BehaviorSubject<TableDataColumnItem<B>[]>([] as unknown as TableDataColumnItem<B>[]);
 
-  private data$: BehaviorSubject<TableDataRowItem<B>[]> = new BehaviorSubject<TableDataRowItem<B>[]>([] as unknown as TableDataRowItem<B>[]);
+  private data$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([] as unknown as any[]);
 
   private renderedData$: BehaviorSubject<(TableDataRowItem<B>[])[]> = new BehaviorSubject<(TableDataRowItem<B>[])[]>([] as unknown as (TableDataRowItem<B>[])[]);
+
+  private _showHeader = true;
+
+  private _allowIndeterminateSorting = true;
+
+  private _columnOrderingBy: any = null;
+
+  private _columnSortingBy: any = null;
+
+  public get isAllowedIndeterminateSorting(): boolean {
+    return this._allowIndeterminateSorting;
+  }
+
+  public get isShowingHeader(): boolean {
+    return this._showHeader;
+  }
 
   public get hasColumns(): boolean {
     const v = this.dataColumns$.getValue();
@@ -24,7 +40,6 @@ export class TableSource<B = any> {
 
   private prerender(items: B[]): void {
     const header = this.dataColumns$.getValue() || [];
-    const news: TableDataRowItem<B>[] = [];
     const newsMulti: any = [];
     const current = this.data$.getValue() || [];
     for (let j = 0, u = items.length; j < u; j++) {
@@ -45,20 +60,40 @@ export class TableSource<B = any> {
               header: header[i],
               full: items[i],
             };
-            news.push(item);
             row.push(item);
           }
         }
         newsMulti.push(row);
       }
     }
-    this.data$.next(news);
+    this.data$.next(items);
     this.renderedData$.next(newsMulti);
   }
 
   private preDefColumn<T = any>(column: YueUiTableColumn<T>): TableDataColumnItem<T> {
-    const def: any = { ...column };
-    return def;
+    const def: Partial<TableDataColumnItem<T>> = {
+      ...column,
+      order: this._columnOrderingBy === column.identifier,
+      sorting: this._columnOrderingBy === column.identifier ? this._columnSortingBy : null,
+    };
+    return def as any;
+  }
+
+  public setSortAndOrder(identifier: string, sorting: TableDataColumnItem['sorting']): this {
+    const columns = this.dataColumns$.getValue() || [];
+    for (let i = 0, l = columns.length; i < l; i++) {
+      if (columns[i].identifier === identifier) {
+        columns[i].order = true;
+        columns[i].sorting = sorting;
+      } else {
+        columns[i].order = false;
+        columns[i].sorting = null;
+      }
+    }
+    this._columnOrderingBy = identifier;
+    this._columnSortingBy = sorting;
+    this.dataColumns$.next(columns);
+    return this;
   }
 
   public columns(columns: YueUiTableColumns): this {
@@ -67,6 +102,7 @@ export class TableSource<B = any> {
       columnsDef.push(this.preDefColumn(columns[i]));
     }
     this.dataColumns$.next(columnsDef);
+    this.rerender();
     return this;
   }
 
@@ -86,7 +122,7 @@ export class TableSource<B = any> {
     return this;
   }
 
-  public connectStreamData(): BehaviorSubject<TableDataRowItem<B>[]> {
+  public connectStreamData(): BehaviorSubject<any[]> {
     return this.data$;
   }
 
@@ -103,8 +139,8 @@ export class TableSource<B = any> {
     const values = this.data$.getValue() || [];
     const old: any = [];
     for (let i = 0, l = values.length; i < l; i++) {
-      if (values[i].old) {
-        old.push(values[i].old);
+      if (values[i]) {
+        old.push(values[i]);
       }
     }
     this.render(old);
@@ -114,6 +150,7 @@ export class TableSource<B = any> {
   public destroy(): void {
     this.data$.complete();
     this.dataColumns$.complete();
+    this.renderedData$.complete();
   }
 
 }

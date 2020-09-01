@@ -2,7 +2,8 @@ import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType } from '@JoaoPedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from '@JoaoPedro61/yue-ui/formulary/utils';
-import { YueUiSelectMode, YueUiSelectProperties, YueUiSwitchModes } from '@JoaoPedro61/yue-ui/formulary/custom';
+import { YueUiSelectMode, YueUiSelectProperties } from '@JoaoPedro61/yue-ui/formulary/custom/select';
+import { YueUiSwitchModes } from '@JoaoPedro61/yue-ui/formulary/custom/switch';
 
 import { Observable } from 'rxjs';
 

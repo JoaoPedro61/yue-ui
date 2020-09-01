@@ -3,6 +3,8 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
 
 // @ts-ignore
 import { TableSource, YueUiTableColumns } from '@JoaoPedro61/yue-ui/table';
+import { YueUiHttpService } from '@JoaoPedro61/yue-ui/http';
+import { take } from 'rxjs/operators';
 
 
 @NgComponent({
@@ -16,12 +18,12 @@ export class Component2 {
 
   public tableSource: TableSource = new TableSource<any>();
 
-  constructor() {
+  constructor(private readonly http: YueUiHttpService) {
     const HEADER: YueUiTableColumns = [
       {
         identifier: 'position',
         cellHeader: 'Position',
-        allowSort: true
+        allowSort: true,
       },
       {
         identifier: 'name',
@@ -56,6 +58,28 @@ export class Component2 {
     ];
 
     this.tableSource.render(ELEMENT_DATA);
+
+    this.loadFromReq();
+  }
+
+  private loadFromReq(): void {
+    this.http
+      .get(`https://jsonplaceholder.typicode.com/users`)
+      .pipe(take(1))
+      .subscribe({
+        next: (response: any) => {
+          this.tableSource
+            .setSortAndOrder(`id`, `asc`)
+            .columns([
+              { identifier: `id`, cellHeader: `#`, allowSort: true, },
+              { identifier: `name`, cellHeader: `Name`, allowSort: true, },
+              { identifier: `username`, cellHeader: `Username`, allowSort: true, },
+              { identifier: `email`, cellHeader: `E-mail`, allowSort: true, },
+            ])
+            .render(response);
+        }
+      })
+
   }
 
 }

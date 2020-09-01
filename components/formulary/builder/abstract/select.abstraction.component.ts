@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 
 import { FieldAbstraction } from './abstraction';
-import { YueUiSelectMode, YueUiSelectSearchChange } from '@JoaoPedro61/yue-ui/formulary/custom';
+import { YueUiSelectMode, YueUiSelectSearchChange } from '@JoaoPedro61/yue-ui/formulary/custom/select';
 import { BehaviorSubject, Subject, Subscription, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

@@ -8,7 +8,13 @@ import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
-import { YueUiCustomInputsModule } from '@JoaoPedro61/yue-ui/formulary/custom';
+
+import { YueUiCustomColorpickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/colorpicker';
+import { YueUiCustomDatepickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/datepicker';
+import { YueUiCustomNumberModule } from '@JoaoPedro61/yue-ui/formulary/custom/number';
+import { YueUiCustomSelectModule } from '@JoaoPedro61/yue-ui/formulary/custom/select';
+import { YueUiCustomSwitchModule } from '@JoaoPedro61/yue-ui/formulary/custom/switch';
+import { YueUiCustomTextModule } from '@JoaoPedro61/yue-ui/formulary/custom/text';
 
 import { FormularyComponent } from './builder.component';
 import { LabelComponent } from './extends/label.component';
@@ -58,7 +64,13 @@ const logger = logging.getLogger('core.formulary.builder');
     TextMaskModule,
     FormsModule,
     ReactiveFormsModule,
-    YueUiCustomInputsModule,
+
+    YueUiCustomColorpickerModule,
+    YueUiCustomDatepickerModule,
+    YueUiCustomNumberModule,
+    YueUiCustomSelectModule,
+    YueUiCustomSwitchModule,
+    YueUiCustomTextModule,
 
     YueUiSmartRenderModule,
     YueUiButtonModule

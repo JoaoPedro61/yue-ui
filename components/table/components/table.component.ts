@@ -104,7 +104,10 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public columns$: BehaviorSubject<TableDataColumnItem[]> = new BehaviorSubject<TableDataColumnItem[]>([]);
 
   public get showHeader(): boolean {
-    return true;
+    if (this.source) {
+      return this.source.isShowingHeader;
+    }
+    return false;
   }
 
   public get hasData(): boolean {
@@ -125,7 +128,19 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public handleClickOnColumnHeader(item: TableDataColumnItem<any>): void {
     if (item.allowSort) {
-      console.log(item);
+      if (!item.sorting) {
+        this.source.setSortAndOrder(item.identifier, `asc`);
+      } else {
+        if (item.sorting === `asc`) {
+          this.source.setSortAndOrder(item.identifier, `desc`);
+        } else if (item.sorting === `desc`) {
+          if (this.source.isAllowedIndeterminateSorting) {
+            this.source.setSortAndOrder(item.identifier, null);
+          } else {
+            this.source.setSortAndOrder(item.identifier, `asc`);
+          }
+        }
+      }
     }
   }
 

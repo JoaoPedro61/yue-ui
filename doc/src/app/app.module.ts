@@ -22,6 +22,7 @@ import { YueUiTableModule } from '@JoaoPedro61/yue-ui/table';
 import { Component1 as Home } from './component-1';
 import { Component2 as Child1 } from './component-2';
 import { Component3 as Modal1 } from './component-3';
+import { YueUiHttpModule } from '@JoaoPedro61/yue-ui/http';
 
 
 
@@ -55,6 +56,7 @@ import { Component3 as Modal1 } from './component-3';
     YueUiBreadcrumbModule,
     YueUiPanelModule,
     YueUiTableModule,
+    YueUiHttpModule,
   ],
   providers: [],
   bootstrap: [

@@ -21,7 +21,6 @@ export interface TableDataColumnItem<T = any> extends YueUiTableColumn<T> {
   [x: string]: any;
   sorting: null | 'asc' | 'desc';
   order: boolean;
-
 }
 
 export interface TableDataRowItem<T = any> {
