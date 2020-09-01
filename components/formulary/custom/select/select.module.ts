@@ -33,6 +33,9 @@ const logger = logging.getLogger(`core.formulary.custom.select`);
     YueUiSelectComponent,
     YueUiSelectOptionComponent,
     YueUiSelectOptionRendererComponent,
+
+    FormsModule,
+    ReactiveFormsModule,
   ],
   imports: [
     CommonModule,

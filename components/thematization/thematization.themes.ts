@@ -322,7 +322,25 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             color: `var(--color-dark)`,
           }
         },
-      }
+      },
+      pagination: {
+        selected: {
+          color: 'var(--color-primary)',
+          border: {
+            color: 'var(--color-primary)'
+          }
+        },
+        color: 'var(--color-muted)',
+        border: {
+          color: 'var(--components-formulary-input-border-color)'
+        },
+        hover: {
+          color: 'var(--color-primary)',
+          border: {
+            color: 'var(--color-primary)'
+          }
+        }
+      },
     }
   }
 };

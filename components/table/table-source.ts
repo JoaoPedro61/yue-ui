@@ -20,6 +20,42 @@ export class TableSource<B = any> {
 
   private _columnSortingBy: any = null;
 
+  private _itensTotal = 0;
+
+  private _usePagination = false;
+
+  private _currentPage = 1;
+
+  private _pageSize = 20;
+
+  private _showPageSizeChanger = true;
+
+  private _showTotalLabel = false;
+
+  public get page(): number {
+    return this._currentPage;
+  }
+
+  public get pageSize(): number {
+    return this._pageSize;
+  }
+
+  public get isAllowedShowPageSizeChanger(): boolean {
+    return this._showPageSizeChanger;
+  }
+
+  public get isAllowedShowTotalLabelOnPagination(): boolean {
+    return this._showTotalLabel;
+  }
+
+  public get isAllowedUsePagination(): boolean {
+    return this._usePagination;
+  }
+
+  public get fullTotalOfItens(): number {
+    return this._itensTotal;
+  }
+
   public get isAllowedIndeterminateSorting(): boolean {
     return this._allowIndeterminateSorting;
   }
@@ -77,6 +113,22 @@ export class TableSource<B = any> {
       sorting: this._columnOrderingBy === column.identifier ? this._columnSortingBy : null,
     };
     return def as any;
+  }
+
+  public setFullTotalOfItens(value: number): this {
+    this._itensTotal = value;
+    return this;
+  }
+
+  // @ts-ignore
+  public configurePagination(show: boolean = true, fullTotal: number = (this.data$.getValue() || []).length, page: number = 1, pageSize: number = 20): this {
+    console.log(arguments);
+    return this;
+  }
+
+  public setPageAndPageSize(page: number = this.page, pageSize: number = this.pageSize): this {
+    console.log(page, pageSize);
+    return this;
   }
 
   public setSortAndOrder(identifier: string, sorting: TableDataColumnItem['sorting']): this {

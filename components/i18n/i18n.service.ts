@@ -31,6 +31,12 @@ export class YueUiI18nService {
     return this.language.getValue();
   }
 
+  public extendsComponentsDictionary(extend: {[component: string]: any}): void {
+    const A01 = this.componentsDictionary.getValue() || {};
+    const A02 = deepMerge(A01, extend) as any;
+    this.componentsDictionary.next(A02);
+  }
+
   public async setLanguage(language: string): Promise<any> {
     return fetch(`assets/i18n/${language}.json`)
       .then(res => res.json())

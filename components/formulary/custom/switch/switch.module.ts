@@ -31,6 +31,9 @@ const logger = logging.getLogger(`core.formulary.custom.switch`);
     FormsModule,
     ReactiveFormsModule,
     YueUiSmartRenderModule,
+
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class YueUiCustomSwitchModule {

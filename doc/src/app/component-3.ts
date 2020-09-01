@@ -3,7 +3,6 @@ import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core
 
 import {
   FormularySource,
-  linearFormulary,
   writable,
   fieldIdentifier,
   fieldLabel,
@@ -12,7 +11,10 @@ import {
   selectable,
   formularyFields,
   fieldOptions,
-  formularyIdentifier
+  formularyIdentifier,
+  staircaseFormulary,
+  formularyStep,
+  formularyStepName
 } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 
@@ -37,37 +39,53 @@ export class Component3 {
         name: 'Peter',
         gender: `tank`,
       })
-      .setup(linearFormulary([
-        formularyIdentifier('inserting_model_register'),
-        formularyFields([
-          writable([
-            fieldIdentifier('name'),
-            fieldLabel('Name'),
-            fieldPlaceholder('Type your name'),
-            fieldWidth(10)
-          ]),
-          selectable([
-            fieldIdentifier('gender'),
-            fieldLabel('Gender'),
-            fieldPlaceholder('Select yout gender'),
-            fieldWidth(10),
-            fieldOptions(() => [
-              { label: 'Male', value: 'male' },
-              { label: 'Female', value: 'female' },
+      .setup(staircaseFormulary([
+        formularyIdentifier(`steps`),
+        formularyStep([
+          formularyIdentifier(`step_1`),
+          formularyStepName(`General`),
+          formularyFields([
+            writable([
+              fieldIdentifier('name'),
+              fieldLabel('Name'),
+              fieldPlaceholder('Type your name'),
+              fieldWidth(10)
+            ]),
+            selectable([
+              fieldIdentifier('gender'),
+              fieldLabel('Gender'),
+              fieldPlaceholder('Select yout gender'),
+              fieldWidth(10),
+              fieldOptions(() => [
+                { label: 'Male', value: 'male' },
+                { label: 'Female', value: 'female' },
+              ])
+            ])
+          ])
+        ]),
+        formularyStep([
+          formularyIdentifier(`step_2`),
+          formularyStepName(`Net`),
+          formularyFields([
+            writable([
+              fieldIdentifier('name_1'),
+              fieldLabel('Name'),
+              fieldPlaceholder('Type your name'),
+              fieldWidth(10)
+            ]),
+            selectable([
+              fieldIdentifier('gender_!'),
+              fieldLabel('Gender'),
+              fieldPlaceholder('Select yout gender'),
+              fieldWidth(10),
+              fieldOptions(() => [
+                { label: 'Male', value: 'male' },
+                { label: 'Female', value: 'female' },
+              ])
             ])
           ])
         ])
       ]));
-
-    setTimeout(() => {
-      this.formulary.updateField(`gender`, [
-        fieldOptions(() => [
-          { label: 'Male', value: 'male' },
-          { label: 'Female', value: 'female' },
-          { label: 'Tank', value: 'tank' },
-        ])
-      ]);
-    }, 6000);
   }
 
   public ngAfterViewInit(): void { }

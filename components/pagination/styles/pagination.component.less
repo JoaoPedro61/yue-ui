@@ -1,0 +1,99 @@
+:host {
+  display: block;
+  position: relative;
+  margin: 15px 0px 0px 0px;
+  user-select: none;
+
+  .yue-ui-pagination-wrapper {
+
+    .yue-ui-pagination-wrapper-inner {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      align-self: center;
+      align-content: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+
+      .page-left-sider {
+
+        .page-total-itens-wrapper {
+
+          .page-total-itens-wrapper-inner {
+            margin-right: 15px;
+
+            .page-total-label {
+              font-weight: bold;
+            }
+
+            .page-total-value {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+
+      .page-itens-wrapper {
+
+        .page-itens-wrapper-inner {
+
+          .page-item-list {
+            display: flex;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            align-self: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            list-style: none;
+
+            .page-item-list-item {
+              margin-right: 10px;
+
+              a {
+                position: relative;
+                min-width: 33px;
+                padding: 7.3px 10px;
+                display: block;
+                text-align: center;
+                border-radius: 3px;
+                cursor: pointer;
+                border: 1px solid var(--components-pagination-border-color);
+                color: var(--components-pagination-color);
+                transition: color 150ms ease-in-out, border 150ms ease-in-out;
+
+                &.selected {
+                  border: 1px solid var(--components-pagination-selected-border-color);
+                  color: var(--components-pagination-selected-color);
+                }
+
+                &:hover {
+
+                  &:not(.selected) {
+                    border: 1px solid var(--components-pagination-hover-border-color);
+                    color: var(--components-pagination-hover-color);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .page-right-sider {
+
+        .page-size-change-wrapper {
+
+          .page-size-change-wrapper-inner {
+            position: relative;
+
+            yue-ui-select {
+              margin-left: 10px;
+              width: 100px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

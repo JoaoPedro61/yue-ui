@@ -30,6 +30,9 @@ const logger = logging.getLogger(`core.formulary.custom.text`);
     ReactiveFormsModule,
     YueUiSmartRenderModule,
     TextMaskModule,
+
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class YueUiCustomTextModule {

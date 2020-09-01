@@ -67,23 +67,39 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
             </ng-container>
             <ng-template #norows>
               <div class="table-error-el">
-                No Rows!
+                <yue-ui-i18n yueUiI18nToken="components.table.noData"></yue-ui-i18n>
               </div>
             </ng-template>
           </ng-container>
           <ng-template #nocolumns>
             <div class="table-error-el">
-              No Columns!
+              <yue-ui-i18n yueUiI18nToken="components.table.noColumns"></yue-ui-i18n>
             </div>
           </ng-template>
         </ng-container>
         <ng-template #nosource>
           <div class="table-error-el">
-            No source!
+            <yue-ui-i18n yueUiI18nToken="components.table.noSource"></yue-ui-i18n>
           </div>
         </ng-template>
       </div>
     </div>
+    <ng-container *ngIf="showPagination">
+      <div style="display: flex;justify-content: flex-end;">
+        <yue-ui-pagination
+          [yueUiPaginationItensCount]="totalOfItens"
+
+          [yueUiPaginationPage]="currentPage"
+          [yueUiPaginationPageSize]="currentPageSize"
+
+          [yueUiPaginationShowPageSizeChanger]="showPageSizer"
+          [yueUiPaginationShowTotal]="showTotalLabel"
+
+          (yueUiPaginationPageChange)="onPageChange($event)"
+          (yueUiPaginationPageSizeChange)="onPageSizeChange($event)"
+        ></yue-ui-pagination>
+      </div>
+    </ng-container>
   `,
   styleUrls: [
     `./../styles/table.component.less`,
@@ -103,9 +119,51 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public columns$: BehaviorSubject<TableDataColumnItem[]> = new BehaviorSubject<TableDataColumnItem[]>([]);
 
+  public get totalOfItens(): number {
+    if (this.source) {
+      return this.source.fullTotalOfItens;
+    }
+    return 0;
+  }
+
+  public get currentPage(): number {
+    if (this.source) {
+      return this.source.page;
+    }
+    return 1;
+  }
+
+  public get currentPageSize(): number {
+    if (this.source) {
+      return this.source.pageSize;
+    }
+    return 20;
+  }
+
   public get showHeader(): boolean {
     if (this.source) {
       return this.source.isShowingHeader;
+    }
+    return false;
+  }
+
+  public get showPagination(): boolean {
+    if (this.source) {
+      return this.source.isAllowedUsePagination;
+    }
+    return false;
+  }
+
+  public get showTotalLabel(): boolean {
+    if (this.source) {
+      return this.source.isAllowedShowTotalLabelOnPagination;
+    }
+    return false;
+  }
+
+  public get showPageSizer(): boolean {
+    if (this.source) {
+      return this.source.isAllowedShowPageSizeChanger;
     }
     return false;
   }
@@ -141,6 +199,18 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         }
       }
+    }
+  }
+
+  public onPageChange(value: number): void {
+    if (this.source) {
+      this.source.setPageAndPageSize(value);
+    }
+  }
+
+  public onPageSizeChange(value: number): void {
+    if (this.source) {
+      this.source.setPageAndPageSize(void 0, value);
     }
   }
 

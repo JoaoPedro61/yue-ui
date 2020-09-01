@@ -11,8 +11,8 @@ export class YueUiI18nPipe implements PipeTransform {
 
   constructor(private readonly i18n: YueUiI18nService) {}
 
-  public transform(token: string): string {
-    return this.i18n.translate(token);
+  public transform(token: string, paramenters?: Partial<any>): string {
+    return this.i18n.translate(token, paramenters || {});
   }
 
 }

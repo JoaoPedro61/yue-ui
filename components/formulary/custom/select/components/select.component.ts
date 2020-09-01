@@ -37,7 +37,7 @@ type YueUiSafeValue = any;
     <div class="input-select-wrapper" [class.single]="mode === 'single'" [class.multiple]="mode === 'multiple'"
       [class.disabled]="disabled" [class.mouseovering]="mouseovering" [class.showclear]="mouseovering && hasValue">
       <div class="input-select" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" (mouseover)="mouseovering = true;" (mouseout)="mouseovering = false;">
-        <div class="input-labels-value" #optionsSelecteds>
+        <div class="input-labels-value" #optionsSelecteds (click)="(mode === 'single' && focus());">
           <ng-container *ngIf="selections && selections.length && (mode === 'single' ? !isVisible : true)">
             <ng-container *ngFor="let option of selections; let index = index">
               <span class="option-selection">
@@ -274,6 +274,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     staticValue: '',
     value: ''
   };
+
+  @Input()
+  public yueUiSelectAllowSearch = true;
 
   @Input()
   public yueUiSelectAllowClear = true;
@@ -597,6 +600,40 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this.onKeyDown(event);
   }
 
+  public updateOptionsStatus(): void {
+    for (let i = 0, l = this.listOfYueUiSelectOptionComponent.length; i < l; i++) {
+      const option = this.listOfYueUiSelectOptionComponent[i];
+      if (option) {
+        if (this.mode === `single`) {
+          if (equals(this.value, option.value)) {
+            (this.selections as any[]).push({
+              label: option.label,
+              value: option.value,
+              component: option,
+            });
+            this._activatedValue = option.value;
+            this.cdr.markForCheck();
+          }
+        } else if (this.mode === `multiple`) {
+          if (this.value && Array.isArray(this.value) && this.value.length > 0) {
+            for (let i = 0, l = this.value.length; i < l; i++) {
+              if (equals(this.value[i], option.value)) {
+                (this.selections as any[]).push({
+                  label: option.label,
+                  value: option.value,
+                  component: option,
+                });
+                this._activatedValue = option.value;
+                break;
+              }
+            }
+            this.cdr.markForCheck();
+          }
+        }
+      }
+    }
+  }
+
   public addOption(option: YueUiSelectOptionComponent): void {
     this.listOfYueUiSelectOptionComponent.push(option);
     if (this.mode === `single`) {
@@ -654,6 +691,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     } else {
       this.value = value;
     }
+    this.updateOptionsStatus();
     this.cdr.markForCheck();
   }
 

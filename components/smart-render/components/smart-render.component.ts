@@ -19,6 +19,10 @@ import { Context } from '../utils/context';
     </ng-container>
   `,
   exportAs: 'yueUiSmartRenderRef',
+  preserveWhitespaces: false,
+  host: {
+    '[class.yue-ui-smart-render]': `true`,
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YueUiSmartRenderComponent<_T = unknown> {
