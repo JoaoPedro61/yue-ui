@@ -61,7 +61,7 @@ export class YueUiStringTemplateRefRenderDirective<_T = unknown> implements OnCh
         const ctx = isComponent ? this.yueUiStringTemplateRefRenderContext : this.context;
         if (ctx) {
           for (const prop in ctx) {
-            if (prop.hasOwnProperty(prop)) {
+            if (ctx.hasOwnProperty(prop)) {
               (ref.instance as Partial<any>)[prop] = (ctx as Partial<any>)[prop];
             }
           }

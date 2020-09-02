@@ -61,6 +61,8 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
 
   protected specificOverlayStyle?: {[x: string]: any};
 
+  protected specificOverlayContentStyle?: {[x: string]: any};
+
   protected specificVisibleChange = new EventEmitter<boolean>();
 
   protected componentFactory!: ComponentFactory<YueUiTooltipComponent>;
@@ -101,6 +103,10 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
 
   protected get overlayStyle(): {[x: string]: any} | null {
     return this.specificOverlayStyle || null;
+  }
+
+  protected get overlayContentStyle(): {[x: string]: any} | null {
+    return this.specificOverlayContentStyle || null;
   }
 
   visible = false;
@@ -247,6 +253,9 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
       specificOverlayClassName: ['overlayClassName', this.overlayClassName],
 
       specificOverlayStyle: ['overlayStyle', this.overlayStyle],
+
+      specificOverlayContentStyle: ['overlayContentStyle', this.overlayContentStyle],
+
     };
 
     const keys = Object.keys(changes);
@@ -270,6 +279,7 @@ export class BaseDirective implements OnChanges, OnDestroy, AfterViewInit  {
     this.updateComponentValue('mouseLeaveDelay', this.mouseLeaveDelay);
     this.updateComponentValue('overlayClassName', this.overlayClassName);
     this.updateComponentValue('overlayStyle', this.overlayStyle);
+    this.updateComponentValue('overlayContentStyle', this.overlayContentStyle);
   }
   /**
    * Sync changed properties to the component and trigger change detection in that component.
@@ -382,6 +392,8 @@ export abstract class BaseComponent {
   public overlayClassName!: any;
 
   public overlayStyle: {[x: string]: any} = {};
+
+  public overlayContentStyle: {[x: string]: any} = {};
   
   public visibleChange = new Subject<boolean>();
 

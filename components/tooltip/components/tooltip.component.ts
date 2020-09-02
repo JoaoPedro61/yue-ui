@@ -27,7 +27,7 @@ import { BaseComponent } from './../utils/base';
       >
         <div class="yue-ui-tooltip-content">
           <div class="yue-ui-tooltip-arrow"></div>
-          <div class="yue-ui-tooltip-inner">
+          <div class="yue-ui-tooltip-inner" [ngStyle]="overlayContentStyle">
             <yue-ui-smart-render [yueUiSmartRender]="title"></yue-ui-smart-render>
           </div>
         </div>

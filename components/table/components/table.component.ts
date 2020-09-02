@@ -1,10 +1,10 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewInit, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 import { TableSource } from './../table-source';
 
 import { takeUntil } from 'rxjs/operators';
-import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
+import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../utils/interfaces';
 
 
 
@@ -22,7 +22,7 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
                   <thead class="yue-ui-table-header-el">
                     <tr class="yue-ui-table-header-row-el">
                       <ng-container *ngFor="let column of columns$ | async">
-                        <th class="yue-ui-table-header-row-th-el" [class.isSortable]="!!column.allowSort" (click)="handleClickOnColumnHeader(column);">
+                        <th [style.width]="column.width" class="yue-ui-table-header-row-th-el" [class.isSortable]="!!column.allowSort" (click)="handleClickOnColumnHeader(column);">
                           <yue-ui-smart-render
                             [yueUiSmartRender]="column.cellHeader"
                             [yueUiSmartRenderContext]="column"
@@ -38,6 +38,11 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
                               </div>
                             </div>
                           </ng-container>
+                        </th>
+                      </ng-container>
+                      <ng-container *ngIf="hasActions">
+                        <th [style.width.px]="60" class="yue-ui-table-header-row-th-el">
+                          <yue-ui-i18n yueUiI18nToken="components.table.actions" [yueUiI18nParameters]="{ default: 'Actions' }"></yue-ui-i18n>
                         </th>
                       </ng-container>
                     </tr>
@@ -58,6 +63,16 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
                           <ng-template #plaint>
                             <span [innerText]="column.value"></span>
                           </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container *ngIf="hasActions">
+                        <td class="yue-ui-table-body-row-td-el">
+                          <yue-ui-table-actions-cell
+                            [yueUiTableActionsCellActions]="actions$ | async"
+                            [yueUiTableActionsCellRow]="row"
+
+                            (yueUiTableActionsCellTriggerAction)="onTriggerAction($event);"
+                           ></yue-ui-table-actions-cell>
                         </td>
                       </ng-container>
                     </tr>
@@ -84,7 +99,7 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
         </ng-template>
       </div>
     </div>
-    <ng-container *ngIf="showPagination">
+    <ng-container *ngIf="showPagination && source && hasData && hasColumns">
       <div style="display: flex;justify-content: flex-end;">
         <yue-ui-pagination
           [yueUiPaginationItensCount]="totalOfItens"
@@ -111,13 +126,17 @@ import { TableDataColumnItem, TableDataRowItem } from '../utils/interfaces';
     '[class.yue-ui-table]': 'true'
   }
 })
-export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
+export class YueUiTableComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
 
   public destroy$: Subject<void> = new Subject();
 
   public data$: BehaviorSubject<(TableDataRowItem[])[]> = new BehaviorSubject<(TableDataRowItem[])[]>([]);
 
   public columns$: BehaviorSubject<TableDataColumnItem[]> = new BehaviorSubject<TableDataColumnItem[]>([]);
+
+  public actions$: BehaviorSubject<YueUiTableActions> = new BehaviorSubject<YueUiTableActions>([]);
+
+  public source!: TableSource<any>;
 
   public get totalOfItens(): number {
     if (this.source) {
@@ -176,26 +195,104 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.columns$.getValue().length > 0;
   }
 
+  public get hasActions(): boolean {
+    return this.actions$.getValue().length > 0;
+  }
+
   @Input()
-  public source!: TableSource;
+  public yueUiTableSource!: TableSource;
 
   constructor(public readonly cdr: ChangeDetectorRef) { }
 
-  public ngOnInit(): void {
+  private overrideCurrentSource(): void {
+    if (this.source) {
+      this.source.disconnectRenderedStreamData();
+      this.source.disconnectStreamDataHeader();
+      this.source.disconnectStreamActions();
+      this.destroy$.next();
+    }
+
+    this.source = this.yueUiTableSource;
+
+    if (this.source) {
+      this.source
+        .connectRenderedStreamData()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (values) => {
+            this.data$.next(values);
+            this.cdr.markForCheck();
+          },
+        });
+
+      this.source
+        .connectStreamDataHeader()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (values) => {
+            this.columns$.next(values);
+            this.cdr.markForCheck();
+          },
+        });
+
+      this.source
+        .connectStreamActions()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (values) => {
+            this.actions$.next(values);
+            this.cdr.markForCheck();
+          },
+        });
+
+      this.source
+        .connectStreamDestroy()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            if (this.source) {
+              this.source
+                .disconnectStreamActions()
+                .disconnectRenderedStreamData()
+                .disconnectStreamDataHeader();
+            }
+          }
+        });
+    }
+    setTimeout(() => {
+      this.cdr.detectChanges();
+    });
+  }
+
+  public onTriggerAction(event: any): void {
+    if (event.action && event.data) {
+      if (this.source) {
+        this.source.emitAction(event.action, event.data);
+      }
+    }
+  }
+
+  public ngOnInit(): void { }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    const { yueUiTableSource } = changes;
+    if (yueUiTableSource) {
+      this.overrideCurrentSource();
+    }
   }
 
   public handleClickOnColumnHeader(item: TableDataColumnItem<any>): void {
     if (item.allowSort) {
       if (!item.sorting) {
-        this.source.setSortAndOrder(item.identifier, `asc`);
+        this.source.updateSortAndOrder(item.identifier, `asc`);
       } else {
         if (item.sorting === `asc`) {
-          this.source.setSortAndOrder(item.identifier, `desc`);
+          this.source.updateSortAndOrder(item.identifier, `desc`);
         } else if (item.sorting === `desc`) {
           if (this.source.isAllowedIndeterminateSorting) {
-            this.source.setSortAndOrder(item.identifier, null);
+            this.source.updateSortAndOrder(item.identifier, null);
           } else {
-            this.source.setSortAndOrder(item.identifier, `asc`);
+            this.source.updateSortAndOrder(item.identifier, `asc`);
           }
         }
       }
@@ -204,44 +301,28 @@ export class YueUiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public onPageChange(value: number): void {
     if (this.source) {
-      this.source.setPageAndPageSize(value);
+      this.source.updatePageAndPageSize(value);
     }
   }
 
   public onPageSizeChange(value: number): void {
     if (this.source) {
-      this.source.setPageAndPageSize(void 0, value);
+      this.source.updatePageAndPageSize(void 0, value);
     }
   }
 
-  public ngAfterViewInit(): void {
-    this.source
-      .connectRenderedStreamData()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (values) => this.data$.next(values),
-      });
-
-    this.source
-      .connectStreamDataHeader()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (values) => this.columns$.next(values),
-      });
-
-    setTimeout(() => {
-      this.cdr.detectChanges();
-    });
-  }
+  public ngAfterViewInit(): void { }
 
   public ngOnDestroy(): void {
     if (this.source) {
       this.source.disconnectRenderedStreamData();
       this.source.disconnectStreamDataHeader();
+      this.source.disconnectStreamActions();
     }
 
     this.data$.complete();
     this.columns$.complete();
+    this.actions$.complete();
 
     this.destroy$.next();
     this.destroy$.complete();

@@ -16,6 +16,7 @@ import { YueUiHttpProgressInterceptor } from './http-progress.interceptor';
 
 import { YueProgressRequestOptions } from './http.interfaces';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -23,6 +24,7 @@ const logger = logging.getLogger('core.http');
 
 @NgModule({
   imports: [
+    CommonModule,
     HttpClientModule,
   ],
   providers: [

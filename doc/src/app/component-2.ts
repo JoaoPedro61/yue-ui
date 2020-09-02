@@ -1,15 +1,32 @@
 import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
 
 
-// @ts-ignore
-import { TableSource, YueUiTableColumns } from '@JoaoPedro61/yue-ui/table';
+import {
+  TableSource,
+  tableColumn,
+  tableColumnAllowSort,
+  tableColumnIdentifier,
+  tableColumnLabel,
+  tableColumnType,
+  tableColumnWidth,
+  tableColumnAdditionalParameters,
+  tableAction,
+  tableActionLabel,
+  tableActionIdentifier,
+  tableActionIcon,
+  tableActionCondition,
+} from '@JoaoPedro61/yue-ui/table';
+
 import { YueUiHttpService } from '@JoaoPedro61/yue-ui/http';
+
 import { take } from 'rxjs/operators';
+
+
 
 
 @NgComponent({
   template: `
-    <yue-ui-table [source]="tableSource"></yue-ui-table>
+    <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,46 +36,6 @@ export class Component2 {
   public tableSource: TableSource = new TableSource<any>();
 
   constructor(private readonly http: YueUiHttpService) {
-    const HEADER: YueUiTableColumns = [
-      {
-        identifier: 'position',
-        cellHeader: 'Position',
-        allowSort: true,
-      },
-      {
-        identifier: 'name',
-        cellHeader: 'Name',
-        allowSort: false
-      },
-      {
-        identifier: 'weight',
-        cellHeader: 'Weight',
-        allowSort: false
-      },
-      {
-        identifier: 'symbol',
-        cellHeader: 'Symbol',
-        allowSort: false
-      },
-    ];
-
-    this.tableSource.columns(HEADER);
-
-    const ELEMENT_DATA: any[] = [
-      { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-      { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-      { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-      { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-      { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-      { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-      { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-      { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-      { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-      { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-    ];
-
-    this.tableSource.render(ELEMENT_DATA);
-
     this.loadFromReq();
   }
 
@@ -70,16 +47,50 @@ export class Component2 {
         next: (response: any) => {
           this.tableSource
             .setSortAndOrder(`id`, `asc`)
+            .configurePagination()
+            .actions([
+              tableAction([
+                tableActionLabel(`Deletar`),
+                tableActionIdentifier(`delt`),
+                tableActionIcon(`yue-ui-gg-trash-empty`),
+              ]),
+              tableAction([
+                tableActionLabel(`Editar`),
+                tableActionIdentifier(`edit`),
+                tableActionIcon(`yue-ui-gg-pen`),
+                tableActionCondition((data) => data.id !== 1)
+              ])
+            ])
             .columns([
-              { identifier: `id`, cellHeader: `#`, allowSort: true, },
-              { identifier: `name`, cellHeader: `Name`, allowSort: true, },
-              { identifier: `username`, cellHeader: `Username`, allowSort: true, },
-              { identifier: `email`, cellHeader: `E-mail`, allowSort: true, },
+              tableColumn([
+                tableColumnAllowSort(),
+                tableColumnIdentifier(`id`),
+                tableColumnLabel(`#`),
+                tableColumnType(`link`),
+                tableColumnAdditionalParameters({
+                  link: `./../`,
+                }),
+                tableColumnWidth(`30px`)
+              ]),
+              tableColumn([
+                tableColumnAllowSort(),
+                tableColumnIdentifier(`name`),
+                tableColumnLabel(`Name`),
+              ]),
+              tableColumn([
+                tableColumnAllowSort(),
+                tableColumnIdentifier(`username`),
+                tableColumnLabel(`Username`),
+              ]),
+              tableColumn([
+                tableColumnAllowSort(),
+                tableColumnIdentifier(`email`),
+                tableColumnLabel(`E-mail`),
+              ]),
             ])
             .render(response);
         }
-      })
-
+      });
   }
 
 }

@@ -1,18 +1,42 @@
 import { YueUiSmartRenderType, YueUiSmartRenderComponentType } from '@JoaoPedro61/yue-ui/smart-render';
+import { ComponentType } from '@angular/cdk/portal';
 
 
 
-export interface GeneratedColumnMetadata<T = any> extends Omit<TableDataColumnItem<T>, 'sorting' | 'order'> {
+export interface TableGeneratedColumnMetadata<T = any> extends Omit<YueUiTableColumn<T>, 'sorting' | 'order'> {
   [x: string]: any;
 }
 
-export type GeneratedColumnMetadataFn<T = any> = () => GeneratedColumnMetadata<T>;
+export type TableGeneratedColumnMetadataFn<T = any> = () => TableGeneratedColumnMetadata<T>;
+
+export interface TableGeneratedActionMetadata extends YueUiTableAction {
+  [x: string]: any;
+}
+
+export type TableGeneratedActionMetadataFn = () => TableGeneratedActionMetadata;
+
+export type TableModifiersFn<R = any> = (parent: string, target: Partial<R>) => Partial<R>;
+
+export interface YueUiTableAction {
+  [x: string]: any;
+  identifier: string;
+  label: YueUiSmartRenderType<any>;
+
+  condition?: (data: any) => boolean;
+  icon?: string;
+  prefix?: YueUiSmartRenderType<any>;
+  sufix?: YueUiSmartRenderType<any>;
+}
+
+export type YueUiTableActions = YueUiTableAction[];
 
 export interface YueUiTableColumn<T = any> {
   allowSort: boolean;
   identifier: string;
   cellHeader?: YueUiSmartRenderType<{}>;
   cellColumn?: YueUiSmartRenderComponentType<TableDataRowItem<T>>;
+  additionalParameters?: Partial<any>;
+  width?: string | number;
 }
 
 export type YueUiTableColumns<T = any> = YueUiTableColumn<T>[];
@@ -32,4 +56,8 @@ export interface TableDataRowItem<T = any> {
   cell?: YueUiSmartRenderComponentType<TableDataRowItem<T>>;
   header: TableDataColumnItem;
   full: any;
+}
+
+export interface TableColumnCellTypes {
+  [type: string]: ComponentType<any>;
 }

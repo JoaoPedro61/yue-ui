@@ -45,6 +45,6 @@ task('build:site', execNodeTask('@angular/cli', 'ng', ['build', '--project=yue-u
 
 task('start:site', done => {
   detectPort(buildConfig.siteDocPort).then((port: number) => {
-    execNodeTask('@angular/cli', 'ng', ['serve', '--port', port === buildConfig.siteDocPort ? `${buildConfig.siteDocPort}` : '0'])(done);
+    execNodeTask('@angular/cli', 'ng', ['serve', '--host', '0.0.0.0' ,'--port', port === buildConfig.siteDocPort ? `${buildConfig.siteDocPort}` : '0'])(done);
   });
 });

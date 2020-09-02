@@ -50,6 +50,9 @@ export class YueUiPopoverDirective extends BaseDirective {
   @Input('yueUiPopoverStyles')
   public specificOverlayStyle?: {[x: string]: any};
 
+  @Input('yueUiPopoverContentStyles')
+  public specificOverlayContentStyle?: {[x: string]: any};
+
   // tslint:disable-next-line:no-output-rename
   @Output('yueUiPopoverVisibleChange')
   readonly specificVisibleChange = new EventEmitter<boolean>();

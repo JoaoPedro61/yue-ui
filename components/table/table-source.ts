@@ -1,16 +1,33 @@
 // tslint:disable max-line-length
-import { BehaviorSubject } from 'rxjs';
-import { TableDataColumnItem, TableDataRowItem, YueUiTableColumns, YueUiTableColumn } from './utils/interfaces';
+import { BehaviorSubject, Subject } from 'rxjs';
+import {
+  TableDataColumnItem,
+  TableDataRowItem,
+  YueUiTableColumns,
+  YueUiTableColumn,
+  TableGeneratedColumnMetadataFn,
+  TableGeneratedActionMetadataFn,
+  YueUiTableActions,
+  YueUiTableAction,
+} from './utils/interfaces';
 
 
 
 export class TableSource<B = any> {
+
+  private destroy$: Subject<void> = new Subject();
 
   private dataColumns$: BehaviorSubject<TableDataColumnItem<B>[]> = new BehaviorSubject<TableDataColumnItem<B>[]>([] as unknown as TableDataColumnItem<B>[]);
 
   private data$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([] as unknown as any[]);
 
   private renderedData$: BehaviorSubject<(TableDataRowItem<B>[])[]> = new BehaviorSubject<(TableDataRowItem<B>[])[]>([] as unknown as (TableDataRowItem<B>[])[]);
+
+  private actions$: BehaviorSubject<YueUiTableActions> = new BehaviorSubject<YueUiTableActions>([]);
+
+  private onTriggerAction$: Subject<{action: YueUiTableAction; data: Partial<B>}> = new Subject();
+
+  private onQueriesChange$: Subject<Partial<any>> = new Subject();
 
   private _showHeader = true;
 
@@ -53,7 +70,7 @@ export class TableSource<B = any> {
   }
 
   public get fullTotalOfItens(): number {
-    return this._itensTotal;
+    return this._itensTotal || (this.data$.getValue() || []).length;
   }
 
   public get isAllowedIndeterminateSorting(): boolean {
@@ -94,7 +111,7 @@ export class TableSource<B = any> {
                 : null,
               cell: header[i].cellColumn,
               header: header[i],
-              full: items[i],
+              full: items[j],
             };
             row.push(item);
           }
@@ -111,8 +128,14 @@ export class TableSource<B = any> {
       ...column,
       order: this._columnOrderingBy === column.identifier,
       sorting: this._columnOrderingBy === column.identifier ? this._columnSortingBy : null,
+      width: typeof column.width === `number` ? `${column.width}px` : column.width
     };
     return def as any;
+  }
+
+  public setShowHeader(value: boolean = true): this {
+    this._showHeader = value;
+    return this;
   }
 
   public setFullTotalOfItens(value: number): this {
@@ -120,14 +143,50 @@ export class TableSource<B = any> {
     return this;
   }
 
-  // @ts-ignore
-  public configurePagination(show: boolean = true, fullTotal: number = (this.data$.getValue() || []).length, page: number = 1, pageSize: number = 20): this {
-    console.log(arguments);
+  public setShowTotalLabelOfPagination(value: boolean = true): this {
+    this._showTotalLabel = value;
+    return this;
+  }
+
+  public setPageSize(value: number = 20): this {
+    this._pageSize = value;
+    return this;
+  }
+
+  public setPage(value: number = 1): this {
+    this._currentPage = value;
+    return this;
+  }
+
+  public setUsePagination(value: boolean = true): this {
+    this._usePagination = value;
+    return this;
+  }
+
+  public setPaginationSizeChanger(value: boolean = true): this {
+    this._showPageSizeChanger = value;
+    return this;
+  }
+
+  public configurePagination(show: boolean = true, fullTotal: number = (this.data$.getValue() || []).length, page: number = 1, pageSize: number = 20, pageSizeChanger: boolean = true, showTotalLabel: boolean = true): this {
+    this.setUsePagination(show);
+    this.setFullTotalOfItens(fullTotal);
+    this.setPage(page);
+    this.setPageSize(pageSize);
+    this.setPaginationSizeChanger(pageSizeChanger);
+    this.setShowTotalLabelOfPagination(showTotalLabel);
     return this;
   }
 
   public setPageAndPageSize(page: number = this.page, pageSize: number = this.pageSize): this {
-    console.log(page, pageSize);
+    this._currentPage = page;
+    this._pageSize = pageSize;
+    return this;
+  }
+
+  public updatePageAndPageSize(page: number = this.page, pageSize: number = this.pageSize): this {
+    this.setPageAndPageSize(page, pageSize);
+    this.emitQueries();
     return this;
   }
 
@@ -148,13 +207,95 @@ export class TableSource<B = any> {
     return this;
   }
 
-  public columns(columns: YueUiTableColumns): this {
+  public updateSortAndOrder(identifier: string, sorting: TableDataColumnItem['sorting']): this {
+    this.setSortAndOrder(identifier, sorting);
+    this.emitQueries();
+    return this;
+  }
+
+  public columns(...modifiers: (TableGeneratedColumnMetadataFn<B> | TableGeneratedColumnMetadataFn<B>[])[]): this {
+
+    const columns: YueUiTableColumns = [];
+
+    let _modifiers: TableGeneratedColumnMetadataFn[] = [];
+
+    for (let i = 0, l = modifiers.length; i < l; i++) {
+      _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
+    }
+
+    for (const _modifier of _modifiers) {
+      if (`function` === typeof _modifier) {
+        const returns = _modifier();
+        if (returns) {
+          if (`object` === typeof returns) {
+            columns.push(returns);
+          }
+        }
+      }
+    }
+
     const columnsDef: TableDataColumnItem[] = [];
     for (let i = 0, l = columns.length; i < l; i++) {
       columnsDef.push(this.preDefColumn(columns[i]));
     }
     this.dataColumns$.next(columnsDef);
     this.rerender();
+
+    return this;
+  }
+
+  public actions(...modifiers: (TableGeneratedActionMetadataFn | TableGeneratedActionMetadataFn[])[]): this {
+
+    const actions: YueUiTableActions = [];
+
+    let _modifiers: TableGeneratedActionMetadataFn[] = [];
+
+    for (let i = 0, l = modifiers.length; i < l; i++) {
+      _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
+    }
+
+    for (const _modifier of _modifiers) {
+      if (`function` === typeof _modifier) {
+        const returns = _modifier();
+        if (returns) {
+          if (`object` === typeof returns) {
+            actions.push(returns);
+          }
+        }
+      }
+    }
+
+    this.actions$.next(actions);
+
+    return this;
+  }
+
+  public emitAction(action: YueUiTableAction, data: Partial<B>): this {
+    this.onTriggerAction$.next({action, data});
+    return this;
+  }
+
+  public emitQueries(): this {
+    this.onQueriesChange$.next({
+      sort: this._columnSortingBy,
+      page: this._currentPage,
+      pageSize: this._pageSize,
+      order: this._columnOrderingBy,
+      offset: (this._currentPage - 1) * this._pageSize,
+      limit: this._pageSize,
+    });
+    return this;
+  }
+
+  public connectStreamDestroy(): Subject<void> {
+    return this.destroy$;
+  }
+
+  public connectStreamActions(): BehaviorSubject<YueUiTableActions> {
+    return this.actions$;
+  }
+
+  public disconnectStreamActions(): this {
     return this;
   }
 
@@ -200,9 +341,14 @@ export class TableSource<B = any> {
   }
 
   public destroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
     this.data$.complete();
     this.dataColumns$.complete();
     this.renderedData$.complete();
+    this.actions$.complete();
+    this.onTriggerAction$.complete();
+    this.onQueriesChange$.complete();
   }
 
 }

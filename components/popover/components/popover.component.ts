@@ -31,7 +31,7 @@ import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
             <div class="yue-ui-popover-title-wrapper" *ngIf="title">
               <yue-ui-smart-render [yueUiSmartRender]="title"></yue-ui-smart-render>
             </div>
-            <div class="yue-ui-popover-content-wrapper">
+            <div class="yue-ui-popover-content-wrapper" [ngStyle]="overlayContentStyle">
               <yue-ui-smart-render [yueUiSmartRender]="content"></yue-ui-smart-render>
             </div>
           </div>

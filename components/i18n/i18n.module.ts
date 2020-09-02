@@ -1,6 +1,5 @@
 import { NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
 
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
@@ -12,7 +11,10 @@ import {
   YUE_UI_I18N_LANGUAGE,
   YUE_UI_I18N_COMPONENTS_DICTIONARY,
   YUE_UI_I18N_DEFAULT_LANGUAGE,
-  YUE_UI_I18N_NOT_FOUND_HANDLER
+  YUE_UI_I18N_NOT_FOUND_HANDLER,
+  YUE_UI_I18N_DICTIONARY_BEHAVIOR,
+  YUE_UI_I18N_LANGUAGE_BEHAVIOR,
+  YUE_UI_I18N_COMPONENTS_DICTIONARY_BEHAVIOR
 } from './i18n.utils';
 
 import { YueUiI18nService } from './i18n.service';
@@ -40,15 +42,15 @@ const logger = logging.getLogger('core.i18n');
     YueUiI18nService,
     {
       provide: YUE_UI_I18N_DICTIONARY,
-      useValue: new BehaviorSubject(null)
+      useValue: YUE_UI_I18N_DICTIONARY_BEHAVIOR,
     },
     {
       provide: YUE_UI_I18N_LANGUAGE,
-      useValue: new BehaviorSubject(null)
+      useValue: YUE_UI_I18N_LANGUAGE_BEHAVIOR
     },
     {
       provide: YUE_UI_I18N_COMPONENTS_DICTIONARY,
-      useValue: new BehaviorSubject({ })
+      useValue: YUE_UI_I18N_COMPONENTS_DICTIONARY_BEHAVIOR,
     },
     {
       provide: YUE_UI_I18N_NOT_FOUND_HANDLER,
@@ -79,6 +81,7 @@ export class YueUiI18nModule {
 
   constructor(@Inject(YUE_UI_I18N_DEFAULT_LANGUAGE) private readonly defaultLanguage: YueUiI18nDefaultLanguage, private readonly i18n: YueUiI18nService) {
     logger.info(`YueUiI18nModule on version: ${VERSION.full}`);
+
     if (this.defaultLanguage) {
       if (!this.i18n.getLanguage()) {
         this.i18n.setLanguage(this.defaultLanguage);
