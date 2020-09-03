@@ -50,8 +50,9 @@ task('library:copy-resources', () => {
   return src([
     path.join(buildConfig.projectDir, 'README.md'),
     path.join(buildConfig.componentsDir),
-    path.join(`${buildConfig.componentsDir}/styles.less`)
-  ]).pipe(dest(path.join(buildConfig.publishDir)));
+    path.join(`${buildConfig.componentsDir}/styles.less`),
+    path.join(`${buildConfig.componentsDir}/styles/*`),
+  ], { base: buildConfig.componentsDir }).pipe(dest(path.join(buildConfig.publishDir)));
 });
 
 task('library:copy-libs', () => {
