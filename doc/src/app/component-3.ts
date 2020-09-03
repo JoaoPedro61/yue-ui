@@ -14,7 +14,8 @@ import {
   formularyIdentifier,
   staircaseFormulary,
   formularyStep,
-  formularyStepName
+  formularyStepName,
+  fieldTextMode,
 } from '@JoaoPedro61/yue-ui/formulary/builder';
 
 
@@ -50,6 +51,13 @@ export class Component3 {
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
               fieldWidth(10)
+            ]),
+            writable([
+              fieldIdentifier('pass'),
+              fieldLabel('Password'),
+              fieldPlaceholder('Type your password'),
+              fieldWidth(10),
+              fieldTextMode(`password`)
             ]),
             selectable([
               fieldIdentifier('gender'),

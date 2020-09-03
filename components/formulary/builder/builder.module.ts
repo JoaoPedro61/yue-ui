@@ -16,6 +16,7 @@ import { YueUiCustomNumberModule } from '@JoaoPedro61/yue-ui/formulary/custom/nu
 import { YueUiCustomSelectModule } from '@JoaoPedro61/yue-ui/formulary/custom/select';
 import { YueUiCustomSwitchModule } from '@JoaoPedro61/yue-ui/formulary/custom/switch';
 import { YueUiCustomTextModule } from '@JoaoPedro61/yue-ui/formulary/custom/text';
+import { YueUiCustomPasswordModule } from '@JoaoPedro61/yue-ui/formulary/custom/password';
 
 import { FormularyComponent } from './builder.component';
 import { LabelComponent } from './extends/label.component';
@@ -72,6 +73,7 @@ const logger = logging.getLogger('core.formulary.builder');
     YueUiCustomSelectModule,
     YueUiCustomSwitchModule,
     YueUiCustomTextModule,
+    YueUiCustomPasswordModule,
 
     YueUiSmartRenderModule,
     YueUiButtonModule,

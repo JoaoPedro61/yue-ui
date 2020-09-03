@@ -46,7 +46,7 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
       }
       :host .wrapper-loader-progress-http {
         position: absolute;
-        z-index : 210;
+        z-index : 1050;
         width   : 100%;
         height  : 5px;
       }

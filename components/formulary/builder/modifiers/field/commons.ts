@@ -8,7 +8,8 @@ import {
   FieldStruct,
   Listener,
   YueUiSelectMode,
-  YueUiSwitchModes
+  YueUiSwitchModes,
+  YueUiTextModes
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
 import { identifier as _identifier, registryChange } from './../commons';
@@ -347,6 +348,17 @@ function switchMode(value: YueUiSwitchModes): ModifiersFn {
   };
 }
 
+function textMode(value: YueUiTextModes): ModifiersFn {
+  return (parent: string, target: Partial<any>) => {
+    expect_parent(parent, [ParentTypes.Field]);
+    expect_param(`value`, value);
+    expect_type(`value`, value, [`string`]);
+    registryChange(target, `mode`, value, target.mode);
+    target.mode = value;
+    return target;
+  };
+}
+
 export {
   identifier as fieldIdentifier,
   injectIn as fieldInjectIn,
@@ -370,6 +382,7 @@ export {
   vstype as fieldVstype,
   selectMode as fieldSelectMode,
   switchMode as fieldSwitchMode,
+  textMode as fieldTextMode,
   hide as fieldHide,
   styles as fieldStyles,
 };

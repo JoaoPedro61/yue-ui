@@ -77,6 +77,8 @@ export interface CommonInheritMethods {
   clearChanges(): void;
 }
 
+export type YueUiTextModes = 'text' | 'textarea' | 'password';
+
 export interface FieldStruct extends CommonInheritMethods {
 
   /**
@@ -111,7 +113,7 @@ export interface FieldStruct extends CommonInheritMethods {
         | Observable<({ [x: string]: any })>
       );
   properties?: YueUiSelectProperties;
-  mode?: YueUiSelectMode | YueUiSwitchModes;
+  mode?: YueUiSelectMode | YueUiSwitchModes | YueUiTextModes;
 
   /**
    * Others properties

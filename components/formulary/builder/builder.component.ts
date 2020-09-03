@@ -16,7 +16,7 @@ import {
 
 import { differenceBy } from 'lodash';
 
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil, delayWhen } from 'rxjs/operators';
 
 import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
@@ -74,6 +74,24 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
   private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
 
+  private source!: FormularySource;
+
+  private sourceSubscription!: Subscription;
+
+  public get showStepLabels(): boolean {
+    if (this.source) {
+      return this.source.showStepsLabels;
+    }
+    return false;
+  }
+
+  public get isStepped(): boolean {
+    if (this.source) {
+      return this.source.isStepped;
+    }
+    return false;
+  }
+
   @Input()
   public yueUiFormularySource!: FormularySource;
 
@@ -103,7 +121,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (field.identifier) {
       const factory = this._cfr.resolveComponentFactory(WrapperComponent);
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
-      ref.instance.formulary = this.yueUiFormularySource;
+      ref.instance.formulary = this.source;
       ref.instance.struct = field;
       setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
@@ -246,6 +264,32 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     setTimeout(() => this._cdr.markForCheck());
   }
 
+  private _override(): void {
+    if (this.sourceSubscription) {
+      this.sourceSubscription.unsubscribe();
+      this._clearView();
+      
+      this._old = null as any;
+      this._oldFields = null as any;
+
+      this._current = null as any;
+      this._currentFields = [];
+    }
+    if (this.yueUiFormularySource) {
+      this.source = this.yueUiFormularySource;
+
+      this.source
+        .schematicFieldsChange$
+          .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
+          .subscribe({
+            next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
+              this._current = currentScheme;
+              this._should();
+            }
+          });
+    }
+  }
+
   public ngOnInit(): void { }
 
   public ngAfterViewInit(): void {
@@ -255,17 +299,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   public ngOnChanges(changes: SimpleChanges): void {
     const { yueUiFormularySource } = changes;
     if (yueUiFormularySource) {
-      if (yueUiFormularySource.isFirstChange()) {
-        this.yueUiFormularySource
-          .schematicFieldsChange$
-            .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
-            .subscribe({
-              next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
-                this._current = currentScheme;
-                this._should();
-              }
-            });
-      }
+      this._override();
     }
   }
 

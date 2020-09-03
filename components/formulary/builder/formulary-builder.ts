@@ -82,6 +82,11 @@ export class FormularySource<_M = any> {
       value: { [hash()]: 'activated' },
       readOnly: true
     },
+    {
+      name: `_step_show_labels`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
 
     /*
      * Observables
@@ -153,6 +158,10 @@ export class FormularySource<_M = any> {
       getHiddenProp(this._ref, `_step_ignore_validation`),
       false
     ],
+    [
+      getHiddenProp(this._ref, `_step_show_labels`),
+      true
+    ],
 
     /*
      * Observables
@@ -207,6 +216,24 @@ export class FormularySource<_M = any> {
     const _unknown_changes$ = this.____.get(_unknown_changes_ref$) as BehaviorSubject<any>;
 
     return _unknown_changes$.asObservable();
+  }
+
+  public get showStepsLabels(): boolean {
+    const _step_show_labels_ref = getHiddenProp(this._ref, `_step_show_labels`);
+    const _step_show_labels = this.____.get(_step_show_labels_ref) as boolean;
+    return _step_show_labels;
+  }
+
+  public get isStepped(): boolean {
+    const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+    const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
+    const _value = _formulary$.value;
+    if (_value) {
+      if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private mountCurrentScheme(): void {
@@ -335,6 +362,12 @@ export class FormularySource<_M = any> {
         return this;
       },
     };
+  }
+
+  public shouldHideStepLabels(hide: boolean = true): this {
+    this.____.set(getHiddenProp(this._ref, `_step_show_labels`), !hide);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next(hash());
+    return this;
   }
 
   public shouldHideLabels(hide: boolean = true): this {
@@ -684,10 +717,6 @@ export class FormularySource<_M = any> {
 
   public setButtonsAlignment(): this {
     return this;
-  }
-
-  public get isStepped(): boolean {
-    return false;
   }
 
   public subscribe(): this {

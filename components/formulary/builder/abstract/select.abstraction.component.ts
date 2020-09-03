@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
       [yueUiSelectPlaceholder]="placeholder"
       [yueUiSelectPropertyLabel]="labelProperty"
       [yueUiSelectPropertyValue]="valueProperty"
-      [yueUiSelectMode]="'multiple' || mode"
+      [yueUiSelectMode]="mode"
 
       (yueUiSelectOnSearchChange)="onSearch($event);"
     >
