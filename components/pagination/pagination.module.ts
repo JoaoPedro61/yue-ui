@@ -7,6 +7,7 @@ import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiI18nModule, YueUiI18nService } from '@JoaoPedro61/yue-ui/i18n';
 import { YueUiCustomSelectModule } from '@JoaoPedro61/yue-ui/formulary/custom/select';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiPaginationComponent } from './components/pagination.component';
 
@@ -25,6 +26,7 @@ const logger = logging.getLogger('core.smart-render');
     CommonModule,
     YueUiCustomSelectModule,
     YueUiI18nModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiPaginationComponent,

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiCollapseCDKComponent } from './components/collapse-cdk.component';
 import { YueUiCollapseComponent } from './components/collapse.component';
@@ -30,6 +31,7 @@ const logger = logging.getLogger('core.collapse');
   imports: [
     CommonModule,
     YueUiIconModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiCollapseCDKComponent,

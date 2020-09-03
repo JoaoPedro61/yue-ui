@@ -6,6 +6,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import {
   YueUiLayoutComponent,
@@ -23,7 +24,8 @@ const logger = logging.getLogger('core.layout');
     CommonModule,
     LayoutModule,
 
-    YueUiIconModule
+    YueUiIconModule,
+    YueUiThematizationModule,
   ],
   declarations: [
     YueUiLayoutComponent,

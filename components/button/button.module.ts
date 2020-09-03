@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiButtonComponent } from './components/button.component';
 import { YueUiButtonGroupComponent } from './components/button-group.component';
@@ -23,7 +24,8 @@ const logger = logging.getLogger('core.button');
   ],
   imports: [
     CommonModule,
-    YueUiIconModule
+    YueUiIconModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiButtonComponent,

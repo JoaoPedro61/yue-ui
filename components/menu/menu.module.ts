@@ -4,6 +4,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiMenuComponent } from './components/menu.component';
 import { YueUiSubMenuComponent } from './components/sub-menu.component';
@@ -35,6 +36,7 @@ const logger = logging.getLogger('core.button');
   imports: [
     CommonModule,
     OverlayModule,
+    YueUiThematizationModule,
   ]
 })
 export class YueUiMenuModule {

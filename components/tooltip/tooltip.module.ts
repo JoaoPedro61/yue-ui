@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
 
@@ -28,7 +29,8 @@ const logger = logging.getLogger('core.tooltip');
     OverlayModule,
 
     YueUiSmartRenderModule,
-    YueUiOverlayModule
+    YueUiOverlayModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiTooltipComponent,

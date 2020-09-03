@@ -8,6 +8,7 @@ import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiSelectComponent } from './components/select.component';
 import { YueUiSelectOptionComponent } from './components/select-option.component';
@@ -44,7 +45,8 @@ const logger = logging.getLogger(`core.formulary.custom.select`);
     YueUiSmartRenderModule,
     OverlayModule,
     CdkScrollableModule,
-    YueUiOverlayModule
+    YueUiOverlayModule,
+    YueUiThematizationModule,
   ]
 })
 export class YueUiCustomSelectModule {

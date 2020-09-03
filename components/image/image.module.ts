@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 
 import { YueUiImageComponent } from './components/image.component';
@@ -13,7 +14,9 @@ const logger = logging.getLogger('core.image');
 
 
 @NgModule({
-  imports: [ ],
+  imports: [
+    YueUiThematizationModule,
+  ],
   entryComponents: [
     YueUiImageComponent
   ],

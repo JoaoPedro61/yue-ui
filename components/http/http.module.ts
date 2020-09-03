@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YUE_UI_ENABLE_CACHE_RESPONSE, YUE_UI_HTTP_DYNAMIC_INTERCEPTORS, YUE_UI_PROGRESS_REQUESTS } from './http.utils';
 
@@ -26,6 +27,7 @@ const logger = logging.getLogger('core.http');
   imports: [
     CommonModule,
     HttpClientModule,
+    YueUiThematizationModule,
   ],
   providers: [
     { provide: YUE_UI_ENABLE_CACHE_RESPONSE, useValue: false },

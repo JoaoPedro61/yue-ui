@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiIconService } from './services/icon.service';
 import { YueUiIconDirective } from './directives/icon.directive';
@@ -28,7 +29,8 @@ const logger = logging.getLogger('core.icon');
     YueUiIconService
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    YueUiThematizationModule,
   ]
 })
 export class YueUiIconModule {

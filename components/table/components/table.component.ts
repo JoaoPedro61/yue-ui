@@ -15,8 +15,8 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
     <div class="yue-ui-table-wrapper">
       <div class="yue-ui-table-wrapper-inner">
         <ng-container *ngIf="source; else nosource">
-          <ng-container *ngIf="hasColumns; else nocolumns">
-            <ng-container *ngIf="hasData; else norows">
+          <ng-container *ngIf="hasData; else norows">
+            <ng-container *ngIf="hasColumns; else nocolumns">
               <table class="yue-ui-table-el">
                 <ng-container *ngIf="showHeader">
                   <thead class="yue-ui-table-header-el">
@@ -80,15 +80,15 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
                 </tbody>
               </table>
             </ng-container>
-            <ng-template #norows>
+            <ng-template #nocolumns>
               <div class="table-error-el">
-                <yue-ui-i18n yueUiI18nToken="components.table.noData"></yue-ui-i18n>
+                <yue-ui-i18n yueUiI18nToken="components.table.noColumns"></yue-ui-i18n>
               </div>
             </ng-template>
           </ng-container>
-          <ng-template #nocolumns>
+          <ng-template #norows>
             <div class="table-error-el">
-              <yue-ui-i18n yueUiI18nToken="components.table.noColumns"></yue-ui-i18n>
+              <yue-ui-i18n yueUiI18nToken="components.table.noData"></yue-ui-i18n>
             </div>
           </ng-template>
         </ng-container>

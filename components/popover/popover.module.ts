@@ -5,6 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 
@@ -28,7 +29,8 @@ const logger = logging.getLogger('core.popover');
     OverlayModule,
 
     YueUiSmartRenderModule,
-    YueUiOverlayModule
+    YueUiOverlayModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiPopoverComponent,

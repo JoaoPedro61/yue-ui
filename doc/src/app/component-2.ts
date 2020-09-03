@@ -36,6 +36,52 @@ export class Component2 {
   public tableSource: TableSource = new TableSource<any>();
 
   constructor(private readonly http: YueUiHttpService) {
+    this.tableSource
+      .setSortAndOrder(`id`, `asc`)
+      .configurePagination()
+      .actions([
+        tableAction([
+          tableActionLabel(`Deletar`),
+          tableActionIdentifier(`delt`),
+          tableActionIcon(`yue-ui-gg-trash-empty`),
+        ]),
+        tableAction([
+          tableActionLabel(`Editar`),
+          tableActionIdentifier(`edit`),
+          tableActionIcon(`yue-ui-gg-pen`),
+          tableActionCondition((data) => data.id !== 1)
+        ])
+      ])
+      .columns([
+        tableColumn([
+          tableColumnAllowSort(),
+          tableColumnIdentifier(`id`),
+          tableColumnLabel(`#`),
+          tableColumnType(`link`),
+          tableColumnAdditionalParameters({
+            link: `./../`,
+          }),
+          tableColumnWidth(`30px`)
+        ]),
+        tableColumn([
+          tableColumnAllowSort(),
+          tableColumnIdentifier(`name`),
+          tableColumnLabel(`Name`),
+        ]),
+        tableColumn([
+          tableColumnAllowSort(),
+          tableColumnIdentifier(`username`),
+          tableColumnLabel(`Username`),
+        ]),
+        tableColumn([
+          tableColumnAllowSort(),
+          tableColumnIdentifier(`email`),
+          tableColumnLabel(`E-mail`),
+        ]),
+      ])
+      .onPaginate(() => this.loadFromReq())
+      .onTriggerAction(console.log);
+
     this.loadFromReq();
   }
 
@@ -45,50 +91,7 @@ export class Component2 {
       .pipe(take(1))
       .subscribe({
         next: (response: any) => {
-          this.tableSource
-            .setSortAndOrder(`id`, `asc`)
-            .configurePagination()
-            .actions([
-              tableAction([
-                tableActionLabel(`Deletar`),
-                tableActionIdentifier(`delt`),
-                tableActionIcon(`yue-ui-gg-trash-empty`),
-              ]),
-              tableAction([
-                tableActionLabel(`Editar`),
-                tableActionIdentifier(`edit`),
-                tableActionIcon(`yue-ui-gg-pen`),
-                tableActionCondition((data) => data.id !== 1)
-              ])
-            ])
-            .columns([
-              tableColumn([
-                tableColumnAllowSort(),
-                tableColumnIdentifier(`id`),
-                tableColumnLabel(`#`),
-                tableColumnType(`link`),
-                tableColumnAdditionalParameters({
-                  link: `./../`,
-                }),
-                tableColumnWidth(`30px`)
-              ]),
-              tableColumn([
-                tableColumnAllowSort(),
-                tableColumnIdentifier(`name`),
-                tableColumnLabel(`Name`),
-              ]),
-              tableColumn([
-                tableColumnAllowSort(),
-                tableColumnIdentifier(`username`),
-                tableColumnLabel(`Username`),
-              ]),
-              tableColumn([
-                tableColumnAllowSort(),
-                tableColumnIdentifier(`email`),
-                tableColumnLabel(`E-mail`),
-              ]),
-            ])
-            .render(response);
+          this.tableSource.render(response);
         }
       });
   }

@@ -1,5 +1,5 @@
 // tslint:disable max-line-length
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import {
   TableDataColumnItem,
   TableDataRowItem,
@@ -10,6 +10,7 @@ import {
   YueUiTableActions,
   YueUiTableAction,
 } from './utils/interfaces';
+import { takeUntil } from 'rxjs/operators';
 
 
 
@@ -48,6 +49,10 @@ export class TableSource<B = any> {
   private _showPageSizeChanger = true;
 
   private _showTotalLabel = false;
+
+  public lastOnPaginateSubscription$!: Subscription;
+
+  public lastOnActionSubscription$!: Subscription;
 
   public get page(): number {
     return this._currentPage;
@@ -320,6 +325,24 @@ export class TableSource<B = any> {
   }
 
   public disconnectStreamData(): this {
+    return this;
+  }
+
+  public onPaginate(fn: (values: Partial<any>) => void): this {
+    this.lastOnPaginateSubscription$ = this.onQueriesChange$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: fn,
+      });
+    return this;
+  }
+
+  public onTriggerAction(fn: (values: {action: YueUiTableAction; data: Partial<B>}) => void): this {
+    this.lastOnActionSubscription$ = this.onTriggerAction$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: fn,
+      });
     return this;
   }
 

@@ -9,6 +9,7 @@ import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 const logger = logging.getLogger('core.model');
 
@@ -41,6 +42,7 @@ import { YueUiModalFooterComponent } from './components/footer.component';
     YueUiSmartRenderModule,
     YueUiIconModule,
     YueUiButtonModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiModalHeaderComponent,

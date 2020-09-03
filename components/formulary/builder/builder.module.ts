@@ -8,6 +8,7 @@ import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiCustomColorpickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/colorpicker';
 import { YueUiCustomDatepickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/datepicker';
@@ -73,7 +74,8 @@ const logger = logging.getLogger('core.formulary.builder');
     YueUiCustomTextModule,
 
     YueUiSmartRenderModule,
-    YueUiButtonModule
+    YueUiButtonModule,
+    YueUiThematizationModule,
   ],
   providers: [ ],
   exports: [

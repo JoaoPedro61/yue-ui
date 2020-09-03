@@ -12,7 +12,7 @@ import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
 import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
 import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
 import { YueUiMenuModule } from '@JoaoPedro61/yue-ui/menu';
-
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiTableComponent } from './components/table.component';
 
@@ -47,6 +47,7 @@ const logger = logging.getLogger('core.button');
     YueUiIconModule,
     YueUiPopoverModule,
     YueUiMenuModule,
+    YueUiThematizationModule,
   ]
 })
 export class YueUiTableModule {

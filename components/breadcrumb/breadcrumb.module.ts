@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { VERSION } from '@JoaoPedro61/yue-ui/version';
 import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiBreadcrumbComponent } from './components/breadcrumb.component';
 import { YueUiBreadcrumbItemComponent } from './components/breadcrumb-item.component';
@@ -26,6 +27,7 @@ const logger = logging.getLogger('core.breadcrumb');
     CommonModule,
     YueUiSmartRenderModule,
     RouterModule,
+    YueUiThematizationModule,
   ],
   exports: [
     YueUiBreadcrumbComponent,

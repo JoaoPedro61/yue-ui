@@ -7,6 +7,7 @@ import { logging } from '@JoaoPedro61/yue-ui/core/utils';
 import { YueUiBreadcrumbModule } from '@JoaoPedro61/yue-ui/breadcrumb';
 import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
 
+import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
 
 import { YueUiPanelComponent } from './components/panel.component';
 import { YueUiPanelHeaderComponent } from './components/header.component';
@@ -46,6 +47,7 @@ const logger = logging.getLogger('core.popover');
     RouterModule,
     YueUiBreadcrumbModule,
     YueUiSmartRenderModule,
+    YueUiThematizationModule,
   ],
 })
 export class YueUiPanelModule {
