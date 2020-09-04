@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 
 import { YueUiSwitchOptionComponent } from './switch-option.component';
 

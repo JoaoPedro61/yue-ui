@@ -4,11 +4,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { YueUiOverlayModule } from '@JoaoPedro61/yue-ui/overlay';
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiOverlayModule } from '@joaopedro61/yue-ui/overlay';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YueUiSelectComponent } from './components/select.component';
 import { YueUiSelectOptionComponent } from './components/select-option.component';

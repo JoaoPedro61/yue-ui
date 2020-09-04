@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 
 
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import {
   YueUiLayoutComponent,

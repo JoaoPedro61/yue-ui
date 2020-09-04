@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
 
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YueUiIconService } from './services/icon.service';
 import { YueUiIconDirective } from './directives/icon.directive';

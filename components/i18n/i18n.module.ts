@@ -1,9 +1,9 @@
 import { NgModule, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
+import { VERSION } from '@joaopedro61/yue-ui/version';
 
 
 import {

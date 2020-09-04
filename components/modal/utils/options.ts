@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { YueUiButtonType, YueUiButtonSize } from '@JoaoPedro61/yue-ui/button';
+import { YueUiButtonType, YueUiButtonSize } from '@joaopedro61/yue-ui/button';
 
 import { YueUiModalContent, YueUiModalTypes, YueUiModalFooter, YueUiModalHeader, YueUiModalButtonContent, YueUiModalConfirmType } from './interfaces';
 

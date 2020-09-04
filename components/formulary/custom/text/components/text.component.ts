@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, f
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { TextMask } from '@JoaoPedro61/yue-ui/formulary/utils';
+import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
 
 
 

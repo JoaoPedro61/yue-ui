@@ -1,4 +1,4 @@
-import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 
 
 

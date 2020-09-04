@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
 
 
 import { YueUiOverlayDirective } from './directives/overlay.directive';

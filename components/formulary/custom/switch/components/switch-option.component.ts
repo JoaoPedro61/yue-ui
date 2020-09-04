@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Host, Optional, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 
-import { equals } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
+import { equals } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 
 import { YueUiSwitchComponent } from './switch.component';
 

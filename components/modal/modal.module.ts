@@ -3,13 +3,13 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
-import { YueUiIconModule } from '@JoaoPedro61/yue-ui/icon';
-import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
+import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
+import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 const logger = logging.getLogger('core.model');
 

@@ -5,7 +5,7 @@ import { PortalInjector, ComponentPortal, TemplatePortal } from '@angular/cdk/po
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators'
 
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
 
 
 import { YueUiModalOptions } from './../utils/options';

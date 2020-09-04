@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ContentChild, ElementRef, HostListener } from '@angular/core';
 
-import { elementDimentions } from '@JoaoPedro61/yue-ui/core/utils';
+import { elementDimentions } from '@joaopedro61/yue-ui/core/utils';
 
 
 import { YueUiPanelContentComponent } from './content.component';

@@ -12,7 +12,7 @@ import {
   NgZone
 } from '@angular/core';
 
-import { transformImageToBase64 } from '@JoaoPedro61/yue-ui/core/utils';
+import { transformImageToBase64 } from '@joaopedro61/yue-ui/core/utils';
 
 
 

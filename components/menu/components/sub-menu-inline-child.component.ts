@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-import { COLLAPSE_MOTION } from '@JoaoPedro61/yue-ui/core/animations';
+import { COLLAPSE_MOTION } from '@joaopedro61/yue-ui/core/animations';
 
 
 import { YueUiMenuType } from './../utils/interfaces';

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YueUiMenuComponent } from './components/menu.component';
 import { YueUiSubMenuComponent } from './components/sub-menu.component';

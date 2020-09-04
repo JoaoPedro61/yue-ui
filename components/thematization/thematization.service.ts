@@ -1,6 +1,6 @@
 import { Injectable, Inject, RendererFactory2, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { serializeStringJsonPath, logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { serializeStringJsonPath, logging } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiThemeOptions, YueUiTheme, YueUiThemeConfig } from './thematization.interfaces';
 import { YUE_UI_THEME } from './thematization.utils';

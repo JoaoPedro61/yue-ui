@@ -16,7 +16,7 @@ import {
   formularyStep,
   formularyStepName,
   fieldTextMode,
-} from '@JoaoPedro61/yue-ui/formulary/builder';
+} from '@joaopedro61/yue-ui/formulary/builder';
 
 
 @NgComponent({

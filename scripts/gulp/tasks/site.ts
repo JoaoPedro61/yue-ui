@@ -20,8 +20,8 @@ task('site:replace-path', () => {
   if (!tsconfig.compilerOptions.paths) {
     tsconfig.compilerOptions.paths = {};
   }
-  tsconfig.compilerOptions.paths['@JoaoPedro61/yue-ui'] = ['../publish'];
-  tsconfig.compilerOptions.paths['@JoaoPedro61/yue-ui/*'] = ['../publish/*'];
+  tsconfig.compilerOptions.paths['@joaopedro61/yue-ui'] = ['../publish'];
+  tsconfig.compilerOptions.paths['@joaopedro61/yue-ui/*'] = ['../publish/*'];
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 
@@ -36,8 +36,8 @@ task('site:dev:replace-path', () => {
   if (!tsconfig.compilerOptions.paths) {
     tsconfig.compilerOptions.paths = {};
   }
-  tsconfig.compilerOptions.paths['@JoaoPedro61/yue-ui'] = ['../components'];
-  tsconfig.compilerOptions.paths['@JoaoPedro61/yue-ui/*'] = ['../components/*'];
+  tsconfig.compilerOptions.paths['@joaopedro61/yue-ui'] = ['../components'];
+  tsconfig.compilerOptions.paths['@joaopedro61/yue-ui/*'] = ['../components/*'];
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 

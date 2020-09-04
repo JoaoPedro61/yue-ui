@@ -3,7 +3,7 @@ import {
   getHiddenProp,
   setHiddenProp,
   serializeStringJsonPath
-} from '@JoaoPedro61/yue-ui/core/utils';
+} from '@joaopedro61/yue-ui/core/utils';
 
 import { relative_exec } from '../utils';
 import { ParentTypes } from '../enums';

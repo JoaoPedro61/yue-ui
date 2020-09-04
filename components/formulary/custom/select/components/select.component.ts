@@ -15,13 +15,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { removeAccents, elementDimentions, equals } from '@JoaoPedro61/yue-ui/core/utils';
+import { removeAccents, elementDimentions, equals } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiSelectOptionComponent } from './select-option.component';
 
 import { YueUiSelectSearchChange, YueUiSelectMode, YueUiSelectProperties, Placeholder } from './../utils/interfaces';
 import { ConnectedPosition, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { DEFAULT_MENTION_BOTTOM_POSITIONS, YueUiOverlayDirective } from '@JoaoPedro61/yue-ui/overlay';
+import { DEFAULT_MENTION_BOTTOM_POSITIONS, YueUiOverlayDirective } from '@joaopedro61/yue-ui/overlay';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { UP_ARROW, DOWN_ARROW, ENTER, SPACE, TAB, ESCAPE } from '@angular/cdk/keycodes';
 

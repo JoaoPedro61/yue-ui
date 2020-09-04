@@ -4,10 +4,10 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "@JoaoPedro61/yue-ui": [
+      "@joaopedro61/yue-ui": [
         "./"
       ],
-      "@JoaoPedro61/yue-ui/*": [
+      "@joaopedro61/yue-ui/*": [
         "./*"
       ]
     }

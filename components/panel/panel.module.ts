@@ -2,12 +2,12 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiBreadcrumbModule } from '@JoaoPedro61/yue-ui/breadcrumb';
-import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiBreadcrumbModule } from '@joaopedro61/yue-ui/breadcrumb';
+import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
 
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YueUiPanelComponent } from './components/panel.component';
 import { YueUiPanelHeaderComponent } from './components/header.component';

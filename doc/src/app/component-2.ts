@@ -15,9 +15,9 @@ import {
   tableActionIdentifier,
   tableActionIcon,
   tableActionCondition,
-} from '@JoaoPedro61/yue-ui/table';
+} from '@joaopedro61/yue-ui/table';
 
-import { YueUiHttpService } from '@JoaoPedro61/yue-ui/http';
+import { YueUiHttpService } from '@joaopedro61/yue-ui/http';
 
 import { take } from 'rxjs/operators';
 

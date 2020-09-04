@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YUE_UI_ENABLE_CACHE_RESPONSE, YUE_UI_HTTP_DYNAMIC_INTERCEPTORS, YUE_UI_PROGRESS_REQUESTS } from './http.utils';
 

@@ -16,8 +16,8 @@ import { Subject } from 'rxjs';
 import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { differenceBy } from 'lodash';
 
-import { getValidators, getMessages } from '@JoaoPedro61/yue-ui/formulary/utils';
-import { equals, setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+import { getValidators, getMessages } from '@joaopedro61/yue-ui/formulary/utils';
+import { equals, setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 
 import {

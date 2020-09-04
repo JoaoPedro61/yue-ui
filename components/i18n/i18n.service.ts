@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, merge, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { deepMerge, serializeStringJsonPath, logging } from '@JoaoPedro61/yue-ui/core/utils';
+import { deepMerge, serializeStringJsonPath, logging } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiI18nDictionary, YueUiI18nLanguage, YueUiI18nComponentsDictionary, YueUiI18nNotFoundHandler } from './i18n.intefaces';
 import { YUE_UI_I18N_DICTIONARY, YUE_UI_I18N_COMPONENTS_DICTIONARY, YUE_UI_I18N_LANGUAGE, YUE_UI_I18N_NOT_FOUND_HANDLER } from './i18n.utils';

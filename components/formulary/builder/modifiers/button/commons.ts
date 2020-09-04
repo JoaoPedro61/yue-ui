@@ -1,4 +1,4 @@
-import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 import {
   YueUiButtonType,

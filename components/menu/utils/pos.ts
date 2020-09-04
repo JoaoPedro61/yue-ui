@@ -1,4 +1,4 @@
-import { POSITION_MAP } from '@JoaoPedro61/yue-ui/overlay';
+import { POSITION_MAP } from '@joaopedro61/yue-ui/overlay';
 
 
 

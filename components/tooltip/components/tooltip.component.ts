@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
 
-import { deepTypechecker } from '@JoaoPedro61/yue-ui/core/utils';
+import { deepTypechecker } from '@joaopedro61/yue-ui/core/utils';
 
 import { BaseComponent } from './../utils/base';
 

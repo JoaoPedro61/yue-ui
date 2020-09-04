@@ -1,4 +1,4 @@
-import { YueUiSmartRenderType, YueUiSmartRenderComponentType } from '@JoaoPedro61/yue-ui/smart-render';
+import { YueUiSmartRenderType, YueUiSmartRenderComponentType } from '@joaopedro61/yue-ui/smart-render';
 import { ComponentType } from '@angular/cdk/portal';
 
 

@@ -32,10 +32,10 @@
     "typeRoots": ["node_modules/@types/!(node)"],
     "removeComments": true,
     "paths": {
-      "@JoaoPedro61/yue-ui": [
+      "@joaopedro61/yue-ui": [
         "./components"
       ],
-      "@JoaoPedro61/yue-ui/*": [
+      "@joaopedro61/yue-ui/*": [
         "./components/*"
       ]
     }

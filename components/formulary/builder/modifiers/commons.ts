@@ -1,4 +1,4 @@
-import { hash, getHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+import { hash, getHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 import { expect_parent } from './utils';
 

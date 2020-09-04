@@ -1,5 +1,5 @@
-import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
-import { SpecificValidatorObjectFormation } from '@JoaoPedro61/yue-ui/formulary/utils';
+import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
+import { SpecificValidatorObjectFormation } from '@joaopedro61/yue-ui/formulary/utils';
 
 import {
   ModifiersFn,

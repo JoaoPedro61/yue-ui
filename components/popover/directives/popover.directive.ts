@@ -10,7 +10,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { BaseDirective, YueUiTooltipTrigger } from '@JoaoPedro61/yue-ui/tooltip';
+import { BaseDirective, YueUiTooltipTrigger } from '@joaopedro61/yue-ui/tooltip';
 
 import { YueUiPopoverComponent } from '../components/popover.component';
 

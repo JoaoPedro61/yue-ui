@@ -19,7 +19,7 @@ import { differenceBy } from 'lodash';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, delayWhen } from 'rxjs/operators';
 
-import { setHiddenProp } from '@JoaoPedro61/yue-ui/core/utils';
+import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 import { WrapperComponent } from './extends/wrapper.component';
 

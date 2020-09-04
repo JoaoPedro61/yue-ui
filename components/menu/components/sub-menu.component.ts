@@ -21,7 +21,7 @@ import { Subject, combineLatest, merge } from 'rxjs';
 import { takeUntil, startWith, switchMap, map, distinctUntilChanged } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 
-import { getPlacementName } from '@JoaoPedro61/yue-ui/overlay';
+import { getPlacementName } from '@joaopedro61/yue-ui/overlay';
 
 import { IsMenuInsideDropDownToken } from '../utils/token';
 import { OVERLAY_HORIZON_POS, OVERLAY_VERT_POS } from '../utils/pos';

@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
 
-import { YueUiSmartRenderType } from '@JoaoPedro61/yue-ui/smart-render';
-import { deepTypechecker } from '@JoaoPedro61/yue-ui/core/utils';
-import { BaseComponent } from '@JoaoPedro61/yue-ui/tooltip';
+import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
+import { deepTypechecker } from '@joaopedro61/yue-ui/core/utils';
+import { BaseComponent } from '@joaopedro61/yue-ui/tooltip';
 
 
 

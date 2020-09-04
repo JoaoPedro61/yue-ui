@@ -1,7 +1,7 @@
 import { take } from 'rxjs/operators';
 import { Component as NgComponent, ChangeDetectionStrategy,  } from '@angular/core';
-import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
-import { YueUiModalService } from '@JoaoPedro61/yue-ui/modal';
+import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
+import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 
 import { Component3 as Modal1 } from './component-3';
 

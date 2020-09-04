@@ -5,24 +5,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { YueUiLayoutModule } from '@JoaoPedro61/yue-ui/layout';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
-import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
-import { YueUiTooltipModule } from '@JoaoPedro61/yue-ui/tooltip';
-import { YueUiPopoverModule } from '@JoaoPedro61/yue-ui/popover';
-import { YueUiMenuModule } from '@JoaoPedro61/yue-ui/menu';
-import { YueUiBuilderFormularyModule } from '@JoaoPedro61/yue-ui/formulary/builder';
-import { YueUiModalModule } from '@JoaoPedro61/yue-ui/modal';
-import { YueUiImageModule } from '@JoaoPedro61/yue-ui/image';
-import { YueUiBreadcrumbModule } from '@JoaoPedro61/yue-ui/breadcrumb';
-import { YueUiPanelModule } from '@JoaoPedro61/yue-ui/panel';
-import { YueUiTableModule } from '@JoaoPedro61/yue-ui/table';
+import { YueUiLayoutModule } from '@joaopedro61/yue-ui/layout';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
+import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
+import { YueUiTooltipModule } from '@joaopedro61/yue-ui/tooltip';
+import { YueUiPopoverModule } from '@joaopedro61/yue-ui/popover';
+import { YueUiMenuModule } from '@joaopedro61/yue-ui/menu';
+import { YueUiBuilderFormularyModule } from '@joaopedro61/yue-ui/formulary/builder';
+import { YueUiModalModule } from '@joaopedro61/yue-ui/modal';
+import { YueUiImageModule } from '@joaopedro61/yue-ui/image';
+import { YueUiBreadcrumbModule } from '@joaopedro61/yue-ui/breadcrumb';
+import { YueUiPanelModule } from '@joaopedro61/yue-ui/panel';
+import { YueUiTableModule } from '@joaopedro61/yue-ui/table';
 
 
 import { Component1 as Home } from './component-1';
 import { Component2 as Child1 } from './component-2';
 import { Component3 as Modal1 } from './component-3';
-import { YueUiHttpModule } from '@JoaoPedro61/yue-ui/http';
+import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
 
 
 

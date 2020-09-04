@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
-import { YueUiBreadcrumbItem } from '@JoaoPedro61/yue-ui/breadcrumb';
+import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 
 
 

@@ -4,19 +4,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TextMaskModule } from 'angular2-text-mask';
 
-import { YueUiButtonModule } from '@JoaoPedro61/yue-ui/button';
-import { VERSION } from '@JoaoPedro61/yue-ui/version';
-import { logging } from '@JoaoPedro61/yue-ui/core/utils';
-import { YueUiSmartRenderModule } from '@JoaoPedro61/yue-ui/smart-render';
-import { YueUiThematizationModule } from '@JoaoPedro61/yue-ui/thematization';
+import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
+import { VERSION } from '@joaopedro61/yue-ui/version';
+import { logging } from '@joaopedro61/yue-ui/core/utils';
+import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
+import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
-import { YueUiCustomColorpickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/colorpicker';
-import { YueUiCustomDatepickerModule } from '@JoaoPedro61/yue-ui/formulary/custom/datepicker';
-import { YueUiCustomNumberModule } from '@JoaoPedro61/yue-ui/formulary/custom/number';
-import { YueUiCustomSelectModule } from '@JoaoPedro61/yue-ui/formulary/custom/select';
-import { YueUiCustomSwitchModule } from '@JoaoPedro61/yue-ui/formulary/custom/switch';
-import { YueUiCustomTextModule } from '@JoaoPedro61/yue-ui/formulary/custom/text';
-import { YueUiCustomPasswordModule } from '@JoaoPedro61/yue-ui/formulary/custom/password';
+import { YueUiCustomColorpickerModule } from '@joaopedro61/yue-ui/formulary/custom/colorpicker';
+import { YueUiCustomDatepickerModule } from '@joaopedro61/yue-ui/formulary/custom/datepicker';
+import { YueUiCustomNumberModule } from '@joaopedro61/yue-ui/formulary/custom/number';
+import { YueUiCustomSelectModule } from '@joaopedro61/yue-ui/formulary/custom/select';
+import { YueUiCustomSwitchModule } from '@joaopedro61/yue-ui/formulary/custom/switch';
+import { YueUiCustomTextModule } from '@joaopedro61/yue-ui/formulary/custom/text';
+import { YueUiCustomPasswordModule } from '@joaopedro61/yue-ui/formulary/custom/password';
 
 import { FormularyComponent } from './builder.component';
 import { LabelComponent } from './extends/label.component';
