@@ -1,13 +1,6 @@
-- Tabela
-  - Basic cell components
-    * Actions
-
 - Formulary
   - Add invalid styles on fields
   - Add Label For Property
 
 - Button
   - Add styles when the button is focused
-
-- Menu
-  - Update colors of selected items

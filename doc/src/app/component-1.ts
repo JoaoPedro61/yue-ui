@@ -14,10 +14,14 @@ import { Component3 as Modal1 } from './component-3';
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuInlineCollapsed]="false" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
-              Menu item 1
+              <a [routerLink]="['.']">
+                <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                Menu item 1
+              </a>
             </yue-ui-menu-item>
-            <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
-              Menu item 2
+            <yue-ui-menu-item>
+              <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+              Menu item 1
             </yue-ui-menu-item>
             <yue-ui-submenu>
               Sub menu
@@ -28,20 +32,15 @@ import { Component3 as Modal1 } from './component-3';
                 <yue-ui-menu-item>
                   Sub menu item 2
                 </yue-ui-menu-item>
-                <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
-                  Sub menu item 3
-                </yue-ui-menu-item>
                 <yue-ui-submenu>
                   Sub menu 1
                   <yue-ui-menu>
                     <yue-ui-menu-item>
+                      <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
                       Sub menu 1 item 1
                     </yue-ui-menu-item>
                     <yue-ui-menu-item>
                       Sub menu 1 item 2
-                    </yue-ui-menu-item>
-                    <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
-                      Sub menu 1 item 3
                     </yue-ui-menu-item>
                   </yue-ui-menu>
                 </yue-ui-submenu>

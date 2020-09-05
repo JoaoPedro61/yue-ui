@@ -311,7 +311,13 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           selected: {
             background: `var(--color-background-light)`,
             color: `var(--color-dark)`,
-            indicator: `red`,
+            indicator: `var(--color-primary)`,
+
+            sub: {
+              background: `var(--color-background-light)`,
+              color: `var(--color-dark)`,
+              indicator: `var(--color-primary)`,
+            }
           },
           disabled: {
             background: `var(--color-transparent-dark-4)`,
