@@ -20,6 +20,7 @@ import { YueUiContainerComfirmComponent } from './components/container-corfirm.c
 
 import { YueUiModalHeaderComponent } from './components/header.component';
 import { YueUiModalFooterComponent } from './components/footer.component';
+import { YueUiModalFooterDirective } from './directives/modal-footer.directive';
 
 
 
@@ -33,6 +34,7 @@ import { YueUiModalFooterComponent } from './components/footer.component';
 
     YueUiModalHeaderComponent,
     YueUiModalFooterComponent,
+    YueUiModalFooterDirective,
   ],
   imports: [
     OverlayModule,
@@ -47,6 +49,7 @@ import { YueUiModalFooterComponent } from './components/footer.component';
   exports: [
     YueUiModalHeaderComponent,
     YueUiModalFooterComponent,
+    YueUiModalFooterDirective,
   ]
 })
 export class YueUiModalModule {

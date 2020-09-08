@@ -8,7 +8,7 @@ import { VERSION } from '@joaopedro61/yue-ui/version';
 const logger = logging.getLogger('core');
 
 
-@NgModule({})
+@NgModule({ })
 export class YueUiModule {
 
   constructor() {
