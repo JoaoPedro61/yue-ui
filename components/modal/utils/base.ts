@@ -142,7 +142,7 @@ export abstract class Base extends BasePortalOutlet implements OnDestroy {
   ) {
     super();
     this.document = document as any;
-    this.isStringOrObservableContent = typeof config.content === 'string';
+    this.isStringOrObservableContent = (typeof config.content === 'string' || (config.content instanceof Observable));
     this.overlayRef
       .backdropClick()
       .pipe(takeUntil(this.untilDestroy$))

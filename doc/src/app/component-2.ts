@@ -20,6 +20,8 @@ import {
 import { YueUiHttpService } from '@joaopedro61/yue-ui/http';
 
 import { take } from 'rxjs/operators';
+import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
+import { YueUiI18nService } from '@joaopedro61/yue-ui/i18n';
 
 
 
@@ -35,7 +37,7 @@ export class Component2 {
 
   public tableSource: TableSource = new TableSource<any>();
 
-  constructor(private readonly http: YueUiHttpService) {
+  constructor(private readonly http: YueUiHttpService, private readonly modal: YueUiModalService, private readonly i18n: YueUiI18nService) {
     this.tableSource
       .setSortAndOrder(`id`, `asc`)
       .configurePagination()
@@ -80,7 +82,15 @@ export class Component2 {
         ]),
       ])
       .onPaginate(() => this.loadFromReq())
-      .onTriggerAction(console.log);
+      .onTriggerAction(() => {
+        this.modal.confirm({
+          header: this.i18n.translateAsync(`deleteClientTitle`, { default: `Delete client` }).pipe(take(1)),
+          content: this.i18n.translateAsync(`deleteClientContent`, { default: `Are you sure you want to delete the client?` }).pipe(take(1)),
+          onButtonOk: () => {
+            console.log(`Delete essa bagaca`);
+          }
+        }, `warning`);
+      });
 
     this.loadFromReq();
   }
