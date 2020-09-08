@@ -64,6 +64,11 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
       }
     },
     components: {
+      loader: {
+        http: {
+          background: `var(--color-primary)`
+        }
+      },
       navigation: {
         menu: {
           background: '#125E8A',
@@ -251,6 +256,9 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           background: '#f4f5f7',
           border: {
             color: '#dfe1e6',
+            invalid: {
+              color: `var(--components-formulary-label-invalid-color)`,
+            }
           },
           focus: {
             border: {

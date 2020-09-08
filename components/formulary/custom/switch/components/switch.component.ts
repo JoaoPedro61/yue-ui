@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, f
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
+import { hash } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiSwitchOptionComponent } from './switch-option.component';
 
@@ -14,7 +15,7 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
       <ng-container *ngIf="yueUiSwitchType">
         <ng-container *ngIf="yueUiSwitchType === 'normal'">
           <div class="normal-checker" [class.focusing]="isfocusing" [class.disabled]="disabled">
-            <input class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
+            <input [id]="yueUiSwitchId" class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
               (change)="assignNewValue()" [ngModel]="value">
             <span class="labels">
               <span class="active">
@@ -30,7 +31,7 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
         <ng-container *ngIf="yueUiSwitchType === 'indeterminate'">
           <div class="indeterminate-checker" [class.indeterminate]="isIndeterminated" [class.focusing]="isfocusing"
             [class.disabled]="disabled">
-            <input class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
+            <input [id]="yueUiSwitchId" class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
               (change)="assignNewValue()" [ngModel]="value">
             <span class="labels">
               <span class="active">
@@ -67,6 +68,9 @@ export class YueUiSwitchComponent implements OnInit, ControlValueAccessor, After
 
   @Input()
   public yueUiSwitchType: 'normal' | 'indeterminate' | 'radio' = 'normal';
+
+  @Input()
+  public yueUiSwitchId = hash();
 
   @Input()
   public yueUiSwitchOnLabel: YueUiSmartRenderType = '';

@@ -36,7 +36,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
                     </ng-container>
                     <ng-container *ngIf="item.icon">
                       <div style="margin-right: 6px;">
-                        <i style="margin-top: 12px;" yueUiIcon [yueUiIconType]="item.icon"></i>
+                        <i yueUiIcon [yueUiIconType]="item.icon"></i>
                       </div>
                     </ng-container>
                   </div>

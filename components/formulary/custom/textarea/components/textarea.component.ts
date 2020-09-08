@@ -1,24 +1,39 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, forwardRef, AfterViewInit, HostBinding } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { Observable } from 'rxjs';
+
+import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
+
 import { hash } from '@joaopedro61/yue-ui/core/utils';
 
 
 
 @Component({
-  selector: 'yue-ui-number',
+  selector: 'yue-ui-textarea',
   template: `
-  <div class="field-text-wrapper" [class.hovering]="hovering">
-    <input
-      [id]="yueUiNumberId"
-      type="number"
-      [(ngModel)]="value"
-      [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiNumberPlaceholder | async) : yueUiNumberPlaceholder"
-      (mouseover)="hovering = true;"
-      (mouseout)="hovering = false;"
-    >
-    <ng-container *ngIf="yueUiNumberAllowClear">
+  <div class="field-textarea-wrapper" [class.hovering]="hovering">
+    <ng-container *ngIf="yueUiTextareaMask; else nomask">
+      <textarea
+        [id]="yueUiTextareaId"
+        [(ngModel)]="value"
+        [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextareaPlaceholder | async) : yueUiTextareaPlaceholder"
+        (mouseover)="hovering = true;"
+        [rows]="yueUiTextareaRows"
+        (mouseout)="hovering = false;"
+        [textMask]="yueUiTextareaMask"
+      ></textarea>
+    </ng-container>
+    <ng-template #nomask>
+      <textarea
+        [id]="yueUiTextareaId"
+        [(ngModel)]="value"
+        [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextareaPlaceholder | async) : yueUiTextareaPlaceholder"
+        (mouseover)="hovering = true;"
+        [rows]="yueUiTextareaRows"
+        (mouseout)="hovering = false;"
+      ></textarea>
+    </ng-template>
+    <ng-container *ngIf="yueUiTextareaAllowClear">
       <div class="input-clear" (mouseover)="hovering = true;" (mouseout)="hovering = false;">
         <ng-container *ngIf="!disabled && !isEmpty">
           <span class="input-clear-wrapper">
@@ -36,29 +51,37 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
   </div>
   `,
   styleUrls: [
-    './../styles/number.component.less'
+    './../styles/textarea.component.less'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => YueUiNumberComponent),
+      useExisting: forwardRef(() => YueUiTextareaComponent),
       multi: true,
     }
   ],
 })
-export class YueUiNumberComponent implements OnInit, ControlValueAccessor, AfterViewInit {
-
-  public hovering = false;
+export class YueUiTextareaComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   @Input()
-  public yueUiNumberAllowClear = true;
+  public yueUiTextareaAllowClear = true;
+
+  @HostBinding(`class.allow-resize`)
+  @Input()
+  public yueUiTextareaAllowResize = true;
 
   @Input()
-  public yueUiNumberId = hash();
+  public yueUiTextareaRows = 3;
 
   @Input()
-  public yueUiNumberPlaceholder: Observable<string> | string | null = '';
+  public yueUiTextareaMask!: TextMask;
+
+  @Input()
+  public yueUiTextareaId = hash();
+
+  @Input()
+  public yueUiTextareaPlaceholder: Observable<string> | string | null = '';
 
   private _val: any = null;
 
@@ -84,30 +107,24 @@ export class YueUiNumberComponent implements OnInit, ControlValueAccessor, After
   }
 
   public get placeholderIsAObservable(): boolean {
-    return this.yueUiNumberPlaceholder instanceof Observable;
+    return this.yueUiTextareaPlaceholder instanceof Observable;
   }
 
-  public get ngSafeValue_yueUiNumberPlaceholder(): any {
-    return this.yueUiNumberPlaceholder;
+  public get ngSafeValue_yueUiTextareaPlaceholder(): any {
+    return this.yueUiTextareaPlaceholder;
   }
+
+  public hovering = false;
 
   public onChange: (newValue: any) => void = () => { };
 
   public onTouch: () => void = () => { };
 
   public get isEmpty(): boolean {
-    return !(this._val
-      ? (this._val + '').length
-      : typeof this._val === 'number'
-        ? false
-        : this._val);
+    return !(this._val ? this._val.length : this._val);
   }
 
   constructor(private readonly cdr: ChangeDetectorRef) { }
-
-  public mType(c: any): string {
-    return typeof c;
-  }
 
   public clear(): void {
     this.value = null;

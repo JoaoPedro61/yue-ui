@@ -16,7 +16,11 @@ import { FieldAbstraction } from './abstraction';
         </yue-ui-password>
       </ng-container>
       <ng-container *ngSwitchCase="'textarea'">
-        <span> No implemented "textarea" field!</span>
+        <yue-ui-textarea
+          [formControl]="abstractControl"
+          [yueUiTextareaPlaceholder]="placeholder"
+          [yueUiTextareaMask]="mask"
+        ></yue-ui-textarea>
       </ng-container>
       <ng-container *ngSwitchDefault>
         <yue-ui-text
@@ -33,7 +37,7 @@ import { FieldAbstraction } from './abstraction';
   host: {
     '[class.text-abstraction]': 'true'
   },
-  exportAs: 'textAbstractionRef',
+  exportAs: 'textareaAbstractionRef',
 })
 export class TextAbstractionComponent extends FieldAbstraction {
 

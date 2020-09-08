@@ -42,6 +42,7 @@
       &[disabled] {
         background-color: var(--components-formulary-input-disabled-background);
       }
+
     }
 
     .input-clear {
@@ -94,6 +95,17 @@
 
       .input-clear {
         opacity: 1;
+      }
+    }
+  }
+
+  &.ng-invalid {
+
+    .field-text-wrapper {
+
+      input {
+
+        border-color: var(--components-formulary-input-border-invalid-color);
       }
     }
   }

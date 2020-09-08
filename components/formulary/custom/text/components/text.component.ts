@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
 
+import { hash } from '@joaopedro61/yue-ui/core/utils';
 
 
 
@@ -14,6 +15,7 @@ import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
     <ng-container *ngIf="yueUiTextMask; else nomask">
       <input
         type="text"
+        [id]="yueUiTextId"
         [(ngModel)]="value"
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
         (mouseover)="hovering = true;"
@@ -24,6 +26,7 @@ import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
     <ng-template #nomask>
       <input
         type="text"
+        [id]="yueUiTextId"
         [(ngModel)]="value"
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
         (mouseover)="hovering = true;"
@@ -66,6 +69,9 @@ export class YueUiTextComponent implements OnInit, ControlValueAccessor, AfterVi
 
   @Input()
   public yueUiTextMask!: TextMask;
+
+  @Input()
+  public yueUiTextId = hash();
 
   @Input()
   public yueUiTextPlaceholder: Observable<string> | string | null = '';

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
       <div *ngIf="invalidMetadata" class="invalid-message">
        <span [innerText]="message"></span>
       </div>
-      <ng-container *ngIf="description">
+      <ng-container *ngIf="description && !invalidMetadata">
         <div class="field-description-inner">
           <div class="field-template">
             <ng-container *yueUiStringTemplateRefRender="description" yueUiStringTemplateRefRenderContext="context">

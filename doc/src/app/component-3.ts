@@ -15,6 +15,8 @@ import {
   staircaseFormulary,
   formularyStep,
   formularyStepName,
+  fieldValidators,
+  fieldMask,
   fieldTextMode,
 } from '@joaopedro61/yue-ui/formulary/builder';
 
@@ -37,7 +39,7 @@ export class Component3 {
   private setup(): void {
     this.formulary
       .setModel({
-        name: 'Peter',
+        name: null,
         gender: `tank`,
       })
       .setup(staircaseFormulary([
@@ -50,15 +52,29 @@ export class Component3 {
               fieldIdentifier('name'),
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
-              fieldWidth(10)
+              fieldWidth(10),
+              fieldValidators([`required`]),
+              fieldMask(`ipaddress`)
             ]),
+            writable([
+              fieldIdentifier('name_te'),
+              fieldLabel('Name'),
+              fieldPlaceholder('Type your name'),
+              fieldWidth(10),
+              fieldValidators([`required`]),
+              fieldTextMode(`textarea`),
+            ]),
+            /*
             writable([
               fieldIdentifier('pass'),
               fieldLabel('Password'),
               fieldPlaceholder('Type your password'),
               fieldWidth(10),
-              fieldTextMode(`password`)
+              fieldTextMode(`password`),
+              fieldValidators([`required`]),
+              fieldDescription(`This is a simple descriptionm!`)
             ]),
+            */
             selectable([
               fieldIdentifier('gender'),
               fieldLabel('Gender'),

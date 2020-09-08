@@ -247,6 +247,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(LabelComponent), 0);
     this.componenetsRefs.label = ref;
     this.checkLabelProps();
+    setTimeout(() => this.checkLabelProps());
   }
 
   private createDescriptor(): void {
@@ -254,6 +255,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(DescriptorComponent), insertAt);
     this.componenetsRefs.descriptor = ref;
     this.checkDescriptorProps();
+    setTimeout(() => this.checkDescriptorProps());
   }
 
   private createWrapper(): void {

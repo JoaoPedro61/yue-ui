@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
+import { hash } from '@joaopedro61/yue-ui/core/utils';
 
 
 
@@ -14,6 +15,7 @@ import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
     <ng-container *ngIf="yueUiPasswordMask; else nomask">
       <input
         [type]="mode"
+        [id]="yueUiPasswordId"
         [(ngModel)]="value"
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiPasswordPlaceholder | async) : yueUiPasswordPlaceholder"
         (mouseover)="hovering = true;"
@@ -24,6 +26,7 @@ import { TextMask } from '@joaopedro61/yue-ui/formulary/utils';
     <ng-template #nomask>
       <input
         [type]="mode"
+        [id]="yueUiPasswordId"
         [(ngModel)]="value"
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiPasswordPlaceholder | async) : yueUiPasswordPlaceholder"
         (mouseover)="hovering = true;"
@@ -66,6 +69,9 @@ export class YueUiPasswordComponent implements OnInit, ControlValueAccessor, Aft
 
   @Input()
   public yueUiPasswordMask!: TextMask;
+
+  @Input()
+  public yueUiPasswordId = hash();
 
   @Input()
   public yueUiPasswordPlaceholder: Observable<string> | string | null = '';

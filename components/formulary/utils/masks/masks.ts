@@ -115,7 +115,6 @@ export {
   MASKS,
   TextMask,
   TextMasks,
-  formatConformMask
+  formatConformMask,
+  getMask,
 };
-
-export default getMask;

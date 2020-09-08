@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { removeAccents, elementDimentions, equals } from '@joaopedro61/yue-ui/core/utils';
+import { removeAccents, elementDimentions, equals, hash } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiSelectOptionComponent } from './select-option.component';
 
@@ -72,7 +72,7 @@ type YueUiSafeValue = any;
             </span>
           </ng-container>
         </div>
-        <textarea #inputFake class="input-select-fake" [class.caret-visible]="isVisible" autocomplete="off" role="combobox" aria-autocomplete="list"
+        <textarea [id]="yueUiSelectId" #inputFake class="input-select-fake" [class.caret-visible]="isVisible" autocomplete="off" role="combobox" aria-autocomplete="list"
           aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)" (click)="focus();"
           (keydown)="preventKeydown($event);" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : equivalencePlaceholder"
           [disabled]="disabled"></textarea>
@@ -276,6 +276,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   };
 
   @Input()
+  public yueUiSelectId = hash();
+
+  @Input()
   public yueUiSelectAllowSearch = true;
 
   @Input()
@@ -469,9 +472,11 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   }
 
   public scrollToActivatedValue(): void {
-    const index = this.listOfYueUiSelectOptionComponent.findIndex(item => equals(item.value, this._activatedValue)) || 0;
-    if (index < this.scrolledIndex || index >= this.scrolledIndex + this.maxItemLength) {
-      this.cdkVirtualScrollViewport.scrollToIndex(index || 0);
+    if (this.isVisible) {
+      const index = this.listOfYueUiSelectOptionComponent.findIndex(item => equals(item.value, this._activatedValue)) || 0;
+      if (index < this.scrolledIndex || index >= this.scrolledIndex + this.maxItemLength) {
+        this.cdkVirtualScrollViewport.scrollToIndex(index || 0);
+      }
     }
   }
 
