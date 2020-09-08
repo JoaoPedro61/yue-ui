@@ -242,6 +242,15 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             color: `#c62828`,
           },
         },
+        nav: {
+          divider: `var(--color-transparent-dark-10)`,
+          hover: {
+            background: `var(--color-transparent-dark-10)`,
+          },
+          activated: {
+            color: `var(--color-primary)`,
+          }
+        },
         descriptor: {
           description: {
             color: `rgb(94 108 132 / 65%)`,

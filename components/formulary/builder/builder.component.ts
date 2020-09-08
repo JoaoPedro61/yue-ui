@@ -38,16 +38,23 @@ import {
 @Component({
   selector: 'yue-ui-formulary',
   template: `
+    <ng-container *ngIf="isStepped && showStepLabels">
+      <div class="formulary-steps-labels-wrap">
+        <div class="formulary-steps-labels-wrap-inner">
+          <ng-container *ngFor="let item of steps; index as index">
+            <div class="formulary-steps-label-item-wrap" (click)="goto(index);" [class.activated]="index === activatedStepIndex">
+              <div class="formulary-steps-label-item-wrap-inner">
+                <span [innerText]="item.label || item.identifier"></span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
     <ng-container #fields></ng-container>
     <ng-container #buttons></ng-container>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-    `
-  ],
+  styleUrls: [`./styles/builder.component.less`],
   preserveWhitespaces: false,
   exportAs: 'formularyRef',
   host: {
@@ -59,7 +66,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
   private readonly untilDestroy$: Subject<void> = new Subject();
 
-  private readonly viewInit$: Subject<void> = new Subject();
+  private readonly viewInit$: Subject<boolean> = new Subject();
 
   @ViewChild(`fields`, { static: false, read: ViewContainerRef })
   private _vcr!: ViewContainerRef;
@@ -72,7 +79,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
   private _currentFields: GeneratedFieldMetadata[] = [];
 
-  private _fieldComponentRefs: {[x: string]: ComponentRef<WrapperComponent>} = {};
+  private _fieldComponentRefs: { [x: string]: ComponentRef<WrapperComponent> } = {};
 
   private source!: FormularySource;
 
@@ -90,6 +97,20 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
       return this.source.isStepped;
     }
     return false;
+  }
+
+  public get activatedStepIndex(): number {
+    if (this.source) {
+      return this.source.activatedStepIndex;
+    }
+    return 0;
+  }
+
+  public get steps(): any[] {
+    if (this.source) {
+      return this.source.steps;
+    }
+    return [];
   }
 
   @Input()
@@ -241,18 +262,18 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   private _should(): void {
-    const shouldCreate = ( !this._old
-      && !!this._current )
+    const shouldCreate = (!this._old
+      && !!this._current)
       || (
-          ( !this._oldFields ||
-            !this._oldFields.length )
-          && ( this._oldFields
-            && this._oldFields.length ) )
+        (!this._oldFields ||
+          !this._oldFields.length)
+        && (this._oldFields
+          && this._oldFields.length))
       || (
         !!this._old && !!this._current
           ? this._old.identifier !== this._current.identifier
           : false
-        );
+      );
     if (shouldCreate) {
       this._findFields();
       this._createFields();
@@ -268,7 +289,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (this.sourceSubscription) {
       this.sourceSubscription.unsubscribe();
       this._clearView();
-      
+
       this._old = null as any;
       this._oldFields = null as any;
 
@@ -278,22 +299,38 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     if (this.yueUiFormularySource) {
       this.source = this.yueUiFormularySource;
 
-      this.source
+      this.sourceSubscription = this.source
         .schematicFieldsChange$
-          .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
-          .subscribe({
-            next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
-              this._current = currentScheme;
-              this._should();
+        .pipe(takeUntil(this.untilDestroy$), delayWhen(() => this.viewInit$))
+        .subscribe({
+          next: () => {
+            if (this.sourceSubscription) {
+              this.sourceSubscription.unsubscribe();
             }
-          });
+            this.sourceSubscription = this.source
+              .schematicFieldsChange$
+              .pipe(takeUntil(this.untilDestroy$))
+              .subscribe({
+                next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
+                  this._current = currentScheme;
+                  this._should();
+                }
+              });
+          }
+        });
+    }
+  }
+
+  public goto(index: number): void {
+    if (this.source) {
+      this.source.staircase().step(index);
     }
   }
 
   public ngOnInit(): void { }
 
   public ngAfterViewInit(): void {
-    this.viewInit$.next();
+    this.viewInit$.next(true);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -304,6 +341,8 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   public ngOnDestroy(): void {
+    console.log(`Veio no desroy`)
+
     this.untilDestroy$.next();
     this.untilDestroy$.complete();
 

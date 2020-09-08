@@ -78,6 +78,11 @@ export class FormularySource<_M = any> {
       readOnly: true
     },
     {
+      name: `_steps`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
+    {
       name: `_step_ignore_validation`,
       value: { [hash()]: 'activated' },
       readOnly: true
@@ -155,8 +160,12 @@ export class FormularySource<_M = any> {
       0
     ],
     [
+      getHiddenProp(this._ref, `_steps`),
+      []
+    ],
+    [
       getHiddenProp(this._ref, `_step_ignore_validation`),
-      false
+      true
     ],
     [
       getHiddenProp(this._ref, `_step_show_labels`),
@@ -224,6 +233,18 @@ export class FormularySource<_M = any> {
     return _step_show_labels;
   }
 
+  public get activatedStepIndex(): number {
+    const _step_ref = getHiddenProp(this._ref, `_step`);
+    const _step = this.____.get(_step_ref) as number;
+    return _step;
+  }
+
+  public get steps(): any[] {
+    const _steps_ref = getHiddenProp(this._ref, `_steps`);
+    const _steps = this.____.get(_steps_ref) as any[];
+    return _steps;
+  }
+
   public get isStepped(): boolean {
     const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
     const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
@@ -245,6 +266,17 @@ export class FormularySource<_M = any> {
     if (_value) {
       if (_value.metadataType === ParentTypes.StaircaseFormulary) {
         const _step_ref = getHiddenProp(this._ref, `_step`);
+        const _steps_ref = getHiddenProp(this._ref, `_steps`);
+        let newSteps: any[] = [];
+        for (let i = 0, l = _value.struct.children.length; i < l; i++) {
+          if (_value.struct.children[i]) {
+            newSteps.push({
+              label: _value.struct.children[i].name,
+              identifier: _value.struct.children[i].identifier,
+            });
+          }
+        }
+        this.____.set(_steps_ref, newSteps);
         const _step = this.____.get(_step_ref) as number;
         if (_step >= 0 && _step <= _value.struct.children.length - 1) {
           _current_scheme$.next(_value.struct.children[_step]);
@@ -274,93 +306,140 @@ export class FormularySource<_M = any> {
     return this;
   }
 
-  // @ts-ignore
-  public staircase(): any {
-    // @ts-ignore
+  public staircase(): {
+    navigation: (scheme?: 'standard' | 'custom') => FormularySource;
+    next: (force?: boolean) => FormularySource;
+    previews: (force?: boolean) => FormularySource;
+    step: (index?: number, force?: boolean) => FormularySource;
+    isValidToNext: () => boolean;
+    isValidToPreviews: () => boolean;
+} {
+    const navigation = (scheme: 'standard' | 'custom' = `standard`): this => {
+      const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
+      if (scheme === `custom`) {
+        this.____.set(_ignore_validation_ref, true);
+      } else {
+        this.____.set(_ignore_validation_ref, false);
+      }
+      return this;
+    };
+    const next = (force: boolean = false): this => {
+      const _form_ref = getHiddenProp(this._ref, `_form$`);
+      const _form = this.____.get(_form_ref) as FormGroup;
+      const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
+      const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
+      const _step_ref = getHiddenProp(this._ref, `_step`);
+      const _step = this.____.get(_step_ref) as number;
+      const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+      const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
+      const _value = _formulary$.value;
+      if (_value) {
+        if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+          const length = _value.struct.children.length;
+          if (_step < length - 1) {
+            if (!_form.invalid || force || _ignore_validation) {
+              this.____.set(_step_ref, _step + 1);
+              this.mountCurrentScheme();
+            }
+          }
+        }
+      } else {
+        throw new Error(`You need to set the fields before calling this function!`);
+      }
+      return this;
+    };
+    const previews = (force: boolean = false): this => {
+      const _form_ref = getHiddenProp(this._ref, `_form$`);
+      const _form = this.____.get(_form_ref) as FormGroup;
+      const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
+      const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
+      const _step_ref = getHiddenProp(this._ref, `_step`);
+      const _step = this.____.get(_step_ref) as number;
+      const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+      const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
+      const _value = _formulary$.value;
+      if (_value) {
+        if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+          const length = _value.struct.children.length;
+          if (_step > length - 1) {
+            if (!_form.invalid || force || _ignore_validation) {
+              this.____.set(_step_ref, _step - 1);
+              this.mountCurrentScheme();
+            }
+          }
+        }
+      } else {
+        throw new Error(`You need to set the fields before calling this function!`);
+      }
+      return this;
+    };
+    const step = (index: number = 0, force: boolean = false): this => {
+      const _form_ref = getHiddenProp(this._ref, `_form$`);
+      const _form = this.____.get(_form_ref) as FormGroup;
+      const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
+      const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
+      const _step_ref = getHiddenProp(this._ref, `_step`);
+      const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+      const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
+      const _value = _formulary$.value;
+      if (_value) {
+        if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+          const length = _value.struct.children.length;
+          if (index >= 0 && index <= length - 1) {
+            if (!_form.invalid || force || _ignore_validation) {
+              this.____.set(_step_ref, index);
+              this.mountCurrentScheme();
+            }
+          }
+        }
+      } else {
+        throw new Error(`You need to set the fields before calling this function!`);
+      }
+      return this;
+    };
+    const isValidToNext = (): boolean => {
+      const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+      const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
+      const _value = _formulary$.value;
+      if (_value) {
+        if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+          const length = _value.struct.children.length;
+          const index = this.activatedStepIndex;
+          if (index < length) {
+            return true;
+          }
+        }
+      } else {
+        throw new Error(`You need to set the fields before calling this function!`);
+      }
+      return false;
+    };
+    const isValidToPreviews = (): boolean => {
+      const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+      const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
+      const _value = _formulary$.value;
+      if (_value) {
+        if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+          const length = _value.struct.children.length;
+          const index = this.activatedStepIndex;
+          if (index <= length && index > 0) {
+            return true;
+          }
+        }
+      } else {
+        throw new Error(`You need to set the fields before calling this function!`);
+      }
+      return false;
+    };
+    
+    
     return {
-      navigation: (scheme: 'standard' | 'custom' = `standard`): this => {
-        const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
-        if (scheme === `custom`) {
-          this.____.set(_ignore_validation_ref, true);
-        } else {
-          this.____.set(_ignore_validation_ref, false);
-        }
-        return this;
-      },
-      next: (force: boolean = false): this => {
-        const _form_ref = getHiddenProp(this._ref, `_form$`);
-        const _form = this.____.get(_form_ref) as FormGroup;
-        const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
-        const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
-        const _step_ref = getHiddenProp(this._ref, `_step`);
-        const _step = this.____.get(_step_ref) as number;
-        const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
-        const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
-        const _value = _formulary$.value;
-        if (_value) {
-          if (_value.metadataType === ParentTypes.StaircaseFormulary) {
-            const length = _value.struct.children.length;
-            if (_step < length - 1) {
-              if (!_form.invalid || force || _ignore_validation) {
-                this.____.set(_step_ref, _step + 1);
-                this.mountCurrentScheme();
-              }
-            }
-          }
-        } else {
-          throw new Error(`You need to set the fields before calling this function!`);
-        }
-        return this;
-      },
-      previews: (force: boolean = false): this => {
-        const _form_ref = getHiddenProp(this._ref, `_form$`);
-        const _form = this.____.get(_form_ref) as FormGroup;
-        const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
-        const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
-        const _step_ref = getHiddenProp(this._ref, `_step`);
-        const _step = this.____.get(_step_ref) as number;
-        const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
-        const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
-        const _value = _formulary$.value;
-        if (_value) {
-          if (_value.metadataType === ParentTypes.StaircaseFormulary) {
-            const length = _value.struct.children.length;
-            if (_step > length - 1) {
-              if (!_form.invalid || force || _ignore_validation) {
-                this.____.set(_step_ref, _step - 1);
-                this.mountCurrentScheme();
-              }
-            }
-          }
-        } else {
-          throw new Error(`You need to set the fields before calling this function!`);
-        }
-        return this;
-      },
-      step: (index: number = 0, force: boolean = false): this => {
-        const _form_ref = getHiddenProp(this._ref, `_form$`);
-        const _form = this.____.get(_form_ref) as FormGroup;
-        const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
-        const _ignore_validation = this.____.get(_ignore_validation_ref) as boolean;
-        const _step_ref = getHiddenProp(this._ref, `_step`);
-        const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
-        const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedStaircaseFormularyMetadata>;
-        const _value = _formulary$.value;
-        if (_value) {
-          if (_value.metadataType === ParentTypes.StaircaseFormulary) {
-            const length = _value.struct.children.length;
-            if (index >= 0 && index < length - 1) {
-              if (!_form.invalid || force || _ignore_validation) {
-                this.____.set(_step_ref, index);
-                this.mountCurrentScheme();
-              }
-            }
-          }
-        } else {
-          throw new Error(`You need to set the fields before calling this function!`);
-        }
-        return this;
-      },
+      navigation,
+      next,
+      previews,
+      step,
+      isValidToNext,
+      isValidToPreviews,
     };
   }
 

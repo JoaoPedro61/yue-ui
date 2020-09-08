@@ -2,7 +2,7 @@
   "name": "@joaopedro61/yue-ui",
   "license": "MIT",
   "description": "Simple UiToolKit",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "dependencies": {
     "tslib": "^1.10.0",
     "@angular/cdk": "^9.0.0",
