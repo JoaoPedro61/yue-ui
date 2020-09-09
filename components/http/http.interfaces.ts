@@ -23,6 +23,8 @@ export type YueEnableCache = YueEnableCacheOptions | boolean;
 
 export type YueUiHttpCacheData = Map<string, YueUiHttpCacheEntry>;
 
+export type YueUiHttpHeaders = BehaviorSubject<{[name: string]: any;}>;
+
 export type YueUiHttpPending = Map<string, YueUiHttpPendingEntry>;
 
 export type YueProgressRequestOptions = null | {
