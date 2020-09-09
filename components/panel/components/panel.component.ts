@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy, ContentChild, ElementRef, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, HostListener } from '@angular/core';
 
 import { elementDimentions } from '@joaopedro61/yue-ui/core/utils';
 
 
 import { YueUiPanelContentComponent } from './content.component';
-import { YueUiPanelHeaderComponent } from './header.component';
 
 
 
@@ -23,13 +22,27 @@ import { YueUiPanelHeaderComponent } from './header.component';
 })
 export class YueUiPanelComponent {
 
-  @ContentChild(YueUiPanelHeaderComponent, { static: false, read: ElementRef })
-  public panelHeader!: ElementRef<any>;
+  public panelHeader: ElementRef<any> | null = null;
 
-  @ContentChild(YueUiPanelContentComponent, { static: false })
-  public panelContent!: YueUiPanelContentComponent;
+  public panelContent: YueUiPanelContentComponent | null = null;
 
   constructor(public readonly el: ElementRef) { }
+
+  public setHeaderEl(el: ElementRef<any> | null): void {
+    this.panelHeader = el;
+    setTimeout(() => {
+      this.updateHeight();
+    });
+    this.dispathFakeEvent();
+  }
+
+  public setPanelContent(comp: YueUiPanelContentComponent | null): void {
+    this.panelContent = comp;
+    setTimeout(() => {
+      this.updateHeight();
+    });
+    this.dispathFakeEvent();
+  }
 
   public getHeightDifference(): number {
     let headerHeight = 0;
@@ -41,8 +54,10 @@ export class YueUiPanelComponent {
   }
 
   public updateHeight(): void {
-    this.panelContent.setHeight(this.getHeightDifference());
-    this.panelContent.cdr.detectChanges();
+    if (this.panelContent) {
+      this.panelContent.setHeight(this.getHeightDifference());
+      this.panelContent.cdr.detectChanges();
+    }
   }
 
   public dispathFakeEvent(): void {

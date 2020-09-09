@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Optional, Host, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { YueUiPanelComponent } from './panel.component';
+
 
 
 
@@ -15,6 +17,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     `./../styles/header.component.less`,
   ],
 })
-export class YueUiPanelHeaderComponent {
+export class YueUiPanelHeaderComponent implements OnInit, OnDestroy {
+
+  constructor(private readonly el: ElementRef<any>, @Optional() @Host() private readonly panel?: YueUiPanelComponent) { }
+
+  public ngOnInit(): void {
+    if (this.panel) {
+      this.panel.setHeaderEl(this.el);
+    }
+  }
+
+  public ngOnDestroy(): void {
+    if (this.panel) {
+      this.panel.setHeaderEl(null);
+    }
+  }
+
 }
 

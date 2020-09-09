@@ -22,18 +22,72 @@ import { YueUiHttpService } from '@joaopedro61/yue-ui/http';
 import { take } from 'rxjs/operators';
 import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 import { YueUiI18nService } from '@joaopedro61/yue-ui/i18n';
+import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 
 
 
 
 @NgComponent({
   template: `
-    <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+  <yue-ui-panel>
+    <yue-ui-panel-content style="overflow-y: auto;">
+      <yue-ui-panel-slot [yueUiPanelSlotFill]="true">
+        <div [style.paddingRight.px]="40" [style.paddingBottom.px]="40" [style.height.%]="100">
+          <yue-ui-panel>
+            <yue-ui-panel-header>
+              <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="breadcrumbs"></yue-ui-panel-present>
+            </yue-ui-panel-header>
+            <yue-ui-panel-content>
+              <yue-ui-panel-slot [yueUiPanelSlotWidth]="240" yueUiPanelSlotHeight="100" [style.background]="'purple'">
+                <yue-ui-menu>
+                  <yue-ui-menu-item [yueUiMenuItemSelected]="true">
+                    <a [routerLink]="['.']">
+                      <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                      Menu item 1
+                    </a>
+                  </yue-ui-menu-item>
+                  <yue-ui-menu-item>
+                    <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                    Menu item 1
+                  </yue-ui-menu-item>
+                  <yue-ui-menu-divider>
+                    <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                    Other settings
+                  </yue-ui-menu-divider>
+                </yue-ui-menu>
+              </yue-ui-panel-slot>
+              <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.background]="'red'">
+                <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+              </yue-ui-panel-slot>
+            </yue-ui-panel-content>
+          </yue-ui-panel>
+        </div>
+      </yue-ui-panel-slot>
+    </yue-ui-panel-content>
+  </yue-ui-panel>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Component2 {
+
+
+  private _breadcrumbs = [
+    {
+      label: `Home`,
+    },
+    {
+      label: `CRM`,
+    },
+    {
+      label: `Clients`,
+    },
+  ];
+
+  public get breadcrumbs(): YueUiBreadcrumbItem[] {
+    return this._breadcrumbs;
+  }
+
 
   public tableSource: TableSource = new TableSource<any>();
 

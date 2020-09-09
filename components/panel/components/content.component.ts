@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Optional, Host, OnInit, OnDestroy } from '@angular/core';
+import { YueUiPanelComponent } from './panel.component';
 
 
 
@@ -17,14 +18,26 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@a
     `./../styles/content.component.less`
   ]
 })
-export class YueUiPanelContentComponent {
+export class YueUiPanelContentComponent implements OnInit, OnDestroy {
 
   public height: number | null = null;
 
   @Input()
   public yueUiPanelContentWrap = false;
 
-  constructor(public readonly cdr: ChangeDetectorRef) { }
+  constructor(public readonly cdr: ChangeDetectorRef, @Optional() @Host() private readonly panel?: YueUiPanelComponent) { }
+
+  public ngOnInit(): void {
+    if (this.panel) {
+      this.panel.setPanelContent(this);
+    }
+  }
+
+  public ngOnDestroy(): void {
+    if (this.panel) {
+      this.panel.setPanelContent(null);
+    }
+  }
 
   public setHeight(height: number): void {
     this.height = height;
