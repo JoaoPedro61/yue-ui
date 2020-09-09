@@ -47,7 +47,9 @@ export class YueUiThematizationService {
     }
     let formated_styles = `:root {`;
     vars.forEach((key: string) => {
-      formated_styles += `--${key.replace(/\./gm, `-`)}: ${theme_vars[key]};`;
+      if (typeof theme_vars[key] === `string`) {
+        formated_styles += `--${key.replace(/\./gm, `-`)}: ${theme_vars[key]};`;
+      }
     });
     formated_styles += `}`;
     let style_el: HTMLStyleElement = this._document.querySelector(`.thematization-style-el`);

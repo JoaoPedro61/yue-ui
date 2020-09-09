@@ -13,7 +13,7 @@ import {
 import { AbstractControl, FormControl } from '@angular/forms';
 
 import { Subject } from 'rxjs';
-import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, skip } from 'rxjs/operators';
 import { differenceBy } from 'lodash';
 
 import { getValidators, getMessages } from '@joaopedro61/yue-ui/formulary/utils';
@@ -529,6 +529,17 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.should();
+
+    if (this.formulary) {
+      this.formulary
+        .unknownChanges$
+        .pipe(skip(1), takeUntil(this.untilDestroy$))
+        .subscribe({
+          next: () => {
+
+          }
+        });
+    }
   }
 
   public ngOnDestroy(): void {

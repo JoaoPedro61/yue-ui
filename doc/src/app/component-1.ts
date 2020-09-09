@@ -14,7 +14,7 @@ import { Component3 as Modal1 } from './component-3';
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuInlineCollapsed]="false" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
-              <a [routerLink]="['.']">
+              <a [routerLink]="['child']">
                 <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
                 Menu item 1
               </a>

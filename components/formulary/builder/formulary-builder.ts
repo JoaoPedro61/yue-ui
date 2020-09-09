@@ -239,6 +239,18 @@ export class FormularySource<_M = any> {
     return _step;
   }
 
+  public get isHiddenLabel(): boolean {
+    const _hide_label_ref = getHiddenProp(this._ref, `_hide_label`);
+    const _hide_label = this.____.get(_hide_label_ref) as boolean;
+    return _hide_label;
+  }
+
+  public get isHiddenDescriptor(): boolean {
+    const _hide_descriptor_ref = getHiddenProp(this._ref, `_hide_descriptor`);
+    const _hide_descriptor = this.____.get(_hide_descriptor_ref) as boolean;
+    return _hide_descriptor;
+  }
+
   public get steps(): any[] {
     const _steps_ref = getHiddenProp(this._ref, `_steps`);
     const _steps = this.____.get(_steps_ref) as any[];

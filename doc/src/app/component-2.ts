@@ -38,7 +38,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
               <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="breadcrumbs"></yue-ui-panel-present>
             </yue-ui-panel-header>
             <yue-ui-panel-content>
-              <yue-ui-panel-slot [yueUiPanelSlotWidth]="240" yueUiPanelSlotHeight="100" [style.background]="'purple'">
+              <yue-ui-panel-slot [yueUiPanelSlotWidth]="240" yueUiPanelSlotHeight="100">
                 <yue-ui-menu>
                   <yue-ui-menu-item [yueUiMenuItemSelected]="true">
                     <a [routerLink]="['.']">
@@ -56,8 +56,12 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
                   </yue-ui-menu-divider>
                 </yue-ui-menu>
               </yue-ui-panel-slot>
-              <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.background]="'red'">
-                <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+              <yue-ui-panel-slot yueUiPanelSlotHeight="100">
+                <div yueUiGrid yueUiGridAlign="center">
+                  <div yueUiGridCol [yueUiGridColMd]="{ span: 18, offset: 3 }">
+                    <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+                  </div>
+                </div>
               </yue-ui-panel-slot>
             </yue-ui-panel-content>
           </yue-ui-panel>
