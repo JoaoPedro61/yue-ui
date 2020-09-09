@@ -24,6 +24,8 @@ import {
 @NgComponent({
   template: `
     <yue-ui-formulary [yueUiFormularySource]="formulary"></yue-ui-formulary>
+    <div *yueUiModalFooter>
+    </div>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush

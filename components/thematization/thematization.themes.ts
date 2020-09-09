@@ -345,6 +345,9 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
             color: `var(--color-dark)`,
           }
         },
+        divider: {
+          color: `var(--color-muted)`,
+        }
       },
       pagination: {
         selected: {

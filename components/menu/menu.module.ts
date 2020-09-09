@@ -12,6 +12,8 @@ import { YueUiSubMenuTitleComponent } from './components/sub-menu-title.componen
 import { YueUiSubMenuInlineChildComponent } from './components/sub-menu-inline-child.component';
 import { YueUiSubMenuNoneInlineChildComponent } from './components/sub-menu-none-inline-child.component';
 import { YueUiMenuItemComponent } from './components/menu-item.component';
+import { YueUiMenuDividerComponent } from './components/menu-divider.component';
+
 
 const logger = logging.getLogger('core.button');
 
@@ -23,7 +25,8 @@ const logger = logging.getLogger('core.button');
     YueUiSubMenuTitleComponent,
     YueUiMenuItemComponent,
     YueUiSubMenuInlineChildComponent,
-    YueUiSubMenuNoneInlineChildComponent
+    YueUiSubMenuNoneInlineChildComponent,
+    YueUiMenuDividerComponent
   ],
   exports: [
     YueUiMenuComponent,
@@ -31,7 +34,8 @@ const logger = logging.getLogger('core.button');
     YueUiSubMenuTitleComponent,
     YueUiMenuItemComponent,
     YueUiSubMenuInlineChildComponent,
-    YueUiSubMenuNoneInlineChildComponent
+    YueUiSubMenuNoneInlineChildComponent,
+    YueUiMenuDividerComponent
   ],
   imports: [
     CommonModule,

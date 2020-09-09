@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 
 
 
@@ -9,7 +9,8 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
   preserveWhitespaces: false,
   host: {
     '[class.yue-ui-panel-content]': 'true',
-    '[style.height.px]': 'height'
+    '[style.height.px]': 'height',
+    '[style.flex-wrap]': `yueUiPanelContentWrap ? 'wrap' : 'nowrap'`,
   },
   exportAs: `yueUiPanelContentRef`,
   styleUrls: [
@@ -19,6 +20,9 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
 export class YueUiPanelContentComponent {
 
   public height: number | null = null;
+
+  @Input()
+  public yueUiPanelContentWrap = false;
 
   constructor(public readonly cdr: ChangeDetectorRef) { }
 

@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import { Component as NgComponent, ChangeDetectionStrategy,  } from '@angular/core';
+import { Component as NgComponent, ChangeDetectionStrategy, } from '@angular/core';
 import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 
@@ -23,6 +23,10 @@ import { Component3 as Modal1 } from './component-3';
               <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
               Menu item 1
             </yue-ui-menu-item>
+            <yue-ui-menu-divider>
+              <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+              Other settings
+            </yue-ui-menu-divider>
             <yue-ui-submenu>
               Sub menu
               <yue-ui-menu>
@@ -57,14 +61,40 @@ import { Component3 as Modal1 } from './component-3';
       </yue-ui-navigation-menu>
       <yue-ui-panel>
         <yue-ui-panel-content>
-          <yue-ui-panel-slot>
+          <yue-ui-panel-slot [yueUiPanelSlotFill]="true">
             <div [style.paddingRight.px]="40">
-              <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="bread">
-                <button yueUiButton (click)="open();">
-                  New
-                </button>
-              </yue-ui-panel-present>
-              <router-outlet></router-outlet>
+              <yue-ui-panel>
+                <yue-ui-panel-content>
+                  <yue-ui-panel-slot [yueUiPanelSlotWidth]="240">
+                  <yue-ui-menu>
+                    <yue-ui-menu-item [yueUiMenuItemSelected]="true">
+                      <a [routerLink]="['.']">
+                        <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                        Menu item 1
+                      </a>
+                    </yue-ui-menu-item>
+                    <yue-ui-menu-item>
+                      <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                      Menu item 1
+                    </yue-ui-menu-item>
+                    <yue-ui-menu-divider>
+                      <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                      Other settings
+                    </yue-ui-menu-divider>
+                  </yue-ui-menu>
+                  
+                  
+                  </yue-ui-panel-slot>
+                  <yue-ui-panel-slot>
+                    <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="bread">
+                      <button yueUiButton (click)="open();">
+                        New
+                      </button>
+                    </yue-ui-panel-present>
+                    <router-outlet></router-outlet>
+                  </yue-ui-panel-slot>
+                </yue-ui-panel-content>
+              </yue-ui-panel>
             </div>
           </yue-ui-panel-slot>
         </yue-ui-panel-content>
