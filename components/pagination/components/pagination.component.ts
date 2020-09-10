@@ -54,6 +54,7 @@ import { pager } from '../utils/pager';
                 [ngModel]="yueUiPaginationPageSize"
                 [yueUiSelectAllowClear]="false"
                 [yueUiSelectAllowSearch]="false"
+                [yueUiSelectAllowEmpty]="false"
                 [yueUiSelectPropertyLabel]="false"
                 [yueUiSelectPropertyValue]="false"
                 (ngModelChange)="onPageSizeChanged($event);"

@@ -10,6 +10,8 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
+import { YueUiGridModule } from '@joaopedro61/yue-ui/grid';
+
 import { YueUiCustomColorpickerModule } from '@joaopedro61/yue-ui/formulary/custom/colorpicker';
 import { YueUiCustomDatepickerModule } from '@joaopedro61/yue-ui/formulary/custom/datepicker';
 import { YueUiCustomNumberModule } from '@joaopedro61/yue-ui/formulary/custom/number';
@@ -77,6 +79,7 @@ const logger = logging.getLogger('core.formulary.builder');
     YueUiCustomPasswordModule,
     YueUiCustomTextareaModule,
 
+    YueUiGridModule,
     YueUiSmartRenderModule,
     YueUiButtonModule,
     YueUiThematizationModule,

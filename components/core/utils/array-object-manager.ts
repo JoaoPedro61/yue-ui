@@ -214,4 +214,8 @@ export class ArrayObjectManager {
     return this.isShowed;
   }
 
+  public complete(): void {
+    this.behavior$.complete();
+  }
+
 }

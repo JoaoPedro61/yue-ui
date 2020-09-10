@@ -19,9 +19,8 @@ import { Component3 as Modal1 } from './component-3';
                 Menu item 1
               </a>
             </yue-ui-menu-item>
-            <yue-ui-menu-item>
-              <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
-              Menu item 1
+            <yue-ui-menu-item (click)="open();">
+              Modal
             </yue-ui-menu-item>
             <yue-ui-menu-divider>
               <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>

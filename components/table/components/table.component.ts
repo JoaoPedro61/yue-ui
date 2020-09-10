@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewInit, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 
 import { TableSource } from './../table-source';
-
-import { takeUntil } from 'rxjs/operators';
 import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../utils/interfaces';
 
 
@@ -16,73 +16,80 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
       <div class="yue-ui-table-wrapper-inner">
         <ng-container *ngIf="source; else nosource">
           <ng-container *ngIf="hasData; else norows">
-            <ng-container *ngIf="hasColumns; else nocolumns">
-              <table class="yue-ui-table-el">
-                <ng-container *ngIf="showHeader">
-                  <thead class="yue-ui-table-header-el">
-                    <tr class="yue-ui-table-header-row-el">
-                      <ng-container *ngFor="let column of columns$ | async">
-                        <th [style.width]="column.width" class="yue-ui-table-header-row-th-el" [class.isSortable]="!!column.allowSort" (click)="handleClickOnColumnHeader(column);">
-                          <yue-ui-smart-render
-                            [yueUiSmartRender]="column.cellHeader"
-                            [yueUiSmartRenderContext]="column"
-                          >
-                          </yue-ui-smart-render>
-                          <ng-container *ngIf="column.allowSort">
-                            <div class="sortable-handler-wrapper" [class.asc]="column.sorting === 'asc'" [class.desc]="column.sorting === 'desc'">
-                              <div class="sortable-handler">
-                                <div class="up">
-                                </div>
-                                <div class="down">
-                                </div>
-                              </div>
-                            </div>
-                          </ng-container>
-                        </th>
-                      </ng-container>
-                      <ng-container *ngIf="hasActions">
-                        <th [style.width.px]="60" class="yue-ui-table-header-row-th-el">
-                          <yue-ui-i18n yueUiI18nToken="components.table.actions" [yueUiI18nParameters]="{ default: 'Actions' }"></yue-ui-i18n>
-                        </th>
-                      </ng-container>
-                    </tr>
-                  </thead>
-                </ng-container>
-                <tbody class="yue-ui-table-body-el">
-                  <ng-container *ngFor="let row of data$ | async">
-                    <tr class="yue-ui-table-body-row-el">
-                      <ng-container *ngFor="let column of row">
-                        <td class="yue-ui-table-body-row-td-el">
-                          <ng-container *ngIf="column.cell; else plaint">
+            <ng-container *ngIf="!(loading$ | async); else loading">
+              <ng-container *ngIf="hasColumns; else nocolumns">
+                <table class="yue-ui-table-el">
+                  <ng-container *ngIf="showHeader">
+                    <thead class="yue-ui-table-header-el">
+                      <tr class="yue-ui-table-header-row-el">
+                        <ng-container *ngFor="let column of columns$ | async">
+                          <th [style.width]="column.width" class="yue-ui-table-header-row-th-el" [class.isSortable]="!!column.allowSort" (click)="handleClickOnColumnHeader(column);">
                             <yue-ui-smart-render
-                              [yueUiSmartRender]="column.cell"
+                              [yueUiSmartRender]="column.cellHeader"
                               [yueUiSmartRenderContext]="column"
                             >
                             </yue-ui-smart-render>
-                          </ng-container>
-                          <ng-template #plaint>
-                            <span [innerText]="column.value"></span>
-                          </ng-template>
-                        </td>
-                      </ng-container>
-                      <ng-container *ngIf="hasActions">
-                        <td class="yue-ui-table-body-row-td-el">
-                          <yue-ui-table-actions-cell
-                            [yueUiTableActionsCellActions]="actions$ | async"
-                            [yueUiTableActionsCellRow]="row"
-
-                            (yueUiTableActionsCellTriggerAction)="onTriggerAction($event);"
-                           ></yue-ui-table-actions-cell>
-                        </td>
-                      </ng-container>
-                    </tr>
+                            <ng-container *ngIf="column.allowSort">
+                              <div class="sortable-handler-wrapper" [class.asc]="column.sorting === 'asc'" [class.desc]="column.sorting === 'desc'">
+                                <div class="sortable-handler">
+                                  <div class="up">
+                                  </div>
+                                  <div class="down">
+                                  </div>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </th>
+                        </ng-container>
+                        <ng-container *ngIf="hasActions">
+                          <th [style.width.px]="60" class="yue-ui-table-header-row-th-el">
+                            <yue-ui-i18n yueUiI18nToken="components.table.actions" [yueUiI18nParameters]="{ default: 'Actions' }"></yue-ui-i18n>
+                          </th>
+                        </ng-container>
+                      </tr>
+                    </thead>
                   </ng-container>
-                </tbody>
-              </table>
+                  <tbody class="yue-ui-table-body-el">
+                    <ng-container *ngFor="let row of data$ | async">
+                      <tr class="yue-ui-table-body-row-el">
+                        <ng-container *ngFor="let column of row">
+                          <td class="yue-ui-table-body-row-td-el">
+                            <ng-container *ngIf="column.cell; else plaint">
+                              <yue-ui-smart-render
+                                [yueUiSmartRender]="column.cell"
+                                [yueUiSmartRenderContext]="column"
+                              >
+                              </yue-ui-smart-render>
+                            </ng-container>
+                            <ng-template #plaint>
+                              <span [innerText]="column.value"></span>
+                            </ng-template>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="hasActions">
+                          <td class="yue-ui-table-body-row-td-el">
+                            <yue-ui-table-actions-cell
+                              [yueUiTableActionsCellActions]="actions$ | async"
+                              [yueUiTableActionsCellRow]="row"
+
+                              (yueUiTableActionsCellTriggerAction)="onTriggerAction($event);"
+                            ></yue-ui-table-actions-cell>
+                          </td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </ng-container>
+              <ng-template #nocolumns>
+                <div class="table-error-el">
+                  <yue-ui-i18n yueUiI18nToken="components.table.noColumns"></yue-ui-i18n>
+                </div>
+              </ng-template>
             </ng-container>
-            <ng-template #nocolumns>
+            <ng-template #loading>
               <div class="table-error-el">
-                <yue-ui-i18n yueUiI18nToken="components.table.noColumns"></yue-ui-i18n>
+                <yue-ui-i18n yueUiI18nToken="components.table.loading"></yue-ui-i18n>
               </div>
             </ng-template>
           </ng-container>
@@ -99,7 +106,7 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
         </ng-template>
       </div>
     </div>
-    <ng-container *ngIf="showPagination && source && hasData && hasColumns">
+    <ng-container *ngIf="showPagination && source && hasData && hasColumns && !(loading$ | async)">
       <div style="display: flex;justify-content: flex-end;">
         <yue-ui-pagination
           [yueUiPaginationItensCount]="totalOfItens"
@@ -129,6 +136,8 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
 export class YueUiTableComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
 
   public destroy$: Subject<void> = new Subject();
+
+  public loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public data$: BehaviorSubject<(TableDataRowItem[])[]> = new BehaviorSubject<(TableDataRowItem[])[]>([]);
 
@@ -216,6 +225,16 @@ export class YueUiTableComponent implements OnChanges, OnInit, OnDestroy, AfterV
 
     if (this.source) {
       this.source
+        .connectStreamLoading()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (isLoading) => {
+            this.loading$.next(isLoading);
+            this.cdr.markForCheck();
+          },
+        });
+
+      this.source
         .connectRenderedStreamData()
         .pipe(takeUntil(this.destroy$))
         .subscribe({
@@ -301,13 +320,17 @@ export class YueUiTableComponent implements OnChanges, OnInit, OnDestroy, AfterV
 
   public onPageChange(value: number): void {
     if (this.source) {
-      this.source.updatePageAndPageSize(value);
+      if (this.source.page !== value) {
+        this.source.updatePageAndPageSize(value);
+      }
     }
   }
 
   public onPageSizeChange(value: number): void {
     if (this.source) {
-      this.source.updatePageAndPageSize(void 0, value);
+      if (this.source.pageSize !== value) {
+        this.source.updatePageAndPageSize(void 0, value);
+      }
     }
   }
 
@@ -323,6 +346,8 @@ export class YueUiTableComponent implements OnChanges, OnInit, OnDestroy, AfterV
     this.data$.complete();
     this.columns$.complete();
     this.actions$.complete();
+
+    this.loading$.complete();
 
     this.destroy$.next();
     this.destroy$.complete();

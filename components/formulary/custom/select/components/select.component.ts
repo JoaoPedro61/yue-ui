@@ -285,6 +285,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
   public yueUiSelectAllowClear = true;
 
   @Input()
+  public yueUiSelectAllowEmpty = true;
+
+  @Input()
   public yueUiSelectDebounceOnType = 250;
 
   @Input()
@@ -319,6 +322,14 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
     this._renderer = this.rf2.createRenderer(null, null);
   }
 
+  public focusToEl(): void {
+    if (!this.disabled) {
+      if (this.inputFake && this.inputFake.nativeElement) {
+        this.inputFake.nativeElement.focus();
+      }
+    }
+  }
+  
   public onKeyDown(e: KeyboardEvent): void {
     if (this.disabled) {
       return void 0;
@@ -413,7 +424,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   public selectOption(_value: any, component: YueUiSelectOptionComponent): void {
     if (this.mode === `single`) {
-      if (equals(this.value, component.value)) {
+      if (equals(this.value, component.value) && this.yueUiSelectAllowEmpty) {
         this.selections = [];
         this._activatedValue = null;
         this.value = null;
@@ -597,6 +608,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   public focus(): void {
     if (!this.disabled) {
+      this.focusToEl();
       this.show();
     }
   }

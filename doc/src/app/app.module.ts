@@ -19,6 +19,7 @@ import { YueUiPanelModule } from '@joaopedro61/yue-ui/panel';
 import { YueUiTableModule } from '@joaopedro61/yue-ui/table';
 import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
 import { YueUiGridModule } from '@joaopedro61/yue-ui/grid';
+import { YueUiNotificationModule } from '@joaopedro61/yue-ui/notification';
 
 
 import { Component1 as Home } from './component-1';
@@ -61,6 +62,7 @@ import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
     YueUiHttpModule,
     YueUiIconModule,
     YueUiGridModule,
+    YueUiNotificationModule,
   ],
   providers: [],
   bootstrap: [

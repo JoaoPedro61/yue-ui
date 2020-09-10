@@ -1,5 +1,5 @@
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import {
   ArrayObjectManager,
@@ -50,6 +50,25 @@ function updateFragments(obj: any): void {
 }
 
 export class FormularySource<_M = any> {
+
+  private readonly _props = [
+    `_identifier`,
+    `_buttons_alignment`,
+    `_hide_descriptor`,
+    `_hide_label`,
+    `_step`,
+    `_steps`,
+    `_step_ignore_validation`,
+    `_step_show_labels`,
+    `_model$`,
+    `_modelPure$`,
+    `_formulary$`,
+    `_current_scheme$`,
+    `_form$`,
+    `_options$`,
+    `_buttons$`,
+    `_unknown_changes$`,
+  ];
 
   private readonly _ref = setHiddenProps({}, [
     {
@@ -325,7 +344,7 @@ export class FormularySource<_M = any> {
     step: (index?: number, force?: boolean) => FormularySource;
     isValidToNext: () => boolean;
     isValidToPreviews: () => boolean;
-} {
+  } {
     const navigation = (scheme: 'standard' | 'custom' = `standard`): this => {
       const _ignore_validation_ref = getHiddenProp(this._ref, `_step_ignore_validation`);
       if (scheme === `custom`) {
@@ -443,8 +462,8 @@ export class FormularySource<_M = any> {
       }
       return false;
     };
-    
-    
+
+
     return {
       navigation,
       next,
@@ -457,92 +476,25 @@ export class FormularySource<_M = any> {
 
   public shouldHideStepLabels(hide: boolean = true): this {
     this.____.set(getHiddenProp(this._ref, `_step_show_labels`), !hide);
-    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next(hash());
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      hideStepLabels: !hide,
+    });
     return this;
   }
 
   public shouldHideLabels(hide: boolean = true): this {
     this.____.set(getHiddenProp(this._ref, `_hide_label`), hide);
-    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next(hash());
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      hideLabels: hide,
+    });
     return this;
   }
 
   public shouldHideDescriptors(hide: boolean = true): this {
     this.____.set(getHiddenProp(this._ref, `_hide_descriptor`), hide);
-    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next(hash());
-    return this;
-  }
-
-  public shouldHideButtons(...identifiers: (string | string[])[]): this {
-    let _identifiers: string[] = [];
-    for (let i = 0, l = identifiers.length; i < l; i++) {
-      if (Array.isArray(identifiers[i])) {
-        _identifiers = [...identifiers[i]];
-      } else {
-        _identifiers.push(identifiers[i] as string);
-      }
-    }
-    this.____.get(getHiddenProp(this._ref, '_buttons$')).hide(..._identifiers);
-    return this;
-  }
-
-  public shouldShowButtons(...identifiers: (string | string[])[]): this {
-    let _identifiers: string[] = [];
-    for (let i = 0, l = identifiers.length; i < l; i++) {
-      if (Array.isArray(identifiers[i])) {
-        _identifiers = [...identifiers[i]];
-      } else {
-        _identifiers.push(identifiers[i] as string);
-      }
-    }
-    this.____.get(getHiddenProp(this._ref, '_buttons$')).show(..._identifiers);
-    return this;
-  }
-
-  public removeButtons(...identifiers: (string | string[])[]): this {
-    const _buttons_ref = getHiddenProp(this._ref, `_buttons`);
-    const _stepped_buttons_ref = getHiddenProp(this._ref, `_stepped_buttons`);
-    const _buttons = this.____.get(_buttons_ref);
-    const _stepped_buttons = this.____.get(_stepped_buttons_ref);
-    let _identifiers: string[] = [];
-    for (let i = 0, l = identifiers.length; i < l; i++) {
-      if (Array.isArray(identifiers[i])) {
-        _identifiers = [...identifiers[i]];
-      } else {
-        _identifiers.push(identifiers[i] as string);
-      }
-    }
-    for (let i = 0, l = _identifiers.length; i < l; i++) {
-      loop1:
-      for (let o = 0, u = _buttons.length; o < u; o++) {
-        if (_buttons[o].identifier === _identifiers[i]) {
-          _buttons.splice(o, 1);
-          break loop1;
-        }
-      }
-      loop2:
-      for (let p = 0, k = _stepped_buttons.length; p < k; p++) {
-        if (_stepped_buttons[p].identifier === _identifiers[i]) {
-          _stepped_buttons.splice(p, 1);
-          break loop2;
-        }
-      }
-    }
-    this.____.set(_buttons_ref, _buttons);
-    this.____.set(_stepped_buttons_ref, _stepped_buttons);
-    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next(hash());
-    return this;
-  }
-
-  public insertButtons(...providers: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): this {
-    let _providers: GeneratedButtonMetadataFn[] = [];
-    for (let i = 0, l = providers.length; i < l; i++) {
-      if (Array.isArray(providers[i])) {
-        _providers = _providers.concat(providers[i]);
-      } else {
-        _providers.push(providers[i] as GeneratedButtonMetadataFn);
-      }
-    }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      hideDescriptors: hide,
+    });
     return this;
   }
 
@@ -790,25 +742,86 @@ export class FormularySource<_M = any> {
     return this;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  public shouldUpdateButton(): this {
+  public shouldHideButtons(...identifiers: (string | string[])[]): this {
+    let _identifiers: string[] = [];
+    for (let i = 0, l = identifiers.length; i < l; i++) {
+      if (Array.isArray(identifiers[i])) {
+        _identifiers = [...identifiers[i]];
+      } else {
+        _identifiers.push(identifiers[i] as string);
+      }
+    }
+    this.____.get(getHiddenProp(this._ref, '_buttons$')).hide(..._identifiers);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      hideButtons: _identifiers,
+    });
     return this;
   }
 
-  public setButtonsAlignment(): this {
+  public shouldShowButtons(...identifiers: (string | string[])[]): this {
+    let _identifiers: string[] = [];
+    for (let i = 0, l = identifiers.length; i < l; i++) {
+      if (Array.isArray(identifiers[i])) {
+        _identifiers = [...identifiers[i]];
+      } else {
+        _identifiers.push(identifiers[i] as string);
+      }
+    }
+    this.____.get(getHiddenProp(this._ref, '_buttons$')).show(..._identifiers);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      showButtons: _identifiers,
+    });
     return this;
   }
+
+  public removeButtons(...identifiers: (string | string[])[]): this {
+    const _buttons_ref = getHiddenProp(this._ref, `_buttons`);
+    const _buttons = this.____.get(_buttons_ref);
+    let _identifiers: string[] = [];
+    for (let i = 0, l = identifiers.length; i < l; i++) {
+      if (Array.isArray(identifiers[i])) {
+        _identifiers = [...identifiers[i]];
+      } else {
+        _identifiers.push(identifiers[i] as string);
+      }
+    }
+    this.____.set(_buttons_ref, _buttons);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      removedButtons: _identifiers,
+    });
+    return this;
+  }
+
+  // @ts-ignore
+  private insertButtons(...providers: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): this {
+    let _providers: GeneratedButtonMetadataFn[] = [];
+    for (let i = 0, l = providers.length; i < l; i++) {
+      if (Array.isArray(providers[i])) {
+        _providers = _providers.concat(providers[i]);
+      } else {
+        _providers.push(providers[i] as GeneratedButtonMetadataFn);
+      }
+    }
+    return this;
+  }
+
+  // @ts-ignore
+  private shouldUpdateButton(): this {
+    return this;
+  }
+
+  // @ts-ignore
+  private setButtonsAlignment(): this {
+    return this;
+  }
+
+
+
+
+
+
+
+
 
   public subscribe(): this {
     return this;
@@ -818,6 +831,20 @@ export class FormularySource<_M = any> {
     return this;
   }
 
-  public destroy(): void { }
+  public destroy(): void {
+    this._props.forEach((prop: string) => {
+      const ref = getHiddenProp(this._ref, prop);
+      const value = this.____.get(ref);
+      if (value instanceof Observable || value instanceof BehaviorSubject || value instanceof Subject || value.complete) {
+        value.complete();
+      } else if (typeof value === `object` && typeof value.destroy == `function`) {
+        value.destroy();
+      }
+      this.____.has(ref);
+      this.____.delete(ref);
+    });
+    (this._ref as any) = Object.assign({});
+    (this._props as any) = [];
+  }
 
 }

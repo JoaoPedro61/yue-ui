@@ -9,6 +9,13 @@ import { FieldAbstraction } from './abstraction';
     <yue-ui-number
       [formControl]="abstractControl"
       [yueUiNumberPlaceholder]="placeholder"
+      (click)="listeners('click', $event)"
+      (mousedown)="listeners('mousedown', $event)"
+      (mouseup)="listeners('mouseup', $event)"
+      (mouseenter)="listeners('mouseenter', $event)"
+      (mouseleave)="listeners('mouseleave', $event)"
+      (focus)="listeners('focus', $event)"
+      (blur)="listeners('blur', $event)"
     ></yue-ui-number>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

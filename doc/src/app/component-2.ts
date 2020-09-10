@@ -46,7 +46,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
                       Menu item 1
                     </a>
                   </yue-ui-menu-item>
-                  <yue-ui-menu-item>
+                  <yue-ui-menu-item (click)="noty();">
                     <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
                     Menu item 1
                   </yue-ui-menu-item>
@@ -139,7 +139,7 @@ export class Component2 {
           tableColumnLabel(`E-mail`),
         ]),
       ])
-      .onPaginate(() => this.loadFromReq())
+      .onPaginate(_ => this.loadFromReq())
       .onTriggerAction(() => {
         this.modal.confirm({
           header: this.i18n.translateAsync(`deleteClientTitle`, { default: `Delete client` }).pipe(take(1)),
@@ -153,15 +153,20 @@ export class Component2 {
     this.loadFromReq();
   }
 
+  public noty(): void {
+  }
+
   private loadFromReq(): void {
+    this.tableSource.setLoading();
     this.http
       .get(`https://jsonplaceholder.typicode.com/users`)
       .pipe(take(1))
       .subscribe({
         next: (response: any) => {
-          this.tableSource.render(response);
-        }
-      });
+            this.tableSource.setLoading(false);
+            this.tableSource.render(response);
+          }
+        });
   }
 
 }

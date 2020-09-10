@@ -15,6 +15,16 @@ import { takeUntil } from 'rxjs/operators';
       [yueUiSelectPropertyLabel]="labelProperty"
       [yueUiSelectPropertyValue]="valueProperty"
       [yueUiSelectMode]="mode"
+      
+      (click)="listeners('click', $event)"
+      (mousedown)="listeners('mousedown', $event)"
+      (mouseup)="listeners('mouseup', $event)"
+      (mouseenter)="listeners('mouseenter', $event)"
+      (mouseleave)="listeners('mouseleave', $event)"
+      (focus)="listeners('focus', $event)"
+      (blur)="listeners('blur', $event)"
+      (yueUiSelectOnPanelOpenChange)="listeners('panelOpen', $event)"
+      (yueUiSelectOnScrollToBottom)="listeners('scrollToBottom', $event)"
 
       (yueUiSelectOnSearchChange)="onSearch($event);"
     >

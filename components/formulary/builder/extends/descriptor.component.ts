@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FieldStruct } from './../modifiers';
-import { Observable } from 'rxjs';
 
 
 
@@ -13,9 +12,7 @@ import { Observable } from 'rxjs';
       <ng-container *ngIf="description && !invalidMetadata">
         <div class="field-description-inner">
           <div class="field-template">
-            <ng-container *yueUiStringTemplateRefRender="description" yueUiStringTemplateRefRenderContext="context">
-              {{ isAObservable ? ( ngSafeValue_description | async ) : description }}
-            </ng-container>
+            <yue-ui-smart-render [yueUiSmartRender]="description" [yueUiSmartRenderContext]="context"></yue-ui-smart-render>
           </div>
         </div>
       </ng-container>
@@ -40,14 +37,6 @@ export class DescriptorComponent {
   public description: FieldStruct['description'] | null = null;
 
   public invalidMetadata: {[x: string]: string} | null = null;
-
-  public get isAObservable(): boolean {
-    return this.description instanceof Observable;
-  }
-
-  public get ngSafeValue_description(): any {
-    return this.description;
-  }
 
   public get message(): string {
     if (this.invalidMetadata) {

@@ -1,4 +1,4 @@
-import { Component as NgComponent, ChangeDetectionStrategy } from '@angular/core';
+import { Component as NgComponent, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
 
 import {
@@ -30,7 +30,7 @@ import {
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Component3 {
+export class Component3 implements OnDestroy {
 
   public formulary: FormularySource = new FormularySource<any>();
 
@@ -54,17 +54,9 @@ export class Component3 {
               fieldIdentifier('name'),
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
-              fieldWidth(10),
+              fieldWidth(12),
               fieldValidators([`required`]),
               fieldMask(`ipaddress`)
-            ]),
-            writable([
-              fieldIdentifier('name_te'),
-              fieldLabel('Name'),
-              fieldPlaceholder('Type your name'),
-              fieldWidth(10),
-              fieldValidators([`required`]),
-              fieldTextMode(`textarea`),
             ]),
             /*
             writable([
@@ -81,12 +73,20 @@ export class Component3 {
               fieldIdentifier('gender'),
               fieldLabel('Gender'),
               fieldPlaceholder('Select yout gender'),
-              fieldWidth(10),
+              fieldWidth(12),
               fieldOptions(() => [
                 { label: 'Male', value: 'male' },
                 { label: 'Female', value: 'female' },
               ])
-            ])
+            ]),
+            writable([
+              fieldIdentifier('name_te'),
+              fieldLabel('Name'),
+              fieldPlaceholder('Type your name'),
+              fieldWidth(24),
+              fieldValidators([`required`]),
+              fieldTextMode(`textarea`),
+            ]),
           ])
         ]),
         formularyStep([
@@ -97,13 +97,13 @@ export class Component3 {
               fieldIdentifier('name_1'),
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
-              fieldWidth(10)
+              fieldWidth(24)
             ]),
             selectable([
               fieldIdentifier('gender_!'),
               fieldLabel('Gender'),
               fieldPlaceholder('Select yout gender'),
-              fieldWidth(10),
+              fieldWidth(24),
               fieldOptions(() => [
                 { label: 'Male', value: 'male' },
                 { label: 'Female', value: 'female' },
@@ -116,4 +116,9 @@ export class Component3 {
 
   public ngAfterViewInit(): void { }
 
+  public ngOnDestroy(): void {
+    this.formulary
+      .destroy();
+  }
+  
 }

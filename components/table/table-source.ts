@@ -18,6 +18,8 @@ export class TableSource<B = any> {
 
   private destroy$: Subject<void> = new Subject();
 
+  private loading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   private dataColumns$: BehaviorSubject<TableDataColumnItem<B>[]> = new BehaviorSubject<TableDataColumnItem<B>[]>([] as unknown as TableDataColumnItem<B>[]);
 
   private data$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([] as unknown as any[]);
@@ -218,6 +220,11 @@ export class TableSource<B = any> {
     return this;
   }
 
+  public setLoading(isLoading: boolean = true): this {
+    this.loading$.next(isLoading);
+    return this;
+  }
+
   public columns(...modifiers: (TableGeneratedColumnMetadataFn<B> | TableGeneratedColumnMetadataFn<B>[])[]): this {
 
     const columns: YueUiTableColumns = [];
@@ -292,6 +299,10 @@ export class TableSource<B = any> {
     return this;
   }
 
+  public connectStreamLoading(): BehaviorSubject<boolean> {
+    return this.loading$;
+  }
+
   public connectStreamDestroy(): Subject<void> {
     return this.destroy$;
   }
@@ -364,6 +375,8 @@ export class TableSource<B = any> {
   }
 
   public destroy(): void {
+    this.loading$.next(false);
+    this.loading$.complete();
     this.destroy$.next();
     this.destroy$.complete();
     this.data$.complete();

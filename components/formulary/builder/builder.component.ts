@@ -19,6 +19,7 @@ import { differenceBy } from 'lodash';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, delayWhen } from 'rxjs/operators';
 
+import { YueUiGridDirective } from '@joaopedro61/yue-ui/grid';
 import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 import { WrapperComponent } from './extends/wrapper.component';
@@ -31,6 +32,7 @@ import {
   GeneratedFieldMetadata,
   ParentTypes,
 } from './modifiers';
+
 
 
 
@@ -51,7 +53,9 @@ import {
         </div>
       </div>
     </ng-container>
-    <ng-container #fields></ng-container>
+    <div yueUiGrid [yueUiGridGutter]="gutters">
+      <ng-container #fields></ng-container>
+    </div>
     <ng-container #buttons></ng-container>
   `,
   styleUrls: [`./styles/builder.component.less`],
@@ -71,6 +75,9 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   @ViewChild(`fields`, { static: false, read: ViewContainerRef })
   private _vcr!: ViewContainerRef;
 
+  @ViewChild(YueUiGridDirective, { static: false })
+  private grid!: YueUiGridDirective;
+
   private _old: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata = null as any;
 
   private _oldFields: GeneratedFieldMetadata[] = [];
@@ -84,6 +91,13 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   private source!: FormularySource;
 
   private sourceSubscription!: Subscription;
+
+  public get gutters(): [number, number] {
+    return [
+      10,
+      0
+    ];
+  }
 
   public get showStepLabels(): boolean {
     if (this.source) {
@@ -144,6 +158,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
       const ref = this._vcr.createComponent(factory, typeof index === `number` ? index : undefined);
       ref.instance.formulary = this.source;
       ref.instance.struct = field;
+      (ref.instance as any).grid = this.grid;
       setHiddenProp(ref.instance, `parent`, this);
       this._fieldComponentRefs[field.identifier] = ref;
       ref.changeDetectorRef.markForCheck();
@@ -341,8 +356,6 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   }
 
   public ngOnDestroy(): void {
-    console.log(`Veio no desroy`)
-
     this.untilDestroy$.next();
     this.untilDestroy$.complete();
 

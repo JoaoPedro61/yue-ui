@@ -62,6 +62,7 @@ export class YueUiTableModule {
           noData: `No data!`,
           noSource: `No source!`,
           actions: `Actions`,
+          loading: `Loading...`
         },
       });
   }

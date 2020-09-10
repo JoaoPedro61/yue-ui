@@ -8,13 +8,20 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   Type,
-  ViewChild
+  ViewChild,
+  ElementRef,
+  Optional,
+  Host,
+  Renderer2,
+  OnChanges,
 } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 import { Subject } from 'rxjs';
-import { takeUntil, distinctUntilChanged, skip } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { differenceBy } from 'lodash';
+
+import { YueUiColDirective, YueUiGridDirective, YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
 import { getValidators, getMessages } from '@joaopedro61/yue-ui/formulary/utils';
 import { equals, setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
@@ -32,11 +39,13 @@ import { INTERNALS } from './../abstract/internals';
 import { FieldAbstraction } from './../abstract/abstraction';
 
 
+
+
 @Component({
   template: `
     <ng-container *ngIf="struct && struct.struct.template">
       <div class="field-template">
-        <ng-container *yueUiStringTemplateRefRender="struct.struct.template" yueUiStringTemplateRefRenderContext="context">{{ struct.struct.template }}</ng-container>
+        <yue-ui-smart-render [yueUiSmartRender]="struct.struct.template" [yueUiSmartRenderContext]="context"></yue-ui-smart-render>
       </div>
     </ng-container>
     <ng-container #vcr></ng-container>
@@ -48,7 +57,7 @@ import { FieldAbstraction } from './../abstract/abstraction';
     '[class.wrapper]': 'true'
   }
 })
-export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
+export class WrapperComponent extends YueUiColDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @ViewChild(`vcr`, { static: false, read: ViewContainerRef })
   private readonly vcr!: ViewContainerRef;
@@ -82,7 +91,14 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     wrappers: {},
   };
 
-  constructor(private readonly cfr: ComponentFactoryResolver) { }
+  constructor(
+    elementRef: ElementRef,
+    @Optional() @Host() grid: YueUiGridDirective,
+    renderer: Renderer2,
+    private readonly cfr: ComponentFactoryResolver
+  ) {
+    super(elementRef, grid, renderer);
+  }
 
   private generateContextProps(): {[x: string]: any} {
     return {
@@ -243,19 +259,61 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     this.checkFieldProps(forceEmitChanges);
   }
 
-  private createLabelComponent(): void {
-    const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(LabelComponent), 0);
-    this.componenetsRefs.label = ref;
-    this.checkLabelProps();
-    setTimeout(() => this.checkLabelProps());
+  private createLabel(): void {
+    if (this.formulary && !this.formulary.isHiddenLabel) {
+      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(LabelComponent), 0);
+      this.componenetsRefs.label = ref;
+      this.checkLabelProps();
+      setTimeout(() => this.checkLabelProps());
+    }
+  }
+
+  private destroyLabel(): void {
+    if (this.componenetsRefs.label) {
+      this.componenetsRefs.label.destroy();
+      delete this.componenetsRefs.label;
+    }
+  }
+
+  private gotoStateOfLabel(destroy: boolean): void {
+    if (destroy) {
+      if (this.componenetsRefs.label) {
+        this.destroyLabel()
+      }
+    } else {
+      if (!this.componenetsRefs.label) {
+        this.createLabel()
+      }
+    }
   }
 
   private createDescriptor(): void {
-    const insertAt: number = Object.keys(this.componenetsRefs).length - 1;
-    const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(DescriptorComponent), insertAt);
-    this.componenetsRefs.descriptor = ref;
-    this.checkDescriptorProps();
-    setTimeout(() => this.checkDescriptorProps());
+    if (this.formulary && !this.formulary.isHiddenDescriptor) {
+      const insertAt: number = Object.keys(this.componenetsRefs).length - 1;
+      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(DescriptorComponent), insertAt);
+      this.componenetsRefs.descriptor = ref;
+      this.checkDescriptorProps();
+      setTimeout(() => this.checkDescriptorProps());
+    }
+  }
+
+  private destroyDescriptor(): void {
+    if (this.componenetsRefs.descriptor) {
+      this.componenetsRefs.descriptor.destroy();
+      delete this.componenetsRefs.descriptor;
+    }
+  }
+
+  private gotoStateOfDescriptor(destroy: boolean): void {
+    if (destroy) {
+      if (this.componenetsRefs.descriptor) {
+        this.destroyDescriptor()
+      }
+    } else {
+      if (!this.componenetsRefs.descriptor) {
+        this.createDescriptor()
+      }
+    }
   }
 
   private createWrapper(): void {
@@ -297,7 +355,7 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private should(): void {
-    this.createLabelComponent();
+    this.createLabel();
     this.createField();
     this.createDescriptor();
     this.createWrapper();
@@ -485,12 +543,16 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     const {
       label,
       description,
+      width,
     } = changes;
     if (label) {
       this.checkLabelProps();
     }
     if (description) {
       this.checkDescriptorProps();
+    }
+    if (width) {
+      this.configureWidth();
     }
   }
 
@@ -503,6 +565,45 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private configureWidth(): void {
+    const defaults: YueUiGridEmbeddedProperty = {
+      span: 24,
+      pull: 0,
+      push: 0,
+      offset: 0
+    };
+
+    if (this.struct && this.struct.struct) {
+      if (typeof this.struct.struct.width === `number`) {
+        defaults.span = this.struct.struct.width;
+      }
+    }
+
+    const getConfig = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
+      if (this.struct && this.struct.struct) {
+        if (typeof this.struct.struct.width === `number`) {
+          defaults.span = this.struct.struct.width;
+        } else if (typeof this.struct.struct.width === `object` && from in this.struct.struct.width) {
+          return (this.struct.struct.width as Partial<any>)[from];
+        }
+      }
+      return defaults;
+    };
+
+    const generateEmbbed = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
+      return Object.assign({}, defaults, getConfig(from));
+    };
+
+    this.yueUiGridColLg = generateEmbbed(`lg`);
+    this.yueUiGridColMd = generateEmbbed(`md`);
+    this.yueUiGridColXs = generateEmbbed(`xs`);
+    this.yueUiGridColSm = generateEmbbed(`sm`);
+    this.yueUiGridColXl = generateEmbbed(`xl`);
+    this.yueUiGridColXXl = generateEmbbed(`xxl`);
+
+    super.setHostClassMap();
+  }
+
   public checkWrapperTree(): void {
     for (const component in this.componenetsRefs.wrappers) {
       if (this.componenetsRefs.wrappers[component].instance) {
@@ -513,6 +614,8 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+    this.configureWidth();
     this.old = JSON.parse(JSON.stringify(Object.assign({}, {...this.struct})));
     if (!this.struct.identifier && (!this.struct.struct.wrapper && !this.struct.struct.template)) {
       throw new Error('Sorry, but the inputs that haven\'t the property "key", must be have the property "wrapper" or "template".');
@@ -529,17 +632,30 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.should();
+    super.ngAfterViewInit();
 
     if (this.formulary) {
       this.formulary
         .unknownChanges$
-        .pipe(skip(1), takeUntil(this.untilDestroy$))
+        .pipe(takeUntil(this.untilDestroy$))
         .subscribe({
-          next: () => {
-
+          next: (e) => {
+            if (e && typeof e === `object` && !Array.isArray(e)) {
+              const { hideLabels, hideDescriptors } = e;
+              if (hideLabels) {
+                this.gotoStateOfLabel(hideLabels);
+              }
+              if (hideDescriptors) {
+                this.gotoStateOfDescriptor(hideDescriptors);
+              }
+            }
           }
         });
     }
+  }
+
+  public ngOnChanges(): void {
+    super.ngOnChanges();
   }
 
   public ngOnDestroy(): void {
@@ -564,6 +680,8 @@ export class WrapperComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.untilDestroy$.next();
     this.untilDestroy$.complete();
+
+    super.ngOnDestroy();
   }
 
 }

@@ -12,6 +12,14 @@ import { FieldAbstraction } from './abstraction';
           [formControl]="abstractControl"
           [yueUiPasswordPlaceholder]="placeholder"
           [yueUiPasswordMask]="mask"
+          
+          (click)="listeners('click', $event)"
+          (mousedown)="listeners('mousedown', $event)"
+          (mouseup)="listeners('mouseup', $event)"
+          (mouseenter)="listeners('mouseenter', $event)"
+          (mouseleave)="listeners('mouseleave', $event)"
+          (focus)="listeners('focus', $event)"
+          (blur)="listeners('blur', $event)"
         >
         </yue-ui-password>
       </ng-container>
@@ -20,6 +28,14 @@ import { FieldAbstraction } from './abstraction';
           [formControl]="abstractControl"
           [yueUiTextareaPlaceholder]="placeholder"
           [yueUiTextareaMask]="mask"
+
+          (click)="listeners('click', $event)"
+          (mousedown)="listeners('mousedown', $event)"
+          (mouseup)="listeners('mouseup', $event)"
+          (mouseenter)="listeners('mouseenter', $event)"
+          (mouseleave)="listeners('mouseleave', $event)"
+          (focus)="listeners('focus', $event)"
+          (blur)="listeners('blur', $event)"
         ></yue-ui-textarea>
       </ng-container>
       <ng-container *ngSwitchDefault>
@@ -27,6 +43,14 @@ import { FieldAbstraction } from './abstraction';
           [formControl]="abstractControl"
           [yueUiTextPlaceholder]="placeholder"
           [yueUiTextMask]="mask"
+
+          (click)="listeners('click', $event)"
+          (mousedown)="listeners('mousedown', $event)"
+          (mouseup)="listeners('mouseup', $event)"
+          (mouseenter)="listeners('mouseenter', $event)"
+          (mouseleave)="listeners('mouseleave', $event)"
+          (focus)="listeners('focus', $event)"
+          (blur)="listeners('blur', $event)"
         >
         </yue-ui-text>
       </ng-container>

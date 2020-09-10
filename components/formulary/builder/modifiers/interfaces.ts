@@ -8,6 +8,7 @@ import { YueUiSwitchModes } from '@joaopedro61/yue-ui/formulary/custom/switch';
 import { Observable } from 'rxjs';
 
 import { ParentTypes } from './enums';
+import { YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
 
 
@@ -90,7 +91,38 @@ export interface FieldStruct extends CommonInheritMethods {
   wrapper?: GeneratedFieldMetadata[];
   identifier: string;
   type?: AllowedFieldsTypes;
-  width?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  width?: 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | {
+      lg?: number | YueUiGridEmbeddedProperty;
+      md?: number | YueUiGridEmbeddedProperty;
+      xs?: number | YueUiGridEmbeddedProperty;
+      sm?: number | YueUiGridEmbeddedProperty;
+      xl?: number | YueUiGridEmbeddedProperty;
+      xxl?: number | YueUiGridEmbeddedProperty;
+    };
   label?: FieldDOMStruct;
   labelAppend?: FieldDOMStruct;
   labelPrepend?: FieldDOMStruct;
@@ -132,7 +164,6 @@ export interface FormulariesCommons {
 
 export interface StaircaseFormularyStepStruct extends FormulariesCommons {
   name?: string;
-  buttons?: GeneratedButtonMetadata;
   children: GeneratedFieldMetadata[];
   fragments: Partial<{ [s: string]: string }>;
   metadataType: ParentTypes.StaircaseFormulary;
@@ -162,7 +193,9 @@ export type ModifiersFn<R = any> = (parent: string, target: Partial<R>) => Parti
 export interface CustomButtonStruct extends Partial<BasicButtonProperties> {
   label?: string;
   identifier: string;
-  children?: GeneratedButtonMetadata[];
+
+  // Future version allow infine sub menu layers
+  // children?: GeneratedButtonMetadata[];
 }
 
 
