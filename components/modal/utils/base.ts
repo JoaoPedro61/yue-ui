@@ -1,6 +1,6 @@
 import { Directive, OnDestroy, ChangeDetectorRef, ElementRef, ComponentRef, EventEmitter, EmbeddedViewRef } from '@angular/core';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { ConfigurableFocusTrapFactory, FocusTrap } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -134,7 +134,7 @@ export abstract class Base extends BasePortalOutlet implements OnDestroy {
 
   constructor(
     protected elementRef: ElementRef,
-    protected focusTrapFactory: FocusTrapFactory,
+    protected focusTrapFactory: ConfigurableFocusTrapFactory,
     public cdr: ChangeDetectorRef,
     public overlayRef: OverlayRef,
     public config: YueUiModalOptions<any>,

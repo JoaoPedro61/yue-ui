@@ -4,7 +4,6 @@ export {
 
 export {
   buttonInjectIn,
-  buttonDropdown,
   buttonLabel,
   buttonGhost,
   buttonBlock,
@@ -13,6 +12,5 @@ export {
   buttonRounded,
   buttonType,
   buttonSize,
-  buttonOnStateChange,
   buttonIdentifier
 } from './commons';

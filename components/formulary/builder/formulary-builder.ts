@@ -18,7 +18,9 @@ import {
   GeneratedStaircaseFormularyMetadata,
   GeneratedLinearFormularyMetadata,
   ModifiersFn,
-  GeneratedFieldMetadata
+  GeneratedFieldMetadata,
+  GeneratedButtonMetadata,
+  ButtonsAlign
 } from './modifiers';
 import { Modifiers } from './fix-ralacional';
 
@@ -232,6 +234,13 @@ export class FormularySource<_M = any> {
     return this.____.get(getHiddenProp(this._ref, `_identifier`));
   }
 
+  public get schematicButtonsChange$(): Observable<GeneratedButtonMetadata[]> {
+    const _buttons_ref$ = getHiddenProp(this._ref, `_buttons$`);
+    const _buttons$ = this.____.get(_buttons_ref$) as ArrayObjectManager;
+
+    return _buttons$.behavior.asObservable() as Observable<GeneratedButtonMetadata[]>;
+  }
+
   public get schematicFieldsChange$(): Observable<any> {
     const _current_scheme_ref$ = getHiddenProp(this._ref, `_current_scheme$`);
     const _current_scheme$ = this.____.get(_current_scheme_ref$) as BehaviorSubject<any>;
@@ -316,6 +325,9 @@ export class FormularySource<_M = any> {
         _current_scheme$.next(_value);
       }
     }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      mountCurrentScheme: hash(),
+    });
   }
 
   public setup(provider: GeneratedLinearFormularyMetadataFn | GeneratedStaircaseFormularyMetadataFn): this {
@@ -334,6 +346,9 @@ export class FormularySource<_M = any> {
         throw new Error(`No configuration passed!`);
       }
     }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      setup: provider,
+    });
     return this;
   }
 
@@ -533,6 +548,9 @@ export class FormularySource<_M = any> {
     }
     updateFragments(_formulary_value$);
     this.mountCurrentScheme();
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      insertField: field,
+    });
     return this;
   }
 
@@ -579,6 +597,9 @@ export class FormularySource<_M = any> {
     }
     updateFragments(_formulary_value$);
     this.mountCurrentScheme();
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      removeField: identifier,
+    });
     return this;
   }
 
@@ -616,6 +637,9 @@ export class FormularySource<_M = any> {
     }
     updateFragments(_formulary_value$);
     this.mountCurrentScheme();
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      updateField: identifier,
+    });
     return this;
   }
 
@@ -625,6 +649,9 @@ export class FormularySource<_M = any> {
     if (identifier && control) {
       _value$.addControl(identifier, control);
     }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      registryControl: identifier,
+    });
     return this;
   }
 
@@ -686,6 +713,9 @@ export class FormularySource<_M = any> {
   public setOptions(options: Modifiers.FormularyOptions): this {
     const _ref$ = getHiddenProp(this._ref, `_options$`);
     (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).next(options);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      setOptions: options,
+    });
     return this;
   }
 
@@ -695,6 +725,9 @@ export class FormularySource<_M = any> {
     const _refPure$ = getHiddenProp(this._ref, `_modelPure$`);
     const paths = serializeStringJsonPath(values);
     (this.____.get(_refPure$) as BehaviorSubject<{ [x: string]: any }>).next(paths);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      setModel: values,
+    });
     return this;
   }
 
@@ -718,6 +751,9 @@ export class FormularySource<_M = any> {
         }
       }
     }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      applyValueOnEachControl: group.getRawValue(),
+    });
     return this;
   }
 
@@ -739,6 +775,21 @@ export class FormularySource<_M = any> {
         group.setValue(values);
       }
     }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      applyValues: group.getRawValue(),
+    });
+    return this;
+  }
+
+  // @ts-ignore
+  public clickedAtButton(button: GeneratedButtonMetadata): void {
+  }
+
+  public setButtonsAlignment(alignment: ButtonsAlign): this {
+    this.____.set(getHiddenProp(this._ref, `_buttons_alignment`), alignment);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      buttonsAlignment: alignment,
+    });
     return this;
   }
 
@@ -775,8 +826,6 @@ export class FormularySource<_M = any> {
   }
 
   public removeButtons(...identifiers: (string | string[])[]): this {
-    const _buttons_ref = getHiddenProp(this._ref, `_buttons`);
-    const _buttons = this.____.get(_buttons_ref);
     let _identifiers: string[] = [];
     for (let i = 0, l = identifiers.length; i < l; i++) {
       if (Array.isArray(identifiers[i])) {
@@ -785,15 +834,16 @@ export class FormularySource<_M = any> {
         _identifiers.push(identifiers[i] as string);
       }
     }
-    this.____.set(_buttons_ref, _buttons);
+    this.____.get(getHiddenProp(this._ref, '_buttons$')).remove(..._identifiers);
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       removedButtons: _identifiers,
     });
     return this;
   }
 
-  // @ts-ignore
-  private insertButtons(...providers: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): this {
+  public insertButtons(...providers: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): this {
+    const _buttons_ref$ = getHiddenProp(this._ref, `_buttons$`);
+    const _buttons$ = this.____.get(_buttons_ref$) as ArrayObjectManager;
     let _providers: GeneratedButtonMetadataFn[] = [];
     for (let i = 0, l = providers.length; i < l; i++) {
       if (Array.isArray(providers[i])) {
@@ -802,26 +852,46 @@ export class FormularySource<_M = any> {
         _providers.push(providers[i] as GeneratedButtonMetadataFn);
       }
     }
+    for (let i = 0, l = _providers.length; i < l; i++) {
+      if (_providers[i]) {
+        const _button = _providers[i]();
+        _buttons$.set(_button);
+      }
+    }
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      updateButtons: providers,
+    });
     return this;
   }
 
-  // @ts-ignore
-  private shouldUpdateButton(): this {
+  public updateButton(identifier: string, ...modifiers: (ModifiersFn | ModifiersFn[])[]): this {
+    const _buttons_ref$ = getHiddenProp(this._ref, `_buttons$`);
+    const _buttons$ = this.____.get(_buttons_ref$) as ArrayObjectManager;
+    const _buttons = ((_buttons$.behavior.getValue() || []) as GeneratedButtonMetadata[]);
+    if (_buttons.length) {
+      loop1:
+      for (let i = 0, l = _buttons.length; i < l; i++) {
+        if (_buttons[i].identifier === identifier) {
+          let _modifiers: ModifiersFn[] = [];
+          for (let i = 0, l = modifiers.length; i < l; i++) {
+            _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
+          }
+          for (const _modifier of _modifiers) {
+            if (`function` === typeof _modifier) {
+              _modifier(_buttons[i].metadataType, _buttons[i].struct);
+            }
+          }
+          _buttons[i].dispatchChanges();
+          break loop1;
+        }
+      }
+    }
+    _buttons$.rerender();
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      updateButton: identifier,
+    });
     return this;
   }
-
-  // @ts-ignore
-  private setButtonsAlignment(): this {
-    return this;
-  }
-
-
-
-
-
-
-
-
 
   public subscribe(): this {
     return this;

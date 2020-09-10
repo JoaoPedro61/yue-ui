@@ -1,4 +1,4 @@
-import { ModifiersFn, GeneratedButtonMetadataFn, CustomButtonStruct, GeneratedButtonMetadata } from '../interfaces';
+import { ModifiersFn, GeneratedButtonMetadataFn, ButtonStruct, GeneratedButtonMetadata, ChangeHandler } from '../interfaces';
 import {
   defineScope,
   serializeStringJsonPath,
@@ -12,8 +12,8 @@ import { ParentTypes } from '../enums';
 
 
 
-const mergeDefaults = (target: Partial<CustomButtonStruct>): Partial<CustomButtonStruct> => {
-  const defaults: Partial<CustomButtonStruct> = {
+const mergeDefaults = (target: Partial<ButtonStruct>): Partial<ButtonStruct> => {
+  const defaults: Partial<ButtonStruct> = {
     ghost: false,
     block: false,
     dashed: false,
@@ -40,7 +40,7 @@ export function generateButton(...modifiers: (ModifiersFn | ModifiersFn[])[]): G
     _modifiers = _modifiers.concat((Array.isArray(modifiers[i] as any) ? modifiers[i] as any : [modifiers[i] as any]));
   }
 
-  let source: Partial<CustomButtonStruct> = { };
+  let source: Partial<ButtonStruct> = { };
 
   for (const _modifier of _modifiers) {
     if (`function` === typeof _modifier) {
@@ -79,16 +79,33 @@ export function generateButton(...modifiers: (ModifiersFn | ModifiersFn[])[]): G
       }
     }
 
-    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: any, handler) {
+    setHiddenProp(source, `setChangeHandler`, defineScope(source, function(this: ButtonStruct, alias: string, handler: ChangeHandler) {
       setHiddenProp(this, `___EVENT_HANDLERS___`, [
         ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || []),
-        handler
+        { alias, handler }
       ]);
     }));
 
-    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: any, changes) {
-      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`);
-      relative_exec(this, _HANDLERS || [], [changes]);
+    setHiddenProp(source, `removeChangeHandler`, defineScope(source, function(this: ButtonStruct, alias: string) {
+      setHiddenProp(this, `___EVENT_HANDLERS___`, [
+        ...(getHiddenProp(this, `___EVENT_HANDLERS___`) || [])
+          .filter((e: any) => e !== alias)
+      ]);
+    }));
+
+    setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: ButtonStruct) {
+      const _HANDLERS = (getHiddenProp(this, `___EVENT_HANDLERS___`) || []).map((e: any) => e.handler);
+      relative_exec(this, _HANDLERS || [], [this.getChanges()]);
+      this.clearChanges();
+    }));
+
+    setHiddenProp(source, `getChanges`, defineScope(source, function(this: ButtonStruct) {
+      const _CHANGES = Object.assign({}, getHiddenProp(this, `___CHANGES___`) || {});
+      return _CHANGES;
+    }));
+
+    setHiddenProp(source, `clearChanges`, defineScope(source, function(this: ButtonStruct) {
+      (this as any).___CHANGES___ = Object.assign({}, {});
     }));
 
     const finalStruct = {
@@ -98,18 +115,28 @@ export function generateButton(...modifiers: (ModifiersFn | ModifiersFn[])[]): G
       metadataType: ParentTypes.Button
     };
 
-    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: any, handler) {
-      setHiddenProp(this.struct, `___EVENT_HANDLERS___`, [
-        ...(getHiddenProp(this.struct, `___EVENT_HANDLERS___`) || []),
-        handler
-      ]);
+    setHiddenProp(finalStruct, `setChangeHandler`, defineScope(finalStruct, function(this: GeneratedButtonMetadata, alias: string, handler: ChangeHandler) {
+      this.struct.setChangeHandler(alias, handler);
     }));
 
-    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: any, changes) {
-      const _HANDLERS = getHiddenProp(this.struct, `___EVENT_HANDLERS___`);
-      relative_exec(this, _HANDLERS || [], [changes]);
+    setHiddenProp(finalStruct, `dispatchChanges`, defineScope(finalStruct, function(this: GeneratedButtonMetadata) {
+      this.struct.dispatchChanges();
     }));
 
+    setHiddenProp(finalStruct, `getChanges`, defineScope(finalStruct, function(this: GeneratedButtonMetadata) {
+      return this.struct.getChanges();
+    }));
+
+    setHiddenProp(finalStruct, `clearChanges`, defineScope(finalStruct, function(this: GeneratedButtonMetadata) {
+      this.struct.clearChanges();
+    }));
+
+    setHiddenProp(finalStruct, `removeChangeHandler`, defineScope(finalStruct, function(this: GeneratedButtonMetadata, alias: string) {
+      this.struct.removeChangeHandler(alias);
+    }));
+    
+    // Clear all changes, because this is a first creating time
+    (finalStruct as GeneratedButtonMetadata).clearChanges();
     return finalStruct as GeneratedButtonMetadata;
   };
 }

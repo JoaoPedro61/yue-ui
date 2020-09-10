@@ -105,6 +105,8 @@ export class YueUiModalService {
 
   private open<C>(content: YueUiModalContent<C>, config?: YueUiModalOptions<C>): YueUiModalRef<C> {
     const configMerged = { ...(new YueUiModalOptions()), ...(config || {}), } as YueUiModalOptions<C>;
+    console.log(configMerged);
+    
     const overlayRef = this.createOverlay(configMerged);
     const modalContainer = this.attachModalContainer(overlayRef, configMerged);
     const ref = this.attachModalContent<C>(content, modalContainer, overlayRef, configMerged);

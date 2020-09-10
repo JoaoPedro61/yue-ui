@@ -18,14 +18,15 @@ import {
   fieldValidators,
   fieldMask,
   fieldTextMode,
+  button,
+  buttonIdentifier,
+  buttonLabel,
 } from '@joaopedro61/yue-ui/formulary/builder';
 
 
 @NgComponent({
   template: `
     <yue-ui-formulary [yueUiFormularySource]="formulary"></yue-ui-formulary>
-    <div *yueUiModalFooter>
-    </div>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,6 +45,12 @@ export class Component3 implements OnDestroy {
         name: null,
         gender: `tank`,
       })
+      .insertButtons([
+        button([
+          buttonIdentifier(`cancel`),
+          buttonLabel(`Cancel`),
+        ])
+      ])
       .setup(staircaseFormulary([
         formularyIdentifier(`steps`),
         formularyStep([
@@ -58,17 +65,6 @@ export class Component3 implements OnDestroy {
               fieldValidators([`required`]),
               fieldMask(`ipaddress`)
             ]),
-            /*
-            writable([
-              fieldIdentifier('pass'),
-              fieldLabel('Password'),
-              fieldPlaceholder('Type your password'),
-              fieldWidth(10),
-              fieldTextMode(`password`),
-              fieldValidators([`required`]),
-              fieldDescription(`This is a simple descriptionm!`)
-            ]),
-            */
             selectable([
               fieldIdentifier('gender'),
               fieldLabel('Gender'),
@@ -114,7 +110,14 @@ export class Component3 implements OnDestroy {
       ]));
   }
 
-  public ngAfterViewInit(): void { }
+  public ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.formulary.updateButton(`cancel`, [
+        buttonLabel(`Changed label`),
+      ]);
+    },
+    3000)
+  }
 
   public ngOnDestroy(): void {
     this.formulary

@@ -9,6 +9,7 @@ import { VERSION } from '@joaopedro61/yue-ui/version';
 import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
+import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
 
 import { YueUiGridModule } from '@joaopedro61/yue-ui/grid';
 
@@ -83,6 +84,7 @@ const logger = logging.getLogger('core.formulary.builder');
     YueUiSmartRenderModule,
     YueUiButtonModule,
     YueUiThematizationModule,
+    YueUiIconModule,
   ],
   providers: [ ],
   exports: [

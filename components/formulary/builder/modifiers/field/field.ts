@@ -74,7 +74,7 @@ function generateField(...modifiers: (ModifiersFn | ModifiersFn[])[]): Generated
       ]);
     }));
     setHiddenProp(source, `dispatchChanges`, defineScope(source, function(this: FieldStruct) {
-      const _HANDLERS = getHiddenProp(this, `___EVENT_HANDLERS___`).map((e: any) => e.handler);
+      const _HANDLERS = (getHiddenProp(this, `___EVENT_HANDLERS___`) || []).map((e: any) => e.handler);
       relative_exec(this, _HANDLERS || [], [this.getChanges()]);
       this.clearChanges();
     }));

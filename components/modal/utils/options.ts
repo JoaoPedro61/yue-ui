@@ -47,7 +47,6 @@ export class YueUiModalOptions<C> {
 
   public confirmType?: YueUiModalConfirmType = `confirm`;
 
-
   public okButtonText?: YueUiModalButtonContent = `OK`;
 
   public okButtonType?: YueUiButtonType = `primary`;

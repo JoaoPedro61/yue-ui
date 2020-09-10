@@ -53,4 +53,27 @@
       }
     }
   }
+
+  .formulary-footer-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-top: 2px;
+
+    .formulary-footer-wrap-inner {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+      overflow-x: auto;
+
+      button {
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
 }

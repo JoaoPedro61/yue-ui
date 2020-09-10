@@ -16,7 +16,7 @@ import {
 
 import { differenceBy } from 'lodash';
 
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { takeUntil, delayWhen } from 'rxjs/operators';
 
 import { YueUiGridDirective } from '@joaopedro61/yue-ui/grid';
@@ -31,6 +31,8 @@ import {
   StaircaseFormularyStepStruct,
   GeneratedFieldMetadata,
   ParentTypes,
+  GeneratedButtonMetadata,
+  ButtonsAlign,
 } from './modifiers';
 
 
@@ -56,7 +58,43 @@ import {
     <div yueUiGrid [yueUiGridGutter]="gutters">
       <ng-container #fields></ng-container>
     </div>
-    <ng-container #buttons></ng-container>
+    <ng-container #buttons *ngIf="(buttons$ | async) as buttons">
+      <ng-container *ngIf="buttons.length">
+        <div class="formulary-footer-wrap">
+          <div class="formulary-footer-wrap-inner" [style.justifyContent]="buttonsAlignment">
+            <ng-container *ngFor="let btn of buttons">
+              <button
+                yueUiButton
+                [yueUiButtonBlock]="btn.struct.block"
+                [yueUiButtonDashed]="btn.struct.dashed"
+                [yueUiButtonDisable]="btn.struct.disabled"
+                [yueUiButtonGhost]="btn.struct.ghost"
+                [yueUiButtonLoading]="btn.struct.loading"
+                [yueUiButtonRounded]="btn.struct.rounded"
+                [yueUiButtonSize]="btn.struct.size"
+                [yueUiButtonType]="btn.struct.type"
+                (click)="clickedOnButton(btn);"
+              >
+                <ng-container *ngIf="btn.struct.icon && !btn.struct.loading">
+                  <i
+                    yueUiIcon
+                    [yueUiIconType]="btn.struct.icon"
+                    [yueUiIconSpin]="btn.struct.loading"
+
+                    aria-hidden="true"
+                  ></i>
+                </ng-container>
+                <yue-ui-smart-render
+                  [yueUiSmartRender]="btn.struct.label"
+                  [yueUiSmartRenderContext]="{}"
+                >
+                </yue-ui-smart-render>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   `,
   styleUrls: [`./styles/builder.component.less`],
   preserveWhitespaces: false,
@@ -67,6 +105,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+
+  // [attr.cdkFocusInitial]="config.autofocus === 'cancel' || null"
 
   private readonly untilDestroy$: Subject<void> = new Subject();
 
@@ -91,6 +131,21 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   private source!: FormularySource;
 
   private sourceSubscription!: Subscription;
+
+  private sourceButtonsSubscription!: Subscription;
+
+  private sourceUnknownChangesSubscription!: Subscription;
+
+  public alignment: ButtonsAlign = `center`;
+
+  public get buttonsAlignment(): string {
+    if (this.alignment !== `center`) {
+      return `flex-${this.alignment}`;
+    }
+    return `center`;
+  }
+
+  public readonly buttons$: BehaviorSubject<GeneratedButtonMetadata[]> = new BehaviorSubject<GeneratedButtonMetadata[]>([]);
 
   public get gutters(): [number, number] {
     return [
@@ -303,6 +358,7 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   private _override(): void {
     if (this.sourceSubscription) {
       this.sourceSubscription.unsubscribe();
+      this.buttons$.next([]);
       this._clearView();
 
       this._old = null as any;
@@ -310,6 +366,12 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
       this._current = null as any;
       this._currentFields = [];
+    }
+    if (this.sourceButtonsSubscription) {
+      this.sourceButtonsSubscription.unsubscribe();
+    }
+    if (this.sourceUnknownChangesSubscription) {
+      this.sourceUnknownChangesSubscription.unsubscribe();
     }
     if (this.yueUiFormularySource) {
       this.source = this.yueUiFormularySource;
@@ -322,6 +384,9 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
             if (this.sourceSubscription) {
               this.sourceSubscription.unsubscribe();
             }
+            if (this.sourceButtonsSubscription) {
+              this.sourceButtonsSubscription.unsubscribe();
+            }
             this.sourceSubscription = this.source
               .schematicFieldsChange$
               .pipe(takeUntil(this.untilDestroy$))
@@ -329,6 +394,30 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
                 next: (currentScheme: StaircaseFormularyStepStruct | GeneratedLinearFormularyMetadata) => {
                   this._current = currentScheme;
                   this._should();
+                }
+              });
+
+            this.sourceButtonsSubscription = this.source
+              .schematicButtonsChange$
+              .pipe(takeUntil(this.untilDestroy$))
+              .subscribe({
+                next: (currentScheme: GeneratedButtonMetadata[]) => {
+                  this.buttons$.next(currentScheme);
+                }
+              });
+
+            this.sourceUnknownChangesSubscription = this.source
+              .unknownChanges$
+              .pipe(takeUntil(this.untilDestroy$))
+              .subscribe({
+                next: (changes) => {
+                  if (changes && typeof changes === `object` && !Array.isArray(changes)) {
+                    const { buttonsAlignment } = changes ?? {};
+                    if (buttonsAlignment) {
+                      this.alignment = buttonsAlignment;
+                      this._cdr.markForCheck();
+                    }
+                  }
                 }
               });
           }
@@ -339,6 +428,15 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   public goto(index: number): void {
     if (this.source) {
       this.source.staircase().step(index);
+    }
+  }
+
+  public clickedOnButton(btn: GeneratedButtonMetadata): void {
+    if (btn && btn.struct) {
+      if (btn.struct.click && typeof btn.struct.click === `function`) {
+        btn.struct.click(this.yueUiFormularySource, btn);
+      }
+      this.yueUiFormularySource.clickedAtButton(btn);
     }
   }
 
@@ -358,6 +456,8 @@ export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnC
   public ngOnDestroy(): void {
     this.untilDestroy$.next();
     this.untilDestroy$.complete();
+    this.buttons$.next([]);
+    this.buttons$.complete();
 
     this.viewInit$.complete();
   }

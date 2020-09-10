@@ -206,6 +206,11 @@ export class ArrayObjectManager {
     return this;
   }
 
+  public rerender(): this {
+    this.set({});
+    return this;
+  }
+
   public hidded(): Hidded {
     return this.isHidded;
   }

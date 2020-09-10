@@ -1,15 +1,13 @@
 import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
 
 import {
-  YueUiButtonType,
-  YueUiButtonSize,
   ModifiersFn,
   GeneratedButtonMetadata,
-  GeneratedButtonMetadataFn
+  ButtonStruct
 } from '../interfaces';
 
 import {
-  identifier as _identifier
+  identifier as _identifier, registryChange
 } from '../commons';
 
 import { expect_parent } from '../utils';
@@ -32,44 +30,7 @@ function injectIn(value: GeneratedButtonMetadata['injectIn']): ModifiersFn {
   };
 }
 
-function dropdown(...children: (GeneratedButtonMetadataFn | GeneratedButtonMetadataFn[])[]): ModifiersFn {
-  return (parent: string, target: Partial<any>) => {
-    if (!Array.isArray(children)) {
-      throw new Error(`Type passed to the "children" modifier does not match the expected.`);
-    }
-    expect_parent(parent, [
-      ParentTypes.Button
-    ]);
-    if (children.length === 0) {
-      delete target.dropdown;
-    } else {
-
-      let _children: GeneratedButtonMetadataFn[] = [];
-
-      for (let i = 0, l = children.length; i < l; i++) {
-        _children = _children.concat((Array.isArray(children[i] as any) ? children[i] as any : [children[i] as any]));
-      }
-
-      const source: GeneratedButtonMetadata[] = [];
-
-      for (const _child of _children) {
-        if (`function` === typeof _child) {
-          const returns = _child();
-          if (returns) {
-            if (`object` === typeof returns) {
-              source.push(returns);
-            }
-          }
-        }
-      }
-
-      target.dropdown = source;
-    }
-    return target;
-  };
-}
-
-function label(value: string): ModifiersFn {
+function label(value: ButtonStruct['label']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
       throw new Error(`Type passed to the "label" modifier does not match the expected.`);
@@ -79,62 +40,68 @@ function label(value: string): ModifiersFn {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
+    registryChange(target, `label`, value, target.label);
     target.label = value;
     return target;
   };
 }
 
-function ghost(value: boolean): ModifiersFn {
+function ghost(value: ButtonStruct['ghost']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.ghost = !!value;
+    registryChange(target, `ghost`, value, target.ghost);
+    target.ghost = value;
     return target;
   };
 }
 
-function block(value: boolean): ModifiersFn {
+function block(value: ButtonStruct['block']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.block = !!value;
+    registryChange(target, `block`, value, target.block);
+    target.block = value;
     return target;
   };
 }
 
-function dashed(value: boolean): ModifiersFn {
+function dashed(value: ButtonStruct['dashed']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.dashed = !!value;
+    registryChange(target, `dashed`, value, target.dashed);
+    target.dashed = value;
     return target;
   };
 }
 
-function disabled(value: boolean): ModifiersFn {
+function disabled(value: ButtonStruct['disabled']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.disabled = !!value;
+    registryChange(target, `disabled`, value, target.disabled);
+    target.disabled = value;
     return target;
   };
 }
 
-function rounded(value: boolean): ModifiersFn {
+function rounded(value: ButtonStruct['rounded']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.disabled = !!value;
+    registryChange(target, `rounded`, value, target.rounded);
+    target.rounded = value;
     return target;
   };
 }
 
-function type(value: YueUiButtonType): ModifiersFn {
+function type(value: ButtonStruct['type']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
       throw new Error(`Type passed to the "type" modifier does not match the expected.`);
@@ -142,12 +109,13 @@ function type(value: YueUiButtonType): ModifiersFn {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.disabled = !!value;
+    registryChange(target, `type`, value, target.type);
+    target.type = value;
     return target;
   };
 }
 
-function size(value: YueUiButtonSize): ModifiersFn {
+function size(value: ButtonStruct['size']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     if (`string` !== typeof value) {
       throw new Error(`Type passed to the "size" modifier does not match the expected.`);
@@ -155,32 +123,44 @@ function size(value: YueUiButtonSize): ModifiersFn {
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target.disabled = !!value;
+    registryChange(target, `size`, value, target.size);
+    target.size = value;
     return target;
   };
 }
 
-function onStateChange(value: (...parameters: any[]) => void): ModifiersFn {
+function loading(value: ButtonStruct['loading']): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
-    if (`function` !== typeof value) {
-      throw new Error(`Type passed to the "onStateChange" modifier does not match the expected.`);
+    if (`string` !== typeof value) {
+      throw new Error(`Type passed to the "loading" modifier does not match the expected.`);
     }
     expect_parent(parent, [
       ParentTypes.Button
     ]);
-    target._onStateChange = value;
-    target.onStateChange = (function(...parameters: any[]) {
-      if (this._onStateChange) {
-        this._onStateChange(...[...parameters, this]);
-      }
-    });
+    registryChange(target, `loading`, value, target.loading);
+    target.loading = value;
     return target;
   };
 }
 
+function click(value: ButtonStruct['click']): ModifiersFn {
+  return (parent: string, target: Partial<any>) => {
+    if (`string` !== typeof value) {
+      throw new Error(`Type passed to the "click" modifier does not match the expected.`);
+    }
+    expect_parent(parent, [
+      ParentTypes.Button
+    ]);
+    registryChange(target, `click`, value, target.click);
+    target.click = value;
+    return target;
+  };
+}
+
+
+
 export {
   injectIn as buttonInjectIn,
-  dropdown as buttonDropdown,
   label as buttonLabel,
   ghost as buttonGhost,
   block as buttonBlock,
@@ -189,6 +169,7 @@ export {
   rounded as buttonRounded,
   type as buttonType,
   size as buttonSize,
-  onStateChange as buttonOnStateChange,
-  identifier as buttonIdentifier
+  identifier as buttonIdentifier,
+  loading as buttonLoading,
+  click as buttonClick,
 };

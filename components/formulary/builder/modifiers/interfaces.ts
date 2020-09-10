@@ -1,14 +1,14 @@
 import { TemplateRef, Type } from '@angular/core';
-import { YueUiButtonSize, YueUiButtonType } from '@joaopedro61/yue-ui/button';
+import { YueUiButtonSize, YueUiButtonType, YueUiButton } from '@joaopedro61/yue-ui/button';
 
 import { SpecificValidatorObjectFormation } from '@joaopedro61/yue-ui/formulary/utils';
 import { YueUiSelectMode, YueUiSelectProperties } from '@joaopedro61/yue-ui/formulary/custom/select';
 import { YueUiSwitchModes } from '@joaopedro61/yue-ui/formulary/custom/switch';
+import { YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
 import { Observable } from 'rxjs';
 
 import { ParentTypes } from './enums';
-import { YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
 
 
@@ -21,10 +21,15 @@ export type BasicFn = (...parameters: any[]) => any;
 
 
 
-export interface BasicButtonProperties {
+export interface BasicButtonProperties extends YueUiButton {
   [x: string]: any;
-}
+  identifier: string;
 
+  label?: FieldDOMStruct;
+  icon?: string;
+
+  click?: Listener;
+}
 
 export interface PredefinedListenerWithScope {
   scope: any;
@@ -51,7 +56,7 @@ export interface ComponentsInjection {
 export type ChangeHandler = (changes: HistoryChanges) => void;
 
 
-export type Listener = PredefinedListenerWithScope | ((...args: any[]) => void);
+export type Listener = PredefinedListenerWithScope | BasicFn;
 
 
 export type FieldDOMStruct = string
@@ -190,13 +195,7 @@ export type ModifiersFn<R = any> = (parent: string, target: Partial<R>) => Parti
 
 
 
-export interface CustomButtonStruct extends Partial<BasicButtonProperties> {
-  label?: string;
-  identifier: string;
-
-  // Future version allow infine sub menu layers
-  // children?: GeneratedButtonMetadata[];
-}
+export interface ButtonStruct extends Partial<BasicButtonProperties>, CommonInheritMethods  { }
 
 
 
@@ -215,7 +214,7 @@ interface BaseMetadata<S = any> extends CommonInheritMethods {
 /**
  * Buttons
  */
-export interface GeneratedButtonMetadata extends BaseMetadata<CustomButtonStruct> {
+export interface GeneratedButtonMetadata extends BaseMetadata<ButtonStruct> {
   metadataType: ParentTypes.Button;
 }
 
@@ -253,3 +252,5 @@ export interface GeneratedLinearFormularyMetadata extends BaseMetadata<LinearFor
 }
 
 export type GeneratedLinearFormularyMetadataFn = () => GeneratedLinearFormularyMetadata;
+
+export type ButtonsAlign = 'start' | 'center' | 'end';

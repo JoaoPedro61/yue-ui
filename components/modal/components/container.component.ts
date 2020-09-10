@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, ChangeDetectorRef, Optional, Inject } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 
@@ -58,7 +58,7 @@ export class YueUiContainerComponent extends Base {
   @ViewChild('footerRef', { static: false })
   public modalFooterRef!: YueUiModalFooterComponent;
 
-  constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
+  constructor(elementRef: ElementRef, focusTrapFactory: ConfigurableFocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
     super(elementRef, focusTrapFactory, cdr, overlayRef, config, document );
   }
 
