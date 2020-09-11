@@ -2,6 +2,7 @@ import { Modifiers, FormularySource, } from './../fix-ralacional';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { TextMask, getMask } from '@joaopedro61/yue-ui/formulary/utils';
+import { Listener } from '../modifiers';
 
 
 
@@ -107,12 +108,36 @@ export abstract class FieldAbstraction {
       }
     }
   }
+  
+  public get useInitialFocus(): boolean {
+    if (this.formulary) {
+      if (this.formulary.useInitialFocus) {
+        return this.identifier === this.formulary.getFirstFieldIdentifier(true)
+      }
+    }
+    return false;
+  }
 
   constructor() { }
 
-  // @ts-ignore
-  public listeners(type: string, paramenters?: any[]): void {
+  public listeners(type: string, paramenters?: any): void {
+    if (this.field.listeners && typeof this.field.listeners === `object`) {
+      if (type in this.field.listeners) {
+        const listener = (this.field.listeners as any)[type] as Listener;
+        if (listener) {
+          const args = [
+            this.field,
+            ...(Array.isArray(paramenters) ? paramenters : [paramenters]),
+            this,
+          ];
+          if (typeof listener === `function`) {
+            listener.apply(this, args);
+          } else if (!Array.isArray(listener) && typeof listener === `object`) {
+            listener.handler.apply(listener.scope, args);
+          }
+        }
+      }
+    }
   }
 
 }
-

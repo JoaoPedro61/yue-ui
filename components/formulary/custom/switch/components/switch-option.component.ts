@@ -18,7 +18,7 @@ import { YueUiSwitchComponent } from './switch.component';
         </div>
       </div>
       <div class="yue-ui-switch-option-label">
-        <div class="yue-ui-switch-option-label-wrapper" (click)="setValue();">
+        <div class="yue-ui-switch-option-label-wrapper" (click)="setValue();" [attr.cdkFocusInitial]="initialFocus">
           <ng-container *ngIf="yueUiSwitchOptionLabel; else labelContent">
             <yue-ui-smart-render
               [yueUiSmartRender]="yueUiSwitchOptionLabel"
@@ -74,6 +74,13 @@ export class YueUiSwitchOptionComponent implements OnInit, OnDestroy {
   public get isSelected(): boolean {
     if (typeof this._parentValue !== 'undefined') {
       return equals(this._parentValue, this.yueUiSwitchOptionValue);
+    }
+    return false;
+  }
+
+  public get initialFocus(): boolean {
+    if (this.parent) {
+      return this.parent.yueUiSwitchInitialFocus && this.parent.optionIndex(this) === 0;
     }
     return false;
   }

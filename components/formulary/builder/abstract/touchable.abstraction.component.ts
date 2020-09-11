@@ -19,6 +19,7 @@ import { FieldAbstraction } from './abstraction';
       (mouseleave)="listeners('mouseleave', $event)"
       (focus)="listeners('focus', $event)"
       (blur)="listeners('blur', $event)"
+      [attr.cdkFocusInitial]="useInitialFocus"
     >
       <yue-ui-smart-render
         [yueUiSmartRender]="placeholder"

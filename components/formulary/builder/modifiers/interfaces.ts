@@ -136,7 +136,15 @@ export interface FieldStruct extends CommonInheritMethods {
   validators?: Array<string | ((...args: any[]) => SpecificValidatorObjectFormation)>;
   placeholder?: string | ((...args: any[]) => string | null) | Observable<string | null> | null;
   listeners?: {
-    tap?: Listener;
+    click?: Listener;
+    mousedown?: Listener;
+    mouseup?: Listener;
+    mouseenter?: Listener;
+    mouseleave?: Listener;
+    focus?: Listener;
+    blur?: Listener;
+    search?: Listener;
+    change?: Listener;
   };
   hide?: boolean | ((...args: any) => boolean);
   styles?: { [style: string]: any };

@@ -20,6 +20,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiPasswordPlaceholder | async) : yueUiPasswordPlaceholder"
         (mouseover)="hovering = true;"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiPasswordInitialFocus"
         [textMask]="yueUiPasswordMask"
       >
     </ng-container>
@@ -31,6 +32,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiPasswordPlaceholder | async) : yueUiPasswordPlaceholder"
         (mouseover)="hovering = true;"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiPasswordInitialFocus"
       >
     </ng-template>
     <ng-container *ngIf="yueUiPasswordAllowClear">
@@ -66,6 +68,9 @@ export class YueUiPasswordComponent implements OnInit, ControlValueAccessor, Aft
 
   @Input()
   public yueUiPasswordAllowClear = true;
+
+  @Input()
+  public yueUiPasswordInitialFocus = false;
 
   @Input()
   public yueUiPasswordMask!: TextMask;

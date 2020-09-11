@@ -16,7 +16,7 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
         <ng-container *ngIf="yueUiSwitchType === 'normal'">
           <div class="normal-checker" [class.focusing]="isfocusing" [class.disabled]="disabled">
             <input [id]="yueUiSwitchId" class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
-              (change)="assignNewValue()" [ngModel]="value">
+              (change)="assignNewValue()" [attr.cdkFocusInitial]="yueUiSwitchInitialFocus" [ngModel]="value">
             <span class="labels">
               <span class="active">
                 <yue-ui-smart-render [yueUiSmartRender]="yueUiSwitchOnLabel"></yue-ui-smart-render>
@@ -32,7 +32,7 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
           <div class="indeterminate-checker" [class.indeterminate]="isIndeterminated" [class.focusing]="isfocusing"
             [class.disabled]="disabled">
             <input [id]="yueUiSwitchId" class="switch" type="checkbox" (focus)="isfocusing = true;" (blur)="isfocusing = false;"
-              (change)="assignNewValue()" [ngModel]="value">
+              (change)="assignNewValue()" [attr.cdkFocusInitial]="yueUiSwitchInitialFocus" [ngModel]="value">
             <span class="labels">
               <span class="active">
                 <yue-ui-smart-render [yueUiSmartRender]="yueUiSwitchOnLabel"></yue-ui-smart-render>
@@ -65,6 +65,9 @@ import { YueUiSwitchOptionComponent } from './switch-option.component';
 export class YueUiSwitchComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   public isfocusing = false;
+
+  @Input()
+  public yueUiSwitchInitialFocus = false;
 
   @Input()
   public yueUiSwitchType: 'normal' | 'indeterminate' | 'radio' = 'normal';
@@ -180,6 +183,10 @@ export class YueUiSwitchComponent implements OnInit, ControlValueAccessor, After
 
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
+  }
+
+  public optionIndex(option: YueUiSwitchOptionComponent): number {
+    return this._options.indexOf(option);
   }
 
   public addOption(option: YueUiSwitchOptionComponent): void {

@@ -3,7 +3,8 @@ import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/
 import { FieldAbstraction } from './abstraction';
 import { YueUiSelectMode, YueUiSelectSearchChange } from '@joaopedro61/yue-ui/formulary/custom/select';
 import { BehaviorSubject, Subject, Subscription, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { equals } from '@joaopedro61/yue-ui/core/utils';
 
 
 
@@ -12,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
     <yue-ui-select
       [formControl]="abstractControl"
       [yueUiSelectPlaceholder]="placeholder"
+      [yueUiSelectInitialFocus]="useInitialFocus"
       [yueUiSelectPropertyLabel]="labelProperty"
       [yueUiSelectPropertyValue]="valueProperty"
       [yueUiSelectMode]="mode"
@@ -140,13 +142,23 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
   }
 
   public onSearch(event: YueUiSelectSearchChange): void {
-    console.log(event);
+    this.listeners(`search`, [event]);
   }
 
   public ngOnInit(): void {
     if (this.field) {
       this.field.setChangeHandler(`options`, (changes: any) => this.changesHandler(changes));
       this.updateOptionsScheme();
+    }
+    if (this.abstractControl) {
+      this.abstractControl
+        .valueChanges
+        .pipe(takeUntil(this.destroy$), distinctUntilChanged((x, y) => equals(x, y)))
+        .subscribe({
+          next: (value) => {
+            this.listeners(`change`, value);
+          }
+        });
     }
   }
 

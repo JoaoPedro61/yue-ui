@@ -16,7 +16,6 @@ import {
   formularyStep,
   formularyStepName,
   fieldValidators,
-  fieldMask,
   fieldTextMode,
   button,
   buttonIdentifier,
@@ -42,7 +41,7 @@ export class Component3 implements OnDestroy {
   private setup(): void {
     this.formulary
       .setModel({
-        name: null,
+        name: `nasdfasdlfull`,
         gender: `tank`,
       })
       .insertButtons([
@@ -62,8 +61,7 @@ export class Component3 implements OnDestroy {
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
               fieldWidth(12),
-              fieldValidators([`required`]),
-              fieldMask(`ipaddress`)
+              fieldValidators([`required`])
             ]),
             selectable([
               fieldIdentifier('gender'),

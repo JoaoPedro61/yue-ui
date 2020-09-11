@@ -20,6 +20,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
         (mouseover)="hovering = true;"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiTextInitialFocus"
         [textMask]="yueUiTextMask"
       >
     </ng-container>
@@ -31,6 +32,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiTextPlaceholder | async) : yueUiTextPlaceholder"
         (mouseover)="hovering = true;"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiTextInitialFocus"
       >
     </ng-template>
     <ng-container *ngIf="yueUiTextAllowClear">
@@ -63,6 +65,9 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
   ],
 })
 export class YueUiTextComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+
+  @Input()
+  public yueUiTextInitialFocus = false;
 
   @Input()
   public yueUiTextAllowClear = true;

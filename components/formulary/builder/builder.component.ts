@@ -106,8 +106,6 @@ import {
 })
 export class FormularyComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
-  // [attr.cdkFocusInitial]="config.autofocus === 'cancel' || null"
-
   private readonly untilDestroy$: Subject<void> = new Subject();
 
   private readonly viewInit$: Subject<boolean> = new Subject();

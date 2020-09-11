@@ -17,6 +17,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
       [placeholder]="placeholderIsAObservable ? (ngSafeValue_yueUiNumberPlaceholder | async) : yueUiNumberPlaceholder"
       (mouseover)="hovering = true;"
       (mouseout)="hovering = false;"
+      [attr.cdkFocusInitial]="yueUiNumberInitialFocus"
     >
     <ng-container *ngIf="yueUiNumberAllowClear">
       <div class="input-clear" (mouseover)="hovering = true;" (mouseout)="hovering = false;">
@@ -50,6 +51,9 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
 export class YueUiNumberComponent implements OnInit, ControlValueAccessor, AfterViewInit {
 
   public hovering = false;
+
+  @Input()
+  public yueUiNumberInitialFocus = false;
 
   @Input()
   public yueUiNumberAllowClear = true;

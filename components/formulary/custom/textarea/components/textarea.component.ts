@@ -20,6 +20,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         (mouseover)="hovering = true;"
         [rows]="yueUiTextareaRows"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiTextareaInitialFocus"
         [textMask]="yueUiTextareaMask"
       ></textarea>
     </ng-container>
@@ -31,6 +32,7 @@ import { hash } from '@joaopedro61/yue-ui/core/utils';
         (mouseover)="hovering = true;"
         [rows]="yueUiTextareaRows"
         (mouseout)="hovering = false;"
+        [attr.cdkFocusInitial]="yueUiTextareaInitialFocus"
       ></textarea>
     </ng-template>
     <ng-container *ngIf="yueUiTextareaAllowClear">
@@ -66,6 +68,9 @@ export class YueUiTextareaComponent implements OnInit, ControlValueAccessor, Aft
 
   @Input()
   public yueUiTextareaAllowClear = true;
+
+  @Input()
+  public yueUiTextareaInitialFocus = false;
 
   @HostBinding(`class.allow-resize`)
   @Input()
@@ -146,6 +151,7 @@ export class YueUiTextareaComponent implements OnInit, ControlValueAccessor, Aft
     this.onChange = fn;
   }
 
+  // [attr.cdkFocusInitial]="config.autofocus === 'cancel' || null"
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }

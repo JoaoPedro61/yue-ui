@@ -58,6 +58,7 @@ export class FormularySource<_M = any> {
     `_buttons_alignment`,
     `_hide_descriptor`,
     `_hide_label`,
+    `_use_initial_focus`,
     `_step`,
     `_steps`,
     `_step_ignore_validation`,
@@ -90,6 +91,11 @@ export class FormularySource<_M = any> {
     },
     {
       name: `_hide_label`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
+    {
+      name: `_use_initial_focus`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
@@ -175,6 +181,10 @@ export class FormularySource<_M = any> {
     [
       getHiddenProp(this._ref, `_hide_label`),
       false
+    ],
+    [
+      getHiddenProp(this._ref, `_use_initial_focus`),
+      true
     ],
     [
       getHiddenProp(this._ref, `_step`),
@@ -297,6 +307,12 @@ export class FormularySource<_M = any> {
     return false;
   }
 
+  public get useInitialFocus(): boolean {
+    const _use_initial_focus$ = getHiddenProp(this._ref, `_use_initial_focus`);
+    const _use_initial_focus = this.____.get(_use_initial_focus$) as boolean;
+    return _use_initial_focus;
+  }
+
   private mountCurrentScheme(): void {
     const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
     const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
@@ -350,6 +366,33 @@ export class FormularySource<_M = any> {
       setup: provider,
     });
     return this;
+  }
+
+  public getFirstFieldIdentifier(firstFieldOfActivatedStep: boolean = false): string | void {
+    const _formulary_ref$ = getHiddenProp(this._ref, `_formulary$`);
+    const _formulary$ = this.____.get(_formulary_ref$) as BehaviorSubject<GeneratedLinearFormularyMetadata | GeneratedStaircaseFormularyMetadata>;
+    const _value = _formulary$.value;
+    if (_value) {
+      if (_value.metadataType === ParentTypes.StaircaseFormulary) {
+        if (firstFieldOfActivatedStep) {
+          const _step_ref = getHiddenProp(this._ref, `_step`);
+          const _step = this.____.get(_step_ref) as number;
+          if (_step >= 0 && _step <= _value.struct.children.length - 1) {
+            if (_value.struct.children[_step].children[0]) {
+              return _value.struct.children[_step].children[0].identifier;
+            }
+          }
+        } else {
+          if (_value.struct.children[0] && _value.struct.children[0].children[0]) {
+            return _value.struct.children[0].children[0].identifier;
+          }
+        }
+      } else {
+        if (_value.struct.children[0] && _value.struct.children[0].identifier) {
+          return _value.struct.children[0].identifier;
+        }
+      }
+    }
   }
 
   public staircase(): {
@@ -509,6 +552,14 @@ export class FormularySource<_M = any> {
     this.____.set(getHiddenProp(this._ref, `_hide_descriptor`), hide);
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       hideDescriptors: hide,
+    });
+    return this;
+  }
+
+  public shouldUseInitialFocus(use: boolean = true): this {
+    this.____.set(getHiddenProp(this._ref, `_use_initial_focus`), use);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      useInitialFocus: use,
     });
     return this;
   }

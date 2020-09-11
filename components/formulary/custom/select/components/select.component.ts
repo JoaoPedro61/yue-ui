@@ -75,7 +75,7 @@ type YueUiSafeValue = any;
         <textarea [id]="yueUiSelectId" #inputFake class="input-select-fake" [class.caret-visible]="isVisible" autocomplete="off" role="combobox" aria-autocomplete="list"
           aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)" (click)="focus();"
           (keydown)="preventKeydown($event);" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : equivalencePlaceholder"
-          [disabled]="disabled"></textarea>
+          [disabled]="disabled" [attr.cdkFocusInitial]="yueUiSelectInitialFocus"></textarea>
         <span class="icon-drop-menu"></span>
       </div>
     </div>
@@ -280,6 +280,9 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   @Input()
   public yueUiSelectAllowSearch = true;
+
+  @Input()
+  public yueUiSelectInitialFocus = true;
 
   @Input()
   public yueUiSelectAllowClear = true;
