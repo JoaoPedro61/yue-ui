@@ -2,6 +2,7 @@ import { take } from 'rxjs/operators';
 import { Component as NgComponent, ChangeDetectionStrategy, } from '@angular/core';
 import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
+import { YueUiNotificationService } from '@joaopedro61/yue-ui/notification';
 
 import { Component3 as Modal1 } from './component-3';
 
@@ -20,6 +21,9 @@ import { Component3 as Modal1 } from './component-3';
               </a>
             </yue-ui-menu-item>
             <yue-ui-menu-item (click)="open();">
+              Modal
+            </yue-ui-menu-item>
+            <yue-ui-menu-item (click)="noty();">
               Modal
             </yue-ui-menu-item>
             <yue-ui-menu-divider>
@@ -79,7 +83,11 @@ export class Component1 {
     },
   ];
 
-  constructor(private readonly modal: YueUiModalService) { }
+  constructor(private readonly modal: YueUiModalService, private readonly notification: YueUiNotificationService) { }
+
+  public noty(): void {
+    this.notification.info(`Caralho`, `Osso`);
+  }
 
   public open(): void {
     const ref = this.modal.create({

@@ -20,9 +20,11 @@ import {
   ModifiersFn,
   GeneratedFieldMetadata,
   GeneratedButtonMetadata,
-  ButtonsAlign
+  ButtonsAlign,
+  ListenEvent,
 } from './modifiers';
 import { Modifiers } from './fix-ralacional';
+import { takeUntil } from 'rxjs/operators';
 
 
 function updateFragments(obj: any): void {
@@ -63,6 +65,8 @@ export class FormularySource<_M = any> {
     `_steps`,
     `_step_ignore_validation`,
     `_step_show_labels`,
+    `_destroy$`,
+    `_external_connect$`,
     `_model$`,
     `_modelPure$`,
     `_formulary$`,
@@ -123,6 +127,16 @@ export class FormularySource<_M = any> {
     /*
      * Observables
      */
+    {
+      name: `_destroy$`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
+    {
+      name: `_external_connect$`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
     {
       name: `_model$`,
       value: { [hash()]: 'activated' },
@@ -206,6 +220,14 @@ export class FormularySource<_M = any> {
     /*
      * Observables
      */
+    [
+      getHiddenProp(this._ref, `_destroy$`),
+      new Subject()
+    ],
+    [
+      getHiddenProp(this._ref, `_external_connect$`),
+      new Subject()
+    ],
     [
       getHiddenProp(this._ref, `_model$`),
       new BehaviorSubject({})
@@ -779,6 +801,10 @@ export class FormularySource<_M = any> {
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       setModel: values,
     });
+    (this.____.get(getHiddenProp(this._ref, `_external_connect$`)) as Subject<ListenEvent>).next({
+      type: `modelChanged`,
+      data: Object.assign(this.getModel()),
+    });
     return this;
   }
 
@@ -805,6 +831,10 @@ export class FormularySource<_M = any> {
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       applyValueOnEachControl: group.getRawValue(),
     });
+    (this.____.get(getHiddenProp(this._ref, `_external_connect$`)) as Subject<ListenEvent>).next({
+      type: `modelChanged`,
+      data: Object.assign(this.getModel()),
+    });
     return this;
   }
 
@@ -829,11 +859,18 @@ export class FormularySource<_M = any> {
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       applyValues: group.getRawValue(),
     });
+    (this.____.get(getHiddenProp(this._ref, `_external_connect$`)) as Subject<ListenEvent>).next({
+      type: `modelChanged`,
+      data: Object.assign(this.getModel()),
+    });
     return this;
   }
 
-  // @ts-ignore
   public clickedAtButton(button: GeneratedButtonMetadata): void {
+    (this.____.get(getHiddenProp(this._ref, `_external_connect$`)) as Subject<ListenEvent>).next({
+      type: `clickedAtFooterButton`,
+      data: Object.assign(button.struct),
+    });
   }
 
   public setButtonsAlignment(alignment: ButtonsAlign): this {
@@ -944,12 +981,10 @@ export class FormularySource<_M = any> {
     return this;
   }
 
-  public subscribe(): this {
-    return this;
-  }
-
-  public unsubscribe(): this {
-    return this;
+  public listen(): Observable<ListenEvent> {
+    const destroy$: Subject<void> = this.____.get(getHiddenProp(this._ref, `_destroy$`));
+    const subject$: Subject<any> = this.____.get(getHiddenProp(this._ref, `_external_connect$`));
+    return subject$.asObservable().pipe(takeUntil(destroy$));
   }
 
   public destroy(): void {

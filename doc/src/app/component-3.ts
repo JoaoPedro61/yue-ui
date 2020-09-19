@@ -20,6 +20,7 @@ import {
   button,
   buttonIdentifier,
   buttonLabel,
+  fieldMask,
 } from '@joaopedro61/yue-ui/formulary/builder';
 
 
@@ -58,6 +59,14 @@ export class Component3 implements OnDestroy {
           formularyFields([
             writable([
               fieldIdentifier('name'),
+              fieldLabel('Name'),
+              fieldPlaceholder('Type your name'),
+              fieldWidth(12),
+              fieldValidators([`required`]),
+              fieldMask(`macaddress`)
+            ]),
+            writable([
+              fieldIdentifier('name_djf3'),
               fieldLabel('Name'),
               fieldPlaceholder('Type your name'),
               fieldWidth(12),
@@ -105,7 +114,17 @@ export class Component3 implements OnDestroy {
             ])
           ])
         ])
-      ]));
+      ]))
+      .listen()
+      .subscribe({
+        next: (e) => {
+          if (e.type === `clickedAtFooterButton`) {
+            console.log(`Cliked At Button: `, e.data);
+          } else if (e.type === `modelChanged`) {
+            console.log(`Model Changed: `, e.data);
+          }
+        }
+      });
   }
 
   public ngAfterViewInit(): void {
@@ -113,13 +132,12 @@ export class Component3 implements OnDestroy {
       this.formulary.updateButton(`cancel`, [
         buttonLabel(`Changed label`),
       ]);
-    },
-    3000)
+    }, 3000)
   }
 
   public ngOnDestroy(): void {
     this.formulary
       .destroy();
   }
-  
+
 }

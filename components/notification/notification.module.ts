@@ -8,7 +8,8 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
-
+import { YueUiNotificationContainerComponent } from './components/notification-container.component';
+import { YueUiNotificationComponent } from './components/notification.component';
 import { YueUiNotificationService } from './services/notification.service';
 
 
@@ -19,10 +20,12 @@ const logger = logging.getLogger('core.notification');
 
 @NgModule({
   declarations: [
-    // 
+    YueUiNotificationComponent,
+    YueUiNotificationContainerComponent,
   ],
   entryComponents: [
-    // 
+    YueUiNotificationComponent,
+    YueUiNotificationContainerComponent,
   ],
   providers: [
     YueUiNotificationService,
@@ -34,7 +37,8 @@ const logger = logging.getLogger('core.notification');
     OverlayModule,
   ],
   exports: [
-    // 
+    YueUiNotificationComponent,
+    YueUiNotificationContainerComponent,
   ]
 })
 export class YueUiNotificationModule {

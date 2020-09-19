@@ -262,3 +262,8 @@ export interface GeneratedLinearFormularyMetadata extends BaseMetadata<LinearFor
 export type GeneratedLinearFormularyMetadataFn = () => GeneratedLinearFormularyMetadata;
 
 export type ButtonsAlign = 'start' | 'center' | 'end';
+
+export interface ListenEvent {
+  type: 'modelChanged' | 'clickedAtFooterButton';
+  data: any;
+}
