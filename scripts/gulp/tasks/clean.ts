@@ -7,5 +7,7 @@ task('clean', cleanTask([
   buildConfig.publishDir,
   buildConfig.outputTypeDocDir,
   buildConfig.outputCompDocDir,
+  buildConfig.outputImplDisDir,
+  buildConfig.outputImplDocDir,
 ]));
 

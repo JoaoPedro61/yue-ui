@@ -11,6 +11,9 @@ export interface BuildConfig {
   outputTypeDocDir: string;
   outputCompDocDir: string;
 
+  outputImplDocDir: string;
+  outputImplDisDir: string;
+
   publishDir: string;
   implementationPort: number,
 
