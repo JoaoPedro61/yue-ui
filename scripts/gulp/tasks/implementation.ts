@@ -9,7 +9,7 @@ const detectPort = require('detect-port');
 const tsconfigFile = join(buildConfig.projectDir, 'implementation/tsconfig.app.json');
 
 
-task('site:replace-path', () => {
+task('implementation:replace-path', () => {
   let tsconfig: any = fs.readJSONSync(tsconfigFile);
   if (!tsconfig) {
     tsconfig = {};
@@ -25,7 +25,7 @@ task('site:replace-path', () => {
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 
-task('site:dev:replace-path', () => {
+task('implementation:dev:replace-path', () => {
   let tsconfig: any = fs.readJSONSync(tsconfigFile);
   if (!tsconfig) {
     tsconfig = {};
@@ -41,9 +41,9 @@ task('site:dev:replace-path', () => {
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 
-task('build:site', execNodeTask('@angular/cli', 'ng', ['build', '--project=implementation', '--prod']));
+task('build:implementation', execNodeTask('@angular/cli', 'ng', ['build', '--project=implementation', '--prod']));
 
-task('start:site', done => {
+task('start:implementation', done => {
   detectPort(buildConfig.implementationPort).then((port: number) => {
     execNodeTask('@angular/cli', 'ng', ['serve', '--host', '0.0.0.0' ,'--port', port === buildConfig.implementationPort ? `${buildConfig.implementationPort}` : '0'])(done);
   });

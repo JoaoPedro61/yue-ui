@@ -24,7 +24,7 @@ import { Component3 as Modal1 } from './component-3';
               Modal
             </yue-ui-menu-item>
             <yue-ui-menu-item (click)="noty();">
-              Modal
+              Noty
             </yue-ui-menu-item>
             <yue-ui-menu-divider>
               <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
@@ -100,7 +100,7 @@ export class Component1 {
       .pipe(take(1))
       .subscribe({
         next: console.log,
-      })
+      });
   }
 
 }

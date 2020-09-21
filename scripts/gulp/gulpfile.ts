@@ -4,7 +4,7 @@ import './tasks/clean';
 
 import './tasks/generate-icons';
 import './tasks/library';
-import './tasks/site';
+import './tasks/implementation';
 
 import './tasks/compodoc';
 import './tasks/typedoc';
@@ -20,7 +20,7 @@ task('build:docs', series(
 task('build', series(
   'clean',
   'build:library',
-  'build:site',
+  'build:implementation',
   'build:docs'
 ));
 
@@ -29,8 +29,13 @@ task('build:library', series(
   'build:library',
 ));
 
-task('build:site', series(
+task('build:implementation', series(
   'clean',
-  'build:site',
+  'build:implementation',
 ));
 
+
+task('start:dev', series(
+  'clean',
+  'start:implementation',
+));
