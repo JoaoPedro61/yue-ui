@@ -47,7 +47,7 @@
         }
       }
     },
-    "yue-ui-doc": {
+    "implementation": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -63,25 +63,25 @@
           "skipTests": true
         }
       },
-      "root": "doc",
-      "sourceRoot": "doc/src",
+      "root": "implementation",
+      "sourceRoot": "implementation/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "publish-doc",
-            "index": "doc/src/index.html",
-            "main": "doc/src/main.ts",
-            "polyfills": "doc/src/polyfills.ts",
-            "tsConfig": "doc/tsconfig.app.json",
+            "outputPath": "dist-implementation",
+            "index": "implementation/src/index.html",
+            "main": "implementation/src/main.ts",
+            "polyfills": "implementation/src/polyfills.ts",
+            "tsConfig": "implementation/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "doc/src/favicon.ico",
-              "doc/src/assets"
+              "implementation/src/favicon.ico",
+              "implementation/src/assets"
             ],
             "styles": [
-              "doc/src/styles.less",
+              "implementation/src/styles.less",
               "./components/styles.less"
             ],
             "scripts": []
@@ -90,8 +90,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "doc/src/environments/environment.ts",
-                  "with": "doc/src/environments/environment.prod.ts"
+                  "replace": "implementation/src/environments/environment.ts",
+                  "with": "implementation/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -120,11 +120,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "yue-ui-doc:build"
+            "browserTarget": "implementation:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "yue-ui-doc:build:production"
+              "browserTarget": "implementation:build:production"
             }
           }
         }

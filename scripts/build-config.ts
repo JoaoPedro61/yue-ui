@@ -2,17 +2,21 @@ import { existsSync } from 'fs';
 import { dirname, join, resolve } from 'path';
 
 export interface BuildConfig {
-  projectVersion: string;
-  projectDir: string;
+  projectVersion: string,
+  projectDir: string,
+
   componentsDir: string;
   scriptsDir: string;
-  outputDir: string;
+
+  outputTypeDocDir: string;
+  outputCompDocDir: string;
+
   publishDir: string;
-  publishDocDir: string;
-  linkedDocDir: string;
-  libDir: string;
-  siteDocPort: number;
+  implementationPort: number,
+
+  name: string,
 }
+
 
 const BUILD_CONFIG_FILENAME = 'build-config.js';
 

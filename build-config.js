@@ -7,12 +7,15 @@ const buildVersion = packageJson.version;
 module.exports = {
   projectVersion: buildVersion,
   projectDir: __dirname,
+
   componentsDir: join(__dirname, 'components'),
   scriptsDir: join(__dirname, 'scripts'),
-  outputDir: join(__dirname, 'dist'),
+
+  outputTypeDocDir: join(__dirname, 'dist-documentation'),
+  outputCompDocDir: join(__dirname, 'dist-documentation'),
+  
   publishDir: join(__dirname, 'publish'),
-  publishDocDir: join(__dirname, 'publish-doc'),
-  linkedDocDir: join(__dirname, 'link'),
-  libDir: 'lib',
-  siteDocPort: 4200
+  implementationPort: 4200,
+
+  name: `Yue Ui`,
 };

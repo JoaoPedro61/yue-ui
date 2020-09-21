@@ -55,18 +55,11 @@ task('library:copy-resources', () => {
   ], { base: buildConfig.componentsDir }).pipe(dest(path.join(buildConfig.publishDir)));
 });
 
-task('library:copy-libs', () => {
-  return src([
-    path.join(buildConfig.publishDir, '**/*')
-  ]).pipe(dest(path.join(buildConfig.libDir)));
-});
-
 task(
   'build:library',
   series(
     'bump:version',
     'library:build-yue-ui',
     'library:copy-resources',
-    'library:copy-libs'
   )
 );

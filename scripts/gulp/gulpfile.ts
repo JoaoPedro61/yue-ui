@@ -1,21 +1,27 @@
 // tslint:disable:no-import-side-effect
 import { series, task } from 'gulp';
 import './tasks/clean';
-import './tasks/default';
-import './tasks/unit-test';
-import './tasks/universal';
 
 import './tasks/generate-icons';
-import './tasks/submodules';
 import './tasks/library';
 import './tasks/site';
 
+import './tasks/compodoc';
+import './tasks/typedoc';
 
+
+task('build:docs', series(
+  'clean',
+  'typedoc',
+  // TODO: Enable this
+  // 'compodoc',
+));
 
 task('build', series(
   'clean',
   'build:library',
-  'build:site'
+  'build:site',
+  'build:docs'
 ));
 
 task('build:library', series(
@@ -26,10 +32,5 @@ task('build:library', series(
 task('build:site', series(
   'clean',
   'build:site',
-));
-
-task('start:dev', series(
-  'clean',
-  'start:site'
 ));
 

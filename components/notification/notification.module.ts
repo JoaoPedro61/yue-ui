@@ -12,6 +12,10 @@ import { YueUiNotificationContainerComponent } from './components/notification-c
 import { YueUiNotificationComponent } from './components/notification.component';
 import { YueUiNotificationService } from './services/notification.service';
 
+import {
+  YUE_UI_NOTIFICATION_GLOBAL_OPTIONS,
+  YUE_UI_NOTIFICATION_GLOBAL_OPTIONS_VALUE
+} from './utils/token';
 
 
 const logger = logging.getLogger('core.notification');
@@ -29,6 +33,10 @@ const logger = logging.getLogger('core.notification');
   ],
   providers: [
     YueUiNotificationService,
+    {
+      provide: YUE_UI_NOTIFICATION_GLOBAL_OPTIONS,
+      useValue: YUE_UI_NOTIFICATION_GLOBAL_OPTIONS_VALUE,
+    }
   ],
   imports: [
     CommonModule,

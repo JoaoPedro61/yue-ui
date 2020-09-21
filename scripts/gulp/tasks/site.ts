@@ -6,7 +6,7 @@ import { execNodeTask } from '../util/task-helpers';
 
 const detectPort = require('detect-port');
 
-const tsconfigFile = join(buildConfig.projectDir, 'doc/tsconfig.app.json');
+const tsconfigFile = join(buildConfig.projectDir, 'implementation/tsconfig.app.json');
 
 
 task('site:replace-path', () => {
@@ -41,10 +41,10 @@ task('site:dev:replace-path', () => {
   return fs.writeJSON(tsconfigFile, tsconfig);
 });
 
-task('build:site', execNodeTask('@angular/cli', 'ng', ['build', '--project=yue-ui-doc', '--prod']));
+task('build:site', execNodeTask('@angular/cli', 'ng', ['build', '--project=implementation', '--prod']));
 
 task('start:site', done => {
-  detectPort(buildConfig.siteDocPort).then((port: number) => {
-    execNodeTask('@angular/cli', 'ng', ['serve', '--host', '0.0.0.0' ,'--port', port === buildConfig.siteDocPort ? `${buildConfig.siteDocPort}` : '0'])(done);
+  detectPort(buildConfig.implementationPort).then((port: number) => {
+    execNodeTask('@angular/cli', 'ng', ['serve', '--host', '0.0.0.0' ,'--port', port === buildConfig.implementationPort ? `${buildConfig.implementationPort}` : '0'])(done);
   });
 });

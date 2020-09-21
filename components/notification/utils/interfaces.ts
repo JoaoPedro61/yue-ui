@@ -14,6 +14,11 @@ export interface YueUiNotificationOptions {
   identifier?: string;
 }
 
+export type YueUiNotificationGlobalOptions = Pick<YueUiNotificationOptions, 'closable'
+| 'duration'
+| 'pauseOnHover'
+| 'placement'>;
+
 export interface YueUiNotificationData {
   messageId?: string;
   createdAt?: Date;

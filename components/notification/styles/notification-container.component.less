@@ -1,0 +1,132 @@
+@notification-width: 384px;
+@notification-margin-bottom: 16px;
+
+.yue-ui-notification {
+  position: fixed;
+  z-index: 1024;
+  max-width: ~'calc(100vw - 32px)';
+  margin-right: 24px;
+
+  &-topLeft,
+  &-bottomLeft {
+    margin-right: 0;
+    margin-left: 24px;
+
+    .yue-ui-notification-fade-enter.yue-ui-notification-fade-enter-active,
+    .yue-ui-notification-fade-appear.yue-ui-notification-fade-appear-active {
+      animation-name: NotificationLeftFadeIn;
+    }
+  }
+
+  &-hook-holder,
+  &-notice {
+    position: relative;
+    width: @notification-width;
+    margin-bottom: @notification-margin-bottom;
+    margin-left: auto;
+    overflow: hidden;
+
+    .yue-ui-notification-topLeft &,
+    .yue-ui-notification-bottomLeft & {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+
+  &-hook-holder > &-notice {
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+
+  &-notice {
+
+    &-message {
+      display: inline-block;
+      margin-bottom: 8px;
+      line-height: 24px;
+    }
+
+    &-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      outline: none;
+
+      &:hover { }
+    }
+
+    &-btn {
+      float: right;
+      margin-top: 16px;
+    }
+  }
+
+  .notification-fade-effect {
+    animation-duration: 0.24s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+  }
+
+  &-fade-enter,
+  &-fade-appear {
+    opacity: 0;
+    .notification-fade-effect();
+
+    animation-play-state: paused;
+  }
+
+  &-fade-leave {
+    .notification-fade-effect();
+
+    animation-duration: 0.2s;
+    animation-play-state: paused;
+  }
+
+  &-fade-enter&-fade-enter-active,
+  &-fade-appear&-fade-appear-active {
+    animation-name: NotificationFadeIn;
+    animation-play-state: running;
+  }
+
+  &-fade-leave&-fade-leave-active {
+    animation-name: NotificationFadeOut;
+    animation-play-state: running;
+  }
+}
+
+@keyframes NotificationFadeIn {
+  0% {
+    left: @notification-width;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes NotificationLeftFadeIn {
+  0% {
+    right: @notification-width;
+    opacity: 0;
+  }
+  100% {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes NotificationFadeOut {
+  0% {
+    max-height: 150px;
+    margin-bottom: @notification-margin-bottom;
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+  }
+}

@@ -5,8 +5,9 @@ import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interf
 @Component({
   selector: `yue-ui-notification`,
   template: `
-    Buceta
+    B.U.C.E.T.A.
   `,
+  styleUrls: [`./../styles/notification.component.less`],
 })
 export class YueUiNotificationComponent implements OnDestroy, OnInit {
 
@@ -88,4 +89,3 @@ export class YueUiNotificationComponent implements OnDestroy, OnInit {
   }
 
 }
-

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from "@angular/core";
-import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interfaces';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from "@angular/core";
+
+import { YueUiNotificationData, YueUiNotificationGlobalOptions, YueUiNotificationOptions } from '../utils/interfaces';
 import { YueUiNotificationRef } from '../utils/notification-ref';
-import { YUE_UI_NOTIFICATION_DEFAULT_OPTIONS } from './../utils/defaults';
+import { YUE_UI_NOTIFICATION_GLOBAL_OPTIONS } from './../utils/token';
 
 
 
@@ -36,11 +37,12 @@ import { YUE_UI_NOTIFICATION_DEFAULT_OPTIONS } from './../utils/defaults';
       ></yue-ui-notification>
     </div>
   `,
+  styleUrls: [`./../styles/notification-container.component.less`],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
-    [`[class.yue-ui-notification-container]`]: `true`,
-  }
+    '[class.yue-ui-notification-container]': `true`,
+  },
 })
 export class YueUiNotificationContainerComponent {
 
@@ -60,8 +62,10 @@ export class YueUiNotificationContainerComponent {
 
   public bottomRightInstances: Array<Required<YueUiNotificationData>> = [];
 
-  constructor(private readonly cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private readonly cdr: ChangeDetectorRef,
+    @Inject(YUE_UI_NOTIFICATION_GLOBAL_OPTIONS) private readonly config: YueUiNotificationGlobalOptions
+  ) { }
 
   private updateInstances(): void {
     this.topLeftInstances = this.instances.filter(m => m.options.placement === 'topLeft');
@@ -71,9 +75,14 @@ export class YueUiNotificationContainerComponent {
     this.cdr.markForCheck();
   }
 
+  private merge(options?: YueUiNotificationOptions): YueUiNotificationOptions {
+    const { duration, pauseOnHover, placement } = this.config;
+    return { duration, pauseOnHover, placement: placement, ...options };
+  }
+
   public create(notification: YueUiNotificationData): YueUiNotificationRef {
     const noty = notification as Required<YueUiNotificationData>;
-    noty.options = Object.assign(noty.options || {}, YUE_UI_NOTIFICATION_DEFAULT_OPTIONS);
+    noty.options = this.merge(noty.options);
     const identifier = noty.options.identifier;
     const notyWithSameKey = this.instances.find(
       msg => msg.options.identifier === (noty.options as Required<YueUiNotificationOptions>).identifier
