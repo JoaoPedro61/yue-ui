@@ -2,10 +2,12 @@
 
 # compiled output
 /dist
+/dist*
 /tmp
 /out-tsc
 /lib
 /publish
+/publish*
 /publish-doc
 # Only exists if Bazel was run
 /bazel-out
