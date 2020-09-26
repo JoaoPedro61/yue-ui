@@ -20,8 +20,8 @@ import { removeAccents, elementDimentions, equals, hash } from '@joaopedro61/yue
 import { YueUiSelectOptionComponent } from './select-option.component';
 
 import { YueUiSelectSearchChange, YueUiSelectMode, YueUiSelectProperties, Placeholder } from './../utils/interfaces';
-import { ConnectedPosition, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { DEFAULT_MENTION_BOTTOM_POSITIONS, YueUiOverlayDirective } from '@joaopedro61/yue-ui/overlay';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { YueUiOverlayDirective } from '@joaopedro61/yue-ui/overlay';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { UP_ARROW, DOWN_ARROW, ENTER, SPACE, TAB, ESCAPE } from '@angular/cdk/keycodes';
 
@@ -37,7 +37,7 @@ type YueUiSafeValue = any;
     <div class="input-select-wrapper" [class.single]="mode === 'single'" [class.multiple]="mode === 'multiple'"
       [class.disabled]="disabled" [class.mouseovering]="mouseovering" [class.showclear]="mouseovering && hasValue">
       <div class="input-select" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" (mouseover)="mouseovering = true;" (mouseout)="mouseovering = false;">
-        <div class="input-labels-value" #optionsSelecteds (click)="(mode === 'single' && focus());">
+        <div class="input-labels-value" #optionsSelecteds (click)="(mode === 'single' && focus());" [style.cursor]="mode === 'single' ? 'pointer' : 'default'">
           <ng-container *ngIf="selections && selections.length && (mode === 'single' ? !isVisible : true)">
             <ng-container *ngFor="let option of selections; let index = index">
               <span class="option-selection">
@@ -59,8 +59,8 @@ type YueUiSafeValue = any;
             </ng-container>
           </ng-container>
         </div>
-        <div class="input-clear">
-          <ng-container *ngIf="yueUiSelectAllowClear && !isVisible && !disabled && hasValue">
+        <ng-container *ngIf="yueUiSelectAllowClear && !isVisible && !disabled && hasValue">
+          <div class="input-clear">
             <span class="input-clear-wrapper">
               <span class="input-clear-handler" (click)="clear();">
                 <svg width="12" height="12" viewBox="0 0 24 24" focusable="false" role="presentation">
@@ -70,13 +70,13 @@ type YueUiSafeValue = any;
                 </svg>
               </span>
             </span>
-          </ng-container>
-        </div>
+          </div>
+        </ng-container>
         <textarea [id]="yueUiSelectId" #inputFake class="input-select-fake" [class.caret-visible]="isVisible" autocomplete="off" role="combobox" aria-autocomplete="list"
           aria-haspopup="true" aria-expanded="true" wrap="off" aria-busy="false" (keyup)="researh($event)" (click)="focus();"
           (keydown)="preventKeydown($event);" [value]="searchValue" [placeholder]="allowShowPlaceholder ? (placeholderIsAObservable ? (ngSafeValue_yueUiSelectPlaceholder | async) : ngSafeValue_yueUiSelectPlaceholder) : equivalencePlaceholder"
           [disabled]="disabled" [attr.cdkFocusInitial]="yueUiSelectInitialFocus"></textarea>
-        <span class="icon-drop-menu"></span>
+        <span class="icon-drop-menu" [style.opacity]="!disabled && !isVisible ? 1 : 0" (click)="focus()"></span>
       </div>
     </div>
     <ng-template
@@ -86,11 +86,17 @@ type YueUiSafeValue = any;
       [cdkConnectedOverlayOrigin]="originOverlay"
       [cdkConnectedOverlayOpen]="isVisible"
       [cdkConnectedOverlayHasBackdrop]="hasBackdrop"
-      [cdkConnectedOverlayPositions]="positions"
+      [cdkConnectedOverlayTransformOriginOn]="'.yue-ui-select-dropdown'"
+      (positionChange)="onPositionChange($event)"
       (backdropClick)="hide()"
       (detach)="hide()"
     >
-      <div class="input-select--overlay-wrapper--" [style.width.%]="100">
+      <div
+        class="input-select--overlay-wrapper--"
+        [style.width.%]="100"
+        [class.yue-ui-select-dropdown-placement-bottomLeft]="dropDownPosition === 'bottom'"
+        [class.yue-ui-select-dropdown-placement-topLeft]="dropDownPosition === 'top'"
+      >
         <cdk-virtual-scroll-viewport
           [itemSize]="itemSize"
           [maxBufferPx]="itemSize * maxItemLength"
@@ -176,9 +182,12 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   private _activatedValue: any = null;
 
-  private _positions = [
-    ...DEFAULT_MENTION_BOTTOM_POSITIONS
-  ];
+  public dropDownPosition: 'top' | 'center' | 'bottom' = 'bottom';
+
+  public onPositionChange(position: any) {
+    this.dropDownPosition = position.connectionPair.originY;
+    this.cdr.markForCheck();
+  }
 
   public get activatedValue(): any {
     return this._activatedValue;
@@ -201,10 +210,6 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
 
   public get hasBackdrop(): boolean {
     return this._hasBackdrop;
-  }
-
-  public get positions(): ConnectedPosition[] {
-    return this._positions;
   }
 
   public set value(v: any) {
@@ -555,6 +560,7 @@ export class YueUiSelectComponent implements OnInit, ControlValueAccessor, After
             this.overlay.overlayRef.updateSize({ width: WIDTH });
           }
         }
+        this.overlay.overlayRef.updatePosition();
       }
     }
   }
