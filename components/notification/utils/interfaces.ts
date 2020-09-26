@@ -3,7 +3,7 @@ import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 
 export type YueUiNotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
-export type YueUiNotificationType = 'success' | 'info' | 'warning' | 'danger' | 'blank';
+export type YueUiNotificationType = 'success' | 'info' | 'warning' | 'error' | 'blank';
 
 export interface YueUiNotificationOptions {
   type?: YueUiNotificationType;

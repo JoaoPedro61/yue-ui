@@ -30,6 +30,8 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
       'success-hover': '#28a745',
       danger: '#dc3545',
       'danger-hover': '#dc3545',
+      error: '#dc3545',
+      'error-hover': '#dc3545',
       warning: '#ffc107',
       'warning-hover': '#ffc107',
       info: '#17a2b8',
@@ -367,6 +369,28 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           }
         }
       },
+      notification: {
+        background: 'var(--components-popover-background)',
+        color: 'var(--components-popover-content-color)',
+        shadow: {
+          color: 'rgba(0, 0, 0, 0.2)'
+        },
+        success: {
+          color: 'var(--color-success)',
+        },
+        info: {
+          color: 'var(--color-info)',
+        },
+        warning: {
+          color: 'var(--color-warning)',
+        },
+        error: {
+          color: 'var(--color-error)',
+        },
+        blank: {
+          color: 'var(--color-dark)',
+        },
+      }
     }
   }
 };

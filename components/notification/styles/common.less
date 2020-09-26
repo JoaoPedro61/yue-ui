@@ -1,0 +1,173 @@
+@import "./vars.less";
+
+
+.yue-ui-notification {
+  position: fixed;
+  z-index: 1024;
+  max-width: ~'calc(100vw - 32px)';
+  margin-right: 24px;
+
+  &-topLeft,
+  &-bottomLeft {
+    margin-right: 0;
+    margin-left: 24px;
+
+    .yue-ui-notification-fade-enter.yue-ui-notification-fade-enter-active,
+    .yue-ui-notification-fade-appear.yue-ui-notification-fade-appear-active {
+      animation-name: NotificationLeftFadeIn;
+    }
+  }
+
+  &-hook-holder,
+  &-notice {
+    position: relative;
+    width: @notification-width;
+    margin-bottom: @notification-margin-bottom;
+    box-shadow: 0 4px 12px var(--components-notification-shadow-color);
+    background: var(--components-notification-background);
+    margin-left: auto;
+    overflow: hidden;
+    display: block;
+    padding: 10px 16px 16px 16px;
+    &-no-titled {
+      padding: 10px 16px 10px 16px;
+    }
+    border-radius: 5px;
+    border-left: 5px solid transparent;
+
+    &-wrap {
+      line-height: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-self: flex-start;
+      align-content: flex-start;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      width: 100%;
+      height: 100%;
+
+      &-content {
+
+        &-message {
+          line-height: 1;
+
+          &-no-titled {
+            line-height: 24px;
+          }
+        }
+      }
+    }
+
+    .yue-ui-notification-topLeft &,
+    .yue-ui-notification-bottomLeft & {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+
+  &-success {
+    border-left-color: var(--components-notification-success-color);
+  }
+
+  &-info {
+    border-left-color: var(--components-notification-info-color);
+  }
+
+  &-warning {
+    border-left-color: var(--components-notification-warning-color);
+  }
+
+  &-error {
+    border-left-color: var(--components-notification-error-color);
+  }
+
+  &-blank {
+    border-left-color: var(--components-notification-blank-color);
+  }
+
+  &-hook-holder > &-notice {
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+
+  &-notice {
+
+    &-icon {
+      margin-right: 7px;
+      line-height: 24px;
+      font-size: 24px;
+      margin-top: 1px;
+
+      &-success {
+        color: var(--components-notification-success-color);
+      }
+    
+      &-info {
+        color: var(--components-notification-info-color);
+      }
+    
+      &-warning {
+        color: var(--components-notification-warning-color);
+      }
+    
+      &-error {
+        color: var(--components-notification-error-color);
+      }
+    }
+
+    &-message {
+      display: inline-block;
+      margin-bottom: 8px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    &-close {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      outline: none;
+      cursor: pointer;
+
+      &:hover { }
+    }
+
+    &-btn {
+      float: right;
+      margin-top: 16px;
+    }
+  }
+
+  .notification-fade-effect {
+    animation-duration: 0.24s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+  }
+
+  &-fade-enter,
+  &-fade-appear {
+    opacity: 0;
+    .notification-fade-effect();
+
+    animation-play-state: paused;
+  }
+
+  &-fade-leave {
+    .notification-fade-effect();
+
+    animation-duration: 0.2s;
+    animation-play-state: paused;
+  }
+
+  &-fade-enter&-fade-enter-active,
+  &-fade-appear&-fade-appear-active {
+    animation-name: NotificationFadeIn;
+    animation-play-state: running;
+  }
+
+  &-fade-leave&-fade-leave-active {
+    animation-name: NotificationFadeOut;
+    animation-play-state: running;
+  }
+}

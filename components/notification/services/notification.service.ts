@@ -103,8 +103,8 @@ export class YueUiNotificationService {
     } as any, options);
   }
 
-  public danger(title?: YueUiNotificationData['title'], content?: YueUiNotificationData['content'], options: YueUiNotificationOptions = {}) {
-    options.type = `danger`;
+  public error(title?: YueUiNotificationData['title'], content?: YueUiNotificationData['content'], options: YueUiNotificationOptions = {}) {
+    options.type = `error`;
     return this.createInstance({
       title,
       content,

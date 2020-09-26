@@ -86,7 +86,10 @@ export class Component1 {
   constructor(private readonly modal: YueUiModalService, private readonly notification: YueUiNotificationService) { }
 
   public noty(): void {
-    this.notification.info(`Caralho`, `Osso`);
+    this.notification.warning('Cuidado', `Osso`);
+    this.notification.success('De boa', `Osso`);
+    this.notification.info(undefined, `Osso`);
+    this.notification.error(undefined, `Osso`);
   }
 
   public open(): void {
