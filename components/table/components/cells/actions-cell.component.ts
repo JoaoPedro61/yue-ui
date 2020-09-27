@@ -10,7 +10,7 @@ import {
   EventEmitter,
   HostBinding,
   OnDestroy
-} from "@angular/core";
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../utils/interfaces';
@@ -21,7 +21,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
   selector: `yue-ui-table-actions-cell`,
   template: `
     <button #popoverRef="yueUiPopoverRef" yueUiButton yueUiPopover [yueUiPopoverContent]="actionsList" yueUiPopoverPlacement="bottomRight" [yueUiPopoverContentStyles]="{'padding.px': 0}">
-      <i yueUiIcon yueUiIconType="yue-ui-gg-more-vertical-alt"></i>
+      <i yueUiIcon yueUiIconType="yue-ui-gg-more-vertical-alt" [style.marginRight.px]="0"></i>
       <ng-template #actionsList>
         <div [style.minWidth.px]="120">
           <yue-ui-menu>
