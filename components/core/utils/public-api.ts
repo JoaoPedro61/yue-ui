@@ -1,6 +1,27 @@
 export { ArrayObjectManager, ArrayObjectManagerConfig, ArrayObjectsManagerConfig } from './array-object-manager';
 export { camelCaseToDash } from './camel-case-to-dash';
-export { colorScale } from './color-scale';
+export {
+  HSLAToHexA,
+  HSLAToRGBA,
+  HSLToHex,
+  HSLToRGB,
+  RGBAToHSLA,
+  RGBAToHexA,
+  RGBToHSL,
+  RGBToHex,
+  colorScale,
+  getRGBA,
+  hexAToHSLA,
+  hexAToRGBA,
+  hexToHSL,
+  hexToRGB,
+  invertColor,
+  invertHexSimple,
+  nameToHSL,
+  nameToHex,
+  nameToRGB,
+  padZero
+} from './colors-utils';
 export { consoleError, consoleInfo, consoleLog, consoleWarning } from './console-output';
 export { copyText } from './copy-text-from-element';
 export { deepForIn } from './deep-for-in';

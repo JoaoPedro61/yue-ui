@@ -1,1 +1,52 @@
 - Text Mask Module
+  - Remove angular2-text-mask
+
+- Cards Module
+
+- List Module
+
+- Formulary
+  - Create label component
+  - Create descriptor component
+  - Input Clear Handler
+  
+  - Fields
+    - Datepicker
+    - Colorpicker
+    - Number Slider Mode
+    - Refactor Select Field
+
+- Theme
+  - Refactor the theme scheme
+
+- I18N
+  - Convert i18n in pure typescript functions
+
+- Layout
+  - Create a filter bar
+
+  - Navigation Sider
+    - Add floating button to close or open the dynamic bar if the static bar doenst exist
+
+- Component Styles
+  - Refactor Component Styles in ViewEncapsulation.None
+  - Create Components Animations
+  - Elevation Shadow 
+  - Add RTL support
+
+- Menu
+  - Refactor Component Menu
+  - Horizontal config.
+
+- Table
+  - Create a selectable row
+  - Create a expansible row
+  - Create a boolean cell component
+  - Create a image cell component
+  - Create a token to inject external cell components
+
+- Button
+  - Fix button outline
+
+- Icons
+  - Integrate Ant Icons Design @ant-design/icons
