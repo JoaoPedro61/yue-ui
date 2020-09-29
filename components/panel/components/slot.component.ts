@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, HostBinding, ViewEncapsulation } from '@angular/core';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-panel-slot`,
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,

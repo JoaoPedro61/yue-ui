@@ -37,7 +37,7 @@ type YueUiSafeValue = any;
     <div class="input-select-wrapper" [class.single]="mode === 'single'" [class.multiple]="mode === 'multiple'"
       [class.disabled]="disabled" [class.mouseovering]="mouseovering" [class.showclear]="mouseovering && hasValue">
       <div class="input-select" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin" (mouseover)="mouseovering = true;" (mouseout)="mouseovering = false;">
-        <div class="input-labels-value" #optionsSelecteds (click)="(mode === 'single' && focus());" [style.cursor]="mode === 'single' ? 'pointer' : 'default'">
+        <div class="input-labels-value" #optionsSelecteds (click)="(mode === 'single' && focus());" [style.cursor]="mode === 'single' ? 'text' : 'default'">
           <ng-container *ngIf="selections && selections.length && (mode === 'single' ? !isVisible : true)">
             <ng-container *ngFor="let option of selections; let index = index">
               <span class="option-selection">

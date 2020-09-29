@@ -1,4 +1,4 @@
-import { SimpleChanges, OnInit, OnChanges, OnDestroy, AfterContentInit, Input, ContentChildren, QueryList, ChangeDetectorRef, Optional, Inject, Component, ChangeDetectionStrategy } from "@angular/core";
+import { SimpleChanges, OnInit, OnChanges, OnDestroy, AfterContentInit, Input, ContentChildren, QueryList, ChangeDetectorRef, Optional, Inject, Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 import { RouterLink, RouterLinkWithHref, Router, NavigationEnd } from '@angular/router';
 import { Subject, combineLatest } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { IsMenuInsideDropDownToken } from '../utils/token';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-menu-item`,
   host: {
     '[class.yue-ui-menu-item]': 'true',

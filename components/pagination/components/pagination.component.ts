@@ -9,7 +9,8 @@ import {
   OnChanges,
   SimpleChanges,
   Output,
-  EventEmitter
+  EventEmitter,
+  ViewEncapsulation
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { pager } from '../utils/pager';
@@ -17,6 +18,7 @@ import { pager } from '../utils/pager';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-pagination`,
   template: `
     <div class="yue-ui-pagination-wrapper">

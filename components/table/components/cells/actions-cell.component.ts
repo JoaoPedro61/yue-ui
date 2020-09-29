@@ -9,7 +9,8 @@ import {
   Output,
   EventEmitter,
   HostBinding,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -18,6 +19,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-table-actions-cell`,
   template: `
     <button #popoverRef="yueUiPopoverRef" yueUiButton yueUiPopover [yueUiPopoverContent]="actionsList" yueUiPopoverPlacement="bottomRight" [yueUiPopoverContentStyles]="{'padding.px': 0}">
@@ -64,7 +66,8 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
   `,
   styles: [
     `
-    :host {
+    :host,
+    .yue-ui-table-actions-cell {
       display: flex;
       justify-content: center;
     }

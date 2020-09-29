@@ -11,7 +11,7 @@ import { Component3 as Modal1 } from './component-3';
 @NgComponent({
   template: `
     <yue-ui-layout>
-      <yue-ui-navigation-menu #navref="navMenuRef" [yueUiNavigationMenuOpened]="true">
+      <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuInlineCollapsed]="false" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
@@ -55,12 +55,6 @@ import { Component3 as Modal1 } from './component-3';
             </yue-ui-submenu>
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
-        <yue-ui-navigation-menu-top>
-          TOP
-        </yue-ui-navigation-menu-top>
-        <yue-ui-navigation-menu-bottom>
-          <yue-ui-image style="width: 32px;height: 32px;border-radius: 50%;border: 3px solid rgba(0, 0, 0, .3);" yueUiImageSrc="https://picsum.photos/id/1/200/300"></yue-ui-image>
-        </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
       <router-outlet></router-outlet>
     </yue-ui-layout>

@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-button-group',
   template: `
     <ng-content select="[yueUiButton]"></ng-content>
@@ -11,5 +12,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YueUiButtonGroupComponent {
-}
+export class YueUiButtonGroupComponent { }

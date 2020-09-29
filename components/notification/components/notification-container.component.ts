@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, ViewEncapsulation } from "@angular/core";
 
 import { YueUiNotificationData, YueUiNotificationGlobalOptions, YueUiNotificationOptions } from '../utils/interfaces';
 import { YueUiNotificationRef } from '../utils/notification-ref';
@@ -7,6 +7,7 @@ import { YUE_UI_NOTIFICATION_GLOBAL_OPTIONS } from './../utils/token';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div class="yue-ui-notification yue-ui-notification-topLeft" [style.top]="top" [style.left]="'0px'">
       <yue-ui-notification

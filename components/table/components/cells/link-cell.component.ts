@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from "@angular/core";
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewEncapsulation } from "@angular/core";
 import { TableCellComponentAbstraction } from './abstract';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-table-link-cell`,
   template: `
     <a [routerLink]="link">

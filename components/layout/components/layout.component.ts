@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ContentChildren, QueryList, OnDestroy, ChangeDetectorRef, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ContentChildren, QueryList, OnDestroy, ChangeDetectorRef, HostBinding, ViewEncapsulation } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 import { Subject } from 'rxjs';
@@ -11,6 +11,7 @@ import { YueUiNavigationMenuComponent } from './navigation-menu.component';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-layout`,
   template: `
     <div class="yue-ui-layout-wrapper">
@@ -31,7 +32,7 @@ import { YueUiNavigationMenuComponent } from './navigation-menu.component';
     '[class.has-navigation-menu]': `listOfNavMenuComponent.length > 0`,
     '[class.yue-ui-layout]': `true`
   },
-  exportAs: 'layoutRef',
+  exportAs: 'yueUiLayoutRef',
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

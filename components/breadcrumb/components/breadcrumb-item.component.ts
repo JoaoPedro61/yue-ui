@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-breadcrumb-item`,
   template: `
     <ng-content></ng-content>

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, ChangeDetectorRef, Optional, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, ChangeDetectorRef, Optional, Inject, ViewEncapsulation } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -11,6 +11,7 @@ import { YueUiModalHeaderComponent } from './header.component';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div
       #modalElement

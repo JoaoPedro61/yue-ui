@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, AfterViewInit, OnDestroy, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, ChangeDetectionStrategy, Input, AfterViewInit, OnDestroy, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from "@angular/core";
 import { Subject } from 'rxjs';
 import { YueUiButtonSize, YueUiButtonType } from '../utils/interfaces';
 
@@ -6,6 +6,7 @@ import { YueUiButtonSize, YueUiButtonType } from '../utils/interfaces';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-button, button[yueUiButton], a[yueUiButton]`,
   template: `
     <i class="yue-ui-button-icon-loading" yueUiIcon [yueUiIconSpin]="true" yueUiIconType="yue-ui-gg-spinner" *ngIf="yueUiButtonLoading"></i>

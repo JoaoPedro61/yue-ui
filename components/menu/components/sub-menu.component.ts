@@ -14,7 +14,8 @@ import {
   OnChanges,
   OnDestroy,
   SimpleChanges,
-  AfterContentInit
+  AfterContentInit,
+  ViewEncapsulation
 } from '@angular/core';
 import { CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import { Subject, combineLatest, merge } from 'rxjs';
@@ -34,6 +35,7 @@ import { YueUiSubMenuService } from './../services/sub-menu.service';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-submenu',
   template: `
     <div class="wrapper-inner"

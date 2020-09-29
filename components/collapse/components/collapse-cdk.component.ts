@@ -1,10 +1,11 @@
-import { Input, Output, EventEmitter, Component, ElementRef, Renderer2, RendererFactory2, OnChanges, OnDestroy, SimpleChanges, ChangeDetectorRef } from "@angular/core";
+import { Input, Output, EventEmitter, Component, ElementRef, Renderer2, RendererFactory2, OnChanges, OnDestroy, SimpleChanges, ChangeDetectorRef, ViewEncapsulation } from "@angular/core";
 
 import { COLLAPSE_MOTION } from '@joaopedro61/yue-ui/core/animations';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `[yueUiCollapseCdk]`,
   template: `<ng-content></ng-content>`,
   host: {
@@ -16,7 +17,8 @@ import { COLLAPSE_MOTION } from '@joaopedro61/yue-ui/core/animations';
     '[@COLLAPSE_MOTION]': 'open',
   },
   styles: [`
-    :host {
+    :host,
+    .yue-ui-collapse-cdk {
       display: block;
       position: relative;
       overflow: hidden;

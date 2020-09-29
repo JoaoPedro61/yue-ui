@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 
 import { YueUiBreadcrumbItem } from './../utils/interfaces';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-breadcrumb`,
   template: `
     <ng-content select="yue-ui-breadcrumb-item"></ng-content>

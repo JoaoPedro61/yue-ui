@@ -14,7 +14,8 @@ import {
   QueryList,
   EventEmitter,
   Component,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewEncapsulation
 } from '@angular/core';
 import { takeUntil, take } from 'rxjs/operators';
 import { combineLatest, Subject, BehaviorSubject } from 'rxjs';
@@ -28,6 +29,7 @@ import { YueUiMenuItemComponent } from './menu-item.component';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-menu',
   host: {
     '[class.yue-ui-menu]': 'true',

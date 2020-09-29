@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef, OnChanges, SimpleChanges, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { YueUiModalRef } from '../utils/modal-ref';
@@ -7,6 +7,7 @@ import { YueUiModalOptions } from '../utils/options';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-modal-footer`,
   template: `
     <div

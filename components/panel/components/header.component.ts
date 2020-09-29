@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy, Optional, Host, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Optional, Host, ElementRef, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { YueUiPanelComponent } from './panel.component';
 
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-panel-header`,
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,

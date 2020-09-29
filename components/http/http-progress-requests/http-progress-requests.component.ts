@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { YUE_UI_PROGRESS_REQUESTS } from '../http.utils';
@@ -8,6 +8,7 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-http-progress-requests',
   template: `
     <ng-container *ngIf="metadataLoader$ | async">
@@ -44,13 +45,15 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
           right: -8%;
         }
       }
-      :host .wrapper-loader-progress-http {
+      :host .wrapper-loader-progress-http,
+      .yue-ui-http-progress-requests .wrapper-loader-progress-http {
         position: absolute;
         z-index : 1050;
         width   : 100%;
         height  : 5px;
       }
-      :host .wrapper-loader-progress-http .loading-bar-http {
+      :host .wrapper-loader-progress-http .loading-bar-http,
+      .yue-ui-http-progress-requests .wrapper-loader-progress-http .loading-bar-http {
         position  : absolute;
         top       : 0;
         left      : 50%;
@@ -60,7 +63,8 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
         background: red;
         overflow  : hidden;
       }
-      :host .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::before {
+      :host .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::before,
+      .yue-ui-http-progress-requests .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::before {
         content   : "";
         position  : absolute;
         top       : 0px;
@@ -69,7 +73,8 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
         background: var(--components-loader-http-background);
         animation : loading-box-1 2100ms cubic-bezier(0.65, 0.81, 0.73, 0.4) infinite;
       }
-      :host .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::after {
+      :host .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::after,
+      .yue-ui-http-progress-requests .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::after {
         content        : "";
         position       : absolute;
         top            : 0px;
@@ -81,6 +86,9 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
       }
     `
   ],
+  host: {
+    '[class.yue-ui-http-progress-requests]': `true`,
+  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HttpProgressRequestsComponent implements OnInit, OnDestroy {

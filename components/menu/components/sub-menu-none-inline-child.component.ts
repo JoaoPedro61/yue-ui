@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { YueUiMenuType } from './../utils/interfaces';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-submenu-none-inline-child',
   exportAs: 'yueUiSubMenuNoneInlineChildRef',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { YueUiMenuType } from './../utils/interfaces';
     <ng-content></ng-content>
   `,
   host: {
+    '[class.yue-ui-submenu-none-inline-child]': `true`,
     '(mouseenter)': 'setMouseState(true)',
     '(mouseleave)': 'setMouseState(false)'
   },

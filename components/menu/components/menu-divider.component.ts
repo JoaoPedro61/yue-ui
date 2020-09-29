@@ -1,4 +1,4 @@
-import { OnInit, OnChanges, OnDestroy, AfterContentInit, Input, Optional, Inject, Component, ChangeDetectionStrategy } from "@angular/core";
+import { OnInit, OnChanges, OnDestroy, AfterContentInit, Input, Optional, Inject, Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core";
 import { Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { IsMenuInsideDropDownToken } from '../utils/token';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-menu-divider`,
   host: {
     '[class.yue-ui-menu-divider]': 'true',

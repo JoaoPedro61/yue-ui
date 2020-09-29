@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 
@@ -7,6 +7,7 @@ import { YueUiI18nService } from './i18n.service';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-i18n',
   template: `<span *ngIf="translation" [innerText]="translation"><span>`,
   styles: [],

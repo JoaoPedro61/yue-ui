@@ -1,4 +1,17 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, HostBinding, ChangeDetectorRef, ContentChildren, QueryList, HostListener, Output, Input, EventEmitter } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  HostBinding,
+  ChangeDetectorRef,
+  ContentChildren,
+  QueryList,
+  HostListener,
+  Output,
+  Input,
+  EventEmitter,
+  ViewEncapsulation
+} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,32 +29,35 @@ let timerCheckHover: any = null;
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-navigation-menu`,
   template: `
     <div class="yue-ui-navigation-menu-wrapper">
       <div class="yue-ui-navigation-menu-fix-flexing">
         <div class="yue-ui-navigation-menu-handled-menu">
           <div class="yue-ui-navigation-menu-sipl">
-            <div class="yue-ui-navigation-menu-static-menu-bar">
-              <div class="yue-ui-navigation-menu-fixing-inner-overlay"></div>
-              <span class="yue-ui-navigation-menu-inner-container-wrapper">
-                <div class="yue-ui-navigation-menu-inner-container-top">
-                  <ng-container *ngIf="listOfNavMenuSiderComponent.length > 0">
-                    <div class="yue-ui-navigation-menu-open-handler-out-wrapper">
-                      <span class="yue-ui-navigation-menu-open-handler-out-wrapper-inner" (click)="toggle();">
-                        <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'yue-ui-gg-menu' : 'yue-ui-gg-pin-alt'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 45 : 0"></i>
-                      </span>
+            <ng-container *ngIf="showStaticBar">
+              <div class="yue-ui-navigation-menu-static-menu-bar">
+                <div class="yue-ui-navigation-menu-fixing-inner-overlay"></div>
+                <span class="yue-ui-navigation-menu-inner-container-wrapper">
+                  <div class="yue-ui-navigation-menu-inner-container-top">
+                    <ng-container *ngIf="listOfNavMenuSiderComponent.length > 0">
+                      <div class="yue-ui-navigation-menu-open-handler-out-wrapper">
+                        <span class="yue-ui-navigation-menu-open-handler-out-wrapper-inner" (click)="toggle();">
+                          <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'yue-ui-gg-menu' : 'yue-ui-gg-pin-alt'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 45 : 0"></i>
+                        </span>
+                      </div>
+                    </ng-container>
+                    <div class="yue-ui-navigation-menu-top-wrapper-out" [style.marginTop]="!isLikeMobile && listOfNavMenuSiderComponent.length > 0 ? '10px' : 0">
+                      <ng-content select="yue-ui-navigation-menu-top"></ng-content>
                     </div>
-                  </ng-container>
-                  <div class="yue-ui-navigation-menu-top-wrapper-out" [style.marginTop]="!isLikeMobile && listOfNavMenuSiderComponent.length > 0 ? '10px' : 0">
-                    <ng-content select="yue-ui-navigation-menu-top"></ng-content>
                   </div>
-                </div>
-                <div class="yue-ui-navigation-menu-inner-container-bottom">
-                  <ng-content select="yue-ui-navigation-menu-bottom"></ng-content>
-                </div>
-              </span>
-            </div>
+                  <div class="yue-ui-navigation-menu-inner-container-bottom">
+                    <ng-content select="yue-ui-navigation-menu-bottom"></ng-content>
+                  </div>
+                </span>
+              </div>
+            </ng-container>
             <ng-container *ngIf="listOfNavMenuSiderComponent.length > 0">
               <div class="yue-ui-navigation-menu-dynamic-bar-wrapper">
                 <div class="yue-ui-navigation-menu-wrapper-dyn" data-contextual-menu="on">
@@ -60,17 +76,20 @@ let timerCheckHover: any = null;
             </ng-container>
           </div>
         </div>
-        <div class="yue-ui-navigation-menu-fixing-padding">
+        <div class="yue-ui-navigation-menu-fixing-padding" [style.marginLeft.px]="showStaticBar ? null : 0">
           <div class="yue-ui-navigation-menu-fixer"></div>
         </div>
       </div>
     </div>
   `,
+  host: {
+    '[class.yue-ui-navigation-menu]': `true`
+  },
   styleUrls: [
     `./../styles/navigation-menu.component.less`
   ],
   preserveWhitespaces: false,
-  exportAs: 'navMenuRef',
+  exportAs: 'yueUiNavigationMenuRef',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class YueUiNavigationMenuComponent implements OnDestroy {
@@ -87,6 +106,10 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   private _breakClose: any = null;
 
+  public get showStaticBar(): boolean {
+    return !!!this.yueUiNavigationMenuHideStaticBar;
+  }
+
   @ContentChildren(YueUiNavigationMenuSiderComponent)
   public listOfNavMenuSiderComponent!: QueryList<YueUiNavigationMenuSiderComponent>;
 
@@ -94,6 +117,10 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
   public get hovering(): boolean {
     return this._hovering && this.listOfNavMenuSiderComponent.length > 0;
   }
+
+  @Input()
+  @HostBinding(`class.is-yue-u-navigation-menu-hide-static-bar`)
+  public yueUiNavigationMenuHideStaticBar = false;
 
   @Input()
   @HostBinding(`class.is-yue-u-navigation-menu-opened-navigation`)

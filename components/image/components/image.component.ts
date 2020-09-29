@@ -9,7 +9,8 @@ import {
   OnChanges,
   ChangeDetectorRef,
   RendererFactory2,
-  NgZone
+  NgZone,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { transformImageToBase64 } from '@joaopedro61/yue-ui/core/utils';
@@ -19,6 +20,7 @@ import { transformImageToBase64 } from '@joaopedro61/yue-ui/core/utils';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-image`,
   template: `
     <div class="image-viewer-wrapper" [class.loading]="loading">

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewInit, Input, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, AfterViewInit, Input, ChangeDetectorRef, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-table',
   template: `
     <div class="yue-ui-table-wrapper">

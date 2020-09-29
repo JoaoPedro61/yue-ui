@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { YueUiModalOptions } from '../utils/options';
 import { Observable } from 'rxjs';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-modal-header`,
   template: `
     <div class="yue-ui-modal-header-inner" [style.padding]="padding">

@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef, Host, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef, Host, OnInit, OnDestroy, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { YueUiCollapseComponent } from './collapse.component';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-collapse-panel',
   template: `
     <div class="yue-ui-collapse--wrapper">

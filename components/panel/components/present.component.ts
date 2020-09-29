@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ViewEncapsulation } from '@angular/core';
 
 import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 
@@ -6,6 +6,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-panel-present`,
   template: `
     <div class="yue-ui-panel-present-wrapper">

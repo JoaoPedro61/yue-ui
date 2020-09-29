@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interfaces';
@@ -6,6 +6,7 @@ import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interf
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-notification`,
   template: `
     <div

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { COLLAPSE_MOTION } from '@joaopedro61/yue-ui/core/animations';
 
@@ -8,6 +8,7 @@ import { YueUiMenuType } from './../utils/interfaces';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-submenu-inline-child',
   exportAs: 'yueUiSubMenuInlineChildRef',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +19,7 @@ import { YueUiMenuType } from './../utils/interfaces';
     '(mouseenter)': 'setMouseState(true)',
     '(mouseleave)': 'setMouseState(false)',
 
+    '[class.yue-ui-submenu-inline-child]': 'true',
     '[class.yue-ui-collapse-cdk]': 'true',
     '[class.yue-ui-collapse-cdk-opened]': 'open',
     '[class.yue-ui-collapse-cdk-closed]': '!open',
@@ -25,7 +27,8 @@ import { YueUiMenuType } from './../utils/interfaces';
     '[@COLLAPSE_MOTION]': 'open',
   },
   styles: [`
-    :host {
+    :host,
+    .yue-ui-submenu-inline-child {
       display: block;
       position: relative;
       overflow: hidden;

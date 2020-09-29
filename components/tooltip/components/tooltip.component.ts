@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input, ViewEncapsulation } from '@angular/core';
 
 import { deepTypechecker } from '@joaopedro61/yue-ui/core/utils';
 
@@ -7,6 +7,7 @@ import { BaseComponent } from './../utils/base';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <ng-template
       #overlay="cdkConnectedOverlayRef"

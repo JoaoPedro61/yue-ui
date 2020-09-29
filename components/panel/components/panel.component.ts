@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ElementRef, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, HostListener, ViewEncapsulation } from '@angular/core';
 
 import { elementDimentions } from '@joaopedro61/yue-ui/core/utils';
 
@@ -8,6 +8,7 @@ import { YueUiPanelContentComponent } from './content.component';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-panel`,
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,

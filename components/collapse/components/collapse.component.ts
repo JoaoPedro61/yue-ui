@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, Input, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { YueUiCollapsePanelComponent } from './collapse-panel.component';
@@ -6,6 +6,7 @@ import { YueUiCollapsePanelComponent } from './collapse-panel.component';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-collapse',
   template: `<ng-content select="yue-ui-collapse-panel"></ng-content>`,
   host: {
@@ -14,7 +15,8 @@ import { YueUiCollapsePanelComponent } from './collapse-panel.component';
   },
   styles: [
     `
-      :host {
+      :host,
+      .yue-ui-collapse {
         display: block;
         position: relative;
       }

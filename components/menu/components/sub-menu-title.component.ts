@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { YueUiMenuType } from './../utils/interfaces';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-submenu-title',
   exportAs: 'yueUiSubMenuTitleRef',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { YueUiMenuType } from './../utils/interfaces';
     <ng-content></ng-content>
   `,
   host: {
+    '[class.yue-ui-submenu-title]': 'true',
     '[style.paddingLeft.px]': 'paddingLeft',
     '(click)': 'clickTitle()',
     '(mouseenter)': 'setMouseState(true)',
@@ -19,7 +21,7 @@ import { YueUiMenuType } from './../utils/interfaces';
   },
   styles: [
     `
-      :host {
+      :host, .yue-ui-submenu-title {
         display: block;
         position: relative;
       }
