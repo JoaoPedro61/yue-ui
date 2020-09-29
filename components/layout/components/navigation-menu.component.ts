@@ -64,7 +64,7 @@ let timerCheckHover: any = null;
                   <div class="yue-ui-navigation-menu-dynamic-bar">
                     <div class="yue-ui-navigation-menu-fixed-content">
                       <div class="yue-ui-navigation-menu-menu-content-dynamic">
-                        <div [style.display]="(yueUiNavigationMenuOpened || hovering) ? null : 'none'">
+                        <div class="display-controller" [style.display]="(yueUiNavigationMenuOpened || hovering) ? null : 'none'">
                           <ng-content select="yue-ui-navigation-menu-sider"></ng-content>
                         </div>
                       </div>

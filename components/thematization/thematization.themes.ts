@@ -325,7 +325,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           color: `var(--color-dark)`,
         },
         item: {
-          background: `var(--color-background-light)`,
+          background: `var(--components-navigation-menu-sider-background)`,
           color: `var(--color-dark)`,
           selected: {
             background: `var(--color-background-light)`,

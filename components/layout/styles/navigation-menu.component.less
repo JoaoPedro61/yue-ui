@@ -193,13 +193,20 @@
 
             .yue-ui-navigation-menu-dynamic-bar {
               padding: 10px 10px 10px 20px;
+              height: 100%;
 
               .yue-ui-navigation-menu-fixed-content {
                 will-change: opacity;
                 transition : opacity 150ms ease-in-out 0s;
                 opacity: 0;
+                height: 100%;
 
                 .yue-ui-navigation-menu-menu-content-dynamic {
+                  height: 100%;
+
+                  .display-controller {
+                    height: 100%;
+                  }
                 }
               }
             }

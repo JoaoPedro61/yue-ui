@@ -13,7 +13,7 @@ import { Component3 as Modal1 } from './component-3';
     <yue-ui-layout>
       <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
-          <yue-ui-menu [yueUiMenuInlineCollapsed]="false" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
+          <yue-ui-menu [yueUiMenuInlineCollapsed]="true" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
               <a [routerLink]="['child']">
                 <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
