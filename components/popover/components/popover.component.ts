@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input, ViewEncapsulation } from '@angular/core';
 
 import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
-import { deepTypechecker } from '@joaopedro61/yue-ui/core/utils';
+import { deepTypeChecker } from '@joaopedro61/yue-ui/core/utils';
 import { BaseComponent } from '@joaopedro61/yue-ui/tooltip';
 
 
@@ -66,12 +66,12 @@ export class YueUiPopoverComponent extends BaseComponent {
       : this.title === '' && this.content === ''
         ? true
         : (
-            deepTypechecker(this.title) === 'null'
-            || deepTypechecker(this.title) === 'undefined'
+            deepTypeChecker(this.title) === 'null'
+            || deepTypeChecker(this.title) === 'undefined'
           )
           && (
-            deepTypechecker(this.content) === 'null'
-            || deepTypechecker(this.content) === 'undefined'
+            deepTypeChecker(this.content) === 'null'
+            || deepTypeChecker(this.content) === 'undefined'
           );
   }
 

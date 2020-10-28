@@ -12,7 +12,7 @@ export {
 
 export {
   YueUiTableColumn,
-  YueUiTableColumns,
+  YueUiTableColumns
 } from './utils/interfaces';
 
 export {

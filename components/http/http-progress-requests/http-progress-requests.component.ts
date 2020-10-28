@@ -70,7 +70,7 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
         top       : 0px;
         left      : 0px;
         bottom    : 0px;
-        background: var(--components-loader-http-background);
+        background: var(--components-http-color);
         animation : loading-box-1 2100ms cubic-bezier(0.65, 0.81, 0.73, 0.4) infinite;
       }
       :host .wrapper-loader-progress-http .loading-bar-http .content-sub-bars::after,
@@ -80,7 +80,7 @@ import { YueProgressRequest, YueProgressRequestOptions } from '../http.interface
         top            : 0px;
         left           : 0px;
         bottom         : 0px;
-        background     : var(--components-loader-http-background);
+        background     : var(--components-http-color);
         animation      : loading-box-2 2100ms cubic-bezier(0.16, 0.84, 0.44, 1) infinite;
         animation-delay: 1150ms;
       }

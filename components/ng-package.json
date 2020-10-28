@@ -9,6 +9,7 @@
     "tslib",
     "angular",
     "date-fns",
+    "@ant-design/icons-angular",
     "resize-observer-polyfill"
   ]
 }

@@ -1,7 +1,7 @@
-import { DeepTypeCheckerTypes, deepTypechecker } from './deep-type-checker';
+import { deepTypeCheckerTypes, deepTypeChecker } from './deep-type-checker';
 
-export function initVarIf(ifType: DeepTypeCheckerTypes, v: any, assert: any): any {
-  if (deepTypechecker(v) === ifType) {
+export function initVarIf(ifType: deepTypeCheckerTypes, v: any, assert: any): any {
+  if (deepTypeChecker(v) === ifType) {
     return assert;
   }
   return v;

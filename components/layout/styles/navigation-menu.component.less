@@ -1,56 +1,56 @@
 :host,
 .yue-ui-navigation-menu {
-  order   : 1;
-  flex    : initial;
+  order: 1;
+  flex: initial;
   position: relative;
-  z-index : 300;
+  z-index: 300;
   display: block;
 
   .yue-ui-navigation-menu-wrapper {
-    position  : relative;
-    min-width : 0px;
+    position: relative;
+    min-width: 0px;
     overflow-x: hidden;
-    flex      : 1 1 auto;
+    flex: 1 1 auto;
 
     .yue-ui-navigation-menu-fix-flexing {
-      display               : flex;
+      display: flex;
       -webkit-flex-direction: row;
-      -ms-flex-direction    : row;
-      flex-direction        : row;
-      height                : calc(100vh - 0px);
-      margin-top            : 0px;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      height: calc(100vh - 0px);
+      margin-top: 0px;
 
       .yue-ui-navigation-menu-handled-menu {
-        bottom     : 0;
-        left       : 0;
-        position   : fixed;
-        top        : 0;
-        z-index    : 200;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        top: 0;
+        z-index: 200;
         line-height: 20px;
 
         .yue-ui-navigation-menu-sipl {
-          display               : flex;
+          display: flex;
           -webkit-flex-direction: row;
-          -ms-flex-direction    : row;
-          flex-direction        : row;
-          overflow              : hidden;
-          height                : 100%;
+          -ms-flex-direction: row;
+          flex-direction: row;
+          overflow: hidden;
+          height: 100%;
           box-shadow: 0px 0px 5px var(--components-navigation-menu-out-shadow);
           transition: box-shadow 300ms ease-in-out;
 
           .yue-ui-navigation-menu-static-menu-bar {
-            
+
             .yue-ui-navigation-menu-fixing-inner-overlay {
-              margin-left                : 64px;
-              background                 : linear-gradient(to left, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0) 100%);
-              bottom                     : 0;
-              left                       : -12px;
-              opacity                    : 1;
-              pointer-events             : none;
-              position                   : absolute;
-              top                        : 0;
+              margin-left: 64px;
+              background: linear-gradient(to left, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0) 100%);
+              bottom: 0;
+              left: -12px;
+              opacity: 1;
+              pointer-events: none;
+              position: absolute;
+              top: 0;
               -webkit-transition-duration: 0.22s;
-              transition-duration        : 0.22s;
+              transition-duration: 0.22s;
               -webkit-transition-property: left,
                 opacity,
                 width;
@@ -58,59 +58,59 @@
                 opacity,
                 width;
               -webkit-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-              transition-timing-function        : cubic-bezier(0.2, 0, 0, 1);
-              width                             : 12px;
+              transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+              width: 12px;
             }
 
             .yue-ui-navigation-menu-inner-container-wrapper {
-              -webkit-align-items    : center;
-              -webkit-box-align      : center;
-              -ms-flex-align         : center;
-              align-items            : center;
-              box-sizing             : border-box;
-              display                : flex;
-              -webkit-flex-direction : column;
-              -ms-flex-direction     : column;
-              flex-direction         : column;
-              -webkit-flex-shrink    : 0;
-              -ms-flex-negative      : 0;
-              flex-shrink            : 0;
-              -webkit-box-pack       : justify;
+              -webkit-align-items: center;
+              -webkit-box-align: center;
+              -ms-flex-align: center;
+              align-items: center;
+              box-sizing: border-box;
+              display: flex;
+              -webkit-flex-direction: column;
+              -ms-flex-direction: column;
+              flex-direction: column;
+              -webkit-flex-shrink: 0;
+              -ms-flex-negative: 0;
+              flex-shrink: 0;
+              -webkit-box-pack: justify;
               -webkit-justify-content: space-between;
-              -ms-flex-pack          : justify;
-              justify-content        : space-between;
-              padding-bottom         : calc(20px);
-              padding-top            : 24px;
-              -webkit-transition     : background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+              -ms-flex-pack: justify;
+              justify-content: space-between;
+              padding-bottom: calc(20px);
+              padding-top: 24px;
+              -webkit-transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
                 color 0.3s cubic-bezier(0.2, 0, 0, 1);
               transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
                 color 0.3s cubic-bezier(0.2, 0, 0, 1);
-              width           : 64px;
-              height          : calc(100vh - 0px);
+              width: 64px;
+              height: calc(100vh - 0px);
               background-color: var(--components-navigation-menu-background);
-              color           : var(--components-navigation-menu-color);
-              fill            : var(--components-navigation-menu-background);
+              color: var(--components-navigation-menu-color);
+              fill: var(--components-navigation-menu-background);
 
               .yue-ui-navigation-menu-inner-container-top {
-                -webkit-align-items    : center;
-                -webkit-box-align      : center;
-                -ms-flex-align         : center;
-                align-items            : center;
-                display                : flex;
-                -webkit-flex-direction : column;
-                -ms-flex-direction     : column;
-                flex-direction         : column;
-                -webkit-box-pack       : justify;
+                -webkit-align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                display: flex;
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-pack: justify;
                 -webkit-justify-content: space-between;
-                -ms-flex-pack          : justify;
-                justify-content        : space-between;
-                width                  : 100%;
-                padding-bottom         : 16px;
-              
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+                width: 100%;
+                padding-bottom: 16px;
+
                 .yue-ui-navigation-menu-open-handler-out-wrapper {
                   display: block;
                   position: relative;
-                  
+
                   .yue-ui-navigation-menu-open-handler-out-wrapper-inner {
                     position: absolute;
                     width: 25px;
@@ -139,20 +139,20 @@
 
 
               .yue-ui-navigation-menu-inner-container-bottom {
-                -webkit-align-items    : center;
-                -webkit-box-align      : center;
-                -ms-flex-align         : center;
-                align-items            : center;
-                display                : flex;
-                -webkit-flex-direction : column;
-                -ms-flex-direction     : column;
-                flex-direction         : column;
-                -webkit-box-pack       : justify;
+                -webkit-align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                display: flex;
+                -webkit-flex-direction: column;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-pack: justify;
                 -webkit-justify-content: space-between;
-                -ms-flex-pack          : justify;
-                justify-content        : space-between;
-                width                  : 100%;
-                padding-top            : 8px;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+                width: 100%;
+                padding-top: 8px;
               }
             }
           }
@@ -160,36 +160,36 @@
 
         .yue-ui-navigation-menu-dynamic-bar-wrapper {
           will-change: width;
-          width      : 20px;
-          transition : width 150ms cubic-bezier(0.2, 0, 0, 1) 0s;
-          position   : relative;
+          width: 20px;
+          transition: width 150ms cubic-bezier(0.2, 0, 0, 1) 0s;
+          position: relative;
           box-shadow: -2px 0 5px var(--components-navigation-menu-inner-shadow);
 
           .yue-ui-navigation-menu-wrapper-dyn {
-            box-sizing                       : border-box;
-            height                           : 100%;
-            left                             : 0;
-            min-width                        : 240px;
-            overflow-x                       : hidden;
-            position                         : absolute;
-            top                              : 0;
-            width                            : 100%;
-            background-color                 : var(--components-navigation-menu-sider-background);
-            color                            : var(--components-navigation-menu-sider-color);
-            -webkit-animation-duration       : 0.22s;
-            animation-duration               : 0.22s;
-            -webkit-animation-fill-mode      : forwards;
-            animation-fill-mode              : forwards;
+            box-sizing: border-box;
+            height: 100%;
+            left: 0;
+            min-width: 240px;
+            overflow-x: hidden;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: var(--components-navigation-menu-sider-background);
+            color: var(--components-navigation-menu-sider-color);
+            -webkit-animation-duration: 0.22s;
+            animation-duration: 0.22s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
             -webkit-animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-            animation-timing-function        : cubic-bezier(0.2, 0, 0, 1);
-            -webkit-transition-property      : boxShadow,
+            animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+            -webkit-transition-property: boxShadow,
               transform;
             transition-property: boxShadow,
               transform;
-            -webkit-transition-duration       : 0.22s;
-            transition-duration               : 0.22s;
+            -webkit-transition-duration: 0.22s;
+            transition-duration: 0.22s;
             -webkit-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
-            transition-timing-function        : cubic-bezier(0.2, 0, 0, 1);
+            transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 
             .yue-ui-navigation-menu-dynamic-bar {
               padding: 10px 10px 10px 20px;
@@ -197,7 +197,7 @@
 
               .yue-ui-navigation-menu-fixed-content {
                 will-change: opacity;
-                transition : opacity 150ms ease-in-out 0s;
+                transition: opacity 150ms ease-in-out 0s;
                 opacity: 0;
                 height: 100%;
 
@@ -212,25 +212,52 @@
             }
           }
         }
+
+        .yue-ui-navigation-menu-open-handler-out-wrapper {
+
+          .yue-ui-navigation-menu-open-handler-out-wrapper-inner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: white;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transform: translate(-13px, 5px);
+            z-index: 10;
+            cursor: pointer;
+            transition: background 150ms ease-in-out, color 150ms ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--components-navigation-menu-sider-color);
+            font-size: .9rem;
+
+            &:hover {
+              background-color: var(--components-navigation-menu-background);
+              color: var(--components-navigation-menu-color);
+            }
+          }
+        }
       }
     }
 
     .yue-ui-navigation-menu-fixing-padding {
-      will-change : padding-left;
+      will-change: padding-left;
       padding-left: 20px;
-      transition  : padding-left 150ms cubic-bezier(0.2, 0, 0, 1) 0s;
+      transition: padding-left 150ms cubic-bezier(0.2, 0, 0, 1) 0s;
       -webkit-flex: 1 1 auto;
-      -ms-flex    : 1 1 auto;
-      flex        : 1 1 auto;
-      margin-left : 64px;
-      margin-top  : 0;
-      width       : 0;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      margin-left: 64px;
+      margin-top: 0;
+      width: 0;
 
       .yue-ui-navigation-menu-fixer {
         position: fixed;
-        right   : 0px;
-        top     : 0px;
-        height  : 100vh;
+        right: 0px;
+        top: 0px;
+        height: 100vh;
       }
     }
   }
@@ -275,15 +302,15 @@
       .yue-ui-navigation-menu-fix-flexing {
 
         .yue-ui-navigation-menu-handled-menu {
-          
+
           .yue-ui-navigation-menu-sipl {
-            
+
             .yue-ui-navigation-menu-static-menu-bar {
-              
+
               .yue-ui-navigation-menu-inner-container-wrapper {
 
                 .yue-ui-navigation-menu-inner-container-top {
-                  
+
                   .yue-ui-navigation-menu-open-handler-out-wrapper {
 
                     .yue-ui-navigation-menu-open-handler-out-wrapper-inner {
@@ -294,12 +321,11 @@
                 }
               }
             }
-
           }
         }
 
         .yue-ui-navigation-menu-fixing-padding {
-        
+
           padding-left: 240px !important;
         }
       }
@@ -318,7 +344,7 @@
               .yue-ui-navigation-menu-dynamic-bar-wrapper {
                 width: 240px;
                 transform: translateX(0px);
-                box-shadow: 0px 0px 10px rgba(0, 0, 0,.6);
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, .6);
 
                 .yue-ui-navigation-menu-wrapper-dyn {
 
@@ -342,7 +368,6 @@
     }
   }
 
-  
   &:not(.yue-ui-navigation-menu-as-header) {
 
     .yue-ui-navigation-menu-wrapper {
@@ -376,7 +401,7 @@
           position: relative;
           z-index: 5;
           width: 100%;
-        
+
           .yue-ui-navigation-menu-sipl {
 
             .yue-ui-navigation-menu-static-menu-bar {
@@ -444,7 +469,7 @@
                   opacity: 1;
                 }
               }
-              
+
               .yue-ui-navigation-menu-closed-tag {
                 display: none;
                 position: static;

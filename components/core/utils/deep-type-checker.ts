@@ -1,6 +1,6 @@
-export type DeepTypeCheckerTypes = 'object' | 'date' | 'array' | 'string' | 'boolean' | 'function' | 'number' | 'undefined' | 'null' | 'unrecognized';
+export type deepTypeCheckerTypes = 'object' | 'date' | 'array' | 'string' | 'boolean' | 'function' | 'number' | 'undefined' | 'null' | 'unrecognized';
 
-export function deepTypechecker(value: any): DeepTypeCheckerTypes {
+export function deepTypeChecker(value: any): deepTypeCheckerTypes {
   const type: string = Object.prototype.toString.call(value);
   if (type === `[object Object]`) {
     return `object`;

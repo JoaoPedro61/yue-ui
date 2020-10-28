@@ -45,9 +45,6 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
     '[class.yue-ui-panel-present-has-breadcrumbs]': 'yueUiPanelPresentBreadcrumbs.length',
   },
   exportAs: `yueUiPanelPresentRef`,
-  styleUrls: [
-    `./../styles/present.component.less`,
-  ],
 })
 export class YueUiPanelPresentComponent {
 

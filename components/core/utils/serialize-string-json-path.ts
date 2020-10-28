@@ -1,4 +1,4 @@
-import { deepTypechecker } from './deep-type-checker';
+import { deepTypeChecker } from './deep-type-checker';
 
 
 export interface SerializeStringJSONpath {
@@ -138,7 +138,7 @@ export function serializeStringJsonPath(target: Partial<any>, onlyWithValues?: b
         paths[oldPath] = evaluted;
       }
     }
-    if (deepTypechecker(source) === 'array' || deepTypechecker(source) === 'object') {
+    if (deepTypeChecker(source) === 'array' || deepTypeChecker(source) === 'object') {
       if (Array.isArray(source)) {
         if (source.length) {
           for (let index = 0, length = source.length; index < length; index++) {

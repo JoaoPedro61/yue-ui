@@ -1,0 +1,291 @@
+.redefined-input-styles() {
+  background: transparent;
+  border: none;
+  outline: 0px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  resize: none;
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  &.allow-vertical-resize {
+    resize: vertical;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--components-formulary-placeholder);
+  }
+  
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--components-formulary-placeholder);
+  }
+  
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--components-formulary-placeholder);
+  }
+}
+
+.yue-ui-formulary-field {
+  display: block;
+  position: relative;
+
+  &-wrapper {
+    display: block;
+    position: relative;
+
+    &-inner {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      max-width: none;
+      min-height: 28px;
+      font-size: 14px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 20px;
+      color: var(--components-formulary-color);
+      background: var(--components-formulary-background);
+      border: 1px solid var(--components-formulary-border-color);
+      outline: 0;
+      border-radius: 3.01px;
+      box-sizing: border-box;
+      margin: 0;
+      width: 100%;
+      -moz-appearance: textfield;
+      transition: background 300ms ease-in-out;
+
+      &-prepend {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        align-content: center;
+        padding: 0px 7px 0px;
+        height: 28px;
+      }
+
+      &-styled {
+        padding: 4px 7px 5px;
+        width: 100%;
+        position: relative;
+
+        & * > input,
+        & * > textarea,
+        & > * input,
+        & > * textarea,
+        & > input,
+        & > textarea,
+        & * input,
+        & * textarea {
+          .redefined-input-styles();
+        }
+      }
+
+      &-append {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        align-content: center;
+        padding: 0px 7px 0px;
+        height: 28px;
+      }
+
+    }
+
+    &-disabled {
+
+      .--input-styled-as {
+        color: var(--components-formulary-disabled-color);
+        background: var(--components-formulary-disabled-background);
+        border: 1px solid var(--components-formulary-disabled-border-color);
+
+        .yue-ui-formulary-field {
+
+          &-wrapper-inner-styled {
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+
+    &-focused {
+
+      .--input-styled-as {
+        color: var(--components-formulary-focus-color);
+        background: var(--components-formulary-focus-background);
+        border: 1px solid var(--components-formulary-focus-border-color);
+        box-shadow: 0 0 0 1px var(--components-formulary-focus-border-color);
+      }
+    }
+
+    &:hover:not(&-focused):not(&-disabled) {
+
+      .--input-styled-as {
+        color: var(--components-formulary-hover-color);
+        background: var(--components-formulary-hover-background);
+        border: 1px solid var(--components-formulary-hover-border-color);
+      }
+    }
+
+    &:not(&-disabled) {
+
+      .--input-styled-as {
+
+        .yue-ui-formulary-field {
+
+          &-wrapper-inner-styled {
+            cursor: text;
+          }
+        }
+      }
+    }
+  }
+
+  &.ng-invalid {
+
+    & .yue-ui-formulary-field {
+
+      &-wrapper {
+
+        &-inner {
+          color: var(--components-formulary-invalid-color);
+          background: var(--components-formulary-invalid-background);
+          border: 1px solid var(--components-formulary-invalid-border-color);
+        }
+
+        &-focused {
+          .--input-styled-as {
+            box-shadow: 0 0 0 1px var(--components-formulary-invalid-border-color);
+          }
+        }
+
+        &:hover {
+
+          .yue-ui-formulary-field-wrapper-inner {
+
+            color: var(--components-formulary-invalid-color);
+            background: var(--components-formulary-invalid-background);
+            border: 1px solid var(--components-formulary-invalid-border-color);
+          }
+        }
+      }
+    }
+  }
+
+  &-clear {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    padding: 1px 0px 1px 0;
+    margin: 0;
+    justify-content: center;
+    line-height: 1;
+    color: var(--components-formulary-color);
+    background: var(--components-formulary-hover-background);
+    border: 1px solid var(--components-formulary-border-color);
+
+    &-wrapper {
+      cursor: pointer;
+
+      i {
+        font-size: 10px;
+        vertical-align: top;
+        margin-top: 1px;
+      }
+    }
+  }
+
+  &-label {
+    display: block;
+    position: relative;
+    font-size: 0.850em;
+    line-height: 1.333;
+    font-style: inherit;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    color: var(--components-formulary-label-color);
+
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+
+      &-start {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        align-items: center;
+
+        &-prepend {
+          margin-right: 5px;
+          display: block;
+        }
+
+        &-content {
+          font-size: inherit;
+          font-weight: 700;
+          color: inherit;
+
+          &::after {
+            content: ':';
+          }
+
+          &-invalid {
+            color: var(--components-formulary-invalid-label-color);
+          }
+        }
+
+        &-required-indicator {
+          position           : static;
+          left               : 100%;
+          top                : 5px;
+          background-image   : url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR4AWOAgQsu5v8ZSAIIjaVAbA4yAEqXkmpAMxDfABkApZtJNYARiHtABkBpRlIN0AbiK0AcBMQrQHyGkQdGwSgAAPtCJnBUV/TSAAAAAElFTkSuQmCC');
+          background-repeat  : no-repeat;
+          background-position: 0 0;
+          border             : none;
+          display            : inline-block;
+          height             : 14px;
+          margin             : 0;
+          padding            : 0;
+          text-align         : left;
+          text-indent        : -999em;
+          vertical-align     : text-bottom;
+          width              : 5px;
+        }
+      }
+      
+      &-append {
+        display: block;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &-descriptor {
+    display: block;
+    position: relative;
+    color: var(--colors-muted);
+
+    &-invalid {
+      color: var(--components-formulary-invalid-label-color);
+    }
+  }
+}

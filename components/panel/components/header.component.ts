@@ -14,9 +14,6 @@ import { YueUiPanelComponent } from './panel.component';
     '[class.yue-ui-panel-header]': 'true',
   },
   exportAs: `yueUiPanelHeaderRef`,
-  styleUrls: [
-    `./../styles/header.component.less`,
-  ],
 })
 export class YueUiPanelHeaderComponent implements OnInit, OnDestroy {
 

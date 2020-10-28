@@ -65,9 +65,6 @@ import { YueUiModalOptions } from '../utils/options';
       </div>
     </div>
   `,
-  styleUrls: [
-    `./../styles/container-confirm.component.less`
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.yue-ui-modal-container-confirm]': `true`,
@@ -77,11 +74,11 @@ import { YueUiModalOptions } from '../utils/options';
 export class YueUiContainerComfirmComponent extends Base {
 
   private readonly colors: {[x: string]: any} = {
-    confirm: `var(--color-secondary)`,
-    info: `var(--color-info)`,
-    success: `var(--color-success)`,
-    error: `var(--color-error)`,
-    warning: `var(--color-warning)`
+    confirm: `var(--colors-secondary)`,
+    info: `var(--colors-info)`,
+    success: `var(--colors-success)`,
+    error: `var(--colors-error)`,
+    warning: `var(--colors-warning)`
   };
 
   @ViewChild(CdkPortalOutlet, { static: true })
@@ -92,8 +89,8 @@ export class YueUiContainerComfirmComponent extends Base {
 
   public get borderColor(): string {
     return this.config && this.config.confirmType 
-      ? this.colors[this.config.confirmType] || `var(--color-secondary)`
-      : `var(--color-secondary)`
+      ? this.colors[this.config.confirmType] || `var(--colors-secondary)`
+      : `var(--colors-secondary)`
   }
 
   constructor(elementRef: ElementRef, focusTrapFactory: ConfigurableFocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {

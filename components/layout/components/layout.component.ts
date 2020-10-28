@@ -25,9 +25,6 @@ import { YueUiNavigationMenuComponent } from './navigation-menu.component';
       </div>
     </div>
   `,
-  styleUrls: [
-    `./../styles/layout.component.less`
-  ],
   host: {
     '[class.has-navigation-menu]': `listOfNavMenuComponent.length > 0`,
     '[class.yue-ui-layout]': `true`

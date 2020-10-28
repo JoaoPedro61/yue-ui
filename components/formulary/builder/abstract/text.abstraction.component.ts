@@ -11,54 +11,76 @@ import { FieldAbstraction } from './abstraction';
   template: `
     <ng-container [ngSwitch]="mode">
       <ng-container *ngSwitchCase="'password'">
-        <yue-ui-password
+        <yue-ui-formulary-password
           [formControl]="abstractControl"
-          [yueUiPasswordPlaceholder]="placeholder"
-          [yueUiPasswordMask]="mask"
-          [yueUiPasswordInitialFocus]="useInitialFocus"
-          
+          [yueUiFormularyPasswordPlaceholder]="placeholder"
+          [yueUiFormularyPasswordMask]="mask"
+          [yueUiFormularyPasswordInitialFocus]="useInitialFocus"
+          [yueUiFormularyPasswordId]="identifier"
+          [yueUiFormularyPasswordPrepend]="fieldPrepend"
+          [yueUiFormularyPasswordAppend]="fieldAppend"
+
+          (yueUiFormularyPasswordFocus)="listeners('focus', $event)"
+          (yueUiFormularyPasswordBlur)="listeners('blur', $event)"
+
+          (yueUiFormularyPasswordKeydown)="listeners('keydown', $event)"
+          (yueUiFormularyPasswordKeyup)="listeners('keyup', $event)"
+
           (click)="listeners('click', $event)"
           (mousedown)="listeners('mousedown', $event)"
           (mouseup)="listeners('mouseup', $event)"
           (mouseenter)="listeners('mouseenter', $event)"
           (mouseleave)="listeners('mouseleave', $event)"
-          (focus)="listeners('focus', $event)"
-          (blur)="listeners('blur', $event)"
         >
-        </yue-ui-password>
+        </yue-ui-formulary-password>
       </ng-container>
       <ng-container *ngSwitchCase="'textarea'">
-        <yue-ui-textarea
+      <yue-ui-formulary-textarea
           [formControl]="abstractControl"
-          [yueUiTextareaPlaceholder]="placeholder"
-          [yueUiTextareaMask]="mask"
-          [yueUiTextareaInitialFocus]="useInitialFocus"
+          [yueUiFormularyTextareaPlaceholder]="placeholder"
+          [yueUiFormularyTextareaMask]="mask"
+          [yueUiFormularyTextareaInitialFocus]="useInitialFocus"
+          [yueUiFormularyTextareaId]="identifier"
+          [yueUiFormularyTextareaPrepend]="fieldPrepend"
+          [yueUiFormularyTextareaAppend]="fieldAppend"
+
+          (yueUiFormularyTextareaFocus)="listeners('focus', $event)"
+          (yueUiFormularyTextareaBlur)="listeners('blur', $event)"
+
+          (yueUiFormularyTextareaKeydown)="listeners('keydown', $event)"
+          (yueUiFormularyTextareaKeyup)="listeners('keyup', $event)"
 
           (click)="listeners('click', $event)"
           (mousedown)="listeners('mousedown', $event)"
           (mouseup)="listeners('mouseup', $event)"
           (mouseenter)="listeners('mouseenter', $event)"
           (mouseleave)="listeners('mouseleave', $event)"
-          (focus)="listeners('focus', $event)"
-          (blur)="listeners('blur', $event)"
-        ></yue-ui-textarea>
+        >
+        </yue-ui-formulary-textarea>
       </ng-container>
       <ng-container *ngSwitchDefault>
-        <yue-ui-text
+        <yue-ui-formulary-text
           [formControl]="abstractControl"
-          [yueUiTextPlaceholder]="placeholder"
-          [yueUiTextMask]="mask"
-          [yueUiTextInitialFocus]="useInitialFocus"
+          [yueUiFormularyTextPlaceholder]="placeholder"
+          [yueUiFormularyTextMask]="mask"
+          [yueUiFormularyTextInitialFocus]="useInitialFocus"
+          [yueUiFormularyTextId]="identifier"
+          [yueUiFormularyTextPrepend]="fieldPrepend"
+          [yueUiFormularyTextAppend]="fieldAppend"
+
+          (yueUiFormularyTextFocus)="listeners('focus', $event)"
+          (yueUiFormularyTextBlur)="listeners('blur', $event)"
+
+          (yueUiFormularyTextKeydown)="listeners('keydown', $event)"
+          (yueUiFormularyTextKeyup)="listeners('keyup', $event)"
 
           (click)="listeners('click', $event)"
           (mousedown)="listeners('mousedown', $event)"
           (mouseup)="listeners('mouseup', $event)"
           (mouseenter)="listeners('mouseenter', $event)"
           (mouseleave)="listeners('mouseleave', $event)"
-          (focus)="listeners('focus', $event)"
-          (blur)="listeners('blur', $event)"
         >
-        </yue-ui-text>
+        </yue-ui-formulary-text>
       </ng-container>
     </ng-container>
   `,

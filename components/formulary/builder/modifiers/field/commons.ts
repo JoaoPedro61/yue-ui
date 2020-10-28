@@ -1,5 +1,4 @@
 import { setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
-import { SpecificValidatorObjectFormation } from '@joaopedro61/yue-ui/formulary/utils';
 
 import {
   ModifiersFn,
@@ -7,9 +6,10 @@ import {
   GeneratedFieldMetadataFn,
   FieldStruct,
   Listener,
-  YueUiSelectMode,
-  YueUiSwitchModes,
-  YueUiTextModes
+  YueUiFormularySelectMode,
+  YueUiFormularySwitchModes,
+  YueUiTextModes,
+  YueUiFieldValidator
 } from '../interfaces';
 import { expect_parent, expect_type, expect_param, expect_allowed_field_type } from '../utils';
 import { identifier as _identifier, registryChange } from './../commons';
@@ -82,17 +82,6 @@ function wrapper(value?: (GeneratedFieldMetadataFn | GeneratedFieldMetadataFn[])
   };
 }
 
-function hide(value: FieldStruct['hide']): ModifiersFn {
-
-  return (parent: string, target: Partial<any>) => {
-    expect_parent(parent, [ParentTypes.Field]);
-    expect_param(`hide`, value);
-    expect_type(`hide`, value, [`boolean`, `function`]);
-    registryChange(target, `hide`, value, target.hide);
-    target.hide = value;
-    return target;
-  };
-}
 
 function type(value: FieldStruct['type']): ModifiersFn {
 
@@ -181,7 +170,7 @@ function validators(value?: FieldStruct['validators']): ModifiersFn {
   };
 }
 
-function validator(value: SpecificValidatorObjectFormation): ModifiersFn {
+function validator(value: YueUiFieldValidator): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`validator`, value);
@@ -190,7 +179,9 @@ function validator(value: SpecificValidatorObjectFormation): ModifiersFn {
     if (!target.hasOwnProperty(`validators`)) {
       target.validators = [];
     }
-    target.validators.push(value);
+    if (value) {
+      target.validators.push(value);
+    }
     registryChange(target, `validators`, target.validators, old);
     return target;
   };
@@ -224,7 +215,7 @@ function listeners(value?: FieldStruct['listeners']): ModifiersFn {
   };
 }
 
-function listener(value: keyof FieldStruct['listeners'], listener_fn?: Listener): ModifiersFn {
+function listener(value: keyof FieldStruct['listeners'] | string, listener_fn?: Listener): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
@@ -326,7 +317,7 @@ function vstype(value?: FieldStruct['vstype']): ModifiersFn {
   };
 }
 
-function selectMode(value: YueUiSelectMode): ModifiersFn {
+function selectMode(value: YueUiFormularySelectMode): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
@@ -337,7 +328,7 @@ function selectMode(value: YueUiSelectMode): ModifiersFn {
   };
 }
 
-function switchMode(value: YueUiSwitchModes): ModifiersFn {
+function switchMode(value: YueUiFormularySwitchModes): ModifiersFn {
   return (parent: string, target: Partial<any>) => {
     expect_parent(parent, [ParentTypes.Field]);
     expect_param(`value`, value);
@@ -383,6 +374,5 @@ export {
   selectMode as fieldSelectMode,
   switchMode as fieldSwitchMode,
   textMode as fieldTextMode,
-  hide as fieldHide,
   styles as fieldStyles,
 };

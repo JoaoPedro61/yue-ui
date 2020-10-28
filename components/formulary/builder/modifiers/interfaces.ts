@@ -1,9 +1,9 @@
 import { TemplateRef, Type } from '@angular/core';
 import { YueUiButtonSize, YueUiButtonType, YueUiButton } from '@joaopedro61/yue-ui/button';
 
-import { SpecificValidatorObjectFormation } from '@joaopedro61/yue-ui/formulary/utils';
-import { YueUiSelectMode, YueUiSelectProperties } from '@joaopedro61/yue-ui/formulary/custom/select';
-import { YueUiSwitchModes } from '@joaopedro61/yue-ui/formulary/custom/switch';
+import { YueUiFormularyUtilsValidator } from '@joaopedro61/yue-ui/formulary/utils';
+import { YueUiFormularySelectMode, YueUiFormularySelectProperties} from '@joaopedro61/yue-ui/formulary/select';
+import { YueUiFormularySwitchModes } from '@joaopedro61/yue-ui/formulary/switch';
 import { YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { ParentTypes } from './enums';
 
 
 
-export { YueUiSelectMode, YueUiButtonSize, YueUiButtonType, YueUiSwitchModes };
+export { YueUiFormularySelectMode, YueUiButtonSize, YueUiButtonType, YueUiFormularySwitchModes };
 
 
 export type BasicFn = (...parameters: any[]) => any;
@@ -85,6 +85,8 @@ export interface CommonInheritMethods {
 
 export type YueUiTextModes = 'text' | 'textarea' | 'password';
 
+export type YueUiFieldValidator = string | YueUiFormularyUtilsValidator;
+
 export interface FieldStruct extends CommonInheritMethods {
 
   /**
@@ -131,9 +133,11 @@ export interface FieldStruct extends CommonInheritMethods {
   label?: FieldDOMStruct;
   labelAppend?: FieldDOMStruct;
   labelPrepend?: FieldDOMStruct;
+  fieldAppend?: FieldDOMStruct;
+  fieldPrepend?: FieldDOMStruct;
   description?: FieldDOMStruct;
   template?: FieldDOMStruct;
-  validators?: Array<string | ((...args: any[]) => SpecificValidatorObjectFormation)>;
+  validators?: YueUiFieldValidator[];
   placeholder?: string | ((...args: any[]) => string | null) | Observable<string | null> | null;
   listeners?: {
     click?: Listener;
@@ -145,8 +149,8 @@ export interface FieldStruct extends CommonInheritMethods {
     blur?: Listener;
     search?: Listener;
     change?: Listener;
+    scrollToBottom?: Listener;
   };
-  hide?: boolean | ((...args: any) => boolean);
   styles?: { [style: string]: any };
 
   /**
@@ -157,8 +161,8 @@ export interface FieldStruct extends CommonInheritMethods {
     | (({ [x: string]: any })[]
         | Observable<({ [x: string]: any })>
       );
-  properties?: YueUiSelectProperties;
-  mode?: YueUiSelectMode | YueUiSwitchModes | YueUiTextModes;
+  properties?: YueUiFormularySelectProperties;
+  mode?: YueUiFormularySelectMode | YueUiFormularySwitchModes | YueUiTextModes;
 
   /**
    * Others properties

@@ -16,9 +16,6 @@ import { YueUiPanelContentComponent } from './content.component';
   host: {
     '[class.yue-ui-panel]': 'true',
   },
-  styleUrls: [
-    `./../styles/panel.component.less`,
-  ],
   exportAs: `yueUiPanelRef`,
 })
 export class YueUiPanelComponent {

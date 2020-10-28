@@ -10,31 +10,30 @@ import { FieldAbstraction } from './abstraction';
 
 @Component({
   template: `
-  <yue-ui-switch
-    [yueUiSwitchType]="field.mode"
+  <yue-ui-formulary-switch
     [formControl]="abstractControl"
-    [yueUiSwitchInitialFocus]="useInitialFocus"
+
+    [yueUiFormularySwitchMode]="field.mode"
+    [yueUiFormularySwitchInitialFocus]="useInitialFocus"
+    [yueUiFormularySwitchPlaceholder]="placeholder"
 
     (click)="listeners('click', $event)"
     (mousedown)="listeners('mousedown', $event)"
     (mouseup)="listeners('mouseup', $event)"
     (mouseenter)="listeners('mouseenter', $event)"
     (mouseleave)="listeners('mouseleave', $event)"
-    (focus)="listeners('focus', $event)"
-    (blur)="listeners('blur', $event)"
+    (yueUiFormularySwitchFocus)="listeners('focus', $event)"
+    (yueUiFormularySwitchBlur)="listeners('blur', $event)"
   >
-    <yue-ui-switch-option
+    <yue-ui-formulary-switch-option
       *ngFor="let option of fieldOptions$ | async"
-      [yueUiSwitchOptionLabel]="option.labelProped"
-      [yueUiSwitchOptionValue]="option.valueProped"
-      [yueUiSwitchOptionDisabled]="option.isDisabled"
+      [yueUiFormularySwitchOptionLabel]="option.labelProped"
+      [yueUiFormularySwitchOptionValue]="option.valueProped"
+      [yueUiFormularySwitchOptionDisabled]="option.isDisabled"
     >
-    </yue-ui-switch-option>
-  </yue-ui-switch>
+    </yue-ui-formulary-switch-option>
+  </yue-ui-formulary-switch>
   `,
-  styleUrls: [
-    `./../styles/switch.abstraction.component.less`
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {

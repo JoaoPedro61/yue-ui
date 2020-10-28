@@ -1,4 +1,4 @@
-import { deepTypechecker as type } from '@joaopedro61/yue-ui/core/utils';
+import { deepTypeChecker as type } from '@joaopedro61/yue-ui/core/utils';
 
 
 

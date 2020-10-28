@@ -1,33 +1,25 @@
-import { YueUiIcons } from './type';
+import { IconDefinition } from '@ant-design/icons-angular';
 
 import {
-  YueUiGgMenu,
-  YueUiGgPinAlt,
-  YueUiGgSpinner,
-  YueUiGgChevronDown,
-  YueUiGgMoreVerticalAlt,
-  YueUiGgTrashEmpty,
-  YueUiGgPen,
-  YueUiGgCheckO,
-  YueUiGgInfo,
-  YueUiGgDanger,
-  YueUiGgBulb,
-  YueUiGgClose,
-} from './../icons';
+  MenuOutline,
+  PushpinOutline,
+  CloseOutline,
+  CheckOutline,
+  MoreOutline,
+  DownOutline,
+  UpOutline,
+  SearchOutline,
+} from '@ant-design/icons-angular/icons';
 
 
-export const YUE_UI_ICONS_INTERNAL_USES: YueUiIcons = [
-  YueUiGgMenu,
-  YueUiGgPinAlt,
-  YueUiGgSpinner,
-  YueUiGgChevronDown,
-  YueUiGgMoreVerticalAlt,
-  YueUiGgTrashEmpty,
-  YueUiGgPen,
-  YueUiGgCheckO,
-  YueUiGgInfo,
-  YueUiGgDanger,
-  YueUiGgBulb,
-  YueUiGgClose,
+
+export const YUE_UI_ICONS_INTERNAL_USES: IconDefinition[] = [
+  MenuOutline,
+  PushpinOutline,
+  CloseOutline,
+  CheckOutline,
+  MoreOutline,
+  DownOutline,
+  UpOutline,
+  SearchOutline,
 ];
-

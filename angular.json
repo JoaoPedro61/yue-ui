@@ -83,7 +83,7 @@
             ],
             "styles": [
               "implementation/src/styles.less",
-              "./components/styles.less"
+              "./components/yue-ui.less"
             ],
             "scripts": []
           },

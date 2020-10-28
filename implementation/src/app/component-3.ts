@@ -21,6 +21,8 @@ import {
   buttonIdentifier,
   buttonLabel,
   fieldMask,
+  enumerable,
+  fieldListeners,
 } from '@joaopedro61/yue-ui/formulary/builder';
 
 
@@ -80,7 +82,20 @@ export class Component3 implements OnDestroy {
               fieldOptions(() => [
                 { label: 'Male', value: 'male' },
                 { label: 'Female', value: 'female' },
-              ])
+                { label: 'Tank', value: 'tank' },
+              ]),
+              fieldListeners({
+                search: (...args: any) => {
+                  console.log(args);
+                },
+              })
+            ]),
+            enumerable([
+              fieldIdentifier('name_12312'),
+              fieldLabel('Age'),
+              fieldPlaceholder('Type your age'),
+              fieldWidth(24),
+              fieldValidators(['min:0', 'max:100', 'required'])
             ]),
             writable([
               fieldIdentifier('name_te'),
@@ -128,11 +143,6 @@ export class Component3 implements OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.formulary.updateButton(`cancel`, [
-        buttonLabel(`Changed label`),
-      ]);
-    }, 3000)
   }
 
   public ngOnDestroy(): void {

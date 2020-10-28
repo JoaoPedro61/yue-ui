@@ -5,20 +5,26 @@ import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 import { YueUiNotificationService } from '@joaopedro61/yue-ui/notification';
 
 import { Component3 as Modal1 } from './component-3';
-
+import { FormControl, Validators } from '@angular/forms';
 
 
 @NgComponent({
   template: `
     <yue-ui-layout>
-      <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="true" [yueUiNavigationMenuOpened]="false">
+      <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuInlineCollapsed]="true" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
               <a [routerLink]="['child']">
-                <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                <i yueUiIcon yueUiIconType="menu"></i>
                 Menu item 1
               </a>
+            </yue-ui-menu-item>
+            <yue-ui-menu-item (click)="toggle();">
+              Toggle Disabled
+            </yue-ui-menu-item>
+            <yue-ui-menu-item (click)="toggle(true);">
+              Toggle validation
             </yue-ui-menu-item>
             <yue-ui-menu-item (click)="open();">
               Modal
@@ -27,7 +33,7 @@ import { Component3 as Modal1 } from './component-3';
               Noty
             </yue-ui-menu-item>
             <yue-ui-menu-divider>
-              <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+              <i yueUiIcon yueUiIconType="menu"></i>
               Other settings
             </yue-ui-menu-divider>
             <yue-ui-submenu>
@@ -43,7 +49,7 @@ import { Component3 as Modal1 } from './component-3';
                   Sub menu 1
                   <yue-ui-menu>
                     <yue-ui-menu-item>
-                      <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+                      <i yueUiIcon yueUiIconType="menu"></i>
                       Sub menu 1 item 1
                     </yue-ui-menu-item>
                     <yue-ui-menu-item>
@@ -64,6 +70,8 @@ import { Component3 as Modal1 } from './component-3';
 })
 export class Component1 {
 
+  public ctrl: FormControl = new FormControl(null);
+
   public bread: YueUiBreadcrumbItem[] = [
     {
       label: `João Pedro`,
@@ -78,6 +86,23 @@ export class Component1 {
   ];
 
   constructor(private readonly modal: YueUiModalService, private readonly notification: YueUiNotificationService) { }
+
+  public toggle(val: boolean = false): void {
+    if (!val) {
+      if (this.ctrl.disabled) {
+        this.ctrl.enable();
+      } else {
+        this.ctrl.disable();
+      }
+    } else {
+      if (this.ctrl.invalid) {
+        this.ctrl.clearValidators();
+      } else {
+        this.ctrl.setValidators([Validators.required]);
+      }
+      this.ctrl.updateValueAndValidity();
+    }
+  }
 
   public noty(): void {
     this.notification.warning('Cuidado', `Osso`);

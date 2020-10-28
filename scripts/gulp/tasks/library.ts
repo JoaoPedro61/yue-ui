@@ -3,8 +3,13 @@ import * as path from 'path';
 import { buildConfig } from '../../build-config';
 import { execNodeTask } from '../util/task-helpers';
 import * as fs from 'fs-extra';
+import { compile as compileLess } from './compile-styles';
+
 
 const chalk = require('chalk');
+
+const sourcePath = buildConfig.publishDir;
+const targetPath = path.join(buildConfig.publishDir, `src`);
 
 
 task('bump:version', (done: any) => {
@@ -46,12 +51,22 @@ task('bump:version', (done: any) => {
 
 task('library:build-yue-ui', execNodeTask('@angular/cli', 'ng', ['build', 'yue-ui', '--prod']));
 
+task('library:compile-less', done => {
+  compileLess().then(() => {
+    fs.mkdirsSync(targetPath);
+    fs.copySync(path.resolve(sourcePath, `styles`), path.resolve(targetPath, `styles`));
+    fs.copySync(path.resolve(sourcePath, `yue-ui.css`), path.resolve(targetPath, `yue-ui.css`));
+    fs.copySync(path.resolve(sourcePath, `yue-ui.min.css`), path.resolve(targetPath, `yue-ui.min.css`));
+    fs.outputFileSync(path.resolve(targetPath, `yue-ui.less`), `@import "../styles/index.less";
+@import "../components.less";`);
+    done();
+  });
+});
+
+
 task('library:copy-resources', () => {
   return src([
     path.join(buildConfig.projectDir, 'README.md'),
-    path.join(buildConfig.componentsDir),
-    path.join(`${buildConfig.componentsDir}/styles.less`),
-    path.join(`${buildConfig.componentsDir}/styles/*`),
   ], { base: buildConfig.componentsDir }).pipe(dest(path.join(buildConfig.publishDir)));
 });
 
@@ -61,5 +76,6 @@ task(
     'bump:version',
     'library:build-yue-ui',
     'library:copy-resources',
+    'library:compile-less',
   )
 );

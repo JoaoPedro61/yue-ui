@@ -23,8 +23,15 @@ import { differenceBy } from 'lodash';
 
 import { YueUiColDirective, YueUiGridDirective, YueUiGridEmbeddedProperty } from '@joaopedro61/yue-ui/grid';
 
-import { getValidators, getMessages } from '@joaopedro61/yue-ui/formulary/utils';
 import { equals, setHiddenProp } from '@joaopedro61/yue-ui/core/utils';
+import {
+  yueUiFormularyAddValidator,
+  yueUiFormularyGetValidators,
+  yueUiFormularyGetValidatorsMessages,
+  YueUiFormularyUtilsValidator,
+  YueUiFormularyDescriptorComponent,
+  YueUiFormularyLabelComponent
+} from '@joaopedro61/yue-ui/formulary/utils';
 
 
 import {
@@ -33,8 +40,6 @@ import {
   FormularyComponent
 } from './../fix-ralacional';
 
-import { LabelComponent } from './label.component';
-import { DescriptorComponent } from './descriptor.component';
 import { INTERNALS } from './../abstract/internals';
 import { FieldAbstraction } from './../abstract/abstraction';
 
@@ -50,7 +55,6 @@ import { FieldAbstraction } from './../abstract/abstraction';
     </ng-container>
     <ng-container #vcr></ng-container>
   `,
-  styleUrls: ['./../styles/wrapper.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
@@ -83,8 +87,8 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
   }
 
   private componenetsRefs: {
-    label?: ComponentRef<LabelComponent>;
-    descriptor?: ComponentRef<DescriptorComponent>;
+    label?: ComponentRef<YueUiFormularyLabelComponent>;
+    descriptor?: ComponentRef<YueUiFormularyDescriptorComponent>;
     field?: ComponentRef<FieldAbstraction>;
     wrappers: {[k: string]: ComponentRef<WrapperComponent>};
   } = {
@@ -125,7 +129,7 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
         const keys: string[] = Object.keys(errors);
         if (keys.length) {
           const messages: {[s: string]: string} = {};
-          const msgs: (string | ((...args: any[]) => string))[] = getMessages(keys) as any;
+          const msgs: (string | ((...args: any[]) => string))[] = yueUiFormularyGetValidatorsMessages(keys) as any;
           for (let i = 0, l = msgs.length; i < l; i++) {
             if (typeof msgs[i] === `function`) {
               messages[keys[i]] = (msgs[i] as any)() as unknown as any;
@@ -154,17 +158,19 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
       }
       const isInvalid: boolean = this.isInvalid();
       if (isInvalid !== ref.instance.isInvalid) {
-        ref.instance.isInvalid = isInvalid;
+        ref.instance.invalid = isInvalid;
         executeDetectChanges = true;
       }
       const isRequired: boolean = this.isRequired();
       if (isRequired !== ref.instance.isRequired) {
-        ref.instance.isRequired = isRequired;
+        ref.instance.required = isRequired;
         executeDetectChanges = true;
       }
       if (executeDetectChanges || shouldForceEmitChanges) {
         ref.changeDetectorRef.markForCheck();
         ref.changeDetectorRef.detectChanges();
+        ref.instance.cdr.markForCheck();
+        ref.instance.cdr.detectChanges();
       }
     }
   }
@@ -180,7 +186,7 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
         executeDetectChanges = true;
       }
       if (this.isInvalid()) {
-        const old = ref.instance.invalidMetadata;
+        const old = ref.instance.errors;
         const messages = this.getErrorsMessages();
         const firstKey = Object.keys(messages).shift();
         let message: {[x: string]: string} | null;
@@ -190,23 +196,23 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
           message = null;
         }
         if (!old) {
-          ref.instance.invalidMetadata = message;
+          ref.instance.errors = message;
           executeDetectChanges = true;
         } else {
           const firstKeyOld = Object.keys(old).shift();
           if (firstKeyOld) {
             if (!messages.hasOwnProperty(firstKeyOld)) {
-              ref.instance.invalidMetadata = message;
+              ref.instance.errors = message;
               executeDetectChanges = true;
             }
           } else {
-            ref.instance.invalidMetadata = message;
+            ref.instance.errors = message;
             executeDetectChanges = true;
           }
         }
       } else {
-        if (ref.instance.invalidMetadata !== null) {
-          ref.instance.invalidMetadata = null;
+        if (ref.instance.errors !== null) {
+          ref.instance.errors = null;
           executeDetectChanges = true;
         }
       }
@@ -261,7 +267,7 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
 
   private createLabel(): void {
     if (this.formulary && !this.formulary.isHiddenLabel) {
-      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(LabelComponent), 0);
+      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(YueUiFormularyLabelComponent), 0);
       this.componenetsRefs.label = ref;
       this.checkLabelProps();
       setTimeout(() => this.checkLabelProps());
@@ -290,7 +296,7 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
   private createDescriptor(): void {
     if (this.formulary && !this.formulary.isHiddenDescriptor) {
       const insertAt: number = Object.keys(this.componenetsRefs).length - 1;
-      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(DescriptorComponent), insertAt);
+      const ref = this.vcr.createComponent(this.cfr.resolveComponentFactory(YueUiFormularyDescriptorComponent), insertAt);
       this.componenetsRefs.descriptor = ref;
       this.checkDescriptorProps();
       setTimeout(() => this.checkDescriptorProps());
@@ -489,11 +495,18 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
       control.clearValidators();
       const validators: any = [];
       if (field.validators && field.validators.length) {
-        const vals = getValidators(field.validators);
+        const existent: string[] = field.validators.filter(i => typeof i === 'string') as string[];
+        field.validators
+          .filter(i => typeof i === 'object')
+          .forEach((i: any) => {
+            yueUiFormularyAddValidator((i as YueUiFormularyUtilsValidator));
+            existent.push((i as YueUiFormularyUtilsValidator).name);
+          });
+        const vals = yueUiFormularyGetValidators(existent);
         if (Array.isArray(vals)) {
           for (let i = 0, l = vals.length; i < l; i++) {
-            if (vals[i].validator) {
-              validators.push(vals[i].validator);
+            if (vals[i]) {
+              validators.push(vals[i]);
             }
           }
         }

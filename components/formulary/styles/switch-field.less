@@ -1,0 +1,419 @@
+.styled-button() {
+  -webkit-box-align: baseline;
+  align-items: baseline;
+  box-sizing: border-box;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  cursor: default;
+  height: 28px;
+  line-height: 28px;
+  vertical-align: middle;
+  width: auto;
+  border-width: 0px;
+  text-decoration: none;
+  background: none;
+  padding: 0px 8px;
+  transition:
+    background 0.1s ease-out 0s,
+    box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38) 1s;
+  border: 1px solid transparent;
+  outline-width: 1px;
+  outline-offset: 0px;
+  outline-color: var(--components-formulary-active);
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  border-right: 1px solid var(--components-formulary-border-color);
+
+  &:last-child {
+    border-right: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+
+  &:first-child {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  &.selected {
+    background: var(--components-formulary-active);
+    color: var(--components-formulary-contrast);
+  }
+
+  &:hover:not(.disabled):not(.selected) {
+    background: var(--components-formulary-hover);
+    cursor: pointer;
+  }
+
+  &.disabled {
+    color: var(--components-formulary-disabled-color);
+    background: var(--components-formulary-disabled-background);
+    border: 1px solid var(--components-formulary-disabled-border-color);
+    cursor: not-allowed !important;
+  }
+}
+
+
+.yue-ui-formulary-switch {
+  display: block;
+  position: relative;
+  margin-top: 4px;
+  height: 100%;
+
+  &-wrapper {
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+
+    &-inner {
+
+      &-field {
+        position: relative;
+        display: block;
+        padding: 3px;
+        margin: 0 10px 0 0;
+        cursor: pointer;
+        box-sizing: content-box;
+        transition: background 300ms ease-in-out;
+        color: var(--components-formulary-color);
+        background: var(--components-formulary-background);
+        border: 1px solid var(--components-formulary-border-color);
+        border-radius: 2px;
+
+        &-buttons {
+          display: flex;
+          justify-content: flex-start;
+          flex-direction: row;
+          flex-wrap: nowrap;
+
+          &-button {
+            .styled-button();
+          }
+        }
+
+        &-checkbox {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 2;
+          opacity: 0;
+          box-sizing: content-box;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+
+        &.checkbox-typed {
+          @width : 16px;
+          @height : 16px;
+          @offset : 6px;
+          @radius: 2px;
+
+          padding: 0;
+          position: relative;
+          display: inline-block;
+          white-space: nowrap;
+          vertical-align: middle;
+          outline: 0;
+          cursor: pointer;
+          border-radius: @radius;
+
+          .wrappred-handler {
+            top: 0;
+            left: 0;
+            width: @width;
+            display: block;
+            height: @height;
+            position: relative;
+            transition: all .3s;
+            border-collapse: separate;
+
+            &::after {
+              position: absolute;
+              display: table;
+              border: 2px solid #fff;
+              border-top: 0;
+              border-left: 0;
+              transform: rotate(45deg) scale(1) translate(-50%, -50%);
+              opacity: 0;
+              transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
+              content: ' ';
+              top: 50%;
+              left: 22%;
+              width: 5.71px;
+              height: 9.14px;
+            }
+          }
+
+          .yue-ui-formulary-switch-wrapper-inner-field-checkbox {
+
+            &:checked {
+
+              &~.wrappred-handler {
+                background: var(--components-formulary-active);
+
+                &::after {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+
+          &.isIndeterminated {
+
+            .wrappred-handler {
+
+              &::after {
+                content: ' ';
+                position: absolute;
+                display: block;
+                transform: scale(1) translate(-50%, -50%);
+                opacity: 1;
+                transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
+                top: 50%;
+                left: 50%;
+                width: @width - @offset;
+                height: @height - @offset;
+                background: var(--components-formulary-active);
+                border-radius: @radius;
+                border: none;
+              }
+            }
+          }
+        }
+
+        &.disabled {
+          color: var(--components-formulary-disabled-color);
+          background: var(--components-formulary-disabled-background);
+          border: 1px solid var(--components-formulary-disabled-border-color);
+          cursor: not-allowed !important;
+
+          .yue-ui-formulary-switch-wrapper-inner-field-checkbox {
+            cursor: not-allowed !important;
+          }
+        }
+
+        &.button-typed {
+          padding: 0;
+        }
+
+        &:not(.checkbox-typed):not(.button-typed) {
+          @width : 40px;
+          @height : 15px;
+          @handlerWidth : @width / 3;
+          @handlerHeight : @width / 3;
+          @handlerTop : @height / 3 - 1;
+          @handlerLeftUnactive: @height / 3;
+
+          width: @width;
+          height: @height;
+          border-radius: 18px;
+
+          .wrappred-handler {
+            transition: left 300ms ease-in-out, background 300ms ease-in-out;
+            position: absolute;
+            top: @handlerTop;
+            left: @handlerLeftUnactive;
+            width: @handlerWidth;
+            height: @handlerHeight;
+            border-radius: 100%;
+            background: var(--components-formulary-unactive);
+            border: 3px solid transparent;
+          }
+
+          .yue-ui-formulary-switch-wrapper-inner-field-checkbox {
+
+            &:checked {
+
+              &~.wrappred-handler {
+                background: var(--components-formulary-active);
+                left: calc(calc(100% - @handlerWidth) - 4px);
+              }
+            }
+          }
+
+          &.isIndeterminated {
+
+            .wrappred-handler {
+              left: 50%;
+              transform: translateX(-50%);
+              background: var(--components-formulary-indeterminate);
+            }
+          }
+        }
+      }
+
+      &-radio-field {
+        
+
+        &.button-typed {
+          position: relative;
+          padding: 0px;
+          margin: 0 10px 0 0;
+          cursor: pointer;
+          box-sizing: content-box;
+          transition: background 300ms ease-in-out;
+          color: var(--components-formulary-color);
+          background: var(--components-formulary-background);
+          border: 1px solid var(--components-formulary-border-color);
+          border-radius: 2px;
+
+          display: flex;
+          justify-content: flex-start;
+          flex-direction: row;
+          flex-wrap: nowrap;
+        }
+      }
+    }
+  }
+
+  &.ng-invalid:not([class*="radio"]) {
+
+    .yue-ui-formulary-switch-wrapper {
+
+      &-inner-field {
+        color: var(--components-formulary-invalid-color);
+        background: var(--components-formulary-invalid-background);
+        border: 1px solid var(--components-formulary-invalid-border-color);
+      }
+
+      &-placeholder {
+        color: var(--components-formulary-invalid-color);
+      }
+    }
+  }
+
+  &.ng-invalid[class*="radio-button"] {
+
+    .yue-ui-formulary-switch-wrapper {
+
+      &-inner-field {
+        color: var(--components-formulary-invalid-color);
+        background: var(--components-formulary-invalid-background);
+        border: 1px solid var(--components-formulary-invalid-border-color);
+      }
+
+      &-placeholder {
+        color: var(--components-formulary-invalid-color);
+      }
+    }
+  }
+
+  &:not(.ng-invalid) {
+
+    .yue-ui-formulary-switch-wrapper {
+
+      &-inner-field {
+
+        &:hover:not(.focusing):not(.disabled) {
+          color: var(--components-formulary-hover-color);
+          background: var(--components-formulary-hover-background);
+          border: 1px solid var(--components-formulary-hover-border-color);
+        }
+
+        &.focusing:not(.disabled) {
+          color: var(--components-formulary-focus-color);
+          background: var(--components-formulary-focus-background);
+          border: 1px solid var(--components-formulary-focus-border-color);
+        }
+      }
+    }
+  }
+
+}
+
+.yue-ui-formulary-switch-option {
+  display: block;
+  position: relative;
+  @height: 20px;
+  @width: 20px;
+  @height-dot: @height - 10px;
+  @width-dot: @width - 10px;
+
+  &-button {
+    .styled-button();
+  }
+
+  &:not(:last-child):not(&-button) {
+    margin-bottom: 5px;
+  }
+
+  &-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    &-indicator {
+      cursor: pointer;
+      margin-right: 8px;
+
+      &-inner {
+        height: @height;
+        width: @width;
+        background: var(--components-formulary-background);
+        border-radius: 50%;
+        border: 1px solid var(--components-formulary-border-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-dot {
+          height: @height-dot;
+          width: @width-dot;
+          background: transparent;
+          border-radius: 50%;
+          transition: backgroud 150ms ease-in-out;
+        }
+      }
+    }
+
+    &-label {
+      line-height: @height;
+      height: @height;
+
+      &-inner {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-disabled {
+    opacity: 0.4;
+
+    .yue-ui-formulary-switch-option-wrapper {
+
+      &-indicator {
+        cursor: not-allowed;
+      }
+
+      &-label {
+
+        &-inner {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &-selected {
+
+    .yue-ui-formulary-switch-option-wrapper {
+
+      &-indicator-inner-dot {
+        background: var(--components-formulary-active);
+      }
+    }
+  }
+}

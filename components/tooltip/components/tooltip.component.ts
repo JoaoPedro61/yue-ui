@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input, ViewEncapsulation } from '@angular/core';
 
-import { deepTypechecker } from '@joaopedro61/yue-ui/core/utils';
+import { deepTypeChecker } from '@joaopedro61/yue-ui/core/utils';
 
 import { BaseComponent } from './../utils/base';
 
@@ -55,7 +55,7 @@ export class YueUiTooltipComponent extends BaseComponent {
       ? false
       : this.title === ''
         ? true
-        : deepTypechecker(this.title) === 'null' || deepTypechecker(this.title) === 'undefined';
+        : deepTypeChecker(this.title) === 'null' || deepTypeChecker(this.title) === 'undefined';
   }
 
 }

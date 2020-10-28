@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TextMaskModule } from 'angular2-text-mask';
+
 
 import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 import { VERSION } from '@joaopedro61/yue-ui/version';
@@ -13,19 +13,15 @@ import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
 
 import { YueUiGridModule } from '@joaopedro61/yue-ui/grid';
 
-import { YueUiCustomColorpickerModule } from '@joaopedro61/yue-ui/formulary/custom/colorpicker';
-import { YueUiCustomDatepickerModule } from '@joaopedro61/yue-ui/formulary/custom/datepicker';
-import { YueUiCustomNumberModule } from '@joaopedro61/yue-ui/formulary/custom/number';
-import { YueUiCustomSelectModule } from '@joaopedro61/yue-ui/formulary/custom/select';
-import { YueUiCustomSwitchModule } from '@joaopedro61/yue-ui/formulary/custom/switch';
-import { YueUiCustomTextModule } from '@joaopedro61/yue-ui/formulary/custom/text';
-import { YueUiCustomPasswordModule } from '@joaopedro61/yue-ui/formulary/custom/password';
-import { YueUiCustomTextareaModule } from '@joaopedro61/yue-ui/formulary/custom/textarea';
+import { YueUiFormularyNumberModule } from '@joaopedro61/yue-ui/formulary/number';
+import { YueUiFormularySelectModule } from '@joaopedro61/yue-ui/formulary/select';
+import { YueUiFormularySwitchModule } from '@joaopedro61/yue-ui/formulary/switch';
+import { YueUiFormularyTextModule } from '@joaopedro61/yue-ui/formulary/text';
+import { YueUiFormularyPasswordModule } from '@joaopedro61/yue-ui/formulary/password';
+import { YueUiFormularyTextareaModule } from '@joaopedro61/yue-ui/formulary/textarea';
 
 import { FormularyComponent } from './builder.component';
-import { LabelComponent } from './extends/label.component';
 import { WrapperComponent } from './extends/wrapper.component';
-import { DescriptorComponent } from './extends/descriptor.component';
 
 import { SwitchAbstractionComponent } from './abstract/switch.abstraction.component';
 import { TextAbstractionComponent } from './abstract/text.abstraction.component';
@@ -42,9 +38,7 @@ const logger = logging.getLogger('core.formulary.builder');
   declarations: [
     FormularyComponent,
 
-    LabelComponent,
     WrapperComponent,
-    DescriptorComponent,
 
     SwitchAbstractionComponent,
     TextAbstractionComponent,
@@ -55,9 +49,7 @@ const logger = logging.getLogger('core.formulary.builder');
   entryComponents: [
     FormularyComponent,
 
-    LabelComponent,
     WrapperComponent,
-    DescriptorComponent,
 
     SwitchAbstractionComponent,
     TextAbstractionComponent,
@@ -67,18 +59,15 @@ const logger = logging.getLogger('core.formulary.builder');
   ],
   imports: [
     CommonModule,
-    TextMaskModule,
     FormsModule,
     ReactiveFormsModule,
 
-    YueUiCustomColorpickerModule,
-    YueUiCustomDatepickerModule,
-    YueUiCustomNumberModule,
-    YueUiCustomSelectModule,
-    YueUiCustomSwitchModule,
-    YueUiCustomTextModule,
-    YueUiCustomPasswordModule,
-    YueUiCustomTextareaModule,
+    YueUiFormularyNumberModule,
+    YueUiFormularySelectModule,
+    YueUiFormularySwitchModule,
+    YueUiFormularyTextModule,
+    YueUiFormularyPasswordModule,
+    YueUiFormularyTextareaModule,
 
     YueUiGridModule,
     YueUiSmartRenderModule,
@@ -90,15 +79,13 @@ const logger = logging.getLogger('core.formulary.builder');
   exports: [
     FormularyComponent,
 
-    LabelComponent,
     WrapperComponent,
-    DescriptorComponent,
   ]
 })
-export class YueUiBuilderFormularyModule {
+export class YueUiFormularyBuilderModule {
 
   constructor() {
-    logger.info(`YueUiBuilderFormularyModule on version: ${VERSION.full}`);
+    logger.info(`YueUiFormularyBuilderModule on version: ${VERSION.full}`);
   }
 
 }

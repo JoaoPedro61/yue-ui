@@ -29,7 +29,6 @@ export {
   fieldVstype,
   fieldSelectMode,
   fieldSwitchMode,
-  fieldHide,
   fieldTextMode,
   fieldStyles,
 } from './commons';

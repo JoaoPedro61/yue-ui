@@ -1,7 +1,9 @@
-import { Modifiers, FormularySource, } from './../fix-ralacional';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
-import { TextMask, getMask } from '@joaopedro61/yue-ui/formulary/utils';
+import { YueUiFormularyMask } from '@joaopedro61/yue-ui/formulary/mask';
+import { getMask } from '@joaopedro61/yue-ui/formulary/utils';
+
+import { Modifiers, FormularySource, } from './../fix-ralacional';
 import { Listener } from '../modifiers';
 
 
@@ -83,7 +85,21 @@ export abstract class FieldAbstraction {
     return null;
   }
 
-  public get mask(): TextMask | null {
+  public get fieldAppend(): Modifiers.FieldStruct['fieldAppend'] | null {
+    if (this.field) {
+      return this.field.fieldAppend;
+    }
+    return null;
+  }
+
+  public get fieldPrepend(): Modifiers.FieldStruct['fieldPrepend'] | null {
+    if (this.field) {
+      return this.field.fieldPrepend;
+    }
+    return null;
+  }
+
+  public get mask(): YueUiFormularyMask | null {
     if (this.field) {
       if (typeof this.field.mask === 'function') {
         const retval = this.field.mask();

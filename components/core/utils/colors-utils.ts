@@ -5,8 +5,8 @@
  * Convert a color
  *
  * @export
- * @param {*} rgb RGB Color
- * @return {*}  {*} Hex Color
+ * @param rgb RGB Color
+ * @return  Hex Color
  */
 export function RGBToHex(rgb: any): any {
   let ex = /^rgb\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){2}|((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s)){2})((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]))|((((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){2}|((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){2})(([1-9]?\d(\.\d+)?)|100|(\.\d+))%))\)$/i;
@@ -49,8 +49,8 @@ export function RGBToHex(rgb: any): any {
  * Convert a color
  *
  * @export
- * @param {*} rgba RGBA Color
- * @return {*}  {*} HEX with transparence color
+ * @param rgba RGBA Color
+ * @return  HEX with transparence color
  */
 export function RGBAToHexA(rgba: any): any {
   let ex = /^rgba\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){3}))|(((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){3}))\/\s)((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
@@ -100,9 +100,9 @@ export function RGBAToHexA(rgba: any): any {
  * Convert a color
  *
  * @export
- * @param {*} h HEX color
- * @param {*} isPct In percentage mode
- * @return {*}  {*} RGB color
+ * @param h HEX color
+ * @param isPct In percentage mode
+ * @return  RGB color
  */
 export function hexToRGB(h: any, isPct: any): any {
   let ex = /^#([\da-f]{3}){1,2}$/i;
@@ -138,10 +138,10 @@ export function hexToRGB(h: any, isPct: any): any {
  * Convert a color
  *
  * @export
- * @param {*} h HEX with transparence color
- * @param {*} isPct In percentage mode
- * @param {number} [fix=0] Fix number
- * @return {*}  {*} RGBA color
+ * @param h HEX with transparence color
+ * @param isPct In percentage mode
+ * @param [fix=0] Fix number
+ * @return  RGBA color
  */
 export function hexAToRGBA(h: any, isPct: any, fix: number = 0): any {
   let ex = /^#([\da-f]{4}){1,2}$/i;
@@ -180,8 +180,8 @@ export function hexAToRGBA(h: any, isPct: any, fix: number = 0): any {
  * Convert a color
  *
  * @export
- * @param {*} rgb RGB Color
- * @return {*}  {*} HSL color
+ * @param rgb RGB Color
+ * @return  HSL color
  */
 export function RGBToHSL(rgb: any): any {
   let ex = /^rgb\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){2}|((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s)){2})((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]))|((((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){2}|((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){2})(([1-9]?\d(\.\d+)?)|100|(\.\d+))%))\)$/i;
@@ -250,8 +250,8 @@ export function RGBToHSL(rgb: any): any {
  * Convert a color
  *
  * @export
- * @param {*} rgba RGBA color
- * @return {*}  {*} HSLA Color
+ * @param rgba RGBA color
+ * @return  HSLA Color
  */
 export function RGBAToHSLA(rgba: any): any {
   let ex = /^rgba\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){3}))|(((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){3}))\/\s)((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
@@ -329,9 +329,9 @@ export function RGBAToHSLA(rgba: any): any {
  * Convert a color
  *
  * @export
- * @param {*} hsl HSL Color
- * @param {*} isPct In percentage mode
- * @return {*}  {*} RGB Color
+ * @param hsl HSL Color
+ * @param isPct In percentage mode
+ * @return  RGB Color
  */
 export function HSLToRGB(hsl: any, isPct: any): any {
   let ex = /^hsl\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}|(\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2})\)$/i;
@@ -397,9 +397,9 @@ export function HSLToRGB(hsl: any, isPct: any): any {
  * Convert a color
  *
  * @export
- * @param {*} hsla HSLA Color
- * @param {*} isPct In percentage mode
- * @return {*}  {*} RGBA
+ * @param hsla HSLA Color
+ * @param isPct In percentage mode
+ * @return  RGBA
  */
 export function HSLAToRGBA(hsla: any, isPct: any): any {
   let ex = /^hsla\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)(((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2},\s?)|((\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}\s\/\s))((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
@@ -481,8 +481,8 @@ export function HSLAToRGBA(hsla: any, isPct: any): any {
  * Convert a color
  *
  * @export
- * @param {*} H HEX Color
- * @return {*}  {*} HSL Color
+ * @param H HEX Color
+ * @return  HSL Color
  */
 export function hexToHSL(H: any): any {
   let ex = /^#([\da-f]{3}){1,2}$/i;
@@ -539,8 +539,8 @@ export function hexToHSL(H: any): any {
  * Convert a color
  *
  * @export
- * @param {*} H Hex with transparence color
- * @return {*}  {*} HSLA Color
+ * @param H Hex with transparence color
+ * @return  HSLA Color
  */
 export function hexAToHSLA(H: any): any {
   let ex = /^#([\da-f]{4}){1,2}$/i;
@@ -603,8 +603,8 @@ export function hexAToHSLA(H: any): any {
  * Convert a color
  *
  * @export
- * @param {*} hsl HSL Color
- * @return {*}  {*} HEX Color
+ * @param hsl HSL Color
+ * @return  HEX Color
  */
 export function HSLToHex(hsl: any): any {
   let ex = /^hsl\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}|(\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2})\)$/i;
@@ -670,8 +670,8 @@ export function HSLToHex(hsl: any): any {
  * Convert a color
  *
  * @export
- * @param {*} hsla HSLA Color
- * @return {*}  {*} HEX with transparence color
+ * @param hsla HSLA Color
+ * @return  HEX with transparence color
  */
 export function HSLAToHexA(hsla: any): any {
   let ex = /^hsla\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)(((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2},\s?)|((\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}\s\/\s))((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
@@ -746,8 +746,8 @@ export function HSLAToHexA(hsla: any): any {
  * Convert a color
  *
  * @export
- * @param {*} name Name of color
- * @return {*}  {*} RGB Color
+ * @param name Name of color
+ * @return  RGB Color
  */
 export function nameToRGB(name: any): any {
   // create fake div
@@ -769,8 +769,8 @@ export function nameToRGB(name: any): any {
  * Convert a color
  *
  * @export
- * @param {*} name Name of color
- * @return {*}  {*} HEX Color
+ * @param name Name of color
+ * @return  HEX Color
  */
 export function nameToHex(name: any): any {
   // get RGB from named color in div
@@ -803,8 +803,8 @@ export function nameToHex(name: any): any {
  * Convert a color
  *
  * @export
- * @param {*} name Name of color
- * @return {*}  {*} HSl Color
+ * @param name Name of color
+ * @return  HSl Color
  */
 export function nameToHSL(name: any): any {
   let fakeDiv = document.createElement("div");
@@ -865,28 +865,24 @@ export function nameToHSL(name: any): any {
  * ```
  *
  * @export
- * @param {string} source
- * @param {number} [opacity=1]
- * @return {*}  {string}
+ * @param source
+ * @param [opacity=1]
+ * @return 
  */
 export function getRGBA(source: string, opacity: number = 1): string {
   let sourceHex = '#FFF';
-  let withOpacity = false;
   if (/^rgb\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){2}|((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s)){2})((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]))|((((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){2}|((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){2})(([1-9]?\d(\.\d+)?)|100|(\.\d+))%))\)$/i.test(source)) {
     sourceHex = RGBToHex(source);
   } else if (/^rgba\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){3}))|(((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){3}))\/\s)((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i.test(source)) {
     sourceHex = RGBAToHexA(source);
-    withOpacity = true;
   } else if (/^#([\da-f]{3}){1,2}$/i.test(source)) {
     sourceHex = source;
   } else if (/^#([\da-f]{4}){1,2}$/i.test(source)) {
     sourceHex = source;
-    withOpacity = true;
   } else if (/^hsl\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}|(\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2})\)$/i.test(source)) {
     sourceHex = HSLToHex(source);
   } else if (/^hsla\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)(((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2},\s?)|((\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}\s\/\s))((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i.test(source)) {
     sourceHex = HSLAToHexA(source);
-    withOpacity = true;
   } else {
     sourceHex = nameToHex(source);
   }
@@ -904,9 +900,9 @@ export function getRGBA(source: string, opacity: number = 1): string {
  * Generates a pad in the string
  *
  * @export
- * @param {string} str
- * @param {number} [len]
- * @return {*}  {*}
+ * @param str
+ * @param [len]
+ * @return 
  * 
  * @ignore
  */
@@ -920,9 +916,9 @@ export function padZero(str: string, len?: number): any {
  * Invert a hex color
  *
  * @export
- * @param {string} hex HEX color
- * @param {boolean} [bw=false] Aprimore color inversion
- * @return {*}  {string} Inverted color
+ * @param hex HEX color
+ * @param [bw=false] Aprimore color inversion
+ * @return  Inverted color
  */
 export function invertColor(hex: string, bw: boolean = false): string {
   if (hex.indexOf('#') === 0) {
@@ -956,8 +952,8 @@ export function invertColor(hex: string, bw: boolean = false): string {
  * Simple invert HEX color
  *
  * @export
- * @param {string} hex HEX color
- * @return {*}  {string} Simple inverted color
+ * @param hex HEX color
+ * @return  Simple inverted color
  */
 export function invertHexSimple(hex: string): string {
   return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
@@ -967,8 +963,8 @@ export function invertHexSimple(hex: string): string {
  * Generate a color between a range o 0 and 100
  *
  * @export
- * @param {number} [percentage=0]
- * @return {*}  {string} HEX colors
+ * @param [percentage=0]
+ * @return  HEX colors
  */
 export function colorScale(percentage: number = 0): string {
   const b = 0;

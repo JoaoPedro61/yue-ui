@@ -32,9 +32,6 @@ import { YueUiBreadcrumbItem } from './../utils/interfaces';
     '[class.yue-ui-breadcrumb]': 'true'
   },
   exportAs: `yueUiBreadcrumbRef`,
-  styleUrls: [
-    `./../styles/breadcrumb.component.less`
-  ],
 })
 export class YueUiBreadcrumbComponent {
 
@@ -49,4 +46,3 @@ export class YueUiBreadcrumbComponent {
   }
 
 }
-

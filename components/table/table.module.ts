@@ -48,7 +48,8 @@ const logger = logging.getLogger('core.button');
     YueUiPopoverModule,
     YueUiMenuModule,
     YueUiThematizationModule,
-  ]
+  ],
+  providers: [ ]
 })
 export class YueUiTableModule {
 

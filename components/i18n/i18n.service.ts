@@ -20,8 +20,7 @@ export class YueUiI18nService {
     @Inject(YUE_UI_I18N_DICTIONARY) private readonly dictionary: YueUiI18nDictionary,
     @Inject(YUE_UI_I18N_COMPONENTS_DICTIONARY) private readonly componentsDictionary: YueUiI18nComponentsDictionary,
     @Inject(YUE_UI_I18N_LANGUAGE) private readonly language: YueUiI18nLanguage
-  ) {
-  }
+  ) { }
 
   public dictionaryAsync(): Observable<any> {
     return this.dictionary.asObservable();

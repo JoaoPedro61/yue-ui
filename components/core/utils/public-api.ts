@@ -26,7 +26,7 @@ export { consoleError, consoleInfo, consoleLog, consoleWarning } from './console
 export { copyText } from './copy-text-from-element';
 export { deepForIn } from './deep-for-in';
 export { deepMerge } from './deep-merge';
-export { DeepTypeCheckerTypes, deepTypechecker } from './deep-type-checker';
+export { deepTypeCheckerTypes, deepTypeChecker } from './deep-type-checker';
 export { defineScope } from './define-scope';
 export { SerializeReturnValue, deserializeStringJsonPath } from './deserialize-string-json-path';
 export { ElementDimentions, elementDimentions } from './element-dimentions';

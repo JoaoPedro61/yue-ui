@@ -5,7 +5,7 @@ import { VERSION } from '@joaopedro61/yue-ui/version';
 import { logging } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiI18nModule, YueUiI18nService } from '@joaopedro61/yue-ui/i18n';
-import { YueUiCustomSelectModule } from '@joaopedro61/yue-ui/formulary/custom/select';
+import { YueUiFormularySelectModule } from '@joaopedro61/yue-ui/formulary/select';
 
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
@@ -24,7 +24,7 @@ const logger = logging.getLogger('core.smart-render');
   ],
   imports: [
     CommonModule,
-    YueUiCustomSelectModule,
+    YueUiFormularySelectModule,
     YueUiI18nModule,
     YueUiThematizationModule,
   ],

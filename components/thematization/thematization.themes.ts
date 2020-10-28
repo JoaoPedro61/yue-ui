@@ -8,29 +8,37 @@ import { generateDarkTransparent, generateLightTransparent } from './transparent
 export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
   name: 'light',
   theme: {
-    color: {
+    colors: {
       primary: '#007bff',
       'primary-hover': '#007bff',
+
       secondary: '#6c757d',
       'secondary-hover': '#6c757d',
+
       success: '#28a745',
       'success-hover': '#28a745',
-      danger: '#dc3545',
-      'danger-hover': '#dc3545',
+
       error: '#dc3545',
       'error-hover': '#dc3545',
+
       warning: '#ffc107',
       'warning-hover': '#ffc107',
+
       info: '#17a2b8',
       'info-hover': '#17a2b8',
+
       light: '#f8f9fa',
       'light-hover': '#f8f9fa',
+
       dark: '#172b4d',
       'dark-hover': '#343a40',
+
       link: '#0052cc',
       'link-hover': '#3b73af',
+
       muted: '#6c757d',
       'muted-hover': '#6c757d',
+
       background: {
         light: '#f2f2f2',
         dark: '#232323'
@@ -40,148 +48,37 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         light: generateLightTransparent(),
       }
     },
+
+    background: `var(--colors-background-light)`,
+    color: `var(--colors-dark)`,
+
     body: {
-      background: 'var(--color-background-light)',
-      color: 'var(--color-dark)',
+      background: 'var(--background)',
+      color: 'var(--color)',
       scrollbar: {
         thumb: {
           background: '#9c9c9c'
         },
         track: {
-          background: 'var(--color-transparent-dark-30)'
+          background: 'var(--colors-transparent-dark-30)'
         }
       }
     },
     components: {
-      loader: {
-        http: {
-          background: `var(--color-primary)`
-        }
-      },
       navigation: {
         menu: {
           background: '#125E8A',
           color: '#ffffff',
-          'out-shadow': 'rgba(0, 0, 0, 0.1)',
-          'inner-shadow': 'rgba(0, 0, 0, 0.15)',
+          'out-shadow': 'var(--colors-transparent-dark-10)',
+          'inner-shadow': 'var(--colors-transparent-dark-15)',
           hover: {
-            'out-shadow': 'rgba(0, 0, 0, 0.21)'
+            'out-shadow': 'var(--colors-transparent-dark-21)'
           },
           sider: {
-            background: '#EFF1ED',
-            color: 'var(--color-dark)'
+            background: 'var(--background)',
+            color: 'var(--color)'
           }
         }
-      },
-      button: {
-        default: {
-          color: 'var(--color-dark)',
-          background: 'transparent',
-          hover: {
-            color: 'var(--color-dark-hover)',
-            background: 'rgba(0, 0, 0, .034)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        primary: {
-          color: 'var(--color-light)',
-          background: 'var(--color-primary)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-primary-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        secondary: {
-          color: 'var(--color-light)',
-          background: 'var(--color-secondary)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-secondary-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        success: {
-          color: 'var(--color-light)',
-          background: 'var(--color-success)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-success-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        danger: {
-          color: 'var(--color-light)',
-          background: 'var(--color-danger)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-danger-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        warning: {
-          color: 'var(--color-light)',
-          background: 'var(--color-warning)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-warning-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        info: {
-          color: 'var(--color-light)',
-          background: 'var(--color-info)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-info-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        light: {
-          color: 'var(--color-dark)',
-          background: 'var(--color-light)',
-          hover: {
-            color: 'var(--color-dark-hover)',
-            background: 'var(--color-light-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
-        dark: {
-          color: 'var(--color-light)',
-          background: 'var(--color-dark)',
-          hover: {
-            color: 'var(--color-light-hover)',
-            background: 'var(--color-dark-hover)'
-          },
-          disabled: {
-            color: 'var(--color-muted)',
-            background: 'var(--color-transparent-dark-10)'
-          }
-        },
       },
       collapse: {
         hover: {
@@ -211,35 +108,10 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           }
         }
       },
-      tooltip: {
-        background: `var(--color-transparent-dark-75)`,
-        color: `var(--color-light)`
-      },
-      popover: {
-        background: `var(--color-background-light)`,
-        content: {
-          color: `var(--color-dark)`,
-        },
-        title: {
-          color: `var(--color-dark)`,
-        }
-      },
+
+
+
       formulary: {
-        label: {
-          color: `#5e6c84`,
-          invalid: {
-            color: `#c62828`,
-          },
-        },
-        nav: {
-          divider: `var(--color-transparent-dark-10)`,
-          hover: {
-            background: `var(--color-transparent-dark-10)`,
-          },
-          activated: {
-            color: `var(--color-primary)`,
-          }
-        },
         descriptor: {
           description: {
             color: `rgb(94 108 132 / 65%)`,
@@ -249,133 +121,316 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
           },
         },
 
-        input: {
-          color: '#172b4d',
-          background: '#f4f5f7',
-          border: {
-            color: '#dfe1e6',
-            invalid: {
-              color: `var(--components-formulary-label-invalid-color)`,
-            }
-          },
-          focus: {
-            border: {
-              color: '#4c9aff',
-            },
-            background: '#fff',
-          },
-          hover: {
-            background: '#ebecf0',
-          },
-          switch: {
-            active: {
-              background: 'var(--components-formulary-input-focus-border-color)',
-              'handler-background': 'var(--components-formulary-input-focus-border-color)',
-            },
-            unactive: {
-              'handler-background': '#ff5722',
-            },
-            indeterminate: {
-              handler: {
-                'dot-background': '#ccc',
-                background: 'blue',
-              },
-            },
-          },
-          select: {
-            popup: {
-              background: '#fff',
-              color: 'var(--color-dark)',
-              'shadow-color': 'rgba(0, 0, 0, 0.3)',
-            },
-            option: {
-              hover: {
-                'background-color': 'var(--components-formulary-input-hover-background)',
-                color: '#2f2f2f',
-              }
-            }
-          },
-        },
-      },
-      modal: {
-        background: `var(--color-background-light)`,
-        color: `var(--color-dark)`,
-        divider: `var(--color-transparent-dark-10)`
-      },
-      menu: {
-        dropdown: {
-          background: `var(--color-background-light)`,
-          color: `var(--color-dark)`,
-        },
-        collapse: {
-          background: `var(--color-background-light)`,
-          color: `var(--color-dark)`,
-        },
-        item: {
-          background: `var(--components-navigation-menu-sider-background)`,
-          color: `var(--color-dark)`,
-          selected: {
-            background: `var(--color-background-light)`,
-            color: `var(--color-dark)`,
-            indicator: `var(--color-primary)`,
+        active: `#007bff`,
+        unactive: `#6c757d`,
+        indeterminate: `rgba(0, 0, 0, 0.2)`,
+        contrast: '#ffffff',
 
-            sub: {
-              background: `var(--color-background-light)`,
-              color: `var(--color-dark)`,
-              indicator: `var(--color-primary)`,
-            }
-          },
-          disabled: {
-            background: `var(--color-transparent-dark-4)`,
-            color: `var(--color-muted)`,
-          },
-          hover: {
-            background: `var(--color-transparent-dark-5)`,
-            color: `var(--color-dark)`,
-          }
-        },
-        divider: {
-          color: `var(--color-muted)`,
-        }
-      },
-      pagination: {
-        selected: {
-          color: 'var(--color-primary)',
-          border: {
-            color: 'var(--color-primary)'
-          }
-        },
-        color: 'var(--color-muted)',
+        color: `#172b4d`,
+        background: `#f4f5f7`,
+        placeholder: `rgba(14, 14, 14, .38)`,
         border: {
-          color: 'var(--components-formulary-input-border-color)'
+          color: `#dfe1e6`,
+        },
+        label: {
+          color: `#172b4d`,
+        },
+        invalid: {
+          color: `#172b4d`,
+          background: `rgb(255, 0, 0, .07)`,
+          border: {
+            color: `#c62828`,
+          },
+          label: {
+            color: `#e91e63`,
+          },
+        },
+        focus: {
+          color: `#172b4d`,
+          background: `#ffffff`,
+          border: {
+            color: `#4c9aff`,
+          },
+        },
+        disabled: {
+          color: `#172b4d`,
+          background: `#ebecf0`,
+          border: {
+            color: `#dfe1e6`,
+          },
         },
         hover: {
-          color: 'var(--color-primary)',
+          color: `#172b4d`,
+          background: `#ebecf0`,
           border: {
-            color: 'var(--color-primary)'
+            color: `#dfe1e6`,
+          },
+        },
+      },
+
+
+
+      
+
+      // menu: {
+      //   dropdown: {
+      //     background: `var(--colors-background-light)`,
+      //     color: `var(--colors-dark)`,
+      //   },
+      //   collapse: {
+      //     background: `var(--colors-background-light)`,
+      //     color: `var(--colors-dark)`,
+      //   },
+      //   item: {
+      //     background: `var(--components-navigation-menu-sider-background)`,
+      //     color: `var(--colors-dark)`,
+      //     selected: {
+      //       background: `var(--colors-background-light)`,
+      //       color: `var(--colors-dark)`,
+      //       indicator: `var(--colors-primary)`,
+
+      //       sub: {
+      //         background: `var(--colors-background-light)`,
+      //         color: `var(--colors-dark)`,
+      //         indicator: `var(--colors-primary)`,
+      //       }
+      //     },
+      //     disabled: {
+      //       background: `var(--colors-transparent-dark-4)`,
+      //       color: `var(--colors-muted)`,
+      //     },
+      //     hover: {
+      //       background: `var(--colors-transparent-dark-5)`,
+      //       color: `var(--colors-dark)`,
+      //     }
+      //   },
+      //   divider: {
+      //     color: `var(--colors-muted)`,
+      //   }
+      // },
+      
+      
+      
+      
+      
+      /**
+       *  Button colors is relative
+       * 
+       * \\ OK
+       */
+      button: {
+        default: {
+          color: 'var(--color)',
+          background: 'transparent',
+          hover: {
+            color: 'var(--colors-dark-hover)',
+            background: 'rgba(0, 0, 0, .034)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        primary: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-primary)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-primary-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        secondary: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-secondary)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-secondary-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        success: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-success)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-success-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        error: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-error)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-error-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        warning: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-warning)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-warning-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        info: {
+          color: 'var(--colors-light)',
+          background: 'var(--colors-info)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-info-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        light: {
+          color: 'var(--color)',
+          background: 'var(--colors-light)',
+          hover: {
+            color: 'var(--colors-dark-hover)',
+            background: 'var(--colors-light-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+        dark: {
+          color: 'var(--colors-light)',
+          background: 'var(--color)',
+          hover: {
+            color: 'var(--colors-light-hover)',
+            background: 'var(--colors-dark-hover)'
+          },
+          disabled: {
+            color: 'var(--colors-muted)',
+            background: 'var(--colors-transparent-dark-10)'
+          }
+        },
+      },
+
+      /**
+       *  HTTP colors is relative
+       * 
+       * \\ OK
+       */
+      http: {
+        color: `var(--colors-primary)`
+      },
+
+      /**
+       *  Tooltip colors is relative
+       * 
+       * \\ OK
+       */
+      tooltip: {
+        background: `var(--colors-transparent-dark-75)`,
+        color: `var(--colors-light)`
+      },
+
+      /**
+      *  Popover colors is relative
+      * 
+      * \\ OK
+      */
+      popover: {
+        background: `var(--colors-background-light)`,
+        content: {
+          color: `var(--color)`,
+        },
+        title: {
+          color: `var(--color)`,
+        }
+      },
+
+      /**
+       *  Divider colors is relative
+       * 
+       * \\ OK
+       */
+      divider: {
+        color: `var(--colors-transparent-dark-10)`,
+      },
+
+      /**
+       *  Modal colors is relative
+       * 
+       * \\ OK
+       */
+      modal: {
+        background: `var(--colors-background-light)`,
+        color: `var(--color)`,
+      },
+
+      /**
+       * Pagination colors is relative
+       * 
+       * \\ OK
+       */
+      pagination: {
+        selected: {
+          color: 'var(--colors-primary)',
+          border: {
+            color: 'var(--colors-primary)'
+          }
+        },
+        color: 'var(--colors-muted)',
+        border: {
+          color: 'var(--components-formulary-border-color)'
+        },
+        hover: {
+          color: 'var(--colors-primary)',
+          border: {
+            color: 'var(--colors-primary)'
           }
         }
       },
+
+      /**
+       * Notification colors is relative
+       * 
+       * \\ OK
+       */
       notification: {
         background: 'var(--components-popover-background)',
         color: 'var(--components-popover-content-color)',
         shadow: {
-          color: 'rgba(0, 0, 0, 0.2)'
+          color: 'var(--colors-transparent-dark-20)'
         },
         success: {
-          color: 'var(--color-success)',
+          color: 'var(--colors-success)',
         },
         info: {
-          color: 'var(--color-info)',
+          color: 'var(--colors-info)',
         },
         warning: {
-          color: 'var(--color-warning)',
+          color: 'var(--colors-warning)',
         },
         error: {
-          color: 'var(--color-error)',
+          color: 'var(--colors-error)',
         },
         blank: {
-          color: 'var(--color-dark)',
+          color: 'var(--color)',
         },
       }
     }

@@ -38,23 +38,23 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
         <yue-ui-menu>
           <yue-ui-menu-item [yueUiMenuItemSelected]="true">
             <a [routerLink]="['.']">
-              <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+              <i yueUiIcon yueUiIconType="menu"></i>
               Menu item 1
             </a>
           </yue-ui-menu-item>
           <yue-ui-menu-item (click)="noty();">
-            <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+            <i yueUiIcon yueUiIconType="menu"></i>
             Menu item 1
           </yue-ui-menu-item>
           <yue-ui-menu-divider>
-            <i yueUiIcon yueUiIconType="yue-ui-gg-menu"></i>
+            <i yueUiIcon yueUiIconType="menu"></i>
             Other settings
           </yue-ui-menu-divider>
         </yue-ui-menu>
       </yue-ui-panel-slot>
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
         <div yueUiGrid yueUiGridAlign="center">
-          <div yueUiGridCol [yueUiGridColMd]="{ span: 18, offset: 3 }">
+          <div yueUiGridCol [yueUiGridColMd]="{ span: 23 }">
             <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
           </div>
         </div>
@@ -95,12 +95,12 @@ export class Component2 {
         tableAction([
           tableActionLabel(`Deletar`),
           tableActionIdentifier(`delt`),
-          tableActionIcon(`yue-ui-gg-trash-empty`),
+          tableActionIcon(`menu`),
         ]),
         tableAction([
           tableActionLabel(`Editar`),
           tableActionIdentifier(`edit`),
-          tableActionIcon(`yue-ui-gg-pen`),
+          tableActionIcon(`close`),
           tableActionCondition((data) => data.id !== 1)
         ])
       ])

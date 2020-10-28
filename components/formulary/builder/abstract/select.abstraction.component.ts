@@ -1,37 +1,52 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 
-import { FieldAbstraction } from './abstraction';
-import { YueUiSelectMode, YueUiSelectSearchChange } from '@joaopedro61/yue-ui/formulary/custom/select';
+import { YueUiFormularySelectMode, YueUiSelectSearchChange } from '@joaopedro61/yue-ui/formulary/select';
 import { BehaviorSubject, Subject, Subscription, Observable } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { equals } from '@joaopedro61/yue-ui/core/utils';
+
+import { FieldAbstraction } from './abstraction';
+
 
 
 
 @Component({
   template: `
-    <yue-ui-select
+    <yue-ui-formulary-select
       [formControl]="abstractControl"
-      [yueUiSelectPlaceholder]="placeholder"
-      [yueUiSelectInitialFocus]="useInitialFocus"
-      [yueUiSelectPropertyLabel]="labelProperty"
-      [yueUiSelectPropertyValue]="valueProperty"
-      [yueUiSelectMode]="mode"
-      
+
+      [yueUiFormularySelectPlaceholder]="placeholder"
+      [yueUiFormularySelectMask]="mask"
+      [yueUiFormularySelectInitialFocus]="useInitialFocus"
+      [yueUiFormularySelectId]="identifier"
+      [yueUiFormularySelectPrepend]="fieldPrepend"
+      [yueUiFormularySelectAppend]="fieldAppend"
+
+      [yueUiFormularySelectMode]="mode"
+
+      [yueUiFormularySelectAllowSearch]="true"
+      [yueUiFormularySelectShowArrow]="true"
+
+      [yueUiFormularySelectPropertyLabel]="labelProperty"
+      [yueUiFormularySelectPropertyValue]="valueProperty"
+
+      (yueUiFormularySelectFocus)="listeners('focus', $event)"
+      (yueUiFormularySelectBlur)="listeners('blur', $event)"
+
+      (yueUiFormularySelectKeydown)="listeners('keydown', $event)"
+      (yueUiFormularySelectKeyup)="listeners('keyup', $event)"
+
+      (yueUiFormularySelectOnSearch)="onSearch($event)"
+      (yueUiFormularySelectScrollToBottom)="listeners('scrollToBottom', $event)"
+
       (click)="listeners('click', $event)"
       (mousedown)="listeners('mousedown', $event)"
       (mouseup)="listeners('mouseup', $event)"
       (mouseenter)="listeners('mouseenter', $event)"
       (mouseleave)="listeners('mouseleave', $event)"
-      (focus)="listeners('focus', $event)"
-      (blur)="listeners('blur', $event)"
-      (yueUiSelectOnPanelOpenChange)="listeners('panelOpen', $event)"
-      (yueUiSelectOnScrollToBottom)="listeners('scrollToBottom', $event)"
-
-      (yueUiSelectOnSearchChange)="onSearch($event);"
     >
-      <yue-ui-select-option *ngFor="let option of options$ | async" [yueUiSelectOptionValue]="option" [yueUiSelectOptionLabel]="option"></yue-ui-select-option>
-    </yue-ui-select>
+      <yue-ui-formulary-select-option *ngFor="let option of options$ | async" [yueUiFormularySelectOptionValue]="option"></yue-ui-formulary-select-option>
+    </yue-ui-formulary-select>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
@@ -62,9 +77,9 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
     return `value`;
   }
 
-  public get mode(): YueUiSelectMode {
+  public get mode(): YueUiFormularySelectMode {
     if (this.field) {
-      return this.field.mode as any;
+      return this.field.mode || `single` as any;
     }
     return `single`;
   }

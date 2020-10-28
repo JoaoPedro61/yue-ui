@@ -52,30 +52,26 @@ import { pager } from '../utils/pager';
         <div class="page-right-sider">
           <div class="page-size-change-wrapper">
             <div class="page-size-change-wrapper-inner">
-              <yue-ui-select
+              <yue-ui-formulary-select
                 [ngModel]="yueUiPaginationPageSize"
-                [yueUiSelectAllowClear]="false"
-                [yueUiSelectAllowSearch]="false"
-                [yueUiSelectAllowEmpty]="false"
-                [yueUiSelectPropertyLabel]="false"
-                [yueUiSelectPropertyValue]="false"
+                [yueUiFormularySelectAllowClear]="false"
+                [yueUiFormularySelectAllowSearch]="false"
+                [yueUiFormularySelectPropertyLabel]="false"
+                [yueUiFormularySelectPropertyValue]="false"
                 (ngModelChange)="onPageSizeChanged($event);"
               >
-                <yue-ui-select-option
+                <yue-ui-formulary-select-option
                   *ngFor="let option of pageSizeOptions$ | async"
-                  [yueUiSelectOptionLabel]="'components.pagination.itemPerPage' | yueUiI18n : { count: option, default: option + ' / page' }"
-                  [yueUiSelectOptionValue]="option"
-                ></yue-ui-select-option>
-              </yue-ui-select>
+                  [yueUiFormularySelectOptionLabel]="'components.pagination.itemPerPage' | yueUiI18n : { count: option, default: option + ' / page' }"
+                  [yueUiFormularySelectOptionValue]="option"
+                ></yue-ui-formulary-select-option>
+              </yue-ui-formulary-select>
             </div>
           </div>
         </div>
       </div>
     </div>
   `,
-  styleUrls: [
-    `./../styles/pagination.component.less`,
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.yue-ui-pagination]': `true`,

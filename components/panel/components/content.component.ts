@@ -15,9 +15,6 @@ import { YueUiPanelComponent } from './panel.component';
     '[style.flex-wrap]': `yueUiPanelContentWrap ? 'wrap' : 'nowrap'`,
   },
   exportAs: `yueUiPanelContentRef`,
-  styleUrls: [
-    `./../styles/content.component.less`
-  ]
 })
 export class YueUiPanelContentComponent implements OnInit, OnDestroy {
 

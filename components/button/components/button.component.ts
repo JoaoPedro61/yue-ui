@@ -12,9 +12,6 @@ import { YueUiButtonSize, YueUiButtonType } from '../utils/interfaces';
     <i class="yue-ui-button-icon-loading" yueUiIcon [yueUiIconSpin]="true" yueUiIconType="yue-ui-gg-spinner" *ngIf="yueUiButtonLoading"></i>
     <ng-content></ng-content>
   `,
-  styleUrls: [
-    './../styles/button.component.less'
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {

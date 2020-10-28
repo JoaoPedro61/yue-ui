@@ -13,9 +13,6 @@ import { Component, ChangeDetectionStrategy, Input, HostBinding, ViewEncapsulati
     '[class.yue-ui-panel-slot-fill]': `yueUiPanelSlotFill`,
   },
   exportAs: `yueUiPanelSlotRef`,
-  styleUrls: [
-    `./../styles/slot.component.less`,
-  ],
 })
 export class YueUiPanelSlotComponent {
 

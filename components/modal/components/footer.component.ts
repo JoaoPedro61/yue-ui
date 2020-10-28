@@ -57,9 +57,6 @@ import { YueUiModalOptions } from '../utils/options';
   host: {
     '[class.yue-ui-modal-footer]': `true`,
   },
-  styleUrls: [
-    `./../styles/footer.component.less`,
-  ],
   exportAs: `yueUiModalFooterRef`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

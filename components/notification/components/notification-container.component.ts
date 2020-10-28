@@ -38,7 +38,6 @@ import { YUE_UI_NOTIFICATION_GLOBAL_OPTIONS } from './../utils/token';
       ></yue-ui-notification>
     </div>
   `,
-  styleUrls: [`./../styles/common.less`],
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {

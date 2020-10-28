@@ -15,9 +15,6 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
     '[class.yue-ui-breadcrumb-item]': 'true'
   },
   exportAs: `yueUiBreadcrumbItemRef`,
-  styleUrls: [
-    `./../styles/breadcrumb-item.component.less`
-  ],
 })
 export class YueUiBreadcrumbItemComponent { }
 

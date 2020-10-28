@@ -44,7 +44,7 @@ let timerCheckHover: any = null;
                     <ng-container *ngIf="listOfNavMenuSiderComponent.length > 0">
                       <div class="yue-ui-navigation-menu-open-handler-out-wrapper">
                         <span class="yue-ui-navigation-menu-open-handler-out-wrapper-inner" (click)="toggle();">
-                          <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'yue-ui-gg-menu' : 'yue-ui-gg-pin-alt'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 45 : 0"></i>
+                          <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'menu' : 'pushpin'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 0 : -45"></i>
                         </span>
                       </div>
                     </ng-container>
@@ -73,6 +73,13 @@ let timerCheckHover: any = null;
                 </div>
                 <span class="yue-ui-navigation-menu-closed-tag" data-close-tag="on"></span>
               </div>
+              <ng-container *ngIf="!showStaticBar">
+                <div class="yue-ui-navigation-menu-open-handler-out-wrapper">
+                  <span class="yue-ui-navigation-menu-open-handler-out-wrapper-inner" (click)="toggle();">
+                    <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'menu' : 'pushpin'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 0 : -45"></i>
+                  </span>
+                </div>
+              </ng-container>
             </ng-container>
           </div>
         </div>
@@ -85,9 +92,6 @@ let timerCheckHover: any = null;
   host: {
     '[class.yue-ui-navigation-menu]': `true`
   },
-  styleUrls: [
-    `./../styles/navigation-menu.component.less`
-  ],
   preserveWhitespaces: false,
   exportAs: 'yueUiNavigationMenuRef',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -9,19 +9,26 @@ import { FieldAbstraction } from './abstraction';
 
 @Component({
   template: `
-    <yue-ui-number
+    <yue-ui-formulary-number
       [formControl]="abstractControl"
-      [yueUiNumberPlaceholder]="placeholder"
-      [yueUiNumberInitialFocus]="useInitialFocus"
+      [yueUiFormularyNumberPlaceholder]="placeholder"
+      [yueUiFormularyNumberInitialFocus]="useInitialFocus"
+      [yueUiFormularyNumberId]="identifier"
+      [yueUiFormularyNumberPrepend]="fieldPrepend"
+      [yueUiFormularyNumberAppend]="fieldAppend"
+
+      (yueUiFormularyNumberFocus)="listeners('focus', $event)"
+      (yueUiFormularyNumberBlur)="listeners('blur', $event)"
+
+      (yueUiFormularyNumberKeydown)="listeners('keydown', $event)"
+      (yueUiFormularyNumberKeyup)="listeners('keyup', $event)"
 
       (click)="listeners('click', $event)"
       (mousedown)="listeners('mousedown', $event)"
       (mouseup)="listeners('mouseup', $event)"
       (mouseenter)="listeners('mouseenter', $event)"
       (mouseleave)="listeners('mouseleave', $event)"
-      (focus)="listeners('focus', $event)"
-      (blur)="listeners('blur', $event)"
-    ></yue-ui-number>
+    ></yue-ui-formulary-number>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,

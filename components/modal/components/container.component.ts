@@ -37,9 +37,6 @@ import { YueUiModalHeaderComponent } from './header.component';
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: [
-    `./../styles/container.component.less`
-  ],
   host: {
     '[class.yue-ui-modal-container]': `true`,
   },

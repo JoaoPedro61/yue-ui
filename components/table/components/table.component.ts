@@ -124,9 +124,6 @@ import { TableDataColumnItem, TableDataRowItem, YueUiTableActions } from '../uti
       </div>
     </ng-container>
   `,
-  styleUrls: [
-    `./../styles/table.component.less`,
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: `yueUiTableRef`,
   preserveWhitespaces: false,

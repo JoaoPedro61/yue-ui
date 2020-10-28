@@ -11,7 +11,12 @@ import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 import { YueUiTooltipModule } from '@joaopedro61/yue-ui/tooltip';
 import { YueUiPopoverModule } from '@joaopedro61/yue-ui/popover';
 import { YueUiMenuModule } from '@joaopedro61/yue-ui/menu';
-import { YueUiBuilderFormularyModule } from '@joaopedro61/yue-ui/formulary/builder';
+import { YueUiFormularyBuilderModule } from '@joaopedro61/yue-ui/formulary/builder';
+import { YueUiFormularyTextModule } from '@joaopedro61/yue-ui/formulary/text';
+import { YueUiFormularyPasswordModule } from '@joaopedro61/yue-ui/formulary/password';
+import { YueUiFormularyTextareaModule } from '@joaopedro61/yue-ui/formulary/textarea';
+import { YueUiFormularySwitchModule } from '@joaopedro61/yue-ui/formulary/switch';
+import { YueUiFormularySelectModule } from '@joaopedro61/yue-ui/formulary/select';
 import { YueUiModalModule } from '@joaopedro61/yue-ui/modal';
 import { YueUiImageModule } from '@joaopedro61/yue-ui/image';
 import { YueUiBreadcrumbModule } from '@joaopedro61/yue-ui/breadcrumb';
@@ -26,6 +31,7 @@ import { Component1 as Home } from './component-1';
 import { Component2 as Child1 } from './component-2';
 import { Component3 as Modal1 } from './component-3';
 import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -43,6 +49,9 @@ import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
     BrowserModule,
     AppRoutingModule,
 
+    FormsModule,
+    ReactiveFormsModule,
+
     BrowserAnimationsModule,
 
     LayoutModule,
@@ -53,7 +62,12 @@ import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
     YueUiTooltipModule,
     YueUiPopoverModule,
     YueUiMenuModule,
-    YueUiBuilderFormularyModule,
+    YueUiFormularyBuilderModule,
+    YueUiFormularyTextModule,
+    YueUiFormularyPasswordModule,
+    YueUiFormularyTextareaModule,
+    YueUiFormularySwitchModule,
+    YueUiFormularySelectModule,
     YueUiModalModule,
     YueUiImageModule,
     YueUiBreadcrumbModule,

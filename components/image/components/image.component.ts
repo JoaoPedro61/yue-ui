@@ -37,9 +37,6 @@ import { transformImageToBase64 } from '@joaopedro61/yue-ui/core/utils';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
-  styleUrls: [
-    `./../styles/image.component.less`
-  ],
   host: {
     '[class.yue-ui-iamge]': 'true'
   },

@@ -96,7 +96,6 @@ import {
       </ng-container>
     </ng-container>
   `,
-  styleUrls: [`./styles/builder.component.less`],
   preserveWhitespaces: false,
   exportAs: 'formularyRef',
   host: {

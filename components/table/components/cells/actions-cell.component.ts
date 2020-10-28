@@ -23,7 +23,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
   selector: `yue-ui-table-actions-cell`,
   template: `
     <button #popoverRef="yueUiPopoverRef" yueUiButton yueUiPopover [yueUiPopoverContent]="actionsList" yueUiPopoverPlacement="bottomRight" [yueUiPopoverContentStyles]="{'padding.px': 0}">
-      <i yueUiIcon yueUiIconType="yue-ui-gg-more-vertical-alt" [style.marginRight.px]="0"></i>
+      <i yueUiIcon yueUiIconType="more" [style.marginRight.px]="0"></i>
       <ng-template #actionsList>
         <div [style.minWidth.px]="120">
           <yue-ui-menu>
@@ -38,7 +38,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
                     </ng-container>
                     <ng-container *ngIf="item.icon">
                       <div style="margin-right: 6px;">
-                        <i yueUiIcon [yueUiIconType]="item.icon"></i>
+                        <i class="yue-ui-table-actions-cell-alt-icon" yueUiIcon [yueUiIconType]="item.icon"></i>
                       </div>
                     </ng-container>
                   </div>
@@ -66,11 +66,15 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
   `,
   styles: [
     `
-    :host,
-    .yue-ui-table-actions-cell {
-      display: flex;
-      justify-content: center;
-    }
+      :host,
+      .yue-ui-table-actions-cell {
+        display: flex;
+        justify-content: center;
+      }
+      .yue-ui-table-actions-cell-alt-icon {
+        font-size: 11px;
+        margin-right: 4px;
+      }
     `
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
