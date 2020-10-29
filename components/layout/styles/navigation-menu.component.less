@@ -35,7 +35,7 @@
           flex-direction: row;
           overflow: hidden;
           height: 100%;
-          box-shadow: 0px 0px 5px var(--components-navigation-menu-out-shadow);
+          box-shadow: var(--components-navigation-menu-out-shadow);
           transition: box-shadow 300ms ease-in-out;
 
           .yue-ui-navigation-menu-static-menu-bar {
@@ -115,10 +115,13 @@
                     position: absolute;
                     width: 25px;
                     height: 25px;
-                    background: white;
                     border-radius: 50%;
-                    border: 2px solid #fff;
-                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+                    border: 2px solid var(--components-navigation-menu-sider-background);                    
+                    box-shadow: var(--components-navigation-menu-inner-shadow);
+
+                    background-color: var(--components-navigation-menu-sider-background);
+
                     transform: translate(19px, -18px);
                     z-index: 10;
                     cursor: pointer;
@@ -163,7 +166,7 @@
           width: 20px;
           transition: width 150ms cubic-bezier(0.2, 0, 0, 1) 0s;
           position: relative;
-          box-shadow: -2px 0 5px var(--components-navigation-menu-inner-shadow);
+          box-shadow: var(--components-navigation-menu-inner-shadow);
 
           .yue-ui-navigation-menu-wrapper-dyn {
             box-sizing: border-box;
@@ -219,10 +222,15 @@
             position: absolute;
             width: 25px;
             height: 25px;
-            background: white;
             border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+            
+            border: 2px solid var(--components-navigation-menu-sider-background);                    
+            box-shadow: var(--components-navigation-menu-inner-shadow);
+
+            background-color: var(--components-navigation-menu-sider-background);
+
+
             transform: translate(-13px, 5px);
             z-index: 10;
             cursor: pointer;
@@ -271,7 +279,7 @@
         .yue-ui-navigation-menu-handled-menu {
 
           .yue-ui-navigation-menu-sipl {
-            box-shadow: 0px 0px 15px var(--components-navigation-menu-hover-out-shadow);
+            box-shadow: var(--components-navigation-menu-hover-out-shadow);
 
             .yue-ui-navigation-menu-dynamic-bar-wrapper {
               width: 240px;
@@ -379,7 +387,7 @@
           .yue-ui-navigation-menu-sipl {
 
             &:hover {
-              box-shadow: 0px 0px 15px var(--components-navigation-menu-hover-out-shadow);
+              box-shadow: var(--components-navigation-menu-hover-out-shadow);
             }
           }
         }

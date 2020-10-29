@@ -2,6 +2,8 @@
 .yue-ui-collapse-panel {
   display: block;
   position: relative;
+  border-radius: 2px;
+  border: 1px solid var(--divider);
 
   .yue-ui-collapse--wrapper {
 
@@ -13,7 +15,7 @@
         border-radius: 2px;
 
         .yue-ui-collapse--header-wrapper-inner {
-          padding: 15px 10px;
+          padding: 15px 24px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -55,7 +57,6 @@
           .yue-ui-collapse--header-wrapper {
             &:hover {
               background: var(--components-collapse-hover-header-background);
-              color: var(--components-collapse-hover-header-color);
             }
           }
         }
@@ -64,13 +65,13 @@
   }
 
   &.yue-ui-collapse-panel-opened {
+
     &:not(.yue-ui-collapse-panel-disabled) {
       &:not(.yue-ui-collapse-panel-header--no-background) {
         .yue-ui-collapse--wrapper {
           .yue-ui-collapse--wrapper-inner {
             .yue-ui-collapse--header-wrapper {
               background: var(--components-collapse-opened-header-background);
-              color: var(--components-collapse-opened-header-color);
             }
           }
         }
@@ -80,8 +81,6 @@
         .yue-ui-collapse--wrapper-inner {
           .yue-ui-collapse--content-wrapper {
             background: var(--components-collapse-opened-content-background);
-            color: var(--components-collapse-opened-content-color);
-            opacity: 0.8;
           }
         }
       }
@@ -103,7 +102,6 @@
         .yue-ui-collapse--content-wrapper {
           background: var(--components-collapse-disabled-content-background);
           color: var(--components-collapse-disabled-content-color);
-          opacity: 0.8;
         }
       }
     }

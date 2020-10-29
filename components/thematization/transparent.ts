@@ -13,3 +13,7 @@ export function generateLightTransparent(): {[index: string]: string} {
   }
   return result;
 }
+
+export function generateTransparentizeRange(_hex: string): {[index: string]: string} {
+  return {};
+}

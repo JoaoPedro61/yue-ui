@@ -9,6 +9,10 @@ import {
   DownOutline,
   UpOutline,
   SearchOutline,
+  CheckCircleOutline,
+  InfoCircleOutline,
+  ExclamationCircleOutline,
+  CloseCircleOutline,
 } from '@ant-design/icons-angular/icons';
 
 
@@ -22,4 +26,8 @@ export const YUE_UI_ICONS_INTERNAL_USES: IconDefinition[] = [
   DownOutline,
   UpOutline,
   SearchOutline,
+  CheckCircleOutline,
+  InfoCircleOutline,
+  ExclamationCircleOutline,
+  CloseCircleOutline,
 ];

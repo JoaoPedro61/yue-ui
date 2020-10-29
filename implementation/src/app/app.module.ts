@@ -10,6 +10,7 @@ import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 import { YueUiTooltipModule } from '@joaopedro61/yue-ui/tooltip';
 import { YueUiPopoverModule } from '@joaopedro61/yue-ui/popover';
+import { YueUiCollapseModule } from '@joaopedro61/yue-ui/collapse';
 import { YueUiMenuModule } from '@joaopedro61/yue-ui/menu';
 import { YueUiFormularyBuilderModule } from '@joaopedro61/yue-ui/formulary/builder';
 import { YueUiFormularyTextModule } from '@joaopedro61/yue-ui/formulary/text';
@@ -62,6 +63,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     YueUiTooltipModule,
     YueUiPopoverModule,
     YueUiMenuModule,
+    YueUiCollapseModule,
     YueUiFormularyBuilderModule,
     YueUiFormularyTextModule,
     YueUiFormularyPasswordModule,

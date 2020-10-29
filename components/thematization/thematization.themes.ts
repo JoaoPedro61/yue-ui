@@ -43,13 +43,19 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
         light: '#f2f2f2',
         dark: '#232323'
       },
+
       transparent: {
         dark: generateDarkTransparent(),
         light: generateLightTransparent(),
       }
     },
 
-    background: `var(--colors-background-light)`,
+    transparent: {
+      dark: generateDarkTransparent(),
+      light: generateLightTransparent(),
+    },
+
+    background: `var(--color-background)`,
     color: `var(--colors-dark)`,
 
     body: {
@@ -174,23 +180,23 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
 
       // menu: {
       //   dropdown: {
-      //     background: `var(--colors-background-light)`,
+      //     background: `var(--color-background)`,
       //     color: `var(--colors-dark)`,
       //   },
       //   collapse: {
-      //     background: `var(--colors-background-light)`,
+      //     background: `var(--color-background)`,
       //     color: `var(--colors-dark)`,
       //   },
       //   item: {
       //     background: `var(--components-navigation-menu-sider-background)`,
       //     color: `var(--colors-dark)`,
       //     selected: {
-      //       background: `var(--colors-background-light)`,
+      //       background: `var(--color-background)`,
       //       color: `var(--colors-dark)`,
       //       indicator: `var(--colors-primary)`,
 
       //       sub: {
-      //         background: `var(--colors-background-light)`,
+      //         background: `var(--color-background)`,
       //         color: `var(--colors-dark)`,
       //         indicator: `var(--colors-primary)`,
       //       }
@@ -208,231 +214,7 @@ export const DEFAULT_LIGHT_THEME: YueUiThemeConfig = {
       //     color: `var(--colors-muted)`,
       //   }
       // },
-      
-      
-      
-      
-      
-      /**
-       *  Button colors is relative
-       * 
-       * \\ OK
-       */
-      button: {
-        default: {
-          color: 'var(--color)',
-          background: 'transparent',
-          hover: {
-            color: 'var(--colors-dark-hover)',
-            background: 'rgba(0, 0, 0, .034)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        primary: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-primary)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-primary-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        secondary: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-secondary)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-secondary-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        success: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-success)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-success-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        error: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-error)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-error-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        warning: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-warning)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-warning-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        info: {
-          color: 'var(--colors-light)',
-          background: 'var(--colors-info)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-info-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        light: {
-          color: 'var(--color)',
-          background: 'var(--colors-light)',
-          hover: {
-            color: 'var(--colors-dark-hover)',
-            background: 'var(--colors-light-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-        dark: {
-          color: 'var(--colors-light)',
-          background: 'var(--color)',
-          hover: {
-            color: 'var(--colors-light-hover)',
-            background: 'var(--colors-dark-hover)'
-          },
-          disabled: {
-            color: 'var(--colors-muted)',
-            background: 'var(--colors-transparent-dark-10)'
-          }
-        },
-      },
 
-      /**
-       *  HTTP colors is relative
-       * 
-       * \\ OK
-       */
-      http: {
-        color: `var(--colors-primary)`
-      },
-
-      /**
-       *  Tooltip colors is relative
-       * 
-       * \\ OK
-       */
-      tooltip: {
-        background: `var(--colors-transparent-dark-75)`,
-        color: `var(--colors-light)`
-      },
-
-      /**
-      *  Popover colors is relative
-      * 
-      * \\ OK
-      */
-      popover: {
-        background: `var(--colors-background-light)`,
-        content: {
-          color: `var(--color)`,
-        },
-        title: {
-          color: `var(--color)`,
-        }
-      },
-
-      /**
-       *  Divider colors is relative
-       * 
-       * \\ OK
-       */
-      divider: {
-        color: `var(--colors-transparent-dark-10)`,
-      },
-
-      /**
-       *  Modal colors is relative
-       * 
-       * \\ OK
-       */
-      modal: {
-        background: `var(--colors-background-light)`,
-        color: `var(--color)`,
-      },
-
-      /**
-       * Pagination colors is relative
-       * 
-       * \\ OK
-       */
-      pagination: {
-        selected: {
-          color: 'var(--colors-primary)',
-          border: {
-            color: 'var(--colors-primary)'
-          }
-        },
-        color: 'var(--colors-muted)',
-        border: {
-          color: 'var(--components-formulary-border-color)'
-        },
-        hover: {
-          color: 'var(--colors-primary)',
-          border: {
-            color: 'var(--colors-primary)'
-          }
-        }
-      },
-
-      /**
-       * Notification colors is relative
-       * 
-       * \\ OK
-       */
-      notification: {
-        background: 'var(--components-popover-background)',
-        color: 'var(--components-popover-content-color)',
-        shadow: {
-          color: 'var(--colors-transparent-dark-20)'
-        },
-        success: {
-          color: 'var(--colors-success)',
-        },
-        info: {
-          color: 'var(--colors-info)',
-        },
-        warning: {
-          color: 'var(--colors-warning)',
-        },
-        error: {
-          color: 'var(--colors-error)',
-        },
-        blank: {
-          color: 'var(--color)',
-        },
-      }
     }
   }
 };

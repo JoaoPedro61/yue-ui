@@ -23,6 +23,7 @@ import {
   fieldMask,
   enumerable,
   fieldListeners,
+  fieldEnable,
 } from '@joaopedro61/yue-ui/formulary/builder';
 
 
@@ -65,7 +66,8 @@ export class Component3 implements OnDestroy {
               fieldPlaceholder('Type your name'),
               fieldWidth(12),
               fieldValidators([`required`]),
-              fieldMask(`macaddress`)
+              fieldMask(`macaddress`),
+              fieldEnable(false),
             ]),
             writable([
               fieldIdentifier('name_djf3'),
@@ -81,7 +83,7 @@ export class Component3 implements OnDestroy {
               fieldWidth(12),
               fieldOptions(() => [
                 { label: 'Male', value: 'male' },
-                { label: 'Female', value: 'female' },
+                { label: 'Femalé', value: 'female' },
                 { label: 'Tank', value: 'tank' },
               ]),
               fieldListeners({

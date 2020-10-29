@@ -979,3 +979,19 @@ export function colorScale(percentage: number = 0): string {
   }
   return '#' + ('000000' + (r * 0x10000 + g * 0x100 + b * 0x1).toString(16)).slice(-6);
 }
+
+/**
+ * Get a text contrast for a hex color
+ * 
+ * @export
+ * @param [hex] The hexadecimal color
+ * @return Contrastant color
+ */
+export function getContrastYIQ(hex: string): string{
+  hex = hex.replace("#", "");
+  var r = parseInt(hex.substr(0,2),16);
+  var g = parseInt(hex.substr(2,2),16);
+  var b = parseInt(hex.substr(4,2),16);
+  var yiq = ((r*299)+(g*587)+(b*114))/1000;
+  return (yiq >= 128) ? 'black' : 'white';
+}

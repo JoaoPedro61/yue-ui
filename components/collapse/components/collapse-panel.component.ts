@@ -17,7 +17,7 @@ import { YueUiCollapseComponent } from './collapse.component';
             </div>
             <div class="yue-ui-collapse--header-wrapper-inner-end-slot">
               <div class="yue-ui-collapse--header-wrapper-inner-opened-indicator">
-                <i yueUiIcon yueUiIconType="yue-ui-gg-chevron-down" [yueUiIconRotate]="open ? 90 : 0"></i>
+                <i yueUiIcon yueUiIconType="down" [yueUiIconRotate]="open ? 180 : 0"></i>
               </div>
             </div>
           </div>

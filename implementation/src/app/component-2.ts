@@ -55,7 +55,108 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
         <div yueUiGrid yueUiGridAlign="center">
           <div yueUiGridCol [yueUiGridColMd]="{ span: 23 }">
-            <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+            <div>
+              <button yueUiButton [yueUiButtonType]="'primary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonType]="'secondary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonType]="'success'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonType]="'danger'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonType]="'warning'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonType]="'info'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton>
+                This is a shit button
+              </button>
+            </div>
+            <div style="margin-top: 5px;margin-bottom: 20px;">
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'primary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'secondary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'success'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'danger'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'warning'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonType]="'info'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true">
+                This is a shit button
+              </button>
+            </div>
+            <div style="margin-top: 5px;">
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'primary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'secondary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'success'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'danger'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'warning'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true" [yueUiButtonType]="'info'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonGhost]="true" [yueUiButtonDisable]="true">
+                This is a shit button
+              </button>
+            </div>
+            <div style="margin-top: 5px;margin-bottom: 20px;">
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'primary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'secondary'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'success'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'danger'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'warning'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true" [yueUiButtonType]="'info'" style="margin-right: 5px;">
+                This is a shit button
+              </button>
+              <button yueUiButton [yueUiButtonDisable]="true">
+                This is a shit button
+              </button>
+            </div>
+            <yue-ui-collapse>
+              <yue-ui-collapse-panel [yueUiCollapsePanelOpen]="true">
+                <yue-ui-collapse-panel-header>
+                  <span [yueUiTooltip]="'Table Meda'">
+                    Table
+                  </span>
+                </yue-ui-collapse-panel-header>
+                <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>
+              </yue-ui-collapse-panel>
+            </yue-ui-collapse>
           </div>
         </div>
       </yue-ui-panel-slot>
@@ -113,7 +214,7 @@ export class Component2 {
           tableColumnAdditionalParameters({
             link: `./../`,
           }),
-          tableColumnWidth(`30px`)
+          tableColumnWidth(`35px`)
         ]),
         tableColumn([
           tableColumnAllowSort(),
@@ -156,6 +257,7 @@ export class Component2 {
       .subscribe({
         next: (response: any) => {
             this.tableSource.setLoading(false);
+            this.tableSource.setFullTotalOfItens(400);
             this.tableSource.render(response);
           }
         });

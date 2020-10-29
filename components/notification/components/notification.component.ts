@@ -29,25 +29,25 @@ import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interf
                 <i
                   *ngSwitchCase="'success'"
                   yueUiIcon
-                  yueUiIconType="yue-ui-gg-check-o"
+                  yueUiIconType="check-circle"
                   class="yue-ui-notification-notice-icon yue-ui-notification-notice-icon-success"
                 ></i>
                 <i
                   *ngSwitchCase="'info'"
                   yueUiIcon
-                  yueUiIconType="yue-ui-gg-bulb"
+                  yueUiIconType="info-circle"
                   class="yue-ui-notification-notice-icon yue-ui-notification-notice-icon-info"
                 ></i>
                 <i
                   *ngSwitchCase="'warning'"
                   yueUiIcon
-                  yueUiIconType="yue-ui-gg-info"
+                  yueUiIconType="exclamation-circle"
                   class="yue-ui-notification-notice-icon yue-ui-notification-notice-icon-warning"
                 ></i>
                 <i
                   *ngSwitchCase="'error'"
                   yueUiIcon
-                  yueUiIconType="yue-ui-gg-danger"
+                  yueUiIconType="close-circle"
                   class="yue-ui-notification-notice-icon yue-ui-notification-notice-icon-error"
                 ></i>
               </ng-container>
@@ -69,7 +69,7 @@ import { YueUiNotificationData, YueUiNotificationOptions } from '../utils/interf
       </div>
       <a tabindex="0" class="yue-ui-notification-notice-close" (click)="destroy()">
         <span class="yue-ui-notification-notice-close-x">
-          <i yueUiIcon yueUiIconType="yue-ui-gg-close" class="yue-ui-notification-close-icon"></i>
+          <i yueUiIcon yueUiIconType="close" class="yue-ui-notification-close-icon"></i>
         </span>
       </a>
     </div>

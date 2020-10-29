@@ -4,7 +4,11 @@ import { serializeStringJsonPath, logging } from '@joaopedro61/yue-ui/core/utils
 
 import { YueUiThemeOptions, YueUiTheme, YueUiThemeConfig } from './thematization.interfaces';
 import { YUE_UI_THEME } from './thematization.utils';
-import { DEFAULT_DARK_THEME, DEFAULT_LIGHT_THEME } from './thematization.themes';
+
+
+import { LIGHT_THEME } from './themes/light';
+import { DARK_THEME } from './themes/dark';
+
 
 
 const logger = logging.getLogger('core.thematizationService');
@@ -17,6 +21,12 @@ export class YueUiThematizationService {
   private static extrasAlreadyCreated = false;
 
   private _r2: Renderer2;
+
+  private _themeName!: string;
+
+  public get themeName(): string {
+    return this._themeName;
+  }
 
   constructor(@Inject(DOCUMENT) private readonly _document: any, @Inject(YUE_UI_THEME) private readonly _theme: YueUiTheme, private readonly _rf2: RendererFactory2) {
     this._r2 = this._rf2.createRenderer(null, null);
@@ -40,6 +50,7 @@ export class YueUiThematizationService {
   }
 
   private buildStylesheet(theme: YueUiThemeConfig): void {
+    this._themeName = theme.name;
     const theme_vars = serializeStringJsonPath(theme.theme);
     const vars = theme_vars.keys();
     if (!vars.length) {
@@ -70,11 +81,11 @@ export class YueUiThematizationService {
   public setTheme(theme: YueUiThemeOptions, extendsOf?: 'light' | 'dark'): void {
     if (`string` === typeof theme) {
       if (theme === 'dark') {
-        theme = DEFAULT_DARK_THEME;
+        theme = DARK_THEME;
         this._theme.next(theme);
         this.buildStylesheet(theme);
       } else if (theme === 'light') {
-        theme = DEFAULT_LIGHT_THEME;
+        theme = LIGHT_THEME;
         this._theme.next(theme);
         this.buildStylesheet(theme);
       } else {

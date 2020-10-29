@@ -21,13 +21,16 @@
         margin-top: 0;
         margin: 0;
 
+        @first-cell-left-pad: 5px;
+
         .yue-ui-table-header-el {
-          border-bottom: 2px solid rgb(223, 225, 230);
+          border-bottom: 2px solid var(--divider);
 
           .yue-ui-table-header-row-el {
 
             .yue-ui-table-header-row-th-el {
-              color: rgb(94, 108, 132);
+              color: var(--components-table-header-color);
+              background: var(--components-table-header-background);
               box-sizing: border-box;
               font-size: 12px;
               font-weight: 600;
@@ -42,14 +45,15 @@
               transition: background 300ms ease-in-out;
 
               &:first-child {
-                padding-left: 0px;
+                padding-left: @first-cell-left-pad;
               }
 
               &:hover {
 
                 &.isSortable {
                   cursor: pointer;
-                  background: rgba(9, 30, 66, 0.08);
+                  color: var(--components-table-header-sortable-hover-color);
+                  background: var(--components-table-header-sortable-hover-background);
                 }
               }
 
@@ -59,8 +63,8 @@
                 margin-left: 4px;
 
                 @indicator-size: 3px;
-                @indicator-activate-color: rgba(9, 30, 66, 0.7);
-                @indicator-unactivate-color: rgba(9, 30, 66, 0.2);
+                @indicator-activate-color: var(--components-table-header-sortable-active);
+                @indicator-unactivate-color: var(--components-table-header-sortable-unactive);
 
                 .sortable-handler {
 
@@ -108,10 +112,12 @@
 
         .yue-ui-table-body-el {
           vertical-align: top;
-          border-bottom: 2px solid #DFE1E6;
+          border-bottom: 2px solid var(--divider);
 
           .yue-ui-table-body-row-el {
             transition: background 300ms ease-in-out;
+            color: var(--components-table-row-color);
+            background: var(--components-table-row-background);
 
             .yue-ui-table-body-row-td-el {
               padding-top: 0px;
@@ -126,12 +132,13 @@
               vertical-align: middle;
 
               &:first-child {
-                padding-left: 0px;
+                padding-left: @first-cell-left-pad;
               }
             }
 
             &:hover {
-              background: rgb(250, 251, 252);
+              color: var(--components-table-row-hover-color);
+              background: var(--components-table-row-hover-background);
             }
           }
         }
@@ -148,7 +155,7 @@
       user-select: none;
 
       &:hover {
-        background: rgba(9, 30, 66, 0.02);
+        background: var(--components-table-row-hover-background);
       }
     }
   }

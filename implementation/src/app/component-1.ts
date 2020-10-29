@@ -1,17 +1,18 @@
 import { take } from 'rxjs/operators';
 import { Component as NgComponent, ChangeDetectionStrategy, } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
 import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 import { YueUiNotificationService } from '@joaopedro61/yue-ui/notification';
+import { YueUiThematizationService } from '@joaopedro61/yue-ui/thematization';
 
 import { Component3 as Modal1 } from './component-3';
-import { FormControl, Validators } from '@angular/forms';
 
 
 @NgComponent({
   template: `
     <yue-ui-layout>
-      <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="true" [yueUiNavigationMenuOpened]="true">
+      <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="!true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuInlineCollapsed]="true" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item [yueUiMenuItemSelected]="true">
@@ -31,6 +32,9 @@ import { FormControl, Validators } from '@angular/forms';
             </yue-ui-menu-item>
             <yue-ui-menu-item (click)="noty();">
               Noty
+            </yue-ui-menu-item>
+            <yue-ui-menu-item (click)="change();">
+              Toggle Theme
             </yue-ui-menu-item>
             <yue-ui-menu-divider>
               <i yueUiIcon yueUiIconType="menu"></i>
@@ -62,6 +66,14 @@ import { FormControl, Validators } from '@angular/forms';
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
       </yue-ui-navigation-menu>
+      <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
+        <div style="margin-top: 10px;">
+          <yue-ui-formulary-switch [formControl]="ctrl"></yue-ui-formulary-switch>
+        </div>
+        <div style="margin-top: 10px;">
+          <yue-ui-formulary-switch [formControl]="ctrl" [yueUiFormularySwitchMode]="'indeterminate-button'"></yue-ui-formulary-switch>
+        </div>
+      </div>
       <router-outlet></router-outlet>
     </yue-ui-layout>
   `,
@@ -85,7 +97,7 @@ export class Component1 {
     },
   ];
 
-  constructor(private readonly modal: YueUiModalService, private readonly notification: YueUiNotificationService) { }
+  constructor(private readonly modal: YueUiModalService, private readonly notification: YueUiNotificationService, private readonly theme: YueUiThematizationService) { }
 
   public toggle(val: boolean = false): void {
     if (!val) {
@@ -109,6 +121,10 @@ export class Component1 {
     this.notification.success('De boa', `Osso`);
     this.notification.info(undefined, `Osso`);
     this.notification.error(undefined, `Osso`);
+  }
+
+  public change(): void {
+    this.theme.setTheme(this.theme.themeName === 'dark' ? 'light' : 'dark');
   }
 
   public open(): void {

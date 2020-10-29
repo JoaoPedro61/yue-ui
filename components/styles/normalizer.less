@@ -13,8 +13,8 @@ body {
   font-style: normal;
   line-height: 1.2;
 
-  background: var(--body-background);
-  color: var(--body-color);
+  background: var(--background);
+  color: var(--color);
 
 }
 
@@ -28,24 +28,25 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 14px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--body-scrollbar-thumb-background);
+  border-radius: 6px;
+  border: 2px solid var(--scrollbar-thumb-border);
+  background: var(--scrollbar-thumb-background);
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--body-scrollbar-track-background);
+  background: var(--scrollbar-track-background);
 }
 
 *[href] {
-  color: inherit;
   text-decoration: none;
-
+  color: var(--link);
+  
   &:hover {
     text-decoration: underline;
+    color: var(--link-hover);
   }
 }
-

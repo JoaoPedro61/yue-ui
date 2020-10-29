@@ -20,7 +20,8 @@ export {
   nameToHSL,
   nameToHex,
   nameToRGB,
-  padZero
+  padZero,
+  getContrastYIQ,
 } from './colors-utils';
 export { consoleError, consoleInfo, consoleLog, consoleWarning } from './console-output';
 export { copyText } from './copy-text-from-element';
