@@ -472,7 +472,7 @@ export class FormularySource<_M = any> {
       if (_value) {
         if (_value.metadataType === ParentTypes.StaircaseFormulary) {
           const length = _value.struct.children.length;
-          if (_step > length - 1) {
+          if (_step > 0 && (length - 1) >= _step && (length - 1) > 0) {
             if (!_form.invalid || force || _ignore_validation) {
               this.____.set(_step_ref, _step - 1);
               this.mountCurrentScheme();
@@ -516,7 +516,7 @@ export class FormularySource<_M = any> {
         if (_value.metadataType === ParentTypes.StaircaseFormulary) {
           const length = _value.struct.children.length;
           const index = this.activatedStepIndex;
-          if (index < length) {
+          if (index < length - 1) {
             return true;
           }
         }
@@ -533,7 +533,7 @@ export class FormularySource<_M = any> {
         if (_value.metadataType === ParentTypes.StaircaseFormulary) {
           const length = _value.struct.children.length;
           const index = this.activatedStepIndex;
-          if (index <= length && index > 0) {
+          if (index <= length - 1 && index > 0) {
             return true;
           }
         }

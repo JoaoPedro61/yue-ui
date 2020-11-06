@@ -529,6 +529,12 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
         control = new FormControl();
       }
       this.abstractControl = control;
+      if (typeof field.enable === `boolean` && !field.enable) {
+        this.abstractControl.disable({
+          onlySelf: true,
+          emitEvent: true
+        });
+      }
       this.registryControlValueChanger();
       if (!cached) {
         this.formulary.registryControl(field.identifier, control);
@@ -557,6 +563,7 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
       label,
       description,
       width,
+      enabled
     } = changes;
     if (label) {
       this.checkLabelProps();
@@ -566,6 +573,23 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
     }
     if (width) {
       this.configureWidth();
+    }
+    if (this.abstractControl) {
+      if (typeof enabled === `boolean` && !enabled) {
+        if (this.abstractControl.enabled) {
+          this.abstractControl.disable({
+            onlySelf: true,
+            emitEvent: true
+          });
+        }
+      } else {
+        if (this.abstractControl.disabled) {
+          this.abstractControl.enable({
+            onlySelf: true,
+            emitEvent: true
+          });
+        }
+      }
     }
   }
 

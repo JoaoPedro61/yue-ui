@@ -27,9 +27,17 @@ import {
 } from '@joaopedro61/yue-ui/formulary/builder';
 
 
+
+
 @NgComponent({
   template: `
     <yue-ui-formulary [yueUiFormularySource]="formulary"></yue-ui-formulary>
+    <button *ngIf="formulary" (click)="formulary.staircase().previews()" [disabled]="!formulary.staircase().isValidToPreviews()">
+      Previus
+    </button>
+    <button *ngIf="formulary" (click)="formulary.staircase().next()" [disabled]="!formulary.staircase().isValidToNext()">
+      Next
+    </button>
   `,
   styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -81,14 +89,16 @@ export class Component3 implements OnDestroy {
               fieldLabel('Gender'),
               fieldPlaceholder('Select yout gender'),
               fieldWidth(12),
-              fieldOptions(() => [
-                { label: 'Male', value: 'male' },
-                { label: 'Femalé', value: 'female' },
-                { label: 'Tank', value: 'tank' },
-              ]),
+              fieldOptions(() => {
+                return [
+                  { label: 'Male', value: 'male' },
+                  { label: 'Femalé', value: 'female' },
+                  { label: 'Tank', value: 'tank' },
+                ]
+              }),
               fieldListeners({
-                search: (...args: any) => {
-                  console.log(args);
+                search: (_, search, component) => {
+                  component.updateOptions([search]);
                 },
               })
             ]),
@@ -132,6 +142,7 @@ export class Component3 implements OnDestroy {
           ])
         ])
       ]))
+      .setButtonsAlignment(`end`)
       .listen()
       .subscribe({
         next: (e) => {
@@ -145,6 +156,11 @@ export class Component3 implements OnDestroy {
   }
 
   public ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.formulary.updateField(`name`, [
+        fieldEnable(true),
+      ]);
+    }, 1000);
   }
 
   public ngOnDestroy(): void {

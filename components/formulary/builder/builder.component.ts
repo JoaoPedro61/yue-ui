@@ -11,7 +11,8 @@ import {
   Input,
   ComponentFactoryResolver,
   ComponentRef,
-  SimpleChanges
+  SimpleChanges,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { differenceBy } from 'lodash';
@@ -40,14 +41,15 @@ import {
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'yue-ui-formulary',
   template: `
     <ng-container *ngIf="isStepped && showStepLabels">
-      <div class="formulary-steps-labels-wrap">
-        <div class="formulary-steps-labels-wrap-inner">
+      <div class="yue-ui-formulary-builder-steps-labels-wrap">
+        <div class="yue-ui-formulary-builder-steps-labels-wrap-inner">
           <ng-container *ngFor="let item of steps; index as index">
-            <div class="formulary-steps-label-item-wrap" (click)="goto(index);" [class.activated]="index === activatedStepIndex">
-              <div class="formulary-steps-label-item-wrap-inner">
+            <div class="yue-ui-formulary-builder-steps-label-item-wrap" (click)="goto(index);" [class.activated]="index === activatedStepIndex">
+              <div class="yue-ui-formulary-builder-steps-label-item-wrap-inner">
                 <span [innerText]="item.label || item.identifier"></span>
               </div>
             </div>
@@ -55,13 +57,13 @@ import {
         </div>
       </div>
     </ng-container>
-    <div yueUiGrid [yueUiGridGutter]="gutters">
+    <div yueUiGrid [yueUiGridGutter]="gutters" class="yue-ui-formulary-builder-content">
       <ng-container #fields></ng-container>
     </div>
     <ng-container #buttons *ngIf="(buttons$ | async) as buttons">
       <ng-container *ngIf="buttons.length">
-        <div class="formulary-footer-wrap">
-          <div class="formulary-footer-wrap-inner" [style.justifyContent]="buttonsAlignment">
+        <div class="yue-ui-formulary-builder-footer-wrap">
+          <div class="yue-ui-formulary-builder-footer-wrap-inner" [style.justifyContent]="buttonsAlignment">
             <ng-container *ngFor="let btn of buttons">
               <button
                 yueUiButton
@@ -99,7 +101,7 @@ import {
   preserveWhitespaces: false,
   exportAs: 'formularyRef',
   host: {
-    '[class.yue-ui-formulary]': 'true',
+    '[class.yue-ui-formulary-builder]': 'true',
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })

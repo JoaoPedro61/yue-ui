@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { equals } from '@joaopedro61/yue-ui/core/utils';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { FieldAbstraction } from './abstraction';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <yue-ui-formulary-number
       [formControl]="abstractControl"
@@ -56,11 +57,13 @@ export class NumberAbstractionComponent extends FieldAbstraction implements OnIn
           }
         });
     }
+    super.ngOnInit();
   }
 
   public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    super.ngOnDestroy();
   }
 
 }

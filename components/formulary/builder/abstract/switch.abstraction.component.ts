@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { equals } from '@joaopedro61/yue-ui/core/utils';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { distinctUntilChanged, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { AddGettersOnOptions } from './../utils/getter-setter-options';
 import { FieldAbstraction } from './abstraction';
@@ -9,6 +9,7 @@ import { FieldAbstraction } from './abstraction';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
   <yue-ui-formulary-switch
     [formControl]="abstractControl"
@@ -43,6 +44,8 @@ import { FieldAbstraction } from './abstraction';
 })
 export class SwitchAbstractionComponent extends FieldAbstraction implements AfterViewInit, OnDestroy, OnInit {
 
+  private subscribeOfOldOptions!: Subscription;
+
   public destroy$: Subject<void> = new Subject<void>();
 
   public fieldOptions$: BehaviorSubject<any[]> = new BehaviorSubject<{ [x: string]: any }[]>([]);
@@ -51,7 +54,7 @@ export class SwitchAbstractionComponent extends FieldAbstraction implements Afte
     super();
   }
 
-  private _updateOptions(options: any[]): void {
+  private _updateOptionsScheme(options: any[]): void {
     const label = this.field.properties && 'label' in this.field.properties ? this.field.properties.label : 'label';
     const value = this.field.properties && 'value' in this.field.properties ? this.field.properties.value : 'value';
     const result = [];
@@ -65,65 +68,69 @@ export class SwitchAbstractionComponent extends FieldAbstraction implements Afte
     this.cdr.markForCheck();
   }
 
-  private _setOptions(): void {
-    if (this.field && this.field.options) {
-      if (Array.isArray(this.field.options)) {
-        this._updateOptions(this.field.options || []);
-      } else if (typeof this.field.options === 'function') {
-        const retum = this.field.options(this.abstractControl, this.formGroup, this.field);
-        if (retum) {
-          if (Array.isArray(retum)) {
-            this._updateOptions(retum);
-          } else if (typeof retum === 'object' && typeof retum.subscribe === 'function') {
-            retum
-              .pipe(take(1))
-              .subscribe({
-                next: (data: any) => {
-                  if (Array.isArray(data) && typeof data === 'object') {
-                    // @ts-ignore
-                    if (data.data) {
-                      // @ts-ignore
-                      this._updateOptions(data.data);
-                    }
-                  } else if (Array.isArray(data)) {
-                    this._updateOptions(data);
-                  } else {
-                    this._updateOptions([]);
-                  }
-                },
-                error: () => {
-                  this._updateOptions([]);
-                }
-              });
-          }
-        }
-      } else if (typeof this.field.options === 'object' && typeof this.field.options.subscribe === 'function') {
-        this.field.options
-          .pipe(take(1))
-          .subscribe({
-            next: (data: any) => {
-              if (Array.isArray(data) && typeof data === 'object') {
-                // @ts-ignore
-                if (data.data) {
-                  // @ts-ignore
-                  this._updateOptions(data.data);
-                }
-              } else if (Array.isArray(data)) {
-                this._updateOptions(data);
+  public updateOptions(externalArgs: any[] = []): void {
+    if (this.subscribeOfOldOptions) {
+      this.subscribeOfOldOptions.unsubscribe();
+    }
+    if (typeof this.field.options === `function`) {
+      const result: any = this.field.options(this.abstractControl, this.formGroup, this.field, ...externalArgs);
+      if (Array.isArray(result)) {
+        this._updateOptionsScheme(result);
+      } else if ((result instanceof Observable) || (result instanceof BehaviorSubject) || (result instanceof Subject)) {
+        this.subscribeOfOldOptions = result.pipe(takeUntil(this.destroy$)).subscribe({
+          next: (response) => {
+            if (Array.isArray(response)) {
+              this._updateOptionsScheme(response);
+            } else if ((typeof response === `object`) && (response.hasOwnProperty(`data`) || response.hasOwnProperty(`list`) || response.hasOwnProperty(`itens`))) {
+              if (`data` in response) {
+                this._updateOptionsScheme(response.data || []);
+              } else if (`list` in response) {
+                this._updateOptionsScheme(response.list || []);
               } else {
-                this._updateOptions([]);
+                this._updateOptionsScheme(response.itens || []);
               }
-            },
-            error: () => {
-              this._updateOptions([]);
+            } else {
+              this._updateOptionsScheme([]);
+              throw "Sorry, but the format acceptable of switch field is an array of values!";
             }
-          });
+          },
+          error: () => {
+            this._updateOptionsScheme([]);
+          }
+        });
       }
+    } else if ((this.field.options instanceof Observable) || (this.field.options instanceof BehaviorSubject) || (this.field.options instanceof Subject)) {
+      this.subscribeOfOldOptions = (this.field.options as Observable<any>).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (response) => {
+          if (Array.isArray(response)) {
+            this._updateOptionsScheme(response);
+          } else if ((typeof response === `object`) && (response.hasOwnProperty(`data`) || response.hasOwnProperty(`list`) || response.hasOwnProperty(`itens`))) {
+            if (`data` in response) {
+              this._updateOptionsScheme(response.data || []);
+            } else if (`list` in response) {
+              this._updateOptionsScheme(response.list || []);
+            } else {
+              this._updateOptionsScheme(response.itens || []);
+            }
+          } else {
+            this._updateOptionsScheme([]);
+            throw "Sorry, but the format acceptable of switch field is an array of values!";
+          }
+        },
+        error: () => {
+          this._updateOptionsScheme([]);
+        }
+      });
+    } else if (Array.isArray(this.field.options)) {
+      this._updateOptionsScheme(this.field.options || []);
+    } else {
+      this._updateOptionsScheme([]);
     }
   }
 
   public ngAfterViewInit(): void {
-    this._setOptions();
+    this.updateOptions();
+    super.ngAfterViewInit();
   }
 
   public ngOnInit(): void {
@@ -137,6 +144,7 @@ export class SwitchAbstractionComponent extends FieldAbstraction implements Afte
           }
         });
     }
+    super.ngOnInit();
   }
 
   public ngOnDestroy(): void {
@@ -144,6 +152,7 @@ export class SwitchAbstractionComponent extends FieldAbstraction implements Afte
 
     this.destroy$.next();
     this.destroy$.complete();
+    super.ngOnDestroy();
   }
 
 }

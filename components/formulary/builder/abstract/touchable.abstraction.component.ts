@@ -1,10 +1,11 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 
 import { FieldAbstraction } from './abstraction';
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <button
       yueUiButton
@@ -23,7 +24,7 @@ import { FieldAbstraction } from './abstraction';
     >
       <yue-ui-smart-render
         [yueUiSmartRender]="placeholder"
-        [yueUiSmartRenderContext]="context"
+        [yueUiSmartRenderContext]="contextRenderer"
       >
       </yue-ui-smart-render>
     </button>
@@ -36,20 +37,6 @@ import { FieldAbstraction } from './abstraction';
   exportAs: 'touchableAbstractionRef',
 })
 export class TouchableAbstractionComponent extends FieldAbstraction {
-
-  public get context(): { [x: string]: any } {
-    return {
-      model: this.model,
-      abstractControl: this.abstractControl,
-      field: this.field,
-      formGroup: this.formGroup,
-      formulary: this.formulary,
-    };
-  }
-
-  public get styles(): { [x: string]: any } {
-    return this.field.styles || {};
-  }
 
   constructor() {
     super();

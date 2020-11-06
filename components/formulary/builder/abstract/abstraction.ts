@@ -1,4 +1,5 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
+import { AfterContentInit, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 
 import { YueUiFormularyMask } from '@joaopedro61/yue-ui/formulary/mask';
 import { getMask } from '@joaopedro61/yue-ui/formulary/utils';
@@ -8,13 +9,13 @@ import { Listener } from '../modifiers';
 
 
 
-export abstract class FieldAbstraction {
+export abstract class FieldAbstraction implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
   private _formGroup!: FormGroup;
 
   private _abstractControl!: AbstractControl;
 
-  private _options!: Modifiers.FormularyOptions;
+  private _formularyOptions!: Modifiers.FormularyOptions;
 
   private _model!: {[x: string]: any};
 
@@ -61,13 +62,13 @@ export abstract class FieldAbstraction {
     }
   }
 
-  public get options(): Modifiers.FormularyOptions {
-    if (this._options) {
-      return this._options;
+  public get formularyOptions(): Modifiers.FormularyOptions {
+    if (this._formularyOptions) {
+      return this._formularyOptions;
     } else {
       const cached = this.formulary.getOptions();
       if (cached) {
-        this._options = cached;
+        this._formularyOptions = cached;
         return cached;
       } else {
         return {};
@@ -134,6 +135,23 @@ export abstract class FieldAbstraction {
     return false;
   }
 
+  public get styles(): { [x: string]: any } {
+    if (this.field) {
+      return this.field.styles || {};
+    }
+    return {};
+  }
+
+  public get contextRenderer(): { [x: string]: any } {
+    return {
+      model: this.model,
+      abstractControl: this.abstractControl,
+      field: this.field,
+      formGroup: this.formGroup,
+      formulary: this.formulary,
+    };
+  }
+
   constructor() { }
 
   public listeners(type: string, paramenters?: any): void {
@@ -154,6 +172,22 @@ export abstract class FieldAbstraction {
         }
       }
     }
+  }
+
+  public ngOnInit(): void {
+    this.listeners(`componentOnInit`);
+  }
+
+  public ngAfterViewInit(): void {
+    this.listeners(`componentOnAfterViewInit`);
+  }
+
+  public ngAfterContentInit(): void {
+    this.listeners(`componentOnAfterContentInit`);
+  }
+
+  public ngOnDestroy(): void {
+    this.listeners(`componentOnDestroy`);
   }
 
 }

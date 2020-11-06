@@ -74,11 +74,11 @@ import { YueUiModalOptions } from '../utils/options';
 export class YueUiContainerComfirmComponent extends Base {
 
   private readonly colors: {[x: string]: any} = {
-    confirm: `var(--colors-secondary)`,
-    info: `var(--colors-info)`,
-    success: `var(--colors-success)`,
-    error: `var(--colors-error)`,
-    warning: `var(--colors-warning)`
+    confirm: `var(--secondary)`,
+    info: `var(--info)`,
+    success: `var(--success)`,
+    error: `var(--error)`,
+    warning: `var(--warning)`
   };
 
   @ViewChild(CdkPortalOutlet, { static: true })
@@ -89,8 +89,8 @@ export class YueUiContainerComfirmComponent extends Base {
 
   public get borderColor(): string {
     return this.config && this.config.confirmType 
-      ? this.colors[this.config.confirmType] || `var(--colors-secondary)`
-      : `var(--colors-secondary)`
+      ? this.colors[this.config.confirmType] || `var(--secondary)`
+      : `var(--secondary)`
   }
 
   constructor(elementRef: ElementRef, focusTrapFactory: ConfigurableFocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {

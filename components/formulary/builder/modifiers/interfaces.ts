@@ -150,6 +150,14 @@ export interface FieldStruct extends CommonInheritMethods {
     search?: Listener;
     change?: Listener;
     scrollToBottom?: Listener;
+
+    /**
+     * Component`s life-cicly
+     */
+    componentOnInit?: Listener;
+    componentOnAfterViewInit?: Listener;
+    componentOnAfterContentInit?: Listener;
+    componentOnDestroy?: Listener;
   };
   styles?: { [style: string]: any };
 

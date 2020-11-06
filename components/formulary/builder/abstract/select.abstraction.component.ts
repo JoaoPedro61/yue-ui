@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { YueUiFormularySelectMode, YueUiSelectSearchChange } from '@joaopedro61/yue-ui/formulary/select';
 import { BehaviorSubject, Subject, Subscription, Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { FieldAbstraction } from './abstraction';
 
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   template: `
     <yue-ui-formulary-select
       [formControl]="abstractControl"
@@ -61,6 +62,8 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
 
   private subscribeOfOldOptions!: Subscription;
 
+  private pidTimeout: any = null;
+
   public options$: BehaviorSubject<any> = new BehaviorSubject<any[]>([]);
 
   public get labelProperty(): string | false {
@@ -88,12 +91,12 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
     super();
   }
 
-  private updateOptionsScheme(): void {
+  public updateOptions(externalArgs: any[] = []): void {
     if (this.subscribeOfOldOptions) {
       this.subscribeOfOldOptions.unsubscribe();
     }
     if (typeof this.field.options === `function`) {
-      const result: any = this.field.options();
+      const result: any = this.field.options(this.abstractControl, this.formGroup, this.field, ...externalArgs);
       if (Array.isArray(result)) {
         this.options$.next(result);
       } else if ((result instanceof Observable) || (result instanceof BehaviorSubject) || (result instanceof Subject)) {
@@ -151,19 +154,24 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
   private changesHandler(changes: Partial<any>): void {
     if (!Array.isArray(changes) && typeof changes === `object`) {
       if (changes.hasOwnProperty(`options`)) {
-        this.updateOptionsScheme();
+        this.updateOptions();
       }
     }
   }
 
   public onSearch(event: YueUiSelectSearchChange): void {
-    this.listeners(`search`, [event]);
+    if (this.pidTimeout) {
+      clearTimeout(this.pidTimeout);
+    }
+    this.pidTimeout = setTimeout(() => {
+      this.listeners(`search`, [event]);
+    }, 400);
   }
 
   public ngOnInit(): void {
     if (this.field) {
       this.field.setChangeHandler(`options`, (changes: any) => this.changesHandler(changes));
-      this.updateOptionsScheme();
+      this.updateOptions();
     }
     if (this.abstractControl) {
       this.abstractControl
@@ -175,13 +183,15 @@ export class SelectAbstractionComponent extends FieldAbstraction implements OnIn
           }
         });
     }
+    super.ngOnDestroy();
   }
 
   public ngOnDestroy(): void {
     this.options$.complete();
-
+    
     this.destroy$.next();
     this.destroy$.complete();
+    super.ngOnDestroy();
   }
 
 }

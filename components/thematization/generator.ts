@@ -187,7 +187,7 @@ export function yueUiThemeGenerator(
             color: `${COLOR_PALETTE['blue-gray'][variant === `black` ? 900 : 200]}`,
           },
           label: {
-            color: `${variant === `black` ? COLOR_PALETTE.gray[900] : COLOR_PALETTE.gray[900]}`,
+            color: `${variant === `black` ? COLOR_PALETTE.gray[200] : COLOR_PALETTE.gray[900]}`,
           },
           invalid: {
             color: yueUiThemeGetContrastantColor(`red`, `800`),
