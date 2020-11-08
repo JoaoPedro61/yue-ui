@@ -47,6 +47,14 @@ export abstract class FieldBase {
 
   public beforeClear?(): void;
 
+  public set reactiveDisabled(value: boolean) {
+    if (typeof this.setDisabledState === 'function') {
+      this.setDisabledState(value);
+    } else {
+      this.disabled = value;
+    }
+  }
+
   public set disabled(v: boolean) {
     this._disabled = v;
     this.cdr.detectChanges();
@@ -112,6 +120,13 @@ export abstract class FieldBase {
 
   public registerOnTouched(fn: any): void {
     this.onTouch = fn;
+  }
+
+  public setDisabledState(isDisabled?: boolean): void {
+    if (typeof isDisabled === 'boolean') {
+      this.disabled = isDisabled;
+      this.cdr.markForCheck();
+    }
   }
 
 }

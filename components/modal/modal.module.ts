@@ -11,7 +11,7 @@ import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
-const logger = logging.getLogger('core.model');
+const logger = logging.getLogger('model');
 
 import { YueUiModalService } from './services/modal.service';
 

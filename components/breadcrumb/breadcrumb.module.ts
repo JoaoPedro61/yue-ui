@@ -10,7 +10,7 @@ import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 import { YueUiBreadcrumbComponent } from './components/breadcrumb.component';
 import { YueUiBreadcrumbItemComponent } from './components/breadcrumb-item.component';
 
-const logger = logging.getLogger('core.breadcrumb');
+const logger = logging.getLogger('breadcrumb');
 
 
 

@@ -19,7 +19,7 @@ import { YueUiTableComponent } from './components/table.component';
 import { YueUiTableActionsCellComponent } from './components/cells/actions-cell.component';
 import { YueUiTableLinkCellComponent } from './components/cells/link-cell.component';
 
-const logger = logging.getLogger('core.button');
+const logger = logging.getLogger('button');
 
 
 @NgModule({

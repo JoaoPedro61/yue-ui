@@ -13,7 +13,7 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiTooltipComponent } from './components/tooltip.component';
 import { YueUiTooltipDirective } from './directives/tooltip.directive';
 
-const logger = logging.getLogger('core.tooltip');
+const logger = logging.getLogger('tooltip');
 
 
 @NgModule({

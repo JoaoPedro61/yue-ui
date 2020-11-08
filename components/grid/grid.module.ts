@@ -9,7 +9,7 @@ import { YueUiGridDirective } from './directives/grid.directive';
 import { YueUiColDirective } from './directives/col.directive';
 
 
-const logger = logging.getLogger('core.grid');
+const logger = logging.getLogger('grid');
 
 
 

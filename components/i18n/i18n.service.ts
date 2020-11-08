@@ -8,7 +8,7 @@ import { YueUiI18nDictionary, YueUiI18nLanguage, YueUiI18nComponentsDictionary, 
 import { YUE_UI_I18N_DICTIONARY, YUE_UI_I18N_COMPONENTS_DICTIONARY, YUE_UI_I18N_LANGUAGE, YUE_UI_I18N_NOT_FOUND_HANDLER } from './i18n.utils';
 
 
-const logger = logging.getLogger('core.i18n');
+const logger = logging.getLogger('i18n');
 
 
 

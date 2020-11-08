@@ -2,17 +2,16 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 
 
-
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: `yue-ui-menu-item`,
+  selector: `yue-ui-menu-submenu`,
   template: `<ng-content></ng-content>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    [`[class.yue-ui-menu-item]`]: `true`
+    [`[class.yue-ui-menu-submenu]`]: `true`
   },
   preserveWhitespaces: false,
 })
-export class YueUiMenuItemComponent {
+export class YueUiMenuSubmenuComponent {
 
 }

@@ -14,64 +14,37 @@ import { Component3 as Modal1 } from './component-3';
     <yue-ui-layout>
       <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="!true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
-          <yue-ui-menu [yueUiMenuInlineCollapsed]="true" (yueUiMenuSomeChildIsOpened)="navref.setBreakClose($event);">
-            <yue-ui-menu-item [yueUiMenuItemSelected]="true">
-              <a [routerLink]="['child']">
-                <i yueUiIcon yueUiIconType="menu"></i>
-                Menu item 1
+          <yue-ui-menu>
+            <yue-ui-menu-item>
+              <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
+              Hello
+            </yue-ui-menu-item>
+            <yue-ui-menu-item>
+              Hello 1
+            </yue-ui-menu-item>
+            <yue-ui-menu-item>
+              Hello 2
+            </yue-ui-menu-item>
+            <a yueUiMenuItemLink [routerLink]="['.']">
+              Link
+            </a>
+            <yue-ui-menu-group [yueUiMenuGroupLabel]="'Merda'" [yueUiMenuGroupIcon]="'menu'">
+              <yue-ui-menu-item>
+                Hello 2
+              </yue-ui-menu-item>
+              <a yueUiMenuItemLink [routerLink]="['.']">
+                Link
               </a>
-            </yue-ui-menu-item>
-            <yue-ui-menu-item (click)="toggle();">
-              Toggle Disabled
-            </yue-ui-menu-item>
-            <yue-ui-menu-item (click)="toggle(true);">
-              Toggle validation
-            </yue-ui-menu-item>
-            <yue-ui-menu-item (click)="open();">
-              Modal
-            </yue-ui-menu-item>
-            <yue-ui-menu-item (click)="noty();">
-              Noty
-            </yue-ui-menu-item>
-            <yue-ui-menu-item (click)="change();">
-              Toggle Theme
-            </yue-ui-menu-item>
-            <yue-ui-menu-divider>
-              <i yueUiIcon yueUiIconType="menu"></i>
-              Other settings
-            </yue-ui-menu-divider>
-            <yue-ui-submenu>
-              Sub menu
-              <yue-ui-menu>
-                <yue-ui-menu-item>
-                  Sub menu item 1
-                </yue-ui-menu-item>
-                <yue-ui-menu-item>
-                  Sub menu item 2
-                </yue-ui-menu-item>
-                <yue-ui-submenu>
-                  Sub menu 1
-                  <yue-ui-menu>
-                    <yue-ui-menu-item>
-                      <i yueUiIcon yueUiIconType="menu"></i>
-                      Sub menu 1 item 1
-                    </yue-ui-menu-item>
-                    <yue-ui-menu-item>
-                      Sub menu 1 item 2
-                    </yue-ui-menu-item>
-                  </yue-ui-menu>
-                </yue-ui-submenu>
-              </yue-ui-menu>
-            </yue-ui-submenu>
+            </yue-ui-menu-group>
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
       </yue-ui-navigation-menu>
       <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
         <div style="margin-top: 10px;">
-          <yue-ui-formulary-switch [formControl]="ctrl"></yue-ui-formulary-switch>
+          <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-checkbox'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
         </div>
         <div style="margin-top: 10px;">
-          <yue-ui-formulary-switch [formControl]="ctrl" [yueUiFormularySwitchMode]="'indeterminate-button'"></yue-ui-formulary-switch>
+          <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-button'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
         </div>
       </div>
       <router-outlet></router-outlet>
@@ -81,6 +54,8 @@ import { Component3 as Modal1 } from './component-3';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Component1 {
+
+  public value = null;
 
   public ctrl: FormControl = new FormControl(null);
 

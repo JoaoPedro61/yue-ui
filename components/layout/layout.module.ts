@@ -17,7 +17,7 @@ import {
 } from './components';
 
 
-const logger = logging.getLogger('core.layout');
+const logger = logging.getLogger('layout');
 
 @NgModule({
   imports: [

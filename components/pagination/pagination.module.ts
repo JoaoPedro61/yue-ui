@@ -11,7 +11,7 @@ import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 
 import { YueUiPaginationComponent } from './components/pagination.component';
 
-const logger = logging.getLogger('core.smart-render');
+const logger = logging.getLogger('smart-render');
 
 
 

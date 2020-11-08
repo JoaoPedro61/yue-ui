@@ -1,3 +1,3 @@
-export type YueUiMenuType = 'horizontal' | 'vertical' | 'inline';
+export type YueUiMenuMode = `inline` | `vertical` | `horizontal`;
 
-export type SafeAny = any;
+export type YueUiMenuSafeAny = any;

@@ -17,7 +17,7 @@ import { YueUiPanelPresentComponent } from './components/present.component';
 
 
 
-const logger = logging.getLogger('core.popover');
+const logger = logging.getLogger('popover');
 
 
 @NgModule({

@@ -135,6 +135,11 @@ export class YueUiFormularySwitchComponent extends FieldBase implements OnInit, 
   @Input('yueUiFormularySwitchOffLabel')
   public offLabel!: YueUiSmartRenderType;
 
+  @Input('yueUiFormularySwitchDisable')
+  public set reactiveDisabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+
   @Output('yueUiFormularySwitchFocus')
   public onFocus: EventEmitter<any> = new EventEmitter();
 

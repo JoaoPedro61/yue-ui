@@ -8,7 +8,7 @@ import { YueUiSmartRenderComponent } from './components/smart-render.component';
 import { YueUiStringTemplateRefRenderDirective } from './directives/string-template-ref-render.directive';
 
 
-const logger = logging.getLogger('core.smart-render');
+const logger = logging.getLogger('smart-render');
 
 
 @NgModule({

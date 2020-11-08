@@ -232,6 +232,11 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
   @Input('yueUiFormularySelectPropertyValue')
   public propValue: YueUiFormularySelectProperties['value'] = 'value';
 
+  @Input('yueUiFormularySelectDisable')
+  public set reactiveDisabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+
   @Output('yueUiFormularySelectOnSearch')
   public readonly onSearch = new EventEmitter<string>();
 

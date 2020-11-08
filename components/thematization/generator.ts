@@ -140,6 +140,32 @@ export function yueUiThemeGenerator(
        */
       components: {
 
+        menu: {
+          
+          ink: `var(--primary)`,
+
+          color: 'inherit',
+          background: `transparent`,
+
+          group: {
+            color: 'var(--muted)',
+            background: `transparent`,
+          },
+
+          selected: {
+            color: 'var(--primary)',
+            background: getRGBA(yueUiThemeGetPaletteColor(colors.primary.name, colors.primary.weight), .05),
+          },
+          disabled: {
+            color: 'var(--muted)',
+            background: `transparent`,
+          },
+          hover: {
+            color: 'var(--primary)',
+            background: `transparent`,
+          }
+        },
+
         table: {
           header: {
             background: `var(--transparent-${INVERSE_VARIANT}-3)`,

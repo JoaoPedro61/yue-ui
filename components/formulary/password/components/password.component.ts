@@ -95,6 +95,11 @@ export class YueUiFormularyPasswordComponent extends FieldBase implements OnInit
   @Input('yueUiFormularyPasswordPlaceholder')
   public placeholder: Observable<string> | string | null = '';
 
+  @Input('yueUiFormularyPasswordDisable')
+  public set reactiveDisabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+
   @Input('yueUiFormularyPasswordShow')
   public show = false;
 

@@ -1,42 +1,19 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Optional, SkipSelf, ViewEncapsulation } from '@angular/core';
+
 import {
-  SkipSelf,
-  Optional,
-  SimpleChanges,
-  ChangeDetectorRef,
-  Inject,
-  AfterContentInit,
-  OnInit,
-  OnChanges,
-  OnDestroy,
-  ContentChildren,
-  Input,
-  Output,
-  QueryList,
-  EventEmitter,
-  Component,
-  ChangeDetectionStrategy,
-  ViewEncapsulation
-} from '@angular/core';
-import { takeUntil, take } from 'rxjs/operators';
-import { combineLatest, Subject, BehaviorSubject } from 'rxjs';
-import { YueUiMenuService } from '../services/menu.service';
-import { IsMenuInsideDropDownToken, MenuServiceLocalToken } from '../utils/token';
-import { MenuDropDownTokenFactory, YueUiMenuServiceFactory } from '../utils/factories';
-import { YueUiSubMenuComponent } from '../components/sub-menu.component';
-import { YueUiMenuType, SafeAny } from '../utils/interfaces';
-import { YueUiMenuItemComponent } from './menu-item.component';
+  MenuServiceLocalToken,
+  YueUiMenuService,
+  YueUiMenuServiceFactory
+} from './../services/menu.service';
+import { IsMenuInsideDropDownToken, MenuDropDownTokenFactory } from './../utils/token';
 
 
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'yue-ui-menu',
-  host: {
-    '[class.yue-ui-menu]': 'true',
-    '[class.yue-ui-menu-horizontal]': `actualMode === 'horizontal'`,
-    '[class.yue-ui-menu-vertical]': `actualMode === 'vertical'`,
-    '[class.yue-ui-menu-inline]': `actualMode === 'inline'`,
-  },
+  selector: `yue-ui-menu`,
+  template: `<ng-content select="[yueUiMenuItemLink], yue-ui-menu-item, yue-ui-menu-submenu, yue-ui-menu-divider, yue-ui-menu-group"></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: MenuServiceLocalToken,
@@ -53,129 +30,19 @@ import { YueUiMenuItemComponent } from './menu-item.component';
       deps: [[new SkipSelf(), new Optional(), IsMenuInsideDropDownToken]]
     }
   ],
-  template: `
-    <ng-content></ng-content>
-  `,
-  styleUrls: [
-    `./../styles/menu.component.less`,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    [`[class.yue-ui-menu]`]: `true`
+  },
   preserveWhitespaces: false,
-  exportAs: 'yueUiMenuRef',
 })
-export class YueUiMenuComponent implements AfterContentInit, OnInit, OnChanges, OnDestroy {
+export class YueUiMenuComponent {
 
-  @ContentChildren(YueUiMenuItemComponent, { descendants: true })
-  public listOfYueUiMenuItemComponent!: QueryList<YueUiMenuItemComponent>;
-
-  @ContentChildren(YueUiSubMenuComponent, { descendants: true })
-  public listOfYueUiSubMenuComponent!: QueryList<YueUiSubMenuComponent>;
-
-  @Input()
-  public yueUiMenuInlineIndent = 24;
-
-  @Input()
-  public yueUiMenuMode: YueUiMenuType = this.menuService.mode$.getValue() || `vertical`;
-
-  @Input()
-  public yueUiMenuInlineCollapsed = false;
-
-  @Input()
-  public yueUiMenuSelectable = !this.isMenuInsideDropDown;
-
-  @Output()
-  public readonly yueUiMenuClick = new EventEmitter<YueUiMenuItemComponent>();
-
-  @Output()
-  public readonly yueUiMenuSomeChildIsOpened = new EventEmitter<SafeAny>();
-
-  private destroy$ = new Subject<void>();
-
-  private inlineCollapsed$ = new BehaviorSubject<boolean>(this.yueUiMenuInlineCollapsed);
-
-  private mode$ = new BehaviorSubject<YueUiMenuType>(this.yueUiMenuMode);
-
-  private listOfOpenedYueUiSubMenuComponent: YueUiSubMenuComponent[] = [];
-
-  public actualMode: YueUiMenuType = this.mode$.getValue() || `vertical`;
-
-  public setInlineCollapsed(inlineCollapsed: boolean): void {
-    this.yueUiMenuInlineCollapsed = inlineCollapsed;
-    this.inlineCollapsed$.next(inlineCollapsed);
-  }
-
-  public updateInlineCollapse(): void {
-    if (this.listOfYueUiMenuItemComponent) {
-      if (this.yueUiMenuInlineCollapsed) {
-        this.listOfOpenedYueUiSubMenuComponent = this.listOfYueUiSubMenuComponent.filter(submenu => submenu.yueUiSubMenuOpen);
-        this.listOfYueUiSubMenuComponent.forEach(submenu => submenu.setOpenStateWithoutDebounce(false));
-      } else {
-        this.listOfOpenedYueUiSubMenuComponent.forEach(submenu => submenu.setOpenStateWithoutDebounce(true));
-        this.listOfOpenedYueUiSubMenuComponent = [];
-      }
-    }
-  }
-
-  constructor(private menuService: YueUiMenuService, @Inject(IsMenuInsideDropDownToken) public isMenuInsideDropDown: boolean, private cdr: ChangeDetectorRef) { }
-
-  public ngOnInit(): void {
-    combineLatest([this.inlineCollapsed$, this.mode$])
-      .pipe(takeUntil(this.destroy$), take(1))
-      .subscribe({
-        next: ([inlineCollapsed, mode]) => {
-          this.actualMode = inlineCollapsed ? 'vertical' : mode;
-          this.menuService.setMode(this.actualMode);
-          this.mode$.next(this.actualMode);
-          this.cdr.markForCheck();
-        },
-      });
-
-    this.menuService.descendantMenuItemClick$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: menu => {
-          this.yueUiMenuClick.emit(menu);
-          if (this.yueUiMenuSelectable && !menu.yueUiMatchRouter) {
-            this.listOfYueUiMenuItemComponent.forEach(item => item.setSelectedState(item === menu));
-          }
-        }
-      });
-
-    this.menuService
-      .isChildSubMenuOpen$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (v) => this.yueUiMenuSomeChildIsOpened.emit(v),
-      })
-  }
-
-  public ngAfterContentInit(): void {
-    this.inlineCollapsed$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.updateInlineCollapse();
-      this.cdr.markForCheck();
-    });
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    const { yueUiMenuInlineCollapsed, yueUiMenuInlineIndent, yueUiMenuMode } = changes;
-    if (yueUiMenuInlineCollapsed) {
-      this.inlineCollapsed$.next(this.yueUiMenuInlineCollapsed);
-    }
-    if (yueUiMenuInlineIndent) {
-      this.menuService.setInlineIndent(this.yueUiMenuInlineIndent);
-    }
-    if (yueUiMenuMode) {
-      this.mode$.next(this.yueUiMenuMode);
-      this.menuService.setMode(this.yueUiMenuMode);
-      if (!changes.yueUiMenuMode.isFirstChange() && this.listOfYueUiSubMenuComponent) {
-        this.listOfYueUiSubMenuComponent.forEach(submenu => submenu.setOpenStateWithoutDebounce(false));
-      }
-    }
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  constructor(
+    private readonly service: YueUiMenuService,
+    @Inject(IsMenuInsideDropDownToken) public readonly isMenuInsideDropDown: boolean,
+    private readonly cdr: ChangeDetectorRef
+  ) {
+    console.log(this);
   }
 
 }

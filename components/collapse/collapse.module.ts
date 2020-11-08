@@ -12,7 +12,7 @@ import { YueUiCollapsePanelComponent } from './components/collapse-panel.compone
 import { YueUiCollpaseHeaderComponent } from './components/collapse-header.componen';
 
 
-const logger = logging.getLogger('core.collapse');
+const logger = logging.getLogger('collapse');
 
 
 @NgModule({

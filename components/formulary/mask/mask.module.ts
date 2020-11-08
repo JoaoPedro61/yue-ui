@@ -6,7 +6,7 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiFormularyMaskDirective } from './directives/mask.directive';
 
-const logger = logging.getLogger('core.mask');
+const logger = logging.getLogger('mask');
 
 
 @NgModule({

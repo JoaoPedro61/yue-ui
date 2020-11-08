@@ -1,5 +1,138 @@
-@import "./basic.less";
-@import "./menu-divider.component.less";
-@import "./menu-item.component.less";
-@import "./menu.component.less";
-@import "./sub-menu-node-inline-child.component.less";
+.yue-ui-menu {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  &-item {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0 16px;
+    line-height: 40px;
+    cursor: pointer;
+    color: var(--components-menu-color);
+    background: var(--components-menu-background);
+    transition: all 300ms ease-in-out;
+
+    i {
+      margin-right: 10px;
+      line-height: 1;
+      font-size: 14px;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border-right: 3px solid var(--components-menu-ink);
+      transform: scaleY(.0001);
+      opacity: 0;
+      transition: transform .15s cubic-bezier(.645,.045,.355,1),opacity .15s cubic-bezier(.645,.045,.355,1);
+      content: '';
+    }
+
+    &-selected {
+      color: var(--components-menu-selected-color);
+      background: var(--components-menu-selected-background);
+
+      &::after {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    &-disabled {
+      color: var(--components-menu-disabled-color);
+      background: var(--components-menu-disabled-background);
+      cursor: not-allowed;
+
+      &::after {
+        transform: scaleY(.0001);
+        opacity: 0;
+      }
+    }
+
+    &:not(&-disabled):not(&-selected):hover {
+      color: var(--components-menu-hover-color);
+      background: var(--components-menu-hover-background);
+    }
+  }
+
+
+  &-item-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0 16px;
+    line-height: 40px;
+    cursor: pointer;
+    color: var(--components-menu-color);
+    background: var(--components-menu-background);
+    transition: all 300ms ease-in-out;
+
+    i {
+      margin-right: 10px;
+      line-height: 1;
+      font-size: 14px;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border-right: 3px solid var(--components-menu-ink);
+      transform: scaleY(.0001);
+      opacity: 0;
+      transition: transform .15s cubic-bezier(.645,.045,.355,1),opacity .15s cubic-bezier(.645,.045,.355,1);
+      content: '';
+    }
+
+    &-selected {
+      color: var(--components-menu-selected-color);
+      background: var(--components-menu-selected-background);
+
+      &::after {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+
+    &-disabled {
+      color: var(--components-menu-disabled-color);
+      background: var(--components-menu-disabled-background);
+      cursor: not-allowed;
+
+      &::after {
+        transform: scaleY(.0001);
+        opacity: 0;
+      }
+    }
+
+    &:not(&-disabled):not(&-selected):hover {
+      color: var(--components-menu-hover-color);
+      background: var(--components-menu-hover-background);
+    }
+  }
+
+  
+  &-group-label {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0 16px;
+    line-height: 40px;
+    cursor: pointer;
+    color: var(--components-menu-group-color);
+    background: var(--components-menu-group-background);
+    transition: all 300ms ease-in-out;
+
+    i {
+      margin-right: 10px;
+      line-height: 1;
+      font-size: 14px;
+    }
+  }
+
+}

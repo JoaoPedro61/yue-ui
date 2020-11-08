@@ -8,7 +8,7 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 
 import { YueUiOverlayDirective } from './directives/overlay.directive';
 
-const logger = logging.getLogger('core.overlay');
+const logger = logging.getLogger('overlay');
 
 
 @NgModule({

@@ -45,11 +45,11 @@ import {
   selector: 'yue-ui-formulary',
   template: `
     <ng-container *ngIf="isStepped && showStepLabels">
-      <div class="yue-ui-formulary-builder-steps-labels-wrap">
-        <div class="yue-ui-formulary-builder-steps-labels-wrap-inner">
+      <div class="yue-ui-formulary-builder-steps-labels">
+        <div class="yue-ui-formulary-builder-steps-labels-wrap">
           <ng-container *ngFor="let item of steps; index as index">
-            <div class="yue-ui-formulary-builder-steps-label-item-wrap" (click)="goto(index);" [class.activated]="index === activatedStepIndex">
-              <div class="yue-ui-formulary-builder-steps-label-item-wrap-inner">
+            <div class="yue-ui-formulary-builder-steps-labels-wrap-item" (click)="goto(index);" [class.activated]="index === activatedStepIndex">
+              <div class="yue-ui-formulary-builder-steps-labels-wrap-item-inner">
                 <span [innerText]="item.label || item.identifier"></span>
               </div>
             </div>

@@ -30,7 +30,7 @@ import { SelectAbstractionComponent } from './abstract/select.abstraction.compon
 import { TouchableAbstractionComponent } from './abstract/touchable.abstraction.component';
 
 
-const logger = logging.getLogger('core.formulary.builder');
+const logger = logging.getLogger('formulary.builder');
 
 
 

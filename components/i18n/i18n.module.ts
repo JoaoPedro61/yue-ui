@@ -25,7 +25,7 @@ import { YueUiI18nPipe } from './i18n.pipe';
 import { YueUiI18nDefaultLanguage, YueUiI18nNotFoundHandler } from './i18n.intefaces';
 
 
-const logger = logging.getLogger('core.i18n');
+const logger = logging.getLogger('i18n');
 
 
 

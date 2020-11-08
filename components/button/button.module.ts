@@ -10,7 +10,7 @@ import { YueUiButtonComponent } from './components/button.component';
 import { YueUiButtonGroupComponent } from './components/button-group.component';
 
 
-const logger = logging.getLogger('core.button');
+const logger = logging.getLogger('button');
 
 
 @NgModule({

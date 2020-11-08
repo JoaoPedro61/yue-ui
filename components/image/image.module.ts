@@ -8,7 +8,7 @@ import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 import { YueUiImageComponent } from './components/image.component';
 
 
-const logger = logging.getLogger('core.image');
+const logger = logging.getLogger('image');
 
 
 

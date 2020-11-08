@@ -11,7 +11,7 @@ import { DARK_THEME } from './themes/dark';
 
 
 
-const logger = logging.getLogger('core.thematizationService');
+const logger = logging.getLogger('thematizationService');
 
 
 

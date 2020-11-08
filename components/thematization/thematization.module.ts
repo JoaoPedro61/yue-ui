@@ -7,14 +7,15 @@ import { VERSION } from '@joaopedro61/yue-ui/version';
 import { YUE_UI_THEME_DEFAULT, YUE_UI_THEME, YUE_UI_THEME_BEHAVIOR } from './thematization.utils';
 
 
-import { LIGHT_THEME } from './themes/light';
+import { DARK_THEME } from './themes/dark';
+// import { LIGHT_THEME } from './themes/light';
 
 import { YueUiThemeDefault } from './thematization.interfaces';
 import { YueUiThematizationService } from './thematization.service';
 
 
 
-const logger = logging.getLogger('core.thematization');
+const logger = logging.getLogger('thematization');
 
 
 
@@ -26,7 +27,7 @@ const logger = logging.getLogger('core.thematization');
   providers: [
     {
       provide: YUE_UI_THEME_DEFAULT,
-      useValue: LIGHT_THEME
+      useValue: DARK_THEME
     },
     {
       provide: YUE_UI_THEME,

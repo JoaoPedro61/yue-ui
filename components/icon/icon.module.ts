@@ -12,7 +12,7 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { YueUiIconPatchService } from './services/patch.service';
 
-const logger = logging.getLogger('core.icon');
+const logger = logging.getLogger('icon');
 
 
 @NgModule({

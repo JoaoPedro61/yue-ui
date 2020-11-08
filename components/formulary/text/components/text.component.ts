@@ -94,6 +94,11 @@ export class YueUiFormularyTextComponent extends FieldBase implements OnInit, Co
   @Input('yueUiFormularyTextPlaceholder')
   public placeholder: Observable<string> | string | null = '';
 
+  @Input('yueUiFormularyTextDisable')
+  public set reactiveDisabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+
   @Output('yueUiFormularyTextFocus')
   public onFocus: EventEmitter<any> = new EventEmitter();
 

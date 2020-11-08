@@ -13,7 +13,7 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiPopoverComponent } from './components/popover.component';
 import { YueUiPopoverDirective } from './directives/popover.directive';
 
-const logger = logging.getLogger('core.popover');
+const logger = logging.getLogger('popover');
 
 
 @NgModule({

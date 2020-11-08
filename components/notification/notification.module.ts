@@ -19,7 +19,7 @@ import {
 } from './utils/token';
 
 
-const logger = logging.getLogger('core.notification');
+const logger = logging.getLogger('notification');
 
 
 

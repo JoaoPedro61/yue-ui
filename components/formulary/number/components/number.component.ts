@@ -72,6 +72,11 @@ export class YueUiFormularyNumberComponent extends FieldBase implements OnInit, 
   @Input('yueUiFormularyNumberPlaceholder')
   public placeholder: Observable<string> | string | null = '';
 
+  @Input('yueUiFormularyNumberDisable')
+  public set reactiveDisabled(value: boolean) {
+    this.setDisabledState(value);
+  }
+
   @Output('yueUiFormularyNumberFocus')
   public onFocus: EventEmitter<any> = new EventEmitter();
 

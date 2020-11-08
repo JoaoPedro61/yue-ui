@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
 
 
 
-const logger = logging.getLogger('core.http');
+const logger = logging.getLogger('http');
 
 @NgModule({
   imports: [

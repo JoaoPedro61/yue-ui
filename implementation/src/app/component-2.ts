@@ -35,22 +35,6 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
     </yue-ui-panel-header>
     <yue-ui-panel-content>
       <yue-ui-panel-slot [yueUiPanelSlotWidth]="240" yueUiPanelSlotHeight="100">
-        <yue-ui-menu>
-          <yue-ui-menu-item [yueUiMenuItemSelected]="true">
-            <a [routerLink]="['.']">
-              <i yueUiIcon yueUiIconType="menu"></i>
-              Menu item 1
-            </a>
-          </yue-ui-menu-item>
-          <yue-ui-menu-item (click)="noty();">
-            <i yueUiIcon yueUiIconType="menu"></i>
-            Menu item 1
-          </yue-ui-menu-item>
-          <yue-ui-menu-divider>
-            <i yueUiIcon yueUiIconType="menu"></i>
-            Other settings
-          </yue-ui-menu-divider>
-        </yue-ui-menu>
       </yue-ui-panel-slot>
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
         <div yueUiGrid yueUiGridAlign="center">
