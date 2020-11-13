@@ -72,22 +72,29 @@
       text-decoration: none;
       word-wrap: break-word;
       border-radius: 2px;
-      background: var(--components-popover-background);
-      box-shadow: var(--components-popover-shadow);
       min-width: 100%;
+
+      .yue-ui-menu-sub {
+        text-decoration: none;
+        word-wrap: break-word;
+        border-radius: 2px;
+        min-width: 100%;
+        background: var(--components-popover-background);
+        box-shadow: var(--components-popover-shadow);
+      }
     }
-    
+
     &-placement-bottom,
     &-placement-bottomCenter,
     &-placement-bottomLeft,
     &-placement-bottomRight {
       margin-top: 8px;
     }
-  
+
     &-placement-right,
     &-placement-rightTop,
     &-placement-rightBottom {
       margin-left: 8px;
-    }    
+    }
   }
 }
