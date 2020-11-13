@@ -91,6 +91,8 @@ export class YueUiMenuComponent {
 
   @Output() readonly yueUiMenuClick = new EventEmitter<YueUiMenuItemComponent>();
 
+  @Output() readonly yueUiMenuSubmenuSomeOpened = new EventEmitter<boolean>();
+
   public actualMode: YueUiMenuMode = 'vertical';
 
   private inlineCollapsed$ = new BehaviorSubject<boolean>(this.yueUiMenuInlineCollapsed);
@@ -104,7 +106,11 @@ export class YueUiMenuComponent {
     @Inject(IsMenuInsideDropDownToken) public readonly isMenuInsideDropDown: boolean,
     private readonly cdr: ChangeDetectorRef
   ) {
-    console.log(this);
+    this.service.isChildSubMenuOpen$.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (value) => {
+        this.yueUiMenuSubmenuSomeOpened.next(value);
+      }
+    });
   }
 
   public setInlineCollapsed(inlineCollapsed: boolean): void {
