@@ -14,7 +14,7 @@ import { Component3 as Modal1 } from './component-3';
     <yue-ui-layout>
       <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="!true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
-          <yue-ui-menu [yueUiMenuMode]="'inline'">
+          <yue-ui-menu [yueUiMenuMode]="'vertical'">
             <yue-ui-menu-item>
               <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
               Hello
