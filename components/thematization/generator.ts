@@ -143,6 +143,7 @@ export function yueUiThemeGenerator(
         menu: {
           
           ink: `var(--primary)`,
+          divider: `var(--divider)`,
 
           color: 'inherit',
           background: `transparent`,

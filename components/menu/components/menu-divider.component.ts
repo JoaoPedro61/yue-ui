@@ -6,13 +6,12 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-menu-divider`,
-  template: `<ng-content></ng-content>`,
+  template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     [`[class.yue-ui-menu-divider]`]: `true`
   },
   preserveWhitespaces: false,
+  exportAs: `yueUiMenuDividerRef`,
 })
-export class YueUiMenuDividerComponent {
-
-}
+export class YueUiMenuDividerComponent { }

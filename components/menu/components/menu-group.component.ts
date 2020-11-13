@@ -1,8 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  Optional,
+  SkipSelf,
+  ViewEncapsulation
+} from '@angular/core';
 import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 
+import { IsMenuInsideDropDownToken } from '../utils/token';
 
 
+
+export function MenuGroupFactory(isMenuInsideDropDownToken: boolean): boolean {
+  return isMenuInsideDropDownToken ? isMenuInsideDropDownToken : false;
+}
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -16,15 +29,25 @@ import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
         <yue-ui-smart-render [yueUiSmartRender]="label"></yue-ui-smart-render>
       </div>
     </div>
-    <div class="yue-ui-menu-group-content">
-      <ng-content select="[yueUiMenuItemLink], yue-ui-menu-item, yue-ui-menu-submenu, yue-ui-menu-divider, yue-ui-menu-group"></ng-content>
+    <div [class.yue-ui-menu-group-dropdown-list]="isMenuInsideDropDown" [class.yue-ui-menu-group-list]="!isMenuInsideDropDown">
+      <ng-content select="[yueUiMenuItem], yue-ui-menu-item, yue-ui-menu-submenu, yue-ui-menu-divider, yue-ui-menu-group"></ng-content>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: IsMenuInsideDropDownToken,
+      useFactory: MenuGroupFactory,
+      deps: [[new SkipSelf(), new Optional(), IsMenuInsideDropDownToken]]
+    }
+  ],
   host: {
-    [`[class.yue-ui-menu-group]`]: `true`
+    [`[class.yue-ui-menu-group]`]: `!isMenuInsideDropDown`,
+    [`[class.yue-ui-menu-group-dropdown]`]: `isMenuInsideDropDown`,
+
   },
   preserveWhitespaces: false,
+  exportAs: `yueUiMenuGroupRef`
 })
 export class YueUiMenuGroupComponent {
 
@@ -33,5 +56,7 @@ export class YueUiMenuGroupComponent {
 
   @Input(`yueUiMenuGroupIcon`)
   public icon!: string;
+
+  constructor(@Inject(IsMenuInsideDropDownToken) public isMenuInsideDropDown: boolean) { }
 
 }

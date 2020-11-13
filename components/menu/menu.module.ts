@@ -8,13 +8,16 @@ import { logging } from '@joaopedro61/yue-ui/core/utils';
 import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
 import { YueUiSmartRenderModule } from '@joaopedro61/yue-ui/smart-render';
 import { YueUiIconModule } from '@joaopedro61/yue-ui/icon';
+import { YueUiOverlayModule } from '@joaopedro61/yue-ui/overlay';
 
 import { YueUiMenuComponent } from './components/menu.component';
 import { YueUiMenuSubmenuComponent } from './components/submenu.component';
 import { YueUiMenuItemComponent } from './components/menu-item.component';
 import { YueUiMenuGroupComponent } from './components/menu-group.component';
 import { YueUiMenuDividerComponent } from './components/menu-divider.component';
-import { YueUiMenuItemLinkComponent } from './components/menu-item-link.component';
+import { YueUiSubmenuInlineChildComponent } from './components/submenu-inline-child.component';
+import { YueUiSubmenuNoneInlineChildComponent } from './components/submenu-non-inline-child.component';
+import { YueUiSubMenuTitleComponent } from './components/submenu-title.component';
 
 
 
@@ -29,7 +32,9 @@ const logger = logging.getLogger('menu');
     YueUiMenuItemComponent,
     YueUiMenuGroupComponent,
     YueUiMenuDividerComponent,
-    YueUiMenuItemLinkComponent,
+    YueUiSubmenuInlineChildComponent,
+    YueUiSubmenuNoneInlineChildComponent,
+    YueUiSubMenuTitleComponent,
   ],
   entryComponents: [
     YueUiMenuComponent,
@@ -37,7 +42,9 @@ const logger = logging.getLogger('menu');
     YueUiMenuItemComponent,
     YueUiMenuGroupComponent,
     YueUiMenuDividerComponent,
-    YueUiMenuItemLinkComponent,
+    YueUiSubmenuInlineChildComponent,
+    YueUiSubmenuNoneInlineChildComponent,
+    YueUiSubMenuTitleComponent,
   ],
   exports: [
     YueUiMenuComponent,
@@ -45,7 +52,6 @@ const logger = logging.getLogger('menu');
     YueUiMenuItemComponent,
     YueUiMenuGroupComponent,
     YueUiMenuDividerComponent,
-    YueUiMenuItemLinkComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +59,8 @@ const logger = logging.getLogger('menu');
     YueUiThematizationModule,
     YueUiSmartRenderModule,
     YueUiIconModule,
+    YueUiOverlayModule,
+    OverlayModule,
   ]
 })
 export class YueUiMenuModule {

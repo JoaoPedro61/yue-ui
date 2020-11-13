@@ -14,7 +14,7 @@ import { Component3 as Modal1 } from './component-3';
     <yue-ui-layout>
       <yue-ui-navigation-menu #navref="yueUiNavigationMenuRef" [yueUiNavigationMenuHideStaticBar]="!true" [yueUiNavigationMenuOpened]="true">
         <yue-ui-navigation-menu-sider>
-          <yue-ui-menu>
+          <yue-ui-menu [yueUiMenuMode]="'inline'">
             <yue-ui-menu-item>
               <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
               Hello
@@ -25,16 +25,41 @@ import { Component3 as Modal1 } from './component-3';
             <yue-ui-menu-item>
               Hello 2
             </yue-ui-menu-item>
-            <a yueUiMenuItemLink [routerLink]="['.']">
-              Link
+            <yue-ui-menu-divider></yue-ui-menu-divider>
+            <a yueUiMenuItem [routerLink]="['/child']">
+              Child
             </a>
-            <yue-ui-menu-group [yueUiMenuGroupLabel]="'Merda'" [yueUiMenuGroupIcon]="'menu'">
+            <yue-ui-menu-group [yueUiMenuGroupLabel]="'Merda'">
               <yue-ui-menu-item>
                 Hello 2
               </yue-ui-menu-item>
-              <a yueUiMenuItemLink [routerLink]="['.']">
+              <a yueUiMenuItem [routerLink]="['.']">
                 Link
               </a>
+              <yue-ui-menu-submenu [yueUiMenuSubmenuLabel]="'SubMenu'">
+                <yue-ui-menu-item>
+                  Hello 3
+                </yue-ui-menu-item>
+                <a yueUiMenuItem [routerLink]="['.']" [yueUiMenuItemMatchRouter]="true">
+                  Link 3
+                </a>
+                <yue-ui-menu-group [yueUiMenuGroupLabel]="'Others'">
+                  <yue-ui-menu-item>
+                    Hello 2
+                  </yue-ui-menu-item>
+                  <a yueUiMenuItem [routerLink]="['.']">
+                    Link
+                  </a>
+                  <yue-ui-menu-submenu [yueUiMenuSubmenuLabel]="'SubMenu'">
+                    <yue-ui-menu-item>
+                      Hello 3
+                    </yue-ui-menu-item>
+                    <a yueUiMenuItem [routerLink]="['.']" [yueUiMenuItemMatchRouter]="true">
+                      Link 3
+                    </a>
+                  </yue-ui-menu-submenu>
+                </yue-ui-menu-group>
+              </yue-ui-menu-submenu>
             </yue-ui-menu-group>
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
@@ -46,6 +71,32 @@ import { Component3 as Modal1 } from './component-3';
         <div style="margin-top: 10px;">
           <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-button'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
         </div>
+      </div>
+      <div style="margin-top: 10px;margin-bottom: 20px;">
+        <yue-ui-menu [yueUiMenuMode]="'horizontal'">
+          <yue-ui-menu-item>
+            <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
+            Hello
+          </yue-ui-menu-item>
+          <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
+            Hello 1
+          </yue-ui-menu-item>
+          <yue-ui-menu-item>
+            Hello 2
+          </yue-ui-menu-item>
+          <yue-ui-menu-divider></yue-ui-menu-divider>
+          <a yueUiMenuItem [routerLink]="['.']">
+            Link
+          </a>
+          <yue-ui-menu-submenu [yueUiMenuSubmenuLabel]="'SubMenu'">
+            <yue-ui-menu-item>
+              Hello 3
+            </yue-ui-menu-item>
+            <a yueUiMenuItem [routerLink]="['.']" [yueUiMenuItemMatchRouter]="true">
+              Link 3
+            </a>
+          </yue-ui-menu-submenu>
+        </yue-ui-menu>
       </div>
       <router-outlet></router-outlet>
     </yue-ui-layout>
