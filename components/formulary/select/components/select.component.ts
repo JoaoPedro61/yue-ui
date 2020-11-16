@@ -21,7 +21,7 @@ import {
   HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, Overlay } from '@angular/cdk/overlay';
 
 import { deepTypeChecker, equals, hash } from '@joaopedro61/yue-ui/core/utils';
 
@@ -49,6 +49,11 @@ import { createOption } from './../utils/setters';
 import { YueUiFormularySelectSearchControlComponent } from './select-search-control.component';
 import { YueUiFormularySelectOptionComponent } from './select-option.component';
 
+
+
+
+const DEFAULT_LABEL_PROP = `label`;
+const DEFAULT_VALUE_PROP = `value`;
 
 
 
@@ -315,23 +320,45 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
 
   constructor(
     public readonly cdr: ChangeDetectorRef,
-    private elementRef: ElementRef,
-    private platform: Platform,
-    private focusMonitor: FocusMonitor,
+    private readonly elementRef: ElementRef,
+    private readonly platform: Platform,
+    private readonly focusMonitor: FocusMonitor,
+    public readonly overlay: Overlay
   ) {
     super();
   }
 
   public generateTagItem(value: string): YueUiFormularySelectItem {
-    return createOption({
-      data: value,
-      propLabel: this.propLabel,
-      propValue: this.propValue,
+    let data: any = value;
+    if (this.propLabel || this.propValue) {
+      if (typeof value === 'object') {
+        data = value;
+      } else {
+        data = {
+          ...(this.propLabel ? {
+            [this.propLabel]: typeof value === 'object' ? (value as any)[this.propLabel] : value,
+          } : {}),
+          ...(this.propValue ? {
+            [this.propValue]: typeof value === 'object' ? (value as any)[this.propValue] : value,
+          } : {}),
+        };
+      }
+    } else {
+      data = {
+        [DEFAULT_LABEL_PROP]: value,
+        [DEFAULT_VALUE_PROP]: value,
+      };
+    }
+    const itemWithSetters = createOption({
+      data,
+      propLabel: this.propLabel || DEFAULT_LABEL_PROP,
+      propValue: this.propValue || DEFAULT_VALUE_PROP,
       disabled: false,
       selected: false,
       customContent: false,
       template: null
     });
+    return itemWithSetters;
   }
 
   public onItemClick(value: YueUiFormularySelectSafeValue): void {
@@ -523,6 +550,7 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
 
   public onPositionChange(position: ConnectedOverlayPositionChange): void {
     this.dropDownPosition = position.connectionPair.originY;
+    this.cdr.markForCheck();
   }
 
   public updateCdkConnectedOverlayStatus(): void {
@@ -540,7 +568,7 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
   public writeValue(value: any): void {
     if (this.value !== value) {
       this.value = value;
-      const covertModelToList = (model: YueUiFormularySelectSafeValue[] | YueUiFormularySelectSafeValue, mode: YueUiFormularySelectMode): YueUiFormularySelectSafeValue[] => {        
+      const covertModelToList = (model: YueUiFormularySelectSafeValue[] | YueUiFormularySelectSafeValue, mode: YueUiFormularySelectMode): YueUiFormularySelectSafeValue[] => {
         if (model === null || model === undefined) {
           return [];
         } else if (mode === 'single') {
@@ -672,7 +700,7 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
             const { template, value, label, disabled, customContent } = item;
 
             let data = value;
-            
+
             if (this.propLabel || this.propValue) {
               if (typeof value === 'object') {
                 data = value;
@@ -686,18 +714,22 @@ export class YueUiFormularySelectComponent extends FieldBase implements OnInit, 
                   } : {}),
                 };
               }
+            } else {
+              data = {
+                [DEFAULT_LABEL_PROP]: label,
+                [DEFAULT_VALUE_PROP]: value,
+              };
             }
 
             const itemWithSetters = createOption({
               data,
-              propLabel: this.propLabel,
-              propValue: this.propValue,
+              propLabel: this.propLabel || DEFAULT_LABEL_PROP,
+              propValue: this.propValue || DEFAULT_VALUE_PROP,
               disabled,
               template,
               selected: false,
               customContent,
             });
-
             return itemWithSetters;
           });
           this.listOfTemplateItem$.next(listOfOptionInterface);

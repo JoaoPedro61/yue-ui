@@ -11,7 +11,7 @@ import { YueUiFormularyUtilsModule } from '@joaopedro61/yue-ui/formulary/utils';
 
 import { YueUiFormularyPasswordComponent } from './components/password.component';
 
-const logger = logging.getLogger(`core.formulary.password`);
+const logger = logging.getLogger(`formulary.password`);
 
 
 

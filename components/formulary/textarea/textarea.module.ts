@@ -11,7 +11,7 @@ import { YueUiFormularyUtilsModule } from '@joaopedro61/yue-ui/formulary/utils';
 
 import { YueUiFormularyTextareaComponent } from './components/textarea.component';
 
-const logger = logging.getLogger(`core.formulary.textarea`);
+const logger = logging.getLogger(`formulary.textarea`);
 
 
 

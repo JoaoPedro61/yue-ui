@@ -12,7 +12,7 @@ import { YueUiI18nModule, YueUiI18nService } from '@joaopedro61/yue-ui/i18n';
 import { YueUiFormularySwitchComponent } from './components/switch.component';
 import { YueUiFormularySwitchOptionComponent } from './components/switch-option.component';
 
-const logger = logging.getLogger(`core.formulary.switch`);
+const logger = logging.getLogger(`formulary.switch`);
 
 
 

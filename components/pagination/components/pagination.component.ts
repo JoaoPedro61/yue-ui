@@ -41,7 +41,7 @@ import { pager } from '../utils/pager';
             <ul class="page-item-list">
               <ng-container *ngFor="let pageItem of pages$ | async">
                 <li class="page-item-list-item">
-                  <a [class.selected]="pageItem === yueUiPaginationPage" (click)="setPage(pageItem);">
+                  <a yueUiButton [yueUiButtonType]="pageItem === yueUiPaginationPage ? 'primary' : 'default'" [yueUiButtonGhost]="pageItem === yueUiPaginationPage" [class.selected]="pageItem === yueUiPaginationPage" (click)="setPage(pageItem);">
                     <span [innerText]="pageItem"></span>
                   </a>
                 </li>

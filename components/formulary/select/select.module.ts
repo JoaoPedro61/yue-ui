@@ -29,7 +29,7 @@ import { YueUiFormularySelectDropdownItemComponent } from './components/select-d
 
 
 
-const logger = logging.getLogger(`core.formulary.select`);
+const logger = logging.getLogger(`formulary.select`);
 
 
 

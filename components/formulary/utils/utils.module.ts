@@ -15,7 +15,7 @@ import { YueUiFormularyClearComponent } from './components/clear.component';
 import { YueUiFormularyFieldWrapperComponent } from './components/field-wrapper.component';
 import { YueUiFormularyUtilsValidationsService } from './services/validations.service';
 
-const logger = logging.getLogger(`core.formulary.utils`);
+const logger = logging.getLogger(`formulary.utils`);
 
 
 

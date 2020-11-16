@@ -64,7 +64,7 @@ import { Component3 as Modal1 } from './component-3';
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
       </yue-ui-navigation-menu>
-      <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
+      <!-- <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
         <div style="margin-top: 10px;">
           <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-checkbox'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
         </div>
@@ -81,7 +81,7 @@ import { Component3 as Modal1 } from './component-3';
           <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
             Hello 1
           </yue-ui-menu-item>
-          <yue-ui-menu-item>
+          <yue-ui-menu-item (click)="open();">
             Hello 2
           </yue-ui-menu-item>
           <yue-ui-menu-divider></yue-ui-menu-divider>
@@ -97,7 +97,7 @@ import { Component3 as Modal1 } from './component-3';
             </a>
           </yue-ui-menu-submenu>
         </yue-ui-menu>
-      </div>
+      </div> -->
       <router-outlet></router-outlet>
     </yue-ui-layout>
   `,
