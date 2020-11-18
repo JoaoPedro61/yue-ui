@@ -42,9 +42,8 @@ export function MenuGroupFactory(isMenuInsideDropDownToken: boolean): boolean {
     }
   ],
   host: {
-    [`[class.yue-ui-menu-group]`]: `!isMenuInsideDropDown`,
-    [`[class.yue-ui-menu-group-dropdown]`]: `isMenuInsideDropDown`,
-
+    '[class.yue-ui-menu-group]': `!isMenuInsideDropDown`,
+    '[class.yue-ui-menu-group-dropdown]': `isMenuInsideDropDown`,
   },
   preserveWhitespaces: false,
   exportAs: `yueUiMenuGroupRef`

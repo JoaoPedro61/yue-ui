@@ -9,6 +9,7 @@ import { YueUiThematizationService } from '@joaopedro61/yue-ui/thematization';
 import { Component3 as Modal1 } from './component-3';
 
 
+
 @NgComponent({
   template: `
     <yue-ui-layout>
@@ -19,7 +20,7 @@ import { Component3 as Modal1 } from './component-3';
               <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
               Hello
             </yue-ui-menu-item>
-            <yue-ui-menu-item>
+            <yue-ui-menu-item (click)="open();">
               Hello 1
             </yue-ui-menu-item>
             <yue-ui-menu-item>

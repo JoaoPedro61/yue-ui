@@ -26,7 +26,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
       <i yueUiIcon yueUiIconType="more" [style.marginRight.px]="0"></i>
       <ng-template #actionsList>
         <div [style.minWidth.px]="120">
-          <!-- <yue-ui-menu>
+          <yue-ui-menu yueUiMenuMode="inline">
             <yue-ui-menu-item *ngFor="let item of options$ | async" (click)="triggerEvent(item); popoverRef.hide();">
               <div style="display: flex;flex-direction: row;justify-content: space-between;align-content: center;align-items: center;">
                 <div style="display: flex;flex-direction: row;justify-content: flex-start;align-content: center;align-items: center;">
@@ -59,7 +59,7 @@ import { YueUiTableActions, TableDataRowItem, YueUiTableAction } from '../../uti
                 </div>
               </div>
             </yue-ui-menu-item>
-          </yue-ui-menu> -->
+          </yue-ui-menu>
         </div>
       </ng-template>
     </button>

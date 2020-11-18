@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    [`[class.yue-ui-menu-divider]`]: `true`
+    '[class.yue-ui-menu-divider]': `true`
   },
   preserveWhitespaces: false,
   exportAs: `yueUiMenuDividerRef`,
