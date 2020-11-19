@@ -29,7 +29,7 @@ import { FieldBase } from '@joaopedro61/yue-ui/formulary/utils';
         [id]="id"
         [(ngModel)]="value"
         [placeholder]="placeholderIsAObservable ? ($any(placeholder) | async) : $any(placeholder)"
-        [attr.cdkFocusInitial]="initialFocus"
+        [attr.cdkFocusInitial]="initialFocus" [attr.autofocus]="initialFocus"
         [ngModelOptions]="{ standalone: true }"
         [disabled]="disabled"
         (focus)="updateFocus(true); onFocus.emit($event);"

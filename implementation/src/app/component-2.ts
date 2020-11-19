@@ -34,8 +34,6 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
       <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="breadcrumbs"></yue-ui-panel-present>
     </yue-ui-panel-header>
     <yue-ui-panel-content>
-      <yue-ui-panel-slot [yueUiPanelSlotWidth]="240" yueUiPanelSlotHeight="100">
-      </yue-ui-panel-slot>
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
         <div yueUiGrid yueUiGridAlign="center">
           <div yueUiGridCol [yueUiGridColMd]="{ span: 23 }">

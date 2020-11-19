@@ -20,7 +20,7 @@ import { YueUiFormularySwitchComponent } from './switch.component';
         </div>
       </ng-container>
       <div class="yue-ui-formulary-switch-option-wrapper-label">
-        <div class="yue-ui-formulary-switch-option-wrapper-label-inner" (click)="setValue();" [attr.cdkFocusInitial]="initialFocus">
+        <div class="yue-ui-formulary-switch-option-wrapper-label-inner" (click)="setValue();" [attr.cdkFocusInitial]="initialFocus" [attr.autofocus]="initialFocus">
           <ng-container *ngIf="label; else labelContent">
             <yue-ui-smart-render
               [yueUiSmartRender]="label"

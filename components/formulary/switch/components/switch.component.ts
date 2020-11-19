@@ -37,7 +37,7 @@ import { YueUiFormularySwitchOptionComponent } from './switch-option.component';
               (focus)="isfocusing = true; onFocus.emit($event);"
               (blur)="isfocusing = false; onBlur.emit($event);"
               (change)="assignNewValue()"
-              [attr.cdkFocusInitial]="initialFocus"
+              [attr.cdkFocusInitial]="initialFocus" [attr.autofocus]="initialFocus"
               [ngModel]="value"
               [ngModelOptions]="{ standalone: true }"
               [disabled]="disabled"

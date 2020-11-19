@@ -9,7 +9,7 @@ import { YueUiButtonSize, YueUiButtonType } from '../utils/interfaces';
   encapsulation: ViewEncapsulation.None,
   selector: `yue-ui-button, button[yueUiButton], a[yueUiButton]`,
   template: `
-    <i class="yue-ui-button-icon-loading" yueUiIcon [yueUiIconSpin]="true" yueUiIconType="yue-ui-gg-spinner" *ngIf="yueUiButtonLoading"></i>
+    <i class="yue-ui-button-icon-loading" yueUiIcon [yueUiIconSpin]="true" yueUiIconType="loading" *ngIf="yueUiButtonLoading"></i>
     <ng-content></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

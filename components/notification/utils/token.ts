@@ -9,5 +9,5 @@ export const YUE_UI_NOTIFICATION_GLOBAL_OPTIONS_VALUE: YueUiNotificationGlobalOp
   closable: true,
   duration: 4700,
   pauseOnHover: true,
-  placement: `bottomRight`,
+  placement: `topRight`,
 };

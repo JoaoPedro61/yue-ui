@@ -23,7 +23,7 @@ import { Component3 as Modal1 } from './component-3';
             <yue-ui-menu-item (click)="open();">
               Hello 1
             </yue-ui-menu-item>
-            <yue-ui-menu-item>
+            <yue-ui-menu-item (click)="noty()">
               Hello 2
             </yue-ui-menu-item>
             <yue-ui-menu-divider></yue-ui-menu-divider>
