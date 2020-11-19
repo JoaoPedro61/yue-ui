@@ -17,7 +17,7 @@ import { Component3 as Modal1 } from './component-3';
         <yue-ui-navigation-menu-sider>
           <yue-ui-menu [yueUiMenuMode]="'vertical'" (yueUiMenuSubmenuSomeOpened)="navref.setBreakClose($event);">
             <yue-ui-menu-item>
-              <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
+              <i [yueUiIcon]="'logout'" [yueUiIconTheme]="'outline'"></i>
               Hello
             </yue-ui-menu-item>
             <yue-ui-menu-item (click)="open();">
@@ -64,6 +64,13 @@ import { Component3 as Modal1 } from './component-3';
             </yue-ui-menu-group>
           </yue-ui-menu>
         </yue-ui-navigation-menu-sider>
+        <yue-ui-navigation-menu-bottom>
+          <div>
+            <button yueUiButton [yueUiButtonRounded]="true" aria-label="Logout" [yueUiTooltip]="'Logout'">
+              <i yueUiIcon="logout" yueUiIconTheme="outline" aria-hidden="true" class="margin-zero"></i>
+            </button>
+          </div>
+        </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
       <!-- <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
         <div style="margin-top: 10px;">
