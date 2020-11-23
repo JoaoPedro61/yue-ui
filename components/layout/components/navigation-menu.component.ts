@@ -10,7 +10,8 @@ import {
   Output,
   Input,
   EventEmitter,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ViewChild
 } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
@@ -83,7 +84,7 @@ let timerCheckHover: any = null;
             </ng-container>
           </div>
         </div>
-        <div class="yue-ui-navigation-menu-fixing-padding" [style.marginLeft.px]="showStaticBar ? null : 0">
+        <div class="yue-ui-navigation-menu-fixing-padding" [style.marginLeft.px]="showStaticBar || !hasSiderBar ? null : 0">
           <div class="yue-ui-navigation-menu-fixer"></div>
         </div>
       </div>
@@ -98,6 +99,9 @@ let timerCheckHover: any = null;
 })
 export class YueUiNavigationMenuComponent implements OnDestroy {
 
+  @ViewChild(YueUiNavigationMenuSiderComponent, { static: false })
+  private yueUiNavigationMenuSiderComponent!: YueUiNavigationMenuSiderComponent;
+  
   private readonly _untilDestroy: Subject<void> = new Subject();
 
   private _showLikeMobile = false;
@@ -110,6 +114,10 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   private _breakClose: any = null;
 
+  public get hasSiderBar(): boolean {
+    return !!this.yueUiNavigationMenuSiderComponent;
+  }
+  
   public get showStaticBar(): boolean {
     return !!!this.yueUiNavigationMenuHideStaticBar;
   }

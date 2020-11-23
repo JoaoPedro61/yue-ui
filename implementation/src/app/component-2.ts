@@ -129,11 +129,24 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
                 This is a shit button
               </button>
             </div>
+
+            <div style="margin: 50px 0px;width: 300px;">
+              <yue-ui-card>
+                <yue-ui-card-header>This is a shit header</yue-ui-card-header>
+                <yue-ui-card-content>This is a shit content</yue-ui-card-content>
+                <yue-ui-card-footer>This is a shit footer</yue-ui-card-footer>
+                <yue-ui-card-metadata yueUiCardMetadataTitle="Title" yueUiCardMetadataDescription="Description" yueUiCardMetadataAvatar="Avatar"></yue-ui-card-metadata>
+                <yue-ui-card-cover>
+                  <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+                </yue-ui-card-cover>
+              </yue-ui-card>
+            </div>
+
             <yue-ui-collapse>
-              <yue-ui-collapse-panel [yueUiCollapsePanelOpen]="true">
+              <yue-ui-collapse-panel [yueUiCollapsePanelOpen]="false">
                 <yue-ui-collapse-panel-header>
-                  <span [yueUiTooltip]="'Table Meda'">
-                    Table
+                  <span [yueUiTooltip]="'Table In Collapse'">
+                    Table In Collapse
                   </span>
                 </yue-ui-collapse-panel-header>
                 <yue-ui-table [yueUiTableSource]="tableSource"></yue-ui-table>

@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy, TemplateRef, ChangeDetectorRef, Input, ViewEncapsulation, ViewChild } from '@angular/core';
 
 import { YueUiSmartRenderType } from '@joaopedro61/yue-ui/smart-render';
 import { deepTypeChecker } from '@joaopedro61/yue-ui/core/utils';
 import { BaseComponent } from '@joaopedro61/yue-ui/tooltip';
+import { YueUiMenuComponent } from '@joaopedro61/yue-ui/menu';
 
 
 
@@ -25,6 +26,7 @@ import { BaseComponent } from '@joaopedro61/yue-ui/tooltip';
         class="yue-ui-popover"
         [ngClass]="_classMap"
         [ngStyle]="overlayStyle"
+        [class.yue-ui-popover-menu]="hasMenu"
       >
         <div class="yue-ui-popover-content">
           <div class="yue-ui-popover-arrow"></div>
@@ -53,6 +55,13 @@ export class YueUiPopoverComponent extends BaseComponent {
   @Input()
   public content: YueUiSmartRenderType = null;
 
+  @ViewChild(YueUiMenuComponent, { static: false })
+  public menu?: YueUiMenuComponent;
+
+  public get hasMenu(): boolean {
+    return !!this.menu;
+  }
+
   _prefix = 'yue-ui-popover-placement';
 
   constructor(cdr: ChangeDetectorRef) {
@@ -66,13 +75,13 @@ export class YueUiPopoverComponent extends BaseComponent {
       : this.title === '' && this.content === ''
         ? true
         : (
-            deepTypeChecker(this.title) === 'null'
-            || deepTypeChecker(this.title) === 'undefined'
-          )
-          && (
-            deepTypeChecker(this.content) === 'null'
-            || deepTypeChecker(this.content) === 'undefined'
-          );
+          deepTypeChecker(this.title) === 'null'
+          || deepTypeChecker(this.title) === 'undefined'
+        )
+        && (
+          deepTypeChecker(this.content) === 'null'
+          || deepTypeChecker(this.content) === 'undefined'
+        );
   }
 
 }

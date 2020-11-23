@@ -140,6 +140,16 @@ export function yueUiThemeGenerator(
        */
       components: {
 
+        card: {
+          background: `var(--background)`,
+          color: `var(--color)`,
+          divider: `var(--divider)`,
+
+          hover: {
+            'box-shadow': BASE_SHADOW,
+          }
+        },
+
         menu: {
           
           ink: `var(--primary)`,

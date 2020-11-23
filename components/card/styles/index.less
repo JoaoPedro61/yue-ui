@@ -1,0 +1,204 @@
+@card-prefix: ~'yue-ui-card';
+@card-base-padding: 12px;
+@card-base-radius: 2.15px;
+
+
+.@{card-prefix} {
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--components-card-background);
+  color: var(--components-card-color);
+  border-radius: @card-base-radius;
+  transition: box-shadow 150ms ease-in-out;
+
+  &:not(&-borderless) {
+    border: 1px solid var(--components-card-divider);
+  }
+
+  &-wrapper {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    &-header {
+      display: block;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
+    
+    &-content {
+      flex: 1;
+      display: block;
+    }
+
+    &-footer {
+      display: block;
+    }
+
+  }
+
+  &-header {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      vertical-align: middle;
+      align-items: center;
+      align-content: center;
+      align-self: center;
+      padding: @card-base-padding;
+      line-height: 1;
+      flex: 1;
+    }
+  }
+
+  &-cover {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--components-card-divider);
+
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      vertical-align: middle;
+      align-items: center;
+      align-content: center;
+      align-self: center;
+      line-height: 1;
+      flex: 1;
+
+      > * {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  &-content {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--components-card-divider);
+
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      vertical-align: middle;
+      align-items: center;
+      align-content: center;
+      align-self: center;
+      padding: @card-base-padding;
+      line-height: 1;
+      flex: 1;
+    }
+  }
+
+  &-footer {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-top: 1px solid var(--components-card-divider);
+
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      vertical-align: middle;
+      align-items: center;
+      align-content: center;
+      align-self: center;
+      padding: @card-base-padding;
+      line-height: 1;
+      flex: 1;
+    }
+  }
+
+  &-metadata {
+    display: block;
+    position: relative;
+    width: 100%;
+
+    &-wrapper {
+      display: flex;
+      width: 100%;
+      justify-content: flex-start;
+      vertical-align: middle;
+      align-items: flex-start;
+      align-content: flex-start;
+      align-self: flex-start;
+      padding: @card-base-padding;
+      line-height: 1;
+      flex: 1;
+
+      &-avatar {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        line-height: 1;
+        border-radius: 50%;
+        border: 1px solid var(--components-card-divider);
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &-content {
+        padding: 5px 5px;
+
+        &-title {
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+
+        &-description {
+          color: var(--muted);
+        }
+      }
+    }
+  }
+
+  &:not(&--header) {
+
+    &.@{card-prefix}--cover > * .@{card-prefix}-cover-wrapper {
+
+      img {
+        border-top-left-radius: @card-base-radius;
+        border-top-right-radius: @card-base-radius;
+      }
+    }
+  }
+
+  &:not(&--header):not(&--cover) &-content {
+    border-top: none;
+  }
+
+  &--metadata &-content {
+
+    border-bottom: 1px solid var(--components-card-divider);
+  }
+
+  &--shadow-effect {
+
+    &:hover {
+      box-shadow: var(--components-card-hover-box-shadow);
+    }
+  }
+
+}
