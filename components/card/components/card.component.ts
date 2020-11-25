@@ -8,6 +8,7 @@ import { YueUiCardCoverComponent } from './cover.component';
 import { YueUiCardFooterComponent } from './footer.component';
 import { YueUiCardHeaderComponent } from './header.component';
 import { YueUiCardMetadataComponent } from './metadata.component';
+import { YueUiCardActionsComponent } from './actions.component';
 
 
 
@@ -32,10 +33,10 @@ import { YueUiCardMetadataComponent } from './metadata.component';
 
       <ng-container *ngIf="cover || coverComponent">
         <div class="yue-ui-card-wrapper-cover">
-          <ng-container *ngIf="coverComponent; else noHeaderComponent">
+          <ng-container *ngIf="coverComponent; else noCoverComponent">
             <ng-content select="yue-ui-card-cover"></ng-content>
           </ng-container>
-          <ng-template #noHeaderComponent>
+          <ng-template #noCoverComponent>
             <yue-ui-card-cover>
               <yue-ui-smart-render [yueUiSmartRender]="cover"></yue-ui-smart-render>
             </yue-ui-card-cover>
@@ -45,10 +46,10 @@ import { YueUiCardMetadataComponent } from './metadata.component';
 
       <ng-container *ngIf="content || contentComponent">
         <div class="yue-ui-card-wrapper-content">
-          <ng-container *ngIf="contentComponent; else noHeaderComponent">
+          <ng-container *ngIf="contentComponent; else noContentComponent">
             <ng-content select="yue-ui-card-content"></ng-content>
           </ng-container>
-          <ng-template #noHeaderComponent>
+          <ng-template #noContentComponent>
             <yue-ui-card-content>
               <yue-ui-smart-render [yueUiSmartRender]="content"></yue-ui-smart-render>
             </yue-ui-card-content>
@@ -58,10 +59,10 @@ import { YueUiCardMetadataComponent } from './metadata.component';
 
       <ng-container *ngIf="metadata || metadataComponent">
         <div class="yue-ui-card-wrapper-metadata">
-          <ng-container *ngIf="metadataComponent; else noHeaderComponent">
+          <ng-container *ngIf="metadataComponent; else noMetadataComponent">
             <ng-content select="yue-ui-card-metadata"></ng-content>
           </ng-container>
-          <ng-template #noHeaderComponent>
+          <ng-template #noMetadataComponent>
             <yue-ui-card-metadata
               [yueUiCardMetadataAvatar]="$any(metadata).avatar"
               [yueUiCardMetadataTitle]="$any(metadata).title"
@@ -73,10 +74,10 @@ import { YueUiCardMetadataComponent } from './metadata.component';
 
       <ng-container *ngIf="footer || footerComponent">
         <div class="yue-ui-card-wrapper-footer">
-          <ng-container *ngIf="footerComponent; else noHeaderComponent">
+          <ng-container *ngIf="footerComponent; else noFooterComponent">
             <ng-content select="yue-ui-card-footer"></ng-content>
           </ng-container>
-          <ng-template #noHeaderComponent>
+          <ng-template #noFooterComponent>
             <yue-ui-card-footer>
               <yue-ui-smart-render [yueUiSmartRender]="footer"></yue-ui-smart-render>
             </yue-ui-card-footer>
@@ -84,9 +85,18 @@ import { YueUiCardMetadataComponent } from './metadata.component';
         </div>
       </ng-container>
 
-      <ng-container *ngIf="actions && actions.length">
+      <ng-container *ngIf="(actions && $any(actions).length) || actionsComponent">
         <div class="yue-ui-card-wrapper-actions">
-          <yue-ui-card-actions [actions]="actions"></yue-ui-card-actions>
+          <ng-container *ngIf="actionsComponent; else noActionsComponent">
+            <ng-content select="yue-ui-card-actions"></ng-content>
+          </ng-container>
+          <ng-template #noActionsComponent>
+            <yue-ui-card-actions>
+              <yue-ui-card-action *ngFor="let action of actions">
+                <yue-ui-smart-render [yueUiSmartRender]="action"></yue-ui-smart-render>
+              </yue-ui-card-action>
+            </yue-ui-card-actions>
+          </ng-template>
         </div>
       </ng-container>
     </div>
@@ -96,10 +106,10 @@ import { YueUiCardMetadataComponent } from './metadata.component';
     '[class.yue-ui-card--header]': `header || headerComponent`,
     '[class.yue-ui-card--content]': `content || contentComponent`,
     '[class.yue-ui-card--footer]': `footer || footerComponent`,
-    '[class.yue-ui-card--background]': `background || backgroundComponent`,
     '[class.yue-ui-card--cover]': `cover || coverComponent`,
     '[class.yue-ui-card--metadata]': `metadata || metadataComponent`,
     '[class.yue-ui-card--shadow-effect]': `shadowEffect`,
+    '[class.yue-ui-card--actions]': `(actions || $any(actions).length) || actionsComponent`,
   },
   preserveWhitespaces: false,
   exportAs: 'yueUiCardRef',
@@ -122,6 +132,9 @@ export class YueUiCardComponent {
   @ContentChild(YueUiCardMetadataComponent, { static: true })
   public metadataComponent!: YueUiCardMetadataComponent;
 
+  @ContentChild(YueUiCardActionsComponent, { static: true })
+  public actionsComponent!: YueUiCardActionsComponent;
+
 
 
 
@@ -141,7 +154,7 @@ export class YueUiCardComponent {
   public cover!: YueUiSmartRenderType;
 
   @Input(`yueUiCardActions`)
-  public actions!: YueUiSmartRenderType[];
+  public actions: YueUiSmartRenderType[] = [];
 
   @Input(`yueUiCardMetadata`)
   public metadata!: YueUiCardMetadata;

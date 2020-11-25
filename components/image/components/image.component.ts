@@ -122,6 +122,7 @@ export class YueUiImageComponent implements OnInit, OnChanges {
       this.imageEl_ = this.renderer_.createElement('img');
       this.renderer_.appendChild(this.containerRef_.nativeElement, this.imageEl_);
     }
+    this.renderer_.setAttribute(this.imageEl_, 'loading', `lazy`);
     this.renderer_.setAttribute(this.imageEl_, 'src', base64);
     if (this.alt_ || (this.text_ && this.text_.length)) {
       this.renderer_.setAttribute(this.imageEl_, 'alt', (this.alt_ || this.text_));

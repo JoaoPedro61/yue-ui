@@ -4,17 +4,17 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 @Component({
   encapsulation: ViewEncapsulation.None,
-  selector: 'yue-ui-card-actions',
+  selector: 'yue-ui-card-action',
   template: `
-    <div class="yue-ui-card-actions-wrapper">
-      <ng-content select="yue-ui-card-action"></ng-content>
+    <div class="yue-ui-card-action-wrapper">
+      <ng-content></ng-content>
     </div>
   `,
   host: {
-    '[class.yue-ui-card-actions]': `true`
+    '[class.yue-ui-card-action]': `true`
   },
   preserveWhitespaces: false,
-  exportAs: 'yueUiCardActionsRef',
+  exportAs: 'yueUiCardActionRef',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YueUiCardActionsComponent { }
+export class YueUiCardActionComponent { }

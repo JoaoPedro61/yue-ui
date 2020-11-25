@@ -14,9 +14,10 @@ import { YueUiCardContentComponent } from './components/content.component';
 import { YueUiCardCoverComponent } from './components/cover.component';
 import { YueUiCardFooterComponent } from './components/footer.component';
 import { YueUiCardHeaderComponent } from './components/header.component';
+import { YueUiCardActionComponent } from './components/action.component';
 
 
-const logger = logging.getLogger('popover');
+const logger = logging.getLogger('card');
 
 
 
@@ -29,6 +30,7 @@ const logger = logging.getLogger('popover');
     YueUiCardCoverComponent,
     YueUiCardFooterComponent,
     YueUiCardHeaderComponent,
+    YueUiCardActionComponent,
   ],
   providers: [],
   imports: [
@@ -44,6 +46,7 @@ const logger = logging.getLogger('popover');
     YueUiCardCoverComponent,
     YueUiCardFooterComponent,
     YueUiCardHeaderComponent,
+    YueUiCardActionComponent,
   ],
 })
 export class YueUiCardModule {
