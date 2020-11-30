@@ -11,7 +11,8 @@ import {
   Input,
   EventEmitter,
   ViewEncapsulation,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
@@ -97,7 +98,7 @@ let timerCheckHover: any = null;
   exportAs: 'yueUiNavigationMenuRef',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class YueUiNavigationMenuComponent implements OnDestroy {
+export class YueUiNavigationMenuComponent implements OnDestroy, AfterViewInit {
 
   @ViewChild(YueUiNavigationMenuSiderComponent, { static: false })
   private yueUiNavigationMenuSiderComponent!: YueUiNavigationMenuSiderComponent;
@@ -125,7 +126,6 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
   @ContentChildren(YueUiNavigationMenuSiderComponent)
   public listOfNavMenuSiderComponent!: QueryList<YueUiNavigationMenuSiderComponent>;
 
-  
   @Input()
   @HostBinding(`class.yue-ui-navigation-menu-activated-mobile-monitoring`)
   public get yueUiNavigationDisabledMobileDetector(): boolean {
@@ -160,6 +160,9 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
   @Output()
   public yueUiNavigationMenuOpenedChange: EventEmitter<boolean> = new EventEmitter();
 
+  @Output()
+  public yueUiNavigationMenuAsMobile: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private readonly _breakpointObserve: BreakpointObserver, private _changeDetectorRef: ChangeDetectorRef) {
     this._breakpointObserve
       .observe(BREAKPOINTS)
@@ -170,6 +173,8 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
             return void 0;
           }
           this._showLikeMobile = result.matches;
+          this.yueUiNavigationMenuAsMobile.next(this._showLikeMobile);
+          this.updateMenuScheme();
           this._changeDetectorRef.markForCheck();
         }
       });
@@ -230,6 +235,14 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
     }, 50);
   }
 
+  public updateMenuScheme(): void {
+    if (this.listOfNavMenuSiderComponent && this.listOfNavMenuSiderComponent.length) {
+      this.listOfNavMenuSiderComponent.forEach((sider) => {
+        sider.updateMenuScheme(this.isLikeMobile);
+      });
+    }
+  }
+
   public toggle(): void {
     this._yueUiNaigationvMenuOpened = !this._yueUiNaigationvMenuOpened;
 
@@ -266,6 +279,10 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
         this._changeDetectorRef.markForCheck();
       }, 300);
     }, isHovering ? 150 : 10);
+  }
+
+  public ngAfterViewInit(): void {
+    this.updateMenuScheme();
   }
 
   public ngOnDestroy(): void {
