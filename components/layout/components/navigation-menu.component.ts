@@ -45,7 +45,7 @@ let timerCheckHover: any = null;
                     <ng-container *ngIf="listOfNavMenuSiderComponent.length > 0">
                       <div class="yue-ui-navigation-menu-open-handler-out-wrapper">
                         <span class="yue-ui-navigation-menu-open-handler-out-wrapper-inner" (click)="toggle();">
-                          <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'menu' : 'pushpin'" [yueUiIconRotate]="!yueUiNavigationMenuOpened && !isLikeMobile ? 0 : -45"></i>
+                          <i yueUiIcon [yueUiIconType]="isLikeMobile ? 'menu' : 'pushpin'" [yueUiIconRotate]="!yueUiNavigationMenuOpened || isLikeMobile ? 0 : -45"></i>
                         </span>
                       </div>
                     </ng-container>
@@ -110,7 +110,7 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   private _hovering = false;
 
-  private _disableMobileDetector = true;
+  private _disableMobileDetector = false;
 
   private _breakClose: any = null;
 
@@ -124,6 +124,17 @@ export class YueUiNavigationMenuComponent implements OnDestroy {
 
   @ContentChildren(YueUiNavigationMenuSiderComponent)
   public listOfNavMenuSiderComponent!: QueryList<YueUiNavigationMenuSiderComponent>;
+
+  
+  @Input()
+  @HostBinding(`class.yue-ui-navigation-menu-activated-mobile-monitoring`)
+  public get yueUiNavigationDisabledMobileDetector(): boolean {
+    return this._disableMobileDetector;
+  }
+
+  public set yueUiNavigationDisabledMobileDetector(v: boolean) {
+    this._disableMobileDetector = v;
+  }
 
   @HostBinding(`class.is-hovering-on-navigation`)
   public get hovering(): boolean {
