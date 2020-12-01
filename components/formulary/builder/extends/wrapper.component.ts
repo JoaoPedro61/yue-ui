@@ -58,7 +58,8 @@ import { FieldAbstraction } from './../abstract/abstraction';
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   host: {
-    '[class.wrapper]': 'true'
+    '[class.wrapper]': 'true',
+    '[class.yue-ui-formulary-builder-content-wrapper]': 'true',
   }
 })
 export class WrapperComponent extends YueUiColDirective implements OnInit, AfterViewInit, OnChanges, OnDestroy {
@@ -603,40 +604,50 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
   }
 
   private configureWidth(): void {
-    const defaults: YueUiGridEmbeddedProperty = {
-      span: 24,
-      pull: 0,
-      push: 0,
-      offset: 0
-    };
-
-    if (this.struct && this.struct.struct) {
-      if (typeof this.struct.struct.width === `number`) {
-        defaults.span = this.struct.struct.width;
-      }
-    }
-
-    const getConfig = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
+    if (this.formulary.useGridSystem) {
+      const defaults: YueUiGridEmbeddedProperty = {
+        span: 24,
+        pull: 0,
+        push: 0,
+        offset: 0
+      };
+  
       if (this.struct && this.struct.struct) {
         if (typeof this.struct.struct.width === `number`) {
           defaults.span = this.struct.struct.width;
-        } else if (typeof this.struct.struct.width === `object` && from in this.struct.struct.width) {
-          return (this.struct.struct.width as Partial<any>)[from];
         }
       }
-      return defaults;
-    };
+  
+      const getConfig = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
+        if (this.struct && this.struct.struct) {
+          if (typeof this.struct.struct.width === `number`) {
+            defaults.span = this.struct.struct.width;
+          } else if (typeof this.struct.struct.width === `object` && from in this.struct.struct.width) {
+            return (this.struct.struct.width as Partial<any>)[from];
+          }
+        }
+        return defaults;
+      };
+  
+      const generateEmbbed = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
+        return Object.assign({}, defaults, getConfig(from));
+      };
+  
+      this.yueUiGridColLg = generateEmbbed(`lg`);
+      this.yueUiGridColMd = generateEmbbed(`md`);
+      this.yueUiGridColXs = generateEmbbed(`xs`);
+      this.yueUiGridColSm = generateEmbbed(`sm`);
+      this.yueUiGridColXl = generateEmbbed(`xl`);
+      this.yueUiGridColXXl = generateEmbbed(`xxl`);
 
-    const generateEmbbed = (from: 'lg' | 'md' | 'xs' | 'sm' | 'xl' | 'xxl'): YueUiGridEmbeddedProperty => {
-      return Object.assign({}, defaults, getConfig(from));
-    };
-
-    this.yueUiGridColLg = generateEmbbed(`lg`);
-    this.yueUiGridColMd = generateEmbbed(`md`);
-    this.yueUiGridColXs = generateEmbbed(`xs`);
-    this.yueUiGridColSm = generateEmbbed(`sm`);
-    this.yueUiGridColXl = generateEmbbed(`xl`);
-    this.yueUiGridColXXl = generateEmbbed(`xxl`);
+    } else {
+      this.yueUiGridColLg = null;
+      this.yueUiGridColMd = null;
+      this.yueUiGridColXs = null;
+      this.yueUiGridColSm = null;
+      this.yueUiGridColXl = null;
+      this.yueUiGridColXXl = null;
+    }
 
     super.setHostClassMap();
   }
@@ -684,6 +695,9 @@ export class WrapperComponent extends YueUiColDirective implements OnInit, After
               }
               if (hideDescriptors) {
                 this.gotoStateOfDescriptor(hideDescriptors);
+              }
+              if ('useGridSystem' in e) {
+                this.configureWidth();
               }
             }
           }

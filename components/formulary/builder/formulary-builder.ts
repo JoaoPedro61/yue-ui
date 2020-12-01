@@ -65,6 +65,7 @@ export class FormularySource<_M = any> {
     `_steps`,
     `_step_ignore_validation`,
     `_step_show_labels`,
+    `_use_grid_system`,
     `_destroy$`,
     `_external_connect$`,
     `_model$`,
@@ -120,6 +121,11 @@ export class FormularySource<_M = any> {
     },
     {
       name: `_step_show_labels`,
+      value: { [hash()]: 'activated' },
+      readOnly: true
+    },
+    {
+      name: `_use_grid_system`,
       value: { [hash()]: 'activated' },
       readOnly: true
     },
@@ -216,6 +222,10 @@ export class FormularySource<_M = any> {
       getHiddenProp(this._ref, `_step_show_labels`),
       true
     ],
+    [
+      getHiddenProp(this._ref, `_use_grid_system`),
+      true
+    ],
 
     /*
      * Observables
@@ -291,6 +301,12 @@ export class FormularySource<_M = any> {
     const _step_show_labels_ref = getHiddenProp(this._ref, `_step_show_labels`);
     const _step_show_labels = this.____.get(_step_show_labels_ref) as boolean;
     return _step_show_labels;
+  }
+
+  public get useGridSystem(): boolean {
+    const _use_grid_system_ref = getHiddenProp(this._ref, `_use_grid_system`);
+    const _use_grid_system = this.____.get(_use_grid_system_ref) as boolean;
+    return _use_grid_system;
   }
 
   public get activatedStepIndex(): number {
@@ -558,6 +574,14 @@ export class FormularySource<_M = any> {
     this.____.set(getHiddenProp(this._ref, `_step_show_labels`), !hide);
     this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
       hideStepLabels: !hide,
+    });
+    return this;
+  }
+
+  public shouldUseGridSystem(use: boolean = true): this {
+    this.____.set(getHiddenProp(this._ref, `_use_grid_system`), !!use);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      useGridSystem: !!use,
     });
     return this;
   }
