@@ -1,0 +1,39 @@
+@cls-base: ~'yue-ui-filter-bar';
+
+
+.@{cls-base} {
+  display: block;
+  position: relative;
+  margin-bottom: 20px;
+  padding-right: 20px;
+
+  &-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+
+    &-docked {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-self: center;
+      padding: 0px;
+      margin: 0px;
+
+      &-buttons {
+        margin-left: 10px;
+
+        > button {
+
+          &:not(:last-child) {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

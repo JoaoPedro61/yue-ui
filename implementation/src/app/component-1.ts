@@ -72,40 +72,6 @@ import { Component3 as Modal1 } from './component-3';
           </div>
         </yue-ui-navigation-menu-bottom>
       </yue-ui-navigation-menu>
-      <!-- <div style="margin-top: 5px;margin-bottom: 20px;width: 200px;">
-        <div style="margin-top: 10px;">
-          <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-checkbox'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
-        </div>
-        <div style="margin-top: 10px;">
-          <yue-ui-formulary-switch [(ngModel)]="value" [yueUiFormularySwitchMode]="'indeterminate-button'" [yueUiFormularySwitchDisable]="true"></yue-ui-formulary-switch>
-        </div>
-      </div>
-      <div style="margin-top: 10px;margin-bottom: 20px;">
-        <yue-ui-menu [yueUiMenuMode]="'horizontal'">
-          <yue-ui-menu-item>
-            <i [yueUiIcon]="'menu'" [yueUiIconTheme]="'outline'"></i>
-            Hello
-          </yue-ui-menu-item>
-          <yue-ui-menu-item [yueUiMenuItemDisabled]="true">
-            Hello 1
-          </yue-ui-menu-item>
-          <yue-ui-menu-item (click)="open();">
-            Hello 2
-          </yue-ui-menu-item>
-          <yue-ui-menu-divider></yue-ui-menu-divider>
-          <a yueUiMenuItem [routerLink]="['.']">
-            Link
-          </a>
-          <yue-ui-menu-submenu [yueUiMenuSubmenuLabel]="'SubMenu'">
-            <yue-ui-menu-item>
-              Hello 3
-            </yue-ui-menu-item>
-            <a yueUiMenuItem [routerLink]="['.']" [yueUiMenuItemMatchRouter]="true">
-              Link 3
-            </a>
-          </yue-ui-menu-submenu>
-        </yue-ui-menu>
-      </div> -->
       <router-outlet></router-outlet>
     </yue-ui-layout>
   `,

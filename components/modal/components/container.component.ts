@@ -10,6 +10,7 @@ import { YueUiModalFooterComponent } from './footer.component';
 import { YueUiModalHeaderComponent } from './header.component';
 
 
+
 @Component({
   encapsulation: ViewEncapsulation.None,
   template: `
@@ -17,20 +18,18 @@ import { YueUiModalHeaderComponent } from './header.component';
       #modalElement
       role="document"
       class="yue-ui-modal"
-      [style.width]="width"
-      [style.height]="height"
     >
       <div class="yue-ui-modal-content">
         <ng-container *ngIf="config.header">
           <yue-ui-modal-header #headerRef="yueUiModalHeaderRef"></yue-ui-modal-header>
         </ng-container>
-        <div class="yue-ui-modal-body" [style.padding]="padding">
+        <div class="yue-ui-modal-body" [style.padding]="modalRef.padding">
           <ng-template cdkPortalOutlet></ng-template>
           <ng-container *ngIf="isStringOrObservableContent">
-            <div [innerHTML]="isAObservable ? (ngSafeValue_content | async) : config.content"></div>
+            <yue-ui-smart-render [yueUiSmartRender]="config.content" [yueUiSmartRenderContext]="{ $implicit: config.componentParams, ref: modalRef }"></yue-ui-smart-render>
           </ng-container>
         </div>
-        <ng-container *ngIf="!footerIsEmpty">
+        <ng-container *ngIf="!modalRef.footerIsEmpty">
           <yue-ui-modal-footer #footerRef="yueUiModalFooterRef" [ref]="modalRef" (onOk)="triggerOk()" (onCancel)="triggerCancel();"></yue-ui-modal-footer>
         </ng-container>
       </div>
@@ -46,7 +45,7 @@ export class YueUiContainerComponent extends Base {
 
   @ViewChild(CdkPortalOutlet, { static: true })
   public portalOutlet!: CdkPortalOutlet;
-  
+
   @ViewChild('headerRef', { static: false })
   public modalHeaderRef!: YueUiModalHeaderComponent;
 
@@ -57,7 +56,7 @@ export class YueUiContainerComponent extends Base {
   public modalFooterRef!: YueUiModalFooterComponent;
 
   constructor(elementRef: ElementRef, focusTrapFactory: ConfigurableFocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
-    super(elementRef, focusTrapFactory, cdr, overlayRef, config, document );
+    super(elementRef, focusTrapFactory, cdr, overlayRef, config, document);
   }
 
 }

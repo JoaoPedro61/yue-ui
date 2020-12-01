@@ -48,6 +48,12 @@ export class YueUiModalService {
       disposeOnNavigation: config.disposeOnNavigation,
       backdropClass: config.showMask ? `${config.backdropClass || `yue-ui-modal-backdrop`}` : `yue-ui-modal-backdrop-transparent`,
     });
+    if ('width' in config) {
+      overlayConfig.width = config.width;
+    }
+    if ('height' in config) {
+      overlayConfig.height = config.height;
+    }
     return this.overlay.create(overlayConfig);
   }
 

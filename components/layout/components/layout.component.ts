@@ -4,7 +4,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BREAKPOINTS } from '../utils/breakpoints';
+import { YUE_UI_SMALL_LAYOUT_BREAKPOINTS } from '@joaopedro61/yue-ui/core/services';
+
 
 import { YueUiNavigationMenuComponent } from './navigation-menu.component';
 
@@ -44,7 +45,7 @@ export class YueUiLayoutComponent implements OnDestroy {
 
   constructor(private readonly _breadpointObserver: BreakpointObserver, private readonly _changeDetectorRef: ChangeDetectorRef) {
     this._breadpointObserver
-      .observe(BREAKPOINTS)
+      .observe(YUE_UI_SMALL_LAYOUT_BREAKPOINTS)
       .pipe(takeUntil(this._untilDestroy))
       .subscribe({
         next: (result) => {

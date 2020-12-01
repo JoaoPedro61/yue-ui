@@ -29,7 +29,7 @@ export class YueUiModalHeaderComponent {
     }
     return 'default';
   }
-  
+
   public get padding(): string {
     if (this.config.padding && this.config.padding.header) {
       return typeof this.config.padding.header === `number` ? `${this.config.padding.header}px` : this.config.padding.header;

@@ -1,7 +1,7 @@
 
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 
 import { Subject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -99,16 +99,16 @@ export class YueUiModalRef<C> {
     return this.config.footer
       ? typeof this.config.footer === `string`
         ? !this.config.footer.length
-        : !!this.config.footer
+        : this.config.footer instanceof TemplateRef ? false : !!this.config.footer
       : this.config.okButtonText
         ? typeof this.config.okButtonText === `string`
           ? !this.config.okButtonText.length
-          : !!this.config.okButtonText
+          : this.config.okButtonText instanceof TemplateRef ? false : !!this.config.okButtonText
         : this.config.cancelButtonText
           ? typeof this.config.cancelButtonText === `string`
             ? !this.config.cancelButtonText.length
-            : !!this.config.cancelButtonText
-          : true
+            : this.config.cancelButtonText instanceof TemplateRef ? false : !!this.config.cancelButtonText
+          : true;
   }
 
   constructor(private overlayRef: OverlayRef, private config: YueUiModalOptions<C>, public containerInstance: Base) {
@@ -144,38 +144,38 @@ export class YueUiModalRef<C> {
       });
   }
 
-  getContentComponent(): C {
+  public getContentComponent(): C {
     return this.componentInstance as C;
   }
 
-  destroy(result?: any): void {
+  public destroy(result?: any): void {
     this.close(result);
   }
 
-  triggerOk(): void {
+  public triggerOk(): void {
     this.trigger(`ok`);
   }
 
-  triggerCancel(): void {
+  public triggerCancel(): void {
     this.trigger(`cancel`);
   }
 
-  close(result?: any): void {
+  public close(result?: any): void {
     this.result = result;
     this._finishDialogClose();
   }
 
-  updateConfig(config: YueUiModalOptions<C>): void {
+  public updateConfig(config: YueUiModalOptions<C>): void {
     Object.assign(this.config, config);
     this.containerInstance.cdr.markForCheck();
     this.containerInstance.doUpdateConfigs();
   }
 
-  getConfig(): YueUiModalOptions<C> {
+  public getConfig(): YueUiModalOptions<C> {
     return this.config;
   }
 
-  getBackdropElement(): HTMLElement | null {
+  public getBackdropElement(): HTMLElement | null {
     return this.overlayRef.backdropElement;
   }
 

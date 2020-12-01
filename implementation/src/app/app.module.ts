@@ -26,6 +26,7 @@ import { YueUiGridModule } from '@joaopedro61/yue-ui/grid';
 import { YueUiNotificationModule } from '@joaopedro61/yue-ui/notification';
 import { YueUiHttpModule } from '@joaopedro61/yue-ui/http';
 import { YueUiCardModule } from '@joaopedro61/yue-ui/card';
+import { YueUiFilterbarModule } from '@joaopedro61/yue-ui/filter-bar';
 
 
 import { IconsModule } from './icons.module';
@@ -82,6 +83,7 @@ import { AppComponent } from './app.component';
     IconsModule,
     YueUiGridModule,
     YueUiNotificationModule,
+    YueUiFilterbarModule,
   ],
   providers: [ ],
   bootstrap: [

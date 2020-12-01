@@ -8,6 +8,7 @@ import { Base } from './../utils/base';
 import { YueUiModalOptions } from '../utils/options';
 
 
+
 @Component({
   encapsulation: ViewEncapsulation.None,
   template: `
@@ -15,22 +16,18 @@ import { YueUiModalOptions } from '../utils/options';
       #modalElement
       role="document"
       class="yue-ui-modal"
-      [style.width]="width"
-      [style.height]="height"
     >
       <div class="yue-ui-modal-content" [style.borderColor]="borderColor">
-        <div class="yue-ui-modal-header" [style.padding]="paddingHeader">
-          <ng-container *yueUiStringTemplateRefRender="config.header">
-            <div [innerHTML]="headerIsAObservable ? (ngSafeValue_header | async) : config.header"></div>
-          </ng-container>
+        <div class="yue-ui-modal-header" [style.padding]="modalRef.paddingHeader">
+          <yue-ui-smart-render [yueUiSmartRender]="config.header" [yueUiSmartRenderContext]="{ $implicit: config.componentParams, ref: modalRef }"></yue-ui-smart-render>
         </div>
-        <div class="yue-ui-modal-body" [style.padding]="padding">
+        <div class="yue-ui-modal-body" [style.padding]="modalRef.padding">
           <ng-template cdkPortalOutlet></ng-template>
           <ng-container *ngIf="isStringOrObservableContent">
-            <div [innerHTML]="isAObservable ? (ngSafeValue_content | async) : config.content"></div>
+            <yue-ui-smart-render [yueUiSmartRender]="config.content" [yueUiSmartRenderContext]="{ $implicit: config.componentParams, ref: modalRef }"></yue-ui-smart-render>
           </ng-container>
         </div>
-        <div class="yue-ui-modal-footer" [style.padding]="paddingFooter">
+        <div class="yue-ui-modal-footer" [style.padding]="modalRef.paddingFooter">
           <div class="default--buttons">
             <button
               *ngIf="config.cancelButtonText !== null"
@@ -42,9 +39,7 @@ import { YueUiModalOptions } from '../utils/options';
               [disabled]="config.cancelButtonDisabled"
               (click)="triggerCancel()"
             >
-              <ng-container *yueUiStringTemplateRefRender="config.cancelButtonText; context: { $implicit: config.componentParams, ref: modalRef }">
-                <div [innerHTML]="isAObservableCancelButtonText ? (ngSafeValue_cancelButtonText | async) : config.cancelButtonText"></div>
-              </ng-container>
+              <yue-ui-smart-render [yueUiSmartRender]="config.cancelButtonText" [yueUiSmartRenderContext]="{ $implicit: config.componentParams, ref: modalRef }"></yue-ui-smart-render>
             </button>
             <button
               *ngIf="config.okButtonText !== null"
@@ -56,9 +51,7 @@ import { YueUiModalOptions } from '../utils/options';
               [disabled]="config.okButtonDisabled"
               (click)="triggerOk()"
             >
-              <ng-container *yueUiStringTemplateRefRender="config.okButtonText; context: { $implicit: config.componentParams, ref: modalRef }">
-                <div [innerHTML]="isAObservableOkButtonText ? (ngSafeValue_okButtonText | async) : config.okButtonText"></div>
-              </ng-container>
+              <yue-ui-smart-render [yueUiSmartRender]="config.okButtonText" [yueUiSmartRenderContext]="{ $implicit: config.componentParams, ref: modalRef }"></yue-ui-smart-render>
             </button>
           </div>
         </div>
@@ -73,8 +66,8 @@ import { YueUiModalOptions } from '../utils/options';
 })
 export class YueUiContainerComfirmComponent extends Base {
 
-  private readonly colors: {[x: string]: any} = {
-    confirm: `var(--secondary)`,
+  private readonly colors: { [x: string]: any } = {
+    confirm: `var(--primary)`,
     info: `var(--info)`,
     success: `var(--success)`,
     error: `var(--error)`,
@@ -83,18 +76,18 @@ export class YueUiContainerComfirmComponent extends Base {
 
   @ViewChild(CdkPortalOutlet, { static: true })
   public portalOutlet!: CdkPortalOutlet;
-  
+
   @ViewChild('modalElement', { static: true })
   public modalElementRef!: ElementRef<HTMLDivElement>;
 
   public get borderColor(): string {
-    return this.config && this.config.confirmType 
-      ? this.colors[this.config.confirmType] || `var(--secondary)`
-      : `var(--secondary)`
+    return this.config && this.config.confirmType
+      ? this.colors[this.config.confirmType] || `var(--primary)`
+      : `var(--primary)`
   }
 
   constructor(elementRef: ElementRef, focusTrapFactory: ConfigurableFocusTrapFactory, cdr: ChangeDetectorRef, overlayRef: OverlayRef, public config: YueUiModalOptions<any>, @Optional() @Inject(DOCUMENT) document: any) {
-    super(elementRef, focusTrapFactory, cdr, overlayRef, config, document );
+    super(elementRef, focusTrapFactory, cdr, overlayRef, config, document);
   }
 
 }

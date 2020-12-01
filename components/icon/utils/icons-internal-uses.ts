@@ -14,6 +14,7 @@ import {
   ExclamationCircleOutline,
   CloseCircleOutline,
   LoadingOutline,
+  FilterOutline,
 } from '@ant-design/icons-angular/icons';
 
 
@@ -32,4 +33,5 @@ export const YUE_UI_ICONS_INTERNAL_USES: IconDefinition[] = [
   ExclamationCircleOutline,
   CloseCircleOutline,
   LoadingOutline,
+  FilterOutline,
 ];

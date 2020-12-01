@@ -32,6 +32,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
   <yue-ui-panel>
     <yue-ui-panel-header>
       <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="breadcrumbs"></yue-ui-panel-present>
+      <yue-ui-filter-bar></yue-ui-filter-bar>
     </yue-ui-panel-header>
     <yue-ui-panel-content>
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
@@ -155,7 +156,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
             </div>
 
             <yue-ui-collapse>
-              <yue-ui-collapse-panel [yueUiCollapsePanelOpen]="false">
+              <yue-ui-collapse-panel [yueUiCollapsePanelOpen]="true">
                 <yue-ui-collapse-panel-header>
                   <span [yueUiTooltip]="'Table In Collapse'">
                     Table In Collapse

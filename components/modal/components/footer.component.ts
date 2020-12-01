@@ -1,8 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef, OnChanges, SimpleChanges, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { YueUiModalRef } from '../utils/modal-ref';
-import { YueUiModalOptions } from '../utils/options';
 
 
 
@@ -12,43 +10,36 @@ import { YueUiModalOptions } from '../utils/options';
   template: `
     <div
       class="yue-ui-modal-footer-inner"
-      [style.padding]="padding">
-      <ng-container *ngIf="config.footer; else default">
-        <ng-container *yueUiStringTemplateRefRender="config.footer; context: { $implicit: config.componentParams, ref: ref }">
-          <ng-container>
-            <div [innerHTML]="isAObservable ? (ngSafeValue_footer | async) : config.footer"></div>
-          </ng-container>
-        </ng-container>
+      [style.padding]="padding"
+    >
+      <ng-container *ngIf="ref.getConfig().footer; else default">
+        <yue-ui-smart-render [yueUiSmartRender]="ref.getConfig().footer" [yueUiSmartRenderContext]="{ $implicit: ref.getConfig().componentParams, ref: ref }"></yue-ui-smart-render>
       </ng-container>
       <ng-template #default>
         <div class="default--buttons">
           <button
-            *ngIf="config.cancelButtonText !== null"
+            *ngIf="ref.getConfig().cancelButtonText != null"
             yueUiButton
-            [attr.cdkFocusInitial]="config.autofocus === 'cancel' || null"
-            [yueUiButtonType]="config.cancelButtonType"
-            [yueUiButtonSize]="config.cancelButtonSize"
-            [yueUiButtonLoading]="!!config.cancelButtonLoading"
-            [disabled]="config.cancelButtonDisabled"
+            [attr.cdkFocusInitial]="ref.getConfig().autofocus === 'cancel' || null"
+            [yueUiButtonType]="ref.getConfig().cancelButtonType"
+            [yueUiButtonSize]="ref.getConfig().cancelButtonSize"
+            [yueUiButtonLoading]="!!ref.getConfig().cancelButtonLoading"
+            [disabled]="ref.getConfig().cancelButtonDisabled"
             (click)="onTriggerCancel()"
           >
-            <ng-container *yueUiStringTemplateRefRender="config.cancelButtonText; context: { $implicit: config.componentParams, ref: ref }">
-              <div [innerHTML]="isAObservableCancelButtonText ? (ngSafeValue_cancelButtonText | async) : config.cancelButtonText"></div>
-            </ng-container>
+            <yue-ui-smart-render [yueUiSmartRender]="ref.getConfig().cancelButtonText" [yueUiSmartRenderContext]="{ $implicit: ref.getConfig().componentParams, ref: ref }"></yue-ui-smart-render>
           </button>
           <button
-            *ngIf="config.okButtonText !== null"
+            *ngIf="ref.getConfig().okButtonText != null"
             yueUiButton
-            [attr.cdkFocusInitial]="config.autofocus === 'ok' || null"
-            [yueUiButtonType]="config.okButtonType"
-            [yueUiButtonSize]="config.okButtonSize"
-            [yueUiButtonLoading]="!!config.okButtonLoading"
-            [disabled]="config.okButtonDisabled"
+            [attr.cdkFocusInitial]="ref.getConfig().autofocus === 'ok' || null"
+            [yueUiButtonType]="ref.getConfig().okButtonType"
+            [yueUiButtonSize]="ref.getConfig().okButtonSize"
+            [yueUiButtonLoading]="!!ref.getConfig().okButtonLoading"
+            [disabled]="ref.getConfig().okButtonDisabled"
             (click)="onTriggerOk()"
           >
-            <ng-container *yueUiStringTemplateRefRender="config.okButtonText; context: { $implicit: config.componentParams, ref: ref }">
-              <div [innerHTML]="isAObservableOkButtonText ? (ngSafeValue_okButtonText | async) : config.okButtonText"></div>
-            </ng-container>
+            <yue-ui-smart-render [yueUiSmartRender]="ref.getConfig().okButtonText" [yueUiSmartRenderContext]="{ $implicit: ref.getConfig().componentParams, ref: ref }"></yue-ui-smart-render>
           </button>
         </div>
       </ng-template>
@@ -63,34 +54,12 @@ import { YueUiModalOptions } from '../utils/options';
 export class YueUiModalFooterComponent implements AfterViewInit, OnChanges {
 
   public get padding(): string {
-    if (this.config.padding && this.config.padding.footer) {
-      return typeof this.config.padding.footer === `number` ? `${this.config.padding.footer}px` : this.config.padding.footer;
+    const config = this.ref.getConfig();
+
+    if (config.padding && config.padding.footer) {
+      return typeof config.padding.footer === `number` ? `${config.padding.footer}px` : config.padding.footer;
     }
     return `10px`;
-  }
-
-  public get isAObservableCancelButtonText(): boolean {
-    return this.config.cancelButtonText instanceof Observable;
-  }
-
-  public get isAObservableOkButtonText(): boolean {
-    return this.config.okButtonText instanceof Observable;
-  }
-
-  public get isAObservable(): boolean {
-    return this.config.footer instanceof Observable;
-  }
-
-  public get ngSafeValue_footer(): any {
-    return this.config.footer;
-  }
-
-  public get ngSafeValue_okButtonText(): any {
-    return this.config.okButtonText;
-  }
-
-  public get ngSafeValue_cancelButtonText(): any {
-    return this.config.cancelButtonText;
   }
 
   @Output()
@@ -102,16 +71,18 @@ export class YueUiModalFooterComponent implements AfterViewInit, OnChanges {
   @Input(`ref`)
   public ref!: YueUiModalRef<any>;
 
-  constructor(public readonly config: YueUiModalOptions<any>, public readonly cdr: ChangeDetectorRef) { }
+  constructor(public readonly cdr: ChangeDetectorRef) { }
 
   public onTriggerOk(): void {
-    if (!this.config.okButtonLoading || !this.config.okButtonDisabled) {
+    const config = this.ref.getConfig();
+    if (!config.okButtonLoading || !config.okButtonDisabled) {
       this.onOk.emit();
     }
   }
 
   public onTriggerCancel(): void {
-    if (!this.config.cancelButtonLoading || !this.config.cancelButtonDisabled) {
+    const config = this.ref.getConfig();
+    if (!config.cancelButtonLoading || !config.cancelButtonDisabled) {
       this.onCancel.emit();
     }
   }

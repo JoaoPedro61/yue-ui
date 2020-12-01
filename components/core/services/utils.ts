@@ -1,3 +1,7 @@
+import { Breakpoints } from '@angular/cdk/layout';
+
+
+
 export enum YueUiBreakpointEnum {
   xxl = 'xxl',
   xl = 'xl',
@@ -31,4 +35,8 @@ export const siderResponsiveMap: BreakpointMap = {
   xxl: '(max-width: 1599.98px)'
 };
 
-
+export const YUE_UI_SMALL_LAYOUT_BREAKPOINTS = [
+  Breakpoints.Small,
+  Breakpoints.Tablet,
+  Breakpoints.XSmall
+];
