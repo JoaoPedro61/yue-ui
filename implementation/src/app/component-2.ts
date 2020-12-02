@@ -23,6 +23,8 @@ import { take } from 'rxjs/operators';
 import { YueUiModalService } from '@joaopedro61/yue-ui/modal';
 import { YueUiI18nService } from '@joaopedro61/yue-ui/i18n';
 import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
+import { FilterBarSource } from '@joaopedro61/yue-ui/filter-bar';
+import { fieldIdentifier, fieldListeners, fieldPlaceholder, formularyFields, formularyIdentifier, linearFormulary, writable } from '@joaopedro61/yue-ui/formulary/builder';
 
 
 
@@ -32,7 +34,7 @@ import { YueUiBreadcrumbItem } from '@joaopedro61/yue-ui/breadcrumb';
   <yue-ui-panel>
     <yue-ui-panel-header>
       <yue-ui-panel-present [yueUiPanelPresentBreadcrumbs]="breadcrumbs"></yue-ui-panel-present>
-      <yue-ui-filter-bar></yue-ui-filter-bar>
+      <yue-ui-filter-bar [yueUiFilterBarSource]="filterSource"></yue-ui-filter-bar>
     </yue-ui-panel-header>
     <yue-ui-panel-content>
       <yue-ui-panel-slot yueUiPanelSlotHeight="100" [style.overflow]="'auto'">
@@ -193,10 +195,39 @@ export class Component2 {
     return this._breadcrumbs;
   }
 
-
   public tableSource: TableSource = new TableSource<any>();
 
+  public filterSource: FilterBarSource<any> = new FilterBarSource<any>();
+
   constructor(private readonly http: YueUiHttpService, private readonly modal: YueUiModalService, private readonly i18n: YueUiI18nService) {
+    this.filterSource
+      .accessSourceFormulary((source) => {
+        source.setup(linearFormulary(
+          formularyIdentifier(`filter`),
+          formularyFields([
+            writable([
+              fieldPlaceholder(`Search by name...`),
+              fieldIdentifier(`name`),
+              fieldListeners({})
+            ])
+          ])
+        ))
+      })
+      .accessSourceAdditionalFormulary((source) => {
+        source.setup(linearFormulary(
+          formularyIdentifier(`filter`),
+          formularyFields([
+            writable([
+              fieldPlaceholder(`Search by lastname...`),
+              fieldIdentifier(`lastname`),
+              fieldListeners({})
+            ])
+          ])
+        ))
+      })
+      .listen()
+      .subscribe(console.log);
+    
     this.tableSource
       .setSortAndOrder(`id`, `asc`)
       .configurePagination()

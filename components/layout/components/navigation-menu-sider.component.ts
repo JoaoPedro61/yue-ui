@@ -19,7 +19,6 @@ export class YueUiNavigationMenuSiderComponent {
   private readonly menuRef!: YueUiMenuComponent;
 
   public updateMenuScheme(isMobile: boolean = false): void {
-    console.log(this.menuRef);
     if (this.menuRef) {
       if (this.menuRef.actualMode !== 'inline') {
         (this.menuRef as any).___oldMode = this.menuRef.actualMode;

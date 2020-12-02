@@ -832,6 +832,33 @@ export class FormularySource<_M = any> {
     return this;
   }
 
+  public clearModel(): this {
+    const _ref$ = getHiddenProp(this._ref, `_model$`);
+    (this.____.get(_ref$) as BehaviorSubject<{ [x: string]: any }>).next({});
+    const _refPure$ = getHiddenProp(this._ref, `_modelPure$`);
+    const paths = serializeStringJsonPath({});
+    (this.____.get(_refPure$) as BehaviorSubject<{ [x: string]: any }>).next(paths);
+    this.____.get(getHiddenProp(this._ref, `_unknown_changes$`)).next({
+      setModel: {},
+    });
+    (this.____.get(getHiddenProp(this._ref, `_external_connect$`)) as Subject<ListenEvent>).next({
+      type: `modelChanged`,
+      data: Object.assign(this.getModel()),
+    });
+    const group = this.getGroup();
+    if (group.controls) {
+      for (const control in group.controls) {
+        if (group.controls.hasOwnProperty(control)) {
+          if (group.controls[control]) {
+            group.controls[control].setValue(null);
+            group.controls[control].updateValueAndValidity();
+          }
+        }
+      }
+    }
+    return this;
+  }
+
   public applyValueOnEachControl(): this {
     const model = this.getPureModel();
     const group = this.getGroup();

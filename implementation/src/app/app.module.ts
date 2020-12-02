@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { YueUiLayoutModule } from '@joaopedro61/yue-ui/layout';
-import { YueUiThematizationModule } from '@joaopedro61/yue-ui/thematization';
+import { YueUiThematizationModule, YUE_UI_THEME_DEFAULT } from '@joaopedro61/yue-ui/thematization';
 import { YueUiButtonModule } from '@joaopedro61/yue-ui/button';
 import { YueUiTooltipModule } from '@joaopedro61/yue-ui/tooltip';
 import { YueUiPopoverModule } from '@joaopedro61/yue-ui/popover';
@@ -37,6 +37,7 @@ import { Component3 as Modal1 } from './component-3';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LIGHT_THEME } from '@joaopedro61/yue-ui/thematization/themes/light';
 
 
 @NgModule({
@@ -85,7 +86,12 @@ import { AppComponent } from './app.component';
     YueUiNotificationModule,
     YueUiFilterbarModule,
   ],
-  providers: [ ],
+  providers: [
+    {
+      provide: YUE_UI_THEME_DEFAULT,
+      useValue: LIGHT_THEME,
+    }
+  ],
   bootstrap: [
     AppComponent
   ]

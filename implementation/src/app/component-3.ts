@@ -52,10 +52,6 @@ export class Component3 implements OnDestroy {
 
   private setup(): void {
     this.formulary
-      .shouldUseGridSystem(false)
-      .shouldHideDescriptors(true)
-      .shouldHideLabels(true)
-      .shouldHideStepLabels(true)
       .setModel({
         name: `nasdfasdlfull`,
         gender: `tank`,
